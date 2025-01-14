@@ -3,7 +3,6 @@ package com.surivalcoding.composerecipeapp.presentation.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -23,37 +22,32 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 fun SmallButton(
     modifier: Modifier = Modifier,
     buttonText: String,
+    enabled: Boolean = true,
     onClick: () -> Unit = {},
 ) {
-    Box(
+    Row(
         modifier = modifier
             .width(174.dp)
             .height(37.dp)
             .background(
-                color = AppColors.primary100,
+                color = if (enabled) AppColors.primary100 else AppColors.gray4,
                 shape = RoundedCornerShape(size = 10.dp)
             )
-            .clickable { onClick() },
-        contentAlignment = Alignment.Center,
+            .clickable(enabled = enabled) {
+                onClick()
+            },
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(9.dp, Alignment.CenterHorizontally),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Box(
-                modifier = Modifier.width(114.dp),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(
-                    text = buttonText,
-                    style = AppTextStyles.smallerTextBold.copy(
-                        color = Color.White,
-                        textAlign = TextAlign.Center
-                    )
-                )
-            }
-
-        }
+        Text(
+            modifier = Modifier
+                .width(114.dp),
+            text = buttonText,
+            style = AppTextStyles.smallerTextBold.copy(
+                color = Color.White,
+                textAlign = TextAlign.Center
+            )
+        )
     }
 }
 
@@ -62,5 +56,14 @@ fun SmallButton(
 private fun SmallButtonPreview() {
     SmallButton(
         buttonText = "Button"
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DisableSmallButtonPreview() {
+    SmallButton(
+        buttonText = "Button",
+        enabled = false
     )
 }
