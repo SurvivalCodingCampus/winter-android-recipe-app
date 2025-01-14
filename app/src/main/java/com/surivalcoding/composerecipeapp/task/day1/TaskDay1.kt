@@ -62,7 +62,7 @@ fun TaskSubmissionTextField() {
         Spacer(Modifier.height(16.dp))
         CraSmallButton(
             text = "Set Disabled",
-            onClick = {enabled = !enabled}
+            onClick = { enabled = !enabled }
         )
     }
 }
