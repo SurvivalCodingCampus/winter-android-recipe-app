@@ -3,7 +3,6 @@ package com.surivalcoding.composerecipeapp.presentation.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -29,6 +28,7 @@ fun MediumButton(
     modifier: Modifier = Modifier,
     buttonText: String,
     iconSizePercent: Float = 1.0f,
+    enabled: Boolean = true,
     onClick: () -> Unit = {},
 ) {
     val configuration = LocalConfiguration.current
@@ -36,41 +36,35 @@ fun MediumButton(
     val baseIconSize = 20.dp
     val calculatedIconSize = baseIconSize * iconSizePercent * fontScale
 
-    Box(
+    Row(
         modifier = modifier
             .width(243.dp)
             .height(54.dp)
             .background(
-                color = AppColors.primary100,
-                shape = RoundedCornerShape(size = 10.dp)
+                color = if (enabled) AppColors.primary100 else AppColors.gray4,
+                shape = RoundedCornerShape(10.dp)
             )
-            .clickable { onClick() },
-        contentAlignment = Alignment.Center,
+            .clickable(enabled = enabled) {
+                onClick()
+            },
+        horizontalArrangement = Arrangement.spacedBy(9.dp, Alignment.CenterHorizontally),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(9.dp, Alignment.CenterHorizontally),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Box(
-                modifier = Modifier
-                    .width(114.dp),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(
-                    text = buttonText,
-                    style = AppTextStyles.normalTextBold.copy(
-                        color = Color.White,
-                        textAlign = TextAlign.Center
-                    )
-                )
-            }
-            Icon(
-                modifier = Modifier.size(calculatedIconSize),
-                imageVector = Icons.AutoMirrored.Default.ArrowForward,
-                contentDescription = null,
-                tint = Color.White,
+        Text(
+            modifier = Modifier
+                .width(114.dp),
+            text = buttonText,
+            style = AppTextStyles.mediumTextBold.copy(
+                color = Color.White,
+                textAlign = TextAlign.Center
             )
-        }
+        )
+        Icon(
+            modifier = Modifier.size(calculatedIconSize),
+            imageVector = Icons.AutoMirrored.Default.ArrowForward,
+            contentDescription = null,
+            tint = Color.White,
+        )
     }
 
 }
@@ -80,5 +74,14 @@ fun MediumButton(
 private fun MediumButtonPreview() {
     MediumButton(
         buttonText = "Button"
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DisabledMediumButtonPreview() {
+    MediumButton(
+        buttonText = "Button",
+        enabled = false
     )
 }
