@@ -48,7 +48,7 @@ fun BigButton(
             .clickable(enabled = enabled) {
                 onClick()
             },
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.spacedBy(11.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
