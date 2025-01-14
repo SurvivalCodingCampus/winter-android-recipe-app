@@ -9,7 +9,7 @@ import org.junit.Rule
 
 import org.junit.Test
 
-class SmallButtonKtTest {
+class SmallButtonTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 

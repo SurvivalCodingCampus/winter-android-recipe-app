@@ -10,7 +10,7 @@ import org.junit.Rule
 
 import org.junit.Test
 
-class MediumButtonKtTest {
+class MediumButtonTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
