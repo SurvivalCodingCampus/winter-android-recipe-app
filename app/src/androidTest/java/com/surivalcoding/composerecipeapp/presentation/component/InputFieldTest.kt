@@ -7,12 +7,12 @@ import androidx.compose.ui.test.performTextInput
 import org.junit.Rule
 import org.junit.Test
 
-class InputFieldKtTest {
+class InputFieldTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
     @Test
-    fun InputField_should_show_label_and_placeholder_in_default_state() {
+    fun inputField_should_show_label_and_placeholder_in_default_state() {
         composeTestRule.setContent {
             InputField(
                 label = "Label",
