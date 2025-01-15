@@ -33,7 +33,7 @@ fun BigButton(
             .width(315.dp)
             .height(60.dp)
             .background(
-                color = AppColors.primary,
+                color = AppColors.primary100,
                 shape = RoundedCornerShape(10.dp),
             )
             .clickable {
@@ -78,7 +78,7 @@ fun MediumButton(
             .width(245.dp)
             .height(54.dp)
             .background(
-                color = AppColors.primary,
+                color = AppColors.primary100,
                 shape = RoundedCornerShape(10.dp),
             )
             .clickable {
@@ -123,7 +123,7 @@ fun SmallButton(
             .width(174.dp)
             .height(37.dp)
             .background(
-                color = AppColors.primary,
+                color = AppColors.primary100,
                 shape = RoundedCornerShape(10.dp),
             )
             .clickable {
