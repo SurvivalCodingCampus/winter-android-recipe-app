@@ -10,49 +10,49 @@ import com.surivalcoding.composerecipeapp.R
 
 val Poppins = FontFamily(
     Font(R.font.poppins_regular, FontWeight.Normal),
-    Font(R.font.poppins_bold, FontWeight.Bold)
+    Font(R.font.poppins_semibold, FontWeight.SemiBold)
 )
 
 val PoppinsBoldTypography = Typography(
     displayLarge = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 50.sp,
         lineHeight = 75.sp
     ),
     displayMedium = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 30.sp,
         lineHeight = 45.sp
     ),
     displaySmall = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 20.sp,
         lineHeight = 30.sp
     ),
     headlineMedium = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 18.sp,
         lineHeight = 27.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
         lineHeight = 24.sp
     ),
     bodyMedium = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 14.sp,
         lineHeight = 21.sp
     ),
     bodySmall = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 11.sp,
         lineHeight = 17.sp
     )
