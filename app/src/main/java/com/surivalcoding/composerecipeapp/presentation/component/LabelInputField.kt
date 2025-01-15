@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,7 +31,11 @@ fun LabelTextField(
     value: String = "",
     onValueChange: (String) -> Unit,
 ) {
-    var isFocused by remember { mutableStateOf(false) } // 포커스 상태를 추적하는 변수
+    var isFocused by remember { mutableStateOf(false) }
+    var textValue by remember { mutableStateOf(value) }
+
+    // Update textValue when value changes externally
+    textValue = value
 
     Box(
         modifier = modifier
@@ -47,8 +52,11 @@ fun LabelTextField(
             )
             Spacer(modifier = Modifier.height(5.dp))
             BasicTextField(
-                value = value,
-                onValueChange = onValueChange,
+                value = textValue,
+                onValueChange = { newText ->
+                    textValue = newText
+                    onValueChange(newText)
+                },
                 textStyle = TextStyle(fontSize = 11.sp, color = Color.Black), // 입력 텍스트 색상 설정
                 modifier = Modifier
                     .width(315.dp)
@@ -71,7 +79,7 @@ fun LabelTextField(
                         contentAlignment = Alignment.CenterStart,
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        if (value.isBlank()) {
+                        if (textValue.isBlank()) {
                             Text(
                                 text = placeholder,
                                 fontSize = 11.sp,
@@ -89,25 +97,28 @@ fun LabelTextField(
 @Preview(showBackground = true)
 @Composable
 private fun LabelInputFieldPreview() {
-    var text = "Placeholder"
+    var text1 by remember { mutableStateOf("") }
+    var text2 by remember { mutableStateOf("") }
 
     Column {
         LabelTextField(
             label = "Label",
-            onValueChange = { text = it },
+            onValueChange = { text1 = it }
         )
         Spacer(modifier = Modifier.height(16.dp))
         LabelTextField(
             label = "Label",
             placeholder = "Placeholder",
-            onValueChange = { text = it },
+            value = text1,
+            onValueChange = { text1= it }
         )
         Spacer(modifier = Modifier.height(16.dp))
         LabelTextField(
             label = "Label",
             placeholder = "Placeholder",
-            value = text,
-            onValueChange = { text = it },
+            value = text2,
+            onValueChange = { text2 = it },
         )
+
     }
 }
