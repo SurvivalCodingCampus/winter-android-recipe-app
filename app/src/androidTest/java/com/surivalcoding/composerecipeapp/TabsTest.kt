@@ -3,50 +3,50 @@ package com.surivalcoding.composerecipeapp
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import com.surivalcoding.composerecipeapp.presentation.component.CraTab
-import com.surivalcoding.composerecipeapp.presentation.component.CraTabRow
+import com.surivalcoding.composerecipeapp.ui.component.CraTab
+import com.surivalcoding.composerecipeapp.ui.component.CraTabRow
 import org.junit.Rule
 import org.junit.Test
 
-class CraTabRowTest {
+class TabsTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
     @Test
-    fun testCraTabRowDisplaysTabs() {
+    fun test_Tabs_DisplaysTabs() {
         val selectedTabIndex = mutableStateOf(0)
-        val titles = listOf("Home", "Profile", "Settings")
+        val labels = listOf("Home", "Profile", "Settings")
 
         composeTestRule.setContent {
             CraTabRow {
-                titles.forEachIndexed { index, title ->
+                labels.forEachIndexed { index, label ->
                     CraTab(
                         selected = selectedTabIndex.value == index,
                         onClick = { selectedTabIndex.value = index },
-                        title = title
+                        label = label
                     )
                 }
             }
         }
 
-        titles.forEach { title ->
-            composeTestRule.onNodeWithText(title).assertExists()
+        labels.forEach { label ->
+            composeTestRule.onNodeWithText(label).assertExists()
         }
     }
 
     @Test
-    fun testCraTabSelectionChangesColor() {
+    fun test_Tab_SelectionChangesColor() {
         val selectedTabIndex = mutableStateOf(0)
-        val titles = listOf("Tab1", "Tab2", "Tab3")
+        val labels = listOf("Tab1", "Tab2", "Tab3")
 
         composeTestRule.setContent {
             CraTabRow {
-                titles.forEachIndexed { index, title ->
+                labels.forEachIndexed { index, label ->
                     CraTab(
                         selected = selectedTabIndex.value == index,
                         onClick = { selectedTabIndex.value = index },
-                        title = title
+                        label = label
                     )
                 }
             }

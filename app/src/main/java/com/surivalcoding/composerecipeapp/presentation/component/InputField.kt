@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 @Composable
-fun CraOutlinedTextField(
+fun InputField(
     value: String,
     label: String,
     placeholder: String,
@@ -57,9 +57,9 @@ fun CraOutlinedTextField(
 
 @Preview(showBackground = true)
 @Composable
-private fun CraTextFieldPreview() {
+private fun InputFieldPreview() {
     ComposeRecipeAppTheme {
-        CraOutlinedTextField(
+        InputField(
             value = "",
             label = "Label",
             onValueChange = {},

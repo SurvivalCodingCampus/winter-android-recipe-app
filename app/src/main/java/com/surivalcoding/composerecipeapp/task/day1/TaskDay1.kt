@@ -10,12 +10,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.presentation.component.CraBigButton
-import com.surivalcoding.composerecipeapp.presentation.component.CraMediumButton
-import com.surivalcoding.composerecipeapp.presentation.component.CraOutlinedTextField
-import com.surivalcoding.composerecipeapp.presentation.component.CraSmallButton
-import com.surivalcoding.composerecipeapp.presentation.component.CraTab
-import com.surivalcoding.composerecipeapp.presentation.component.CraTabRow
+import com.surivalcoding.composerecipeapp.presentation.component.BigButton
+import com.surivalcoding.composerecipeapp.presentation.component.InputField
+import com.surivalcoding.composerecipeapp.presentation.component.MediumButton
+import com.surivalcoding.composerecipeapp.presentation.component.SmallButton
+import com.surivalcoding.composerecipeapp.presentation.component.Tabs
 import com.surivalcoding.composerecipeapp.util.TaskSubmissionForm
 
 @Composable
@@ -23,23 +22,23 @@ fun TaskSubmissionButton() {
     TaskSubmissionForm(
         title = "연습문제1: Buttons"
     ) {
-        CraBigButton(
+        BigButton(
             text = "Button",
             onClick = {}
         )
         Spacer(Modifier.height(16.dp))
-        CraBigButton(
+        BigButton(
             text = "Button",
             enabled = false,
             onClick = {}
         )
         Spacer(Modifier.height(16.dp))
-        CraMediumButton(
+        MediumButton(
             text = "Button",
             onClick = {}
         )
         Spacer(Modifier.height(16.dp))
-        CraSmallButton(
+        SmallButton(
             text = "Button",
             onClick = {}
         )
@@ -53,7 +52,7 @@ fun TaskSubmissionTextField() {
     ) {
         var value by remember { mutableStateOf("") }
         var enabled by remember { mutableStateOf(true) }
-        CraOutlinedTextField(
+        InputField(
             value = value,
             enabled = enabled,
             onValueChange = { text -> value = text },
@@ -61,7 +60,7 @@ fun TaskSubmissionTextField() {
             placeholder = "Placeholder"
         )
         Spacer(Modifier.height(16.dp))
-        CraSmallButton(
+        SmallButton(
             text = "Set Disabled",
             onClick = { enabled = !enabled }
         )
@@ -74,15 +73,13 @@ fun TaskSubmissionTags() {
         title = "연습문제3: Tabs"
     ) {
         var startIdx by remember { mutableIntStateOf(0) }
-        val titles = listOf("Topics", "People", "banana")
-        CraTabRow {
-            titles.forEachIndexed { index, title ->
-                CraTab(
-                    selected = startIdx == index,
-                    onClick = { startIdx = index },
-                    title = title,
-                )
+        val labels = listOf("Topics", "People", "banana")
+        Tabs(
+            selectedTabIndex = startIdx,
+            labels = labels,
+            onClickTab = {
+                startIdx = it
             }
-        }
+        )
     }
 }
