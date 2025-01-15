@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -101,21 +100,21 @@ private fun LabelInputFieldPreview() {
     var text2 by remember { mutableStateOf("") }
 
     Column {
-        LabelTextField(
+        InputField(
             label = "Label",
             placeholder = "Placeholder",
             value = "",
             onValueChange = { text1 = it }
         )
         Spacer(modifier = Modifier.height(16.dp))
-        LabelTextField(
+        InputField(
             label = "Label",
             placeholder = "Placeholder",
             value = text1,
             onValueChange = { text1= it }
         )
         Spacer(modifier = Modifier.height(16.dp))
-        LabelTextField(
+        InputField(
             label = "Label",
             placeholder = "Placeholder",
             value = text2,
