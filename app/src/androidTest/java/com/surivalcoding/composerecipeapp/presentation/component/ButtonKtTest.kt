@@ -7,7 +7,7 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
-class BigButtonKtTest {
+class ButtonKtTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
