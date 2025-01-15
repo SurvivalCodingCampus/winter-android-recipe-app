@@ -4,12 +4,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -80,7 +81,8 @@ fun CraSmallButton(
     CraButton(
         modifier = modifier
             .width(174.dp)
-            .height(37.dp),
+            .heightIn(min = 37.dp)
+            .wrapContentSize(),
         onClick = onClick,
         enabled = enabled,
         text = {
@@ -103,7 +105,8 @@ fun CraMediumButton(
     CraButton(
         modifier = modifier
             .width(243.dp)
-            .height(54.dp),
+            .heightIn(min = 54.dp)
+            .wrapContentSize(),
         onClick = onClick,
         enabled = enabled,
         text = {
@@ -126,7 +129,8 @@ fun CraBigButton(
     CraButton(
         modifier = modifier
             .width(315.dp)
-            .height(60.dp),
+            .heightIn(min = 60.dp)
+            .wrapContentSize(),
         onClick = onClick,
         enabled = enabled,
         text = {
