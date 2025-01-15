@@ -25,8 +25,8 @@ import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 @Composable
 fun CraButton(
-    modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     isTrailingIcon: Boolean = false,
@@ -72,10 +72,10 @@ fun CraButton(
 
 @Composable
 fun CraSmallButton(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    enabled: Boolean = true,
     text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
 ) {
     CraButton(
         modifier = modifier
@@ -95,10 +95,10 @@ fun CraSmallButton(
 
 @Composable
 fun CraMediumButton(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    enabled: Boolean = true,
     text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
 ) {
     CraButton(
         modifier = modifier
@@ -118,10 +118,10 @@ fun CraMediumButton(
 
 @Composable
 fun CraBigButton(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    enabled: Boolean = true,
     text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
 ) {
     CraButton(
         modifier = modifier

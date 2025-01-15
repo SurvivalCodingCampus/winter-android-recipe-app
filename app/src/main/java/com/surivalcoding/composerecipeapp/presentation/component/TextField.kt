@@ -14,10 +14,10 @@ import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 @Composable
 fun CraOutlinedTextField(
-    modifier: Modifier = Modifier,
     value: String,
-    enabled: Boolean = true,
     placeholder: String,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     onValueChange: (text: String) -> Unit,
 ) {
     val textStyle = MaterialTheme.typography.bodySmall.copy(

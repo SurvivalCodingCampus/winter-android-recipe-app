@@ -28,10 +28,10 @@ import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 @Composable
 fun RowScope.CraTab(
-    selected: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     title: String,
+    onClick: () -> Unit,
+    selected: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     val contentColor = if (selected) {
         MaterialTheme.colorScheme.onPrimary
