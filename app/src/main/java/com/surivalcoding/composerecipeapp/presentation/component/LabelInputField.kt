@@ -24,7 +24,7 @@ import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
-fun LabelTextField(
+fun InputField(
     modifier: Modifier = Modifier,
     label: String,
     placeholder: String,
