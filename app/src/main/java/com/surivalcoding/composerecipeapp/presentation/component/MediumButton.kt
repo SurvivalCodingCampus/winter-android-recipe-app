@@ -23,18 +23,18 @@ import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
-fun BigButton(
+fun MediumButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit = {},
 ) {
     Box(
         modifier = modifier
-            .width(315.dp)
-            .height(60.dp)
+            .width(243.dp)
+            .height(54.dp)
             .background(
                 color = AppColors.primary,
-                shape = RoundedCornerShape(10.dp),
+                shape = RoundedCornerShape(10.dp)
             )
             .clickable {
                 onClick()
@@ -56,12 +56,13 @@ fun BigButton(
                     ),
                 )
             }
-            Spacer(modifier = Modifier.width(11.dp))
+            Spacer(modifier = Modifier.width(9.dp))
             Icon(
                 modifier = Modifier.size(20.dp),
                 imageVector = Icons.AutoMirrored.Default.ArrowForward,
                 contentDescription = null,
                 tint = Color.White,
+
             )
         }
     }
@@ -69,8 +70,8 @@ fun BigButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun BigButtonPreview1() {
-    BigButton(
+private fun MediumButtonPreview() {
+    MediumButton(
         text = "Button"
     )
 }
