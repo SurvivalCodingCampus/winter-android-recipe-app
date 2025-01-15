@@ -80,9 +80,9 @@ fun CraSmallButton(
 ) {
     CraButton(
         modifier = modifier
+            .wrapContentSize()
             .width(174.dp)
-            .heightIn(min = 37.dp)
-            .wrapContentSize(),
+            .heightIn(min = 37.dp),
         onClick = onClick,
         enabled = enabled,
         text = {
@@ -104,9 +104,9 @@ fun CraMediumButton(
 ) {
     CraButton(
         modifier = modifier
+            .wrapContentSize()
             .width(243.dp)
-            .heightIn(min = 54.dp)
-            .wrapContentSize(),
+            .heightIn(min = 54.dp),
         onClick = onClick,
         enabled = enabled,
         text = {
@@ -128,9 +128,9 @@ fun CraBigButton(
 ) {
     CraButton(
         modifier = modifier
+            .wrapContentSize()
             .width(315.dp)
-            .heightIn(min = 60.dp)
-            .wrapContentSize(),
+            .heightIn(min = 60.dp),
         onClick = onClick,
         enabled = enabled,
         text = {
