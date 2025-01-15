@@ -26,11 +26,11 @@ import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 @Composable
 fun CraButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    onClick: () -> Unit,
     enabled: Boolean = true,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    isTrailingIcon: Boolean = false,
     text: @Composable () -> Unit,
-    isTrailingIcon: Boolean,
 ) {
     Button(
         modifier = modifier,

@@ -20,6 +20,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
@@ -53,6 +55,7 @@ fun RowScope.CraTab(
                 shape = RoundedCornerShape(10.dp)
             )
             .clickable(onClick = onClick)
+            .semantics { this.selected = selected }
     ) {
         Text(
             text = title,
