@@ -34,8 +34,6 @@ fun BigButton(
     modifier: Modifier = Modifier,
     buttonText: String,
     iconSizePercent: Float = 1.0f,
-    enabled: Boolean = true,
-    onClick: () -> Unit = {},
 ) {
     val configuration = LocalConfiguration.current
     val fontScale = configuration.fontScale
@@ -61,9 +59,6 @@ fun BigButton(
                     }
                 )
             },
-//            .clickable(enabled = enabled) {
-//                onClick()
-//            },
         horizontalArrangement = Arrangement.spacedBy(11.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -90,14 +85,5 @@ fun BigButton(
 private fun BigButtonPreview() {
     BigButton(
         buttonText = "Button"
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DisabledBigButtonPreview() {
-    BigButton(
-        buttonText = "Button",
-        enabled = false
     )
 }
