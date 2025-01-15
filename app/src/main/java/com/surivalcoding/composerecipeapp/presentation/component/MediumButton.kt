@@ -12,13 +12,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,15 +25,15 @@ import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
-fun BigButton(
+fun MediumButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit = {},
 ) {
     Box(
         modifier = modifier
-            .width(315.dp)
-            .height(60.dp)
+            .width(243.dp)
+            .height(54.dp)
             .background(
                 color = AppColors.primary,
                 shape = RoundedCornerShape(10.dp),
@@ -58,7 +56,7 @@ fun BigButton(
                 ),
                 textAlign = TextAlign.Center
             )
-            Spacer(Modifier.padding(11.dp))
+            Spacer(Modifier.padding(9.dp))
             Icon(
                 modifier = Modifier.size(20.dp),
                 imageVector = Icons.AutoMirrored.Default.ArrowForward,
@@ -71,8 +69,8 @@ fun BigButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun BigButtonPreview() {
-    BigButton(
+private fun MediumButtonPreview() {
+    MediumButton(
         text = "Button"
     )
 }
