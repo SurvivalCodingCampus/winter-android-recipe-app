@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -57,6 +58,7 @@ fun BigButton(
                     ),
                 )
             }
+            Spacer(modifier = Modifier.width(11.dp))
             Icon(
                 modifier = Modifier.size(20.dp),
                 imageVector = Icons.AutoMirrored.Default.ArrowForward,
@@ -67,10 +69,118 @@ fun BigButton(
     }
 }
 
+@Composable
+fun MediumButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick: () -> Unit = {},
+) {
+    Box(
+        modifier = modifier
+            .width(245.dp)
+            .height(54.dp)
+            .background(
+                color = AppColors.primary,
+                shape = RoundedCornerShape(10.dp),
+            )
+            .clickable {
+                onClick()
+            },
+        contentAlignment = Alignment.Center,
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Box(
+                modifier = Modifier
+                    .width(114.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = text,
+                    style = AppTextStyles.normalTextBold.copy(
+                        color = Color.White,
+                    ),
+                )
+            }
+            Spacer(modifier = Modifier.width(11.dp))
+            Icon(
+                modifier = Modifier.size(20.dp),
+                imageVector = Icons.AutoMirrored.Default.ArrowForward,
+                contentDescription = null,
+                tint = Color.White,
+            )
+        }
+    }
+}
+
+@Composable
+fun SmallButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick: () -> Unit = {},
+) {
+    Box(
+        modifier = modifier
+            .width(174.dp)
+            .height(37.dp)
+            .background(
+                color = AppColors.primary,
+                shape = RoundedCornerShape(10.dp),
+            )
+            .clickable {
+                onClick()
+            },
+        contentAlignment = Alignment.Center,
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Box(
+                modifier = Modifier
+                    .width(114.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = text,
+                    style = AppTextStyles.normalTextBold.copy(
+                        color = Color.White,
+                    ),
+                )
+            }
+            Spacer(modifier = Modifier.width(11.dp))
+            Icon(
+                modifier = Modifier.size(20.dp),
+                imageVector = Icons.AutoMirrored.Default.ArrowForward,
+                contentDescription = null,
+                tint = Color.White,
+            )
+        }
+    }
+}
+
+
+
 @Preview(showBackground = true)
 @Composable
 private fun BigButtonPreview() {
     BigButton(
+        text = "Button"
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MediumButtonPreview() {
+    MediumButton(
+        text = "Button"
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SmallButtonPreview() {
+    SmallButton(
         text = "Button"
     )
 }
