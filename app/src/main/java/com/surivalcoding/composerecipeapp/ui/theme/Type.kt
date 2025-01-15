@@ -5,6 +5,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
+import androidx.compose.ui.text.style.LineHeightStyle.Alignment
+import androidx.compose.ui.text.style.LineHeightStyle.Trim
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.R
 
@@ -34,5 +37,15 @@ val Typography = Typography(
         fontSize = 11.sp,
         lineHeight = 16.5.sp,
         letterSpacing = 0.4.sp,
+    ),
+    labelLarge = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 21.sp,
+        letterSpacing = 0.1.sp,
+        lineHeightStyle = LineHeightStyle(
+            alignment = Alignment.Center,
+            trim = Trim.LastLineBottom,
+        ),
     ),
 )

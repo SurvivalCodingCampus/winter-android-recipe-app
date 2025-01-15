@@ -57,6 +57,7 @@ fun TaskSubmissionTextField() {
             value = value,
             enabled = enabled,
             onValueChange = { text -> value = text },
+            label = "Label",
             placeholder = "Placeholder"
         )
         Spacer(Modifier.height(16.dp))
