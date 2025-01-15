@@ -11,19 +11,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.surivalcoding.composerecipeapp.presentation.component.BasicTab
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        // enableEdgeToEdge()
         setContent {
             ComposeRecipeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    BasicTab(labels = listOf("Labels", "Labels"), selectedIndex = 0) {
+                        println("인덱스 출력 $it")
+                    }
                 }
             }
         }
