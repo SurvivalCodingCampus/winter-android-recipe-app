@@ -26,15 +26,15 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun LabelTextField(
     modifier: Modifier = Modifier,
-    label: String = "Label",
-    placeholder: String = "Placeholder",
-    value: String = "",
+    label: String,
+    placeholder: String,
+    value: String,
     onValueChange: (String) -> Unit,
 ) {
     var isFocused by remember { mutableStateOf(false) }
     var textValue by remember { mutableStateOf(value) }
 
-    // Update textValue when value changes externally
+    // 값이 변경될 때 textValue 업데이트
     textValue = value
 
     Box(
@@ -103,6 +103,8 @@ private fun LabelInputFieldPreview() {
     Column {
         LabelTextField(
             label = "Label",
+            placeholder = "Placeholder",
+            value = "",
             onValueChange = { text1 = it }
         )
         Spacer(modifier = Modifier.height(16.dp))
