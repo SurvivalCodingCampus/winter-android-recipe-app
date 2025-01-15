@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -23,15 +24,15 @@ import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
-fun BigButton(
+fun MediumButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit = {},
 ) {
     Box(
         modifier = modifier
-            .width(315.dp)
-            .height(60.dp)
+            .width(243.dp)
+            .height(54.dp)
             .background(
                 color = AppColors.primary,
                 shape = RoundedCornerShape(10.dp),
@@ -56,7 +57,7 @@ fun BigButton(
                     ),
                 )
             }
-            Spacer(modifier = Modifier.width(11.dp))
+            Spacer(modifier = Modifier.width(9.dp))
             Icon(
                 modifier = Modifier.size(20.dp),
                 imageVector = Icons.AutoMirrored.Default.ArrowForward,
@@ -69,8 +70,8 @@ fun BigButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun BigButtonPreview() {
-    BigButton(
+private fun MediumButtonPreview() {
+    MediumButton(
         text = "Button"
     )
 }
