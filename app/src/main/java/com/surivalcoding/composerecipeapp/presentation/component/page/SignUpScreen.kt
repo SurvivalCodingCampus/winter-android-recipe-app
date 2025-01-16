@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation.component.page
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,10 +20,6 @@ import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,14 +39,19 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
-    title: String,
-    subTitle: String,
-    checkText: String,
-    buttonText: String,
-    signDescription: String,
-    memberText: String,
-    signText: String,
+    name: String,
+    email: String,
+    password: String,
+    passWordConfirm: String,
     isChecked: Boolean,
+    nameChange: (String) -> Unit,
+    emailChange: (String) -> Unit,
+    passWordChange: (String) -> Unit,
+    passWordConfirmChange: (String) -> Unit,
+    googleSignIn: () -> Unit,
+    facebookSignIn: () -> Unit,
+    signIn: () -> Unit,
+    signUp: () -> Unit,
     onCheckedChange: (Boolean) -> Unit,
 ) {
 
@@ -61,7 +63,7 @@ fun SignUpScreen(
 
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = title,
+            text = "Create an account",
             style = AppTextStyles.mediumTextSemiBold.copy(
                 fontSize = 20.sp, color = AppColors.black
             )
@@ -73,7 +75,7 @@ fun SignUpScreen(
             modifier = Modifier
                 .width(195.dp)
                 .align(Alignment.Start),
-            text = subTitle,
+            text = "Let's help you set up your account, it won't take long.",
             style = AppTextStyles.smallTextRegular.copy(
                 fontSize = 11.sp, color = AppColors.label_color
             )
@@ -83,29 +85,37 @@ fun SignUpScreen(
 
         BasicField(
             modifier = Modifier.fillMaxWidth(),
-            value = "", label = "Name", placeholder = "Enter Name"
-        )
+            value = name, label = "Name", placeholder = "Enter Name"
+        ) { newName ->
+            nameChange(newName)
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
 
         BasicField(
             modifier = Modifier.fillMaxWidth(),
-            value = "", label = "Email", placeholder = "Enter Email"
-        )
+            value = email, label = "Email", placeholder = "Enter Email"
+        ) { newEmail ->
+            emailChange(newEmail)
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
 
         BasicField(
             modifier = Modifier.fillMaxWidth(),
-            value = "", label = "Password", placeholder = "Enter Password"
-        )
+            value = password, label = "Password", placeholder = "Enter Password"
+        ) { newPassWord ->
+            passWordChange(newPassWord)
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
 
         BasicField(
             modifier = Modifier.fillMaxWidth(),
-            value = "", label = "Confirm Password", placeholder = "Retype Password"
-        )
+            value = passWordConfirm, label = "Confirm Password", placeholder = "Retype Password"
+        ) { newPassWordConfirm ->
+            passWordConfirmChange(newPassWordConfirm)
+        }
 
         Spacer(Modifier.height(20.dp))
 
@@ -137,7 +147,7 @@ fun SignUpScreen(
             }
 
             Text(
-                text = checkText,
+                text = "Accept terms & Condition",
                 style = AppTextStyles.smallTextRegular.copy(
                     fontSize = 11.sp, color = AppColors.secondary100
                 )
@@ -147,7 +157,9 @@ fun SignUpScreen(
         Spacer(Modifier.height(26.dp))
 
 
-        BigButton(text = buttonText, buttonState = ButtonState.NORMAL)
+        BigButton(text = "Sign Up", buttonState = ButtonState.NORMAL) {
+            signUp()
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -163,8 +175,8 @@ fun SignUpScreen(
             )
 
             Text(
-                text = signDescription,
-                style = AppTextStyles.mediumTextSemiBold.copy(
+                text = "Or Sign in With",
+                style = AppTextStyles.smallTextMedium.copy(
                     fontSize = 11.sp,
                     color = AppColors.gray_4
                 )
@@ -184,8 +196,12 @@ fun SignUpScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(25.dp)
         ) {
-            CustomIconButton(icon = painterResource(R.drawable.google)) {}
-            CustomIconButton(icon = painterResource(R.drawable.facebook)) {}
+            CustomIconButton(icon = painterResource(R.drawable.google)) {
+                googleSignIn()
+            }
+            CustomIconButton(icon = painterResource(R.drawable.facebook)) {
+                facebookSignIn()
+            }
         }
 
         Spacer(Modifier.height(20.dp))
@@ -195,16 +211,19 @@ fun SignUpScreen(
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
-                text = memberText, style = AppTextStyles.mediumTextSemiBold.copy(
+                text = "Already a member?", style = AppTextStyles.smallTextMedium.copy(
                     fontSize = 11.sp,
                     color = AppColors.black
                 )
             )
             Text(
-                text = signText, style = AppTextStyles.mediumTextSemiBold.copy(
+                text = "Sign In", style = AppTextStyles.smallTextMedium.copy(
                     fontSize = 11.sp,
                     color = AppColors.secondary100
-                )
+                ),
+                modifier = Modifier.clickable {
+                    signIn()
+                }
             )
         }
     }
@@ -214,17 +233,20 @@ fun SignUpScreen(
 @Composable
 fun SignUpScreenPreview(modifier: Modifier = Modifier) {
 
-    var isChecked by remember { mutableStateOf(false) }
     SignUpScreen(
-        title = "Create an account",
-        subTitle = "Let's help you set up your account, it won't take long.",
-        checkText = "Accept terms & Condition",
-        buttonText = "Sign Up",
-        signDescription = "Or Sign in With",
-        memberText = "Already a member?",
-        signText = "Sign In",
-        isChecked = isChecked
-    ) { newChecked ->
-        isChecked = newChecked
-    }
+        name = "",
+        email = "",
+        password = "",
+        passWordConfirm = "",
+        isChecked = false,
+        nameChange = {},
+        emailChange = {},
+        passWordChange = {},
+        passWordConfirmChange = {},
+        signUp = {},
+        googleSignIn = {},
+        facebookSignIn = {},
+        signIn = {},
+        onCheckedChange = {}
+    )
 }

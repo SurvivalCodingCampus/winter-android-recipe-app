@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation.component.page
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +19,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,12 +40,15 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SignInScreen(
     modifier: Modifier = Modifier,
-    title: String,
-    subTitle: String,
-    forgotText: String,
-    signDescription: String,
-    accountDescription: String,
-    signUpText: String,
+    email: String,
+    password: String,
+    emailChange: (String) -> Unit,
+    passWordChange: (String) -> Unit,
+    forgotPassWord: () -> Unit,
+    signIn: () -> Unit,
+    googleSignIn: () -> Unit,
+    facebookSignIn: () -> Unit,
+    signUp: () -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -55,7 +58,7 @@ fun SignInScreen(
 
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = title,
+            text = "Hello,",
             style = AppTextStyles.mediumTextSemiBold.copy(
                 fontSize = 30.sp, color = AppColors.black
             )
@@ -63,7 +66,7 @@ fun SignInScreen(
 
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = subTitle,
+            text = "Welcome Back!",
             style = AppTextStyles.smallTextRegular.copy(
                 fontSize = 20.sp, color = AppColors.label_color
             )
@@ -73,36 +76,42 @@ fun SignInScreen(
 
         BasicField(
             modifier = Modifier.fillMaxWidth(),
-            value = "", label = "Email", placeholder = "Enter Email"
-        )
+            value = email, label = "Email", placeholder = "Enter Email"
+        ) { newEmail ->
+            emailChange(newEmail)
+        }
 
         Spacer(modifier = Modifier.height(30.dp))
 
         BasicField(
             modifier = Modifier.fillMaxWidth(),
-            value = "", label = "Enter Password", placeholder = "Enter Password"
-        )
-
-        Spacer(modifier = Modifier.height(5.dp))
-
-
-        TextButton(
-            onClick = {},
-            modifier = Modifier.align(Alignment.Start)
-        ) {
-            Text(
-                text = forgotText,
-                style = AppTextStyles.smallTextRegular.copy(
-                    fontSize = 11.sp,
-                    color = AppColors.secondary100
-                )
-            )
+            value = password, label = "Enter Password", placeholder = "Enter Password"
+        ) { newPassWord ->
+            passWordChange(newPassWord)
         }
 
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(start = 10.dp)
+                .clickable {
+                    forgotPassWord()
+                },
+            text = "Forgot Password?",
+            style = AppTextStyles.smallTextRegular.copy(
+                fontSize = 11.sp,
+                color = AppColors.secondary100
+            )
+        )
+
+        Spacer(modifier = Modifier.height(25.dp))
 
 
-        BigButton(text = "Sign In", buttonState = ButtonState.NORMAL)
+        BigButton(text = "Sign In", buttonState = ButtonState.NORMAL) {
+            signIn()
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -118,8 +127,8 @@ fun SignInScreen(
             )
 
             Text(
-                text = signDescription,
-                style = AppTextStyles.mediumTextSemiBold.copy(
+                text = "Or Sign In With",
+                style = AppTextStyles.smallTextMedium.copy(
                     fontSize = 11.sp,
                     color = AppColors.gray_4
                 )
@@ -139,8 +148,12 @@ fun SignInScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(25.dp)
         ) {
-            CustomIconButton(icon = painterResource(R.drawable.google)) {}
-            CustomIconButton(icon = painterResource(R.drawable.facebook)) {}
+            CustomIconButton(icon = painterResource(R.drawable.google)) {
+                googleSignIn()
+            }
+            CustomIconButton(icon = painterResource(R.drawable.facebook)) {
+                facebookSignIn()
+            }
         }
         Spacer(modifier = Modifier.height(55.dp))
 
@@ -149,14 +162,17 @@ fun SignInScreen(
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
-                text = accountDescription, style = AppTextStyles.smallTextMedium.copy(
+                text = "Don't have an account?", style = AppTextStyles.smallTextMedium.copy(
                     fontSize = 11.sp, color = AppColors.black
                 )
             )
             Text(
-                text = signUpText, style = AppTextStyles.smallTextMedium.copy(
+                text = "Sign Up", style = AppTextStyles.smallTextMedium.copy(
                     fontSize = 11.sp, color = AppColors.secondary100
-                )
+                ),
+                modifier = Modifier.clickable {
+                    signUp()
+                }
             )
         }
     }
@@ -170,7 +186,7 @@ fun CustomIconButton(
 ) {
     Surface(
         shape = RoundedCornerShape(8.dp),
-        shadowElevation = 8.dp,
+        shadowElevation = 4.dp,
         color = AppColors.white
     ) {
         Box(
@@ -196,49 +212,8 @@ fun CustomIconButton(
     }
 }
 
-
-//@Composable
-//fun CustomIconButton(
-//    icon: Painter,
-//    modifier: Modifier = Modifier,
-//    onClick: () -> Unit,
-//) {
-//    Surface(
-//        shape = RoundedCornerShape(8.dp),
-//        shadowElevation = 8.dp,
-//        color = AppColors.white
-//    ) {
-//        Box(
-//            modifier = modifier
-//                .padding(1.dp) // Surface와 Button 간의 간격
-//        ) {
-//            Button(
-//                modifier = Modifier.size(44.dp),
-//                onClick = onClick,
-//                colors = ButtonDefaults.buttonColors(containerColor = AppColors.white),
-//                shape = RoundedCornerShape(8.dp), // 버튼 모서리 둥글기
-//                elevation = null // 기본 Elevation 비활성화
-//            ) {
-//                Image(
-//                    painter = icon,
-//                    contentDescription = null,
-//                    modifier = Modifier.fillMaxSize(),
-//                    contentScale = ContentScale.Crop
-//                )
-//            }
-//        }
-//    }
-//}
-
 @Preview(showBackground = true)
 @Composable
 private fun SignInScreenPreview() {
-    SignInScreen(
-        title = "Hello,",
-        subTitle = "Welcome Back!",
-        forgotText = "Forgot Password?",
-        signDescription = "Or Sign In With",
-        accountDescription = "Don't have an account?",
-        signUpText = "Sign Up"
-    )
+    SignInScreen(email = "", password = "", emailChange = {}, passWordChange = {}, forgotPassWord = {}, signIn = {}, googleSignIn = {}, facebookSignIn = {}, signUp = {})
 }

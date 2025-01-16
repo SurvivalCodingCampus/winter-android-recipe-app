@@ -18,7 +18,7 @@ object AppTextStyles {
 
     val normalTextBold = TextStyle(
         fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         fontFamily = poppinsFamily,
     )
 
