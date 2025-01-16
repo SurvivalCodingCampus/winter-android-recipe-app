@@ -36,7 +36,7 @@ fun CustomTabs(
             .fillMaxWidth()
             .background(Color.White)
             .padding(horizontal = 30.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.spacedBy(15.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         labels.forEachIndexed { index, label ->
@@ -53,7 +53,8 @@ fun CustomTabs(
                             if (index == selectedIndex) Primary100 else Color.Transparent,
                             shape = RoundedCornerShape(10.dp)
                         )
-                        .padding(horizontal = 64.dp, vertical = 8.dp)
+                        .padding(vertical = 8.dp)
+                        .fillMaxWidth(1.0f)
                 ) {
                     Text(
                         text = label,
@@ -70,7 +71,7 @@ fun CustomTabs(
 @Composable
 fun CustomTabsExample() {
     var selectedTab by remember { mutableIntStateOf(0) }
-    val labels = listOf("Label", "Label")
+    val labels = listOf("Label", "Label", "Label")
 
     CustomTabs(
         labels = labels,
