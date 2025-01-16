@@ -61,9 +61,7 @@ fun InputField(
                 onValueChange = onValueChange,
                 colors = TextFieldDefaults.colors(
                     unfocusedContainerColor = Color.White,
-                    unfocusedTextColor = Color(
-                        android.graphics.Color.parseColor("#D9D9D9")
-                    ),
+                    unfocusedTextColor = AppColors.gray,
                     focusedContainerColor = Color.White,
                 ),
                 shape = RoundedCornerShape(10.dp)
