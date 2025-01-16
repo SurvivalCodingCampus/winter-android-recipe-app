@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
+import com.surivalcoding.composerecipeapp.ui.theme.PoppinsBoldTypography
 import com.surivalcoding.composerecipeapp.ui.theme.Primary100
 
 @Composable
@@ -58,7 +59,7 @@ fun CustomTabs(
                 ) {
                     Text(
                         text = label,
-                        style = MaterialTheme.typography.bodySmall,
+                        style = PoppinsBoldTypography.bodySmall,
                         color = if (index == selectedIndex) Color.White else Primary100,
                         textAlign = TextAlign.Center
                     )
@@ -83,7 +84,7 @@ fun CustomTabsExample() {
 @Preview(showBackground = true)
 @Composable
 private fun CustomTabsPreview() {
-    ComposeRecipeAppTheme(useBoldTypography = true) {
+    ComposeRecipeAppTheme {
         CustomTabsExample()
     }
 }
