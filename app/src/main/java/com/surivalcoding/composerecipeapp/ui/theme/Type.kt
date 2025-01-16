@@ -45,6 +45,13 @@ object AppTextStyles {
         fontFamily = poppinsFamily
     )
 
+    val headerTextSemiBold = TextStyle(
+        fontSize = 30.sp,
+        lineHeight = 45.sp,
+        fontWeight = FontWeight.SemiBold,
+        fontFamily = poppinsFamily
+    )
+
     val headerTextRegular = TextStyle(
         fontSize = 30.sp,
         lineHeight = 45.sp,
@@ -57,6 +64,13 @@ object AppTextStyles {
         fontSize = 20.sp,
         lineHeight = 30.sp,
         fontWeight = FontWeight.Bold,
+        fontFamily = poppinsFamily
+    )
+
+    val largeTextSemiBold = TextStyle(
+        fontSize = 20.sp,
+        lineHeight = 30.sp,
+        fontWeight = FontWeight.SemiBold,
         fontFamily = poppinsFamily
     )
 
@@ -124,6 +138,13 @@ object AppTextStyles {
         fontSize = 11.sp,
         lineHeight = 17.sp,
         fontWeight = FontWeight.Normal,
+        fontFamily = poppinsFamily
+    )
+
+    val smallerTextSemiBold = TextStyle(
+        fontSize = 11.sp,
+        lineHeight = 17.sp,
+        fontWeight = FontWeight.Bold,
         fontFamily = poppinsFamily
     )
 

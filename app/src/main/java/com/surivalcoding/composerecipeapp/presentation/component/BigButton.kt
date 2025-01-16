@@ -1,8 +1,8 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
@@ -28,7 +28,7 @@ fun BigButton(
     CraButton(
         modifier = modifier
             .wrapContentSize()
-            .width(315.dp)
+            .fillMaxWidth()
             .heightIn(min = 60.dp),
         onClick = onClick,
         isPressed = isPressed,
