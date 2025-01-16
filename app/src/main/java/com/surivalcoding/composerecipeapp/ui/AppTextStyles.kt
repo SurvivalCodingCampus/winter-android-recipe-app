@@ -31,5 +31,10 @@ object AppTextStyles {
         fontFamily = poppinsFamily,
     )
 
-
+    val smallerTextLabel = TextStyle(
+        fontSize = 8.sp,
+        lineHeight = 12.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = poppinsFamily
+    )
 }
