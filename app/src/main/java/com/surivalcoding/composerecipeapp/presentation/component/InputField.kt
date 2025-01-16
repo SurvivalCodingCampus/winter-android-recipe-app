@@ -20,12 +20,14 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 fun BasicField(
     modifier: Modifier = Modifier,
     value: String,
+    label: String,
+    placeholder: String,
     onValueChange: (String) -> Unit = {}
 ) {
     Column()
     {
         Text(
-            text = "Label",
+            text = label,
             style = AppTextStyles.smallTextRegular.copy(
                 fontSize = 14.sp,
                 color = AppColors.label_color
@@ -42,7 +44,7 @@ fun BasicField(
             ),
             placeholder = {
                 Text(
-                    text = "Placeholder",
+                    text = placeholder,
                     style = AppTextStyles.smallTextRegular.copy(
                         color = AppColors.gray_4
                     )
@@ -63,11 +65,11 @@ fun BasicField(
 @Composable
 private fun DefaultPreview() {
     Column {
-        BasicField(value = "")
+        BasicField(value = "", label = "Label", placeholder = "Placeholder")
         Spacer(Modifier.height(30.dp))
-        BasicField(value = "")
+        BasicField(value = "", label = "Label", placeholder = "Placeholder")
         Spacer(Modifier.height(30.dp))
-        BasicField(value = "Placeholder")
+        BasicField(value = "Placeholder", label = "Label", placeholder = "Placeholder")
     }
 
 }
