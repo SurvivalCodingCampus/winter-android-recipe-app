@@ -14,10 +14,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,19 +22,12 @@ import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
-enum class ButtonState {
-    Default,
-    Pressed,
-    Disabled
-}
-
 @Composable
-fun BigButton2(
+fun BigButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit = {},
 ) {
-    var buttonState by remember { mutableStateOf(ButtonState.Default) }
     Box(
         modifier = modifier
             .width(315.dp)
@@ -79,7 +68,7 @@ fun BigButton2(
 }
 
 @Composable
-fun MediumButton2(
+fun MediumButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit = {},
@@ -124,7 +113,7 @@ fun MediumButton2(
 }
 
 @Composable
-fun SmallButton2(
+fun SmallButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit = {},
@@ -134,11 +123,7 @@ fun SmallButton2(
             .width(174.dp)
             .height(37.dp)
             .background(
-                color = when (buttonState.value) {
-                    buttonState.Default -> AppColors.primary100
-                    buttonState.Pressed -> AppColors.primary100 // Use a lighter shade of primary for pressed state
-                    buttonState.Disabled -> Color.Gray // Gray color for disabled state
-                },
+                color = AppColors.primary100,
                 shape = RoundedCornerShape(10.dp),
             )
             .clickable {
@@ -177,7 +162,7 @@ fun SmallButton2(
 @Preview(showBackground = true)
 @Composable
 private fun BigButtonPreview() {
-    BigButton2(
+    BigButton(
         text = "Button"
     )
 }
@@ -185,7 +170,7 @@ private fun BigButtonPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun MediumButtonPreview() {
-    MediumButton2(
+    MediumButton(
         text = "Button"
     )
 }
@@ -193,7 +178,7 @@ private fun MediumButtonPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun SmallButtonPreview() {
-    SmallButton2(
+    SmallButton(
         text = "Button"
     )
 }
