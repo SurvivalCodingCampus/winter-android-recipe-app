@@ -33,7 +33,7 @@ fun MediumButton(
             .width(243.dp)
             .height(54.dp)
             .background(
-                color = AppColors.primary,
+                color = AppColors.primary100,
                 shape = RoundedCornerShape(10.dp)
             )
             .clickable {

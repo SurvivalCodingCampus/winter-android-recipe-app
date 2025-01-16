@@ -46,7 +46,7 @@ fun InputField(
                 text = label,
                 fontSize = 14.sp,
                 style = AppTextStyles.smallerTextRegular.copy(
-                    color = AppColors.labelColor,
+                    color = AppColors.font,
                 )
             )
             Spacer(modifier = Modifier.height(5.dp))
@@ -66,7 +66,7 @@ fun InputField(
                     )
                     .border(
                         width = 1.5.dp,
-                        color = if (isFocused) AppColors.primary80 else AppColors.grayFour,
+                        color = if (isFocused) AppColors.primary80 else AppColors.gray4,
                         shape = RoundedCornerShape(10.dp)
                     )
                     .padding(horizontal = 20.dp)
@@ -82,7 +82,7 @@ fun InputField(
                             Text(
                                 text = placeholder,
                                 fontSize = 11.sp,
-                                color = AppColors.grayFour
+                                color = AppColors.gray4,
                             )
                         }
                         innerTextField()
@@ -99,27 +99,33 @@ private fun LabelInputFieldPreview() {
     var text1 by remember { mutableStateOf("") }
     var text2 by remember { mutableStateOf("") }
 
-    Column {
-        InputField(
-            label = "Label",
-            placeholder = "Placeholder",
-            value = "",
-            onValueChange = { text1 = it }
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        InputField(
-            label = "Label",
-            placeholder = "Placeholder",
-            value = text1,
-            onValueChange = { text1= it }
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        InputField(
-            label = "Label",
-            placeholder = "Placeholder",
-            value = text2,
-            onValueChange = { text2 = it },
-        )
 
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column {
+            InputField(
+                label = "Label",
+                placeholder = "Placeholder",
+                value = "",
+                onValueChange = { text1 = it }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            InputField(
+                label = "Label",
+                placeholder = "Placeholder",
+                value = text1,
+                onValueChange = { text1 = it }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            InputField(
+                label = "Label",
+                placeholder = "Placeholder",
+                value = text2,
+                onValueChange = { text2 = it },
+            )
+        }
     }
+
 }
