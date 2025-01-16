@@ -55,7 +55,7 @@ fun RatingButton(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = text, style = AppTextStyles.smallTextSemiBold.copy(
+            text = text, style = AppTextStyles.smallTextMedium.copy(
                 color = if (isSelected) Color.White else AppColors.primary_80
             ),
             textAlign = TextAlign.Center

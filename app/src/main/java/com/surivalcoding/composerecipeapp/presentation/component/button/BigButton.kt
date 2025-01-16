@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -41,7 +42,7 @@ fun BigButton(
 
     Box(
         modifier = modifier
-            .width(315.dp)
+            .fillMaxWidth()
             .height(60.dp)
             .background(
                 color = when (buttonState) {

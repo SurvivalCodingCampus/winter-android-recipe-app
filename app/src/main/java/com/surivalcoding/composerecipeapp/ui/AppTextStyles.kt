@@ -12,7 +12,8 @@ object AppTextStyles {
         Font(R.font.poppins_bold, FontWeight.Bold),
         Font(R.font.poppins_regular, FontWeight.Normal),
         Font(R.font.poppins_light, FontWeight.Light),
-        Font(R.font.poppins_semibold, FontWeight.Medium)
+        Font(R.font.poppins_medium, FontWeight.Medium),
+        Font(R.font.poppins_semibold, FontWeight.SemiBold)
     )
 
     val normalTextBold = TextStyle(
@@ -33,9 +34,15 @@ object AppTextStyles {
         fontFamily = poppinsFamily
     )
 
-    val smallTextSemiBold = TextStyle(
+    val smallTextMedium = TextStyle(
         fontSize = 11.sp,
         fontWeight = FontWeight.Medium,
+        fontFamily = poppinsFamily
+    )
+
+    val mediumTextSemiBold = TextStyle(
+        fontSize = 18.sp,
+        fontWeight = FontWeight.SemiBold,
         fontFamily = poppinsFamily
     )
 }

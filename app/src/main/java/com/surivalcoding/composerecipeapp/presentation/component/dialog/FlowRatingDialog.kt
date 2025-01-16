@@ -33,7 +33,7 @@ import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
-fun RatingDialog(
+fun FlowRatingDialog(
     title: String,
     actionName: String,
     starIndex: Int = 0,
@@ -121,32 +121,13 @@ fun RatingDialog(
 
 @Preview(showBackground = true)
 @Composable
-private fun RatingDialogPreview() {
+private fun FlowRatingDialogPreview() {
     // 별 채워짐 상태 변수
     var starIndex by remember { mutableIntStateOf(0) }
-    RatingDialog(title = "Rate recipe", actionName = "Send", starIndex = starIndex, onChange = { index ->
+    FlowRatingDialog(title = "Rate recipe", actionName = "Send", starIndex = starIndex, onChange = { index ->
         starIndex = index
     }, onDismissRequest = {
         println("다이얼로그 종료 해버리깅!!")
     })
 }
-
-@Preview(showBackground = true)
-@Composable
-private fun RatingDialogPreviewCheck() {
-    // 별 채워짐 상태 변수
-    var starIndex by remember { mutableIntStateOf(3) }
-    RatingDialog(title = "Rate recipe", actionName = "Send", starIndex = starIndex, onChange = { index ->
-        starIndex = index
-    }, onDismissRequest = {
-        println("다이얼로그 종료 해버리깅!!")
-    })
-}
-
-fun main() {
-    for (i in 0..5) {
-        println("$i")
-    }
-}
-
 

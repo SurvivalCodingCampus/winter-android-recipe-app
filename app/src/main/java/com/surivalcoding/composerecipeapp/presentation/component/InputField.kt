@@ -2,6 +2,8 @@ package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
@@ -24,7 +26,7 @@ fun BasicField(
     placeholder: String,
     onValueChange: (String) -> Unit = {}
 ) {
-    Column()
+    Column(modifier = modifier.fillMaxWidth())
     {
         Text(
             text = label,
@@ -37,6 +39,7 @@ fun BasicField(
         Spacer(Modifier.height(5.dp))
 
         OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
             value = value,
             onValueChange = onValueChange,
             textStyle = AppTextStyles.smallTextRegular.copy(
