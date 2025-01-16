@@ -127,6 +127,7 @@ fun MediumButton2(
 fun SmallButton2(
     modifier: Modifier = Modifier,
     text: String,
+    buttonState: ButtonState = ButtonState.Default,
     onClick: () -> Unit = {},
 ) {
     Box(
@@ -134,10 +135,10 @@ fun SmallButton2(
             .width(174.dp)
             .height(37.dp)
             .background(
-                color = when (buttonState.value) {
-                    buttonState.Default -> AppColors.primary100
-                    buttonState.Pressed -> AppColors.primary100 // Use a lighter shade of primary for pressed state
-                    buttonState.Disabled -> Color.Gray // Gray color for disabled state
+                color = when (buttonState) {
+                    ButtonState.Default -> AppColors.primary100
+                    ButtonState.Pressed -> AppColors.primary100 // Use a lighter shade of primary for pressed state
+                    ButtonState.Disabled -> Color.Gray // Gray color for disabled state
                 },
                 shape = RoundedCornerShape(10.dp),
             )
@@ -171,8 +172,6 @@ fun SmallButton2(
         }
     }
 }
-
-
 
 @Preview(showBackground = true)
 @Composable

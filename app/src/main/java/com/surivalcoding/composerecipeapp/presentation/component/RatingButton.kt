@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.ui.AppColors
 
 @Composable
-fun FilterButton(
+fun RatingButton(
     labels: List<String>,
     selectedIndex: Int,
     onValueChange: (Int) -> Unit
@@ -55,6 +55,13 @@ fun FilterButton(
                             text = label,
                             color = if (index == selectedIndex) Color.White else AppColors.primary100
                         )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = "Star Icon",
+                            tint = if (index == selectedIndex) Color.White else AppColors.primary100,
+                            modifier = Modifier.size(16.dp)
+                        )
                     }
                 }
             }
@@ -64,11 +71,11 @@ fun FilterButton(
 
 @Preview
 @Composable
-fun FilterButtonPreview() {
-    var selectedTabIndex by remember { mutableStateOf(0) }
+fun RatingButtonPreview() {
+    var selectedTabIndex by remember { mutableStateOf(1) }
 
-    FilterButton(
-        labels = listOf("Text", "Text"),
+    RatingButton(
+        labels = listOf("5", "5"),
         selectedIndex = selectedTabIndex,
         onValueChange = { newIndex ->
             selectedTabIndex = newIndex // 선택된 인덱스 갱신
