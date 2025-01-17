@@ -1,5 +1,5 @@
 [versions]
-agp = "8.7.3"
+agp = "8.8.0"
 coilCompose = "3.0.4"
 constraintlayoutComposeVersion = "1.1.0"
 kotlin = "2.0.0"
@@ -34,6 +34,6 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version = "1.9.24" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
