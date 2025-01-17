@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
+import AppColors
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -16,7 +17,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
@@ -27,7 +27,7 @@ fun InputField(
     value: String,
     onValueChange: (String) -> Unit
 ) {
-    Column(modifier = modifier.padding(16.dp)) {
+    Column {
         Text(
             label,
             style = AppTextStyles.normalTextRegular
@@ -39,8 +39,8 @@ fun InputField(
                 .width(315.dp)
                 .height(55.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                unfocusedBorderColor = AppColors.inputFieldBoardDefault,
-                focusedBorderColor = AppColors.inputFieldBoardFocus
+                unfocusedBorderColor = AppColors.gray4,
+                focusedBorderColor = AppColors.primary80
 
             ),
             textStyle = TextStyle(color = Color.Black, fontSize = 11.sp),
@@ -50,7 +50,7 @@ fun InputField(
                 Text(
                     placeHolder,
                     fontSize = 11.sp,
-                    color = AppColors.placeHolder
+                    color = AppColors.gray4
                 )
             },
             shape = RoundedCornerShape(10.dp)
