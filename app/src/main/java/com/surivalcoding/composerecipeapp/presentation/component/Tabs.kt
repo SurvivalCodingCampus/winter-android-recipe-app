@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,7 +31,7 @@ fun Tabs(
         modifier = modifier
             .fillMaxWidth()  // 고정 width 대신 fillMaxWidth 사용
             .wrapContentHeight()  // 고정 height 제거
-            .background(color = AppColors.white)
+            .background(color = Color.Transparent)
             .padding(horizontal = 30.dp, vertical = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(15.dp),
     ) {

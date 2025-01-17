@@ -39,7 +39,7 @@ fun InputField(
 
     Column(
         modifier = modifier
-            .width(315.dp)
+            .fillMaxWidth()
             .wrapContentHeight()  // 높이를 내용에 맞게 조정
             //.padding(vertical = 4.dp)  // 상하 여백 추가
     ) {
