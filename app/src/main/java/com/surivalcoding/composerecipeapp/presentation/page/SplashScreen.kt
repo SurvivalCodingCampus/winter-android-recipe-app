@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.component.page
+package com.surivalcoding.composerecipeapp.presentation.page
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,8 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.R
-import com.surivalcoding.composerecipeapp.presentation.component.button.ButtonState
-import com.surivalcoding.composerecipeapp.presentation.component.button.MediumButton
+import com.surivalcoding.composerecipeapp.presentation.button.ButtonState
+import com.surivalcoding.composerecipeapp.presentation.button.MediumButton
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 

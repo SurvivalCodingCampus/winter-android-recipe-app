@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.component
+package com.surivalcoding.composerecipeapp.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,7 +38,7 @@ fun RecipeCard(
     imageUrl: String,
     recipeName: String,
     chefName: String,
-    cookingTime: Int,
+    cookingTime: String,
     rate: Double,
 ) {
     val timerImage = painterResource(R.drawable.timer)
@@ -80,13 +80,15 @@ fun RecipeCard(
             ) {
                 Text(
                     text = recipeName,
+                    modifier = Modifier.width(200.dp),
+                    maxLines = 2,
                     style = AppTextStyles.smallTextBold.copy(
                         fontSize = 14.sp, color = AppColors.white
                     )
                 )
 
                 Text(
-                    text = chefName,
+                    text = "By $chefName",
                     style = AppTextStyles.smallTextRegular.copy(
                         fontSize = 8.sp, color = AppColors.white
                     )
@@ -99,12 +101,11 @@ fun RecipeCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-
                 Image(painter = timerImage, contentDescription = null)
 
                 Spacer(modifier = Modifier.width(5.dp))
                 Text(
-                    text = "$cookingTime min",
+                    text = cookingTime,
                     style = AppTextStyles.smallTextRegular.copy(color = AppColors.gray_4)
                 )
 
@@ -163,7 +164,7 @@ private fun RecipeCardPreview() {
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQUz5gqcxMEygqQkJE73k0VMxYmoNDLOoNzA&s",
         recipeName = "Traditional spare ribs\nbaked",
         chefName = "By Chef John",
-        cookingTime = 20,
+        cookingTime = "20 min",
         rate = 4.0
     )
 }

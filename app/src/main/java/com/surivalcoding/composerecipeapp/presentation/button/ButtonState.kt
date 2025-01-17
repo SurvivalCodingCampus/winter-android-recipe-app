@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.component.button
+package com.surivalcoding.composerecipeapp.presentation.button
 
 enum class ButtonState(
     val number: Int,
