@@ -30,7 +30,6 @@ fun InputField(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
     ) {
         // Label 텍스트
         Text(

@@ -58,7 +58,7 @@ fun RecipeCard(
 ) {
     Box(
         modifier = modifier
-            .width(315.dp)
+            .fillMaxWidth()
             .height(150.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(Color.Gray)
