@@ -6,10 +6,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.StarRate
+import androidx.compose.material.icons.outlined.StarRate
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,9 +27,9 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 
 @Composable
-fun FilterButton(
-    text: String,
-    isSelected: () -> Boolean
+fun RatingButton(
+    rateNumber: Int = 5,
+    onClick: () -> Unit
 ) {
     var isFiltered by remember { mutableStateOf(false) }
     var backgroundColor by remember { mutableStateOf(AppColors.White) }
@@ -41,7 +47,7 @@ fun FilterButton(
             .background(color = backgroundColor)
             .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp)
             .clickable {
-                isSelected()
+                onClick()
                 isFiltered = !isFiltered
                 backgroundColor = if (isFiltered) AppColors.Primary100 else Color.Transparent
             },
@@ -51,9 +57,15 @@ fun FilterButton(
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             Text(
-                text = text, style = AppTextStyles.regularSmall.copy(
+                text = rateNumber.toString(), style = AppTextStyles.regularSmall.copy(
                     color = if (!isFiltered) AppColors.Primary100 else AppColors.White
                 )
+            )
+            Icon(
+                imageVector = Icons.Filled.StarRate,
+                contentDescription = "rating",
+                modifier = Modifier.size(18.dp),
+                if (!isFiltered) AppColors.Primary100 else AppColors.White
             )
 
         }
@@ -61,48 +73,10 @@ fun FilterButton(
     }
 }
 
-@Composable
-fun FilterButtonGroup(
-    filters: List<@Composable (
-    ) -> Unit>,
-//    selectedFilter: String,
-//    onFilterSelected: () -> Unit
-) {
-//    var selectedFilter by remember { mutableStateOf(selectedFilter) }
-
-
-    Box(
-        modifier = Modifier.clickable {
-        }
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
-            filters.forEach { button ->
-                button()
-            }
-        }
-    }
-}
-
-
 @Preview(showBackground = true)
 @Composable
-private fun FilterButtonPreview() {
-    val selectedNumber: Int by remember { mutableIntStateOf(0) }
+private fun RatingButtonPreview() {
+    RatingButton(onClick = {
+    })
 
-
-    Box(
-        modifier = Modifier.padding(top = 300.dp)
-    ) {
-
-        Text("$selectedNumber")
-    }
-
-    FilterButtonGroup(
-        listOf(
-            { FilterButton("선택", isSelected = { selectedNumber == 0 }) },
-            { FilterButton("선택2", isSelected = { selectedNumber == 1 }) }
-        ),
-    )
 }
