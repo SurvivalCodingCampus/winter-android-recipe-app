@@ -1,7 +1,7 @@
-package com.surivalcoding.composerecipeapp.data.saved_recipe.data_source
+package com.surivalcoding.composerecipeapp.data.data_source
 
-import com.surivalcoding.composerecipeapp.data.saved_recipe.dto.RecipeDto
-import com.surivalcoding.composerecipeapp.data.saved_recipe.dto.RecipeResponse
+import com.surivalcoding.composerecipeapp.data.dto.RecipeDto
+import com.surivalcoding.composerecipeapp.data.dto.RecipeResponse
 import kotlinx.serialization.json.Json
 
 class MockRecipeDatasource : RecipeDatasource {

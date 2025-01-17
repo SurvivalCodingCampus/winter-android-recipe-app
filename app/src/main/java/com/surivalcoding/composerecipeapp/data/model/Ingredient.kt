@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.data.saved_recipe.model
+package com.surivalcoding.composerecipeapp.data.model
 
 data class Ingredient(
     val id: Int,

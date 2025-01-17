@@ -1,7 +1,7 @@
-package com.surivalcoding.composerecipeapp.data.saved_recipe.mapper
+package com.surivalcoding.composerecipeapp.data.mapper
 
-import com.surivalcoding.composerecipeapp.data.saved_recipe.dto.RecipeDto
-import com.surivalcoding.composerecipeapp.data.saved_recipe.model.Recipe
+import com.surivalcoding.composerecipeapp.data.dto.RecipeDto
+import com.surivalcoding.composerecipeapp.data.model.Recipe
 
 fun RecipeDto.toRecipe() = Recipe(
     category = category ?: "",

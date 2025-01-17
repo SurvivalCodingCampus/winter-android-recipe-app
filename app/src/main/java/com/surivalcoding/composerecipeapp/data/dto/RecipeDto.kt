@@ -1,6 +1,5 @@
-package com.surivalcoding.composerecipeapp.data.saved_recipe.dto
+package com.surivalcoding.composerecipeapp.data.dto
 
-import com.surivalcoding.composerecipeapp.data.saved_recipe.model.IngredientAmount
 import kotlinx.serialization.Serializable
 
 @Serializable
