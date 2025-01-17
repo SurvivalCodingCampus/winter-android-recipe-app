@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.component.text
+package com.surivalcoding.composerecipeapp.presentation.component.global.text
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column

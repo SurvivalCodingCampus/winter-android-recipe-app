@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.surivalcoding.composerecipeapp.presentation.component.button.BigButton
+import com.surivalcoding.composerecipeapp.presentation.component.global.button.BigButton
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
