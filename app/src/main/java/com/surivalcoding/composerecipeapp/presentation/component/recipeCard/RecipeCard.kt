@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,29 +16,24 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.*
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,7 +46,19 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 
 @Composable
-fun RecipeCard() {
+fun RecipeCard(
+    title: String = "Title",
+    name: String = "name",
+    cookingDuration: Int,
+    onClick: () -> Unit = {},
+    onClickBookmark: () -> Unit = {}
+) {
+    // 3version
+    // search version
+    val _title by remember { mutableStateOf(title) }
+    val _name by remember { mutableStateOf(name) }
+    val _cookingDuration by remember { mutableStateOf(cookingDuration) }
+
 
     val aspectRatio = 315f / 150f // 원래 비율 계산 (2.1)
     val brush = Brush.verticalGradient(
@@ -65,7 +73,10 @@ fun RecipeCard() {
             .fillMaxWidth()
             .aspectRatio(aspectRatio)
             .clip(shape = RoundedCornerShape(size = 10.dp))
-            .background(color = AppColors.Black, shape = RoundedCornerShape(size = 10.dp)),
+            .background(color = AppColors.Black, shape = RoundedCornerShape(size = 10.dp))
+            .clickable {
+                onClick()
+            },
         contentAlignment = Alignment.BottomStart,
     ) {
         Box(modifier = Modifier
@@ -140,13 +151,22 @@ fun RecipeCard() {
                     Column(
                         verticalArrangement = Arrangement.Bottom
                     ) {
-                        Text(
-                            "Traditional spare ribs baked", style = AppTextStyles.boldSmall.copy(
-                                color = AppColors.White,
+                        Box(modifier = Modifier
+                            .height(42.dp)
+                            .width((200.dp))) {
+                            Text(
+                                _title,
+                                style = AppTextStyles.boldSmall.copy(
+                                    color = AppColors.White,
+                                    lineHeightStyle = AppTextStyles.boldSmall.lineHeightStyle,
+                                    lineHeight = AppTextStyles.boldSmall.lineHeight
+
+                                )
                             )
-                        )
+
+                        }
                         Text(
-                            "By Chef John", style = AppTextStyles.regularSmall.copy(
+                            "By Chef ${_name}", style = AppTextStyles.regularSmall.copy(
                                 color = AppColors.LabelWhite,
                             )
                         )
@@ -168,7 +188,8 @@ fun RecipeCard() {
                             modifier = Modifier.size(17.dp)
                         )
                         Text(
-                            "20 min", style = AppTextStyles.boldSmall.copy(
+                            "${_cookingDuration.toString()} min",
+                            style = AppTextStyles.boldSmall.copy(
                                 color = AppColors.LabelWhite,
                             )
                         )
@@ -178,7 +199,11 @@ fun RecipeCard() {
                                 .size(24.dp)
                                 .background(
                                     color = Color.White, shape = RoundedCornerShape(size = 12.dp)
-                                ), contentAlignment = Alignment.Center
+                                )
+                                .clickable {
+                                }
+
+                            , contentAlignment = Alignment.Center
                         ) {
                             Image(
                                 painter = painterResource(R.drawable.inactive),
@@ -202,5 +227,5 @@ fun RecipeCard() {
 @Preview(showBackground = true)
 @Composable
 private fun RecipieCardPreview() {
-    RecipeCard()
+    RecipeCard("Traditional spare ribs baked", name = "John", cookingDuration = 30)
 }
