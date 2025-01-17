@@ -41,8 +41,6 @@ import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 
-
-
 @Composable
 fun RecipeCard(
     recipe: Recipe, modifier: Modifier, onClick: () -> Unit = {}, onClickBookmark: () -> Unit = {}
@@ -116,7 +114,7 @@ fun RecipeCard(
 
                 )
                 Text(
-                    "4.0", style = AppTextStyles.regularSmaller.copy(
+                    text = recipe.rating.toString(), style = AppTextStyles.regularSmaller.copy(
                         fontSize = 8.sp
                     )
                 )
@@ -142,7 +140,9 @@ fun RecipeCard(
                         Box(
                             modifier = Modifier
                                 .height(42.dp)
-                                .width((200.dp))
+                                .width((200.dp)),
+                            contentAlignment = Alignment.BottomStart
+
                         ) {
                             Text(
                                 recipe.name, style = AppTextStyles.boldSmall.copy(
@@ -155,7 +155,7 @@ fun RecipeCard(
 
                         }
                         Text(
-                            "By Chef ${recipe.chef}", style = AppTextStyles.regularSmall.copy(
+                            "By Chef ${recipe.chef}", style = AppTextStyles.regularTiny.copy(
                                 color = AppColors.LabelWhite,
                             )
                         )
@@ -177,7 +177,7 @@ fun RecipeCard(
                             modifier = Modifier.size(17.dp)
                         )
                         Text(
-                            "${recipe.time} min",
+                            recipe.time,
                             style = AppTextStyles.boldSmall.copy(
                                 color = AppColors.LabelWhite,
                             )

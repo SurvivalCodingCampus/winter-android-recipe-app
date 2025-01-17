@@ -114,6 +114,13 @@ object AppTextStyles {
         lineHeight = 17.sp
     )
 
+    val regularTiny= TextStyle(
+        fontFamily = poppinsFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 8.sp,
+        lineHeight = 17.sp
+    )
+
 }
 
 
