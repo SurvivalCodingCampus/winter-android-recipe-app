@@ -2,6 +2,8 @@ package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
@@ -20,12 +22,14 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 fun BasicField(
     modifier: Modifier = Modifier,
     value: String,
+    label: String,
+    placeholder: String,
     onValueChange: (String) -> Unit = {}
 ) {
-    Column()
+    Column(modifier = modifier.fillMaxWidth())
     {
         Text(
-            text = "Label",
+            text = label,
             style = AppTextStyles.smallTextRegular.copy(
                 fontSize = 14.sp,
                 color = AppColors.label_color
@@ -35,6 +39,7 @@ fun BasicField(
         Spacer(Modifier.height(5.dp))
 
         OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
             value = value,
             onValueChange = onValueChange,
             textStyle = AppTextStyles.smallTextRegular.copy(
@@ -42,7 +47,7 @@ fun BasicField(
             ),
             placeholder = {
                 Text(
-                    text = "Placeholder",
+                    text = placeholder,
                     style = AppTextStyles.smallTextRegular.copy(
                         color = AppColors.gray_4
                     )
@@ -63,11 +68,11 @@ fun BasicField(
 @Composable
 private fun DefaultPreview() {
     Column {
-        BasicField(value = "")
+        BasicField(value = "", label = "Label", placeholder = "Placeholder")
         Spacer(Modifier.height(30.dp))
-        BasicField(value = "")
+        BasicField(value = "", label = "Label", placeholder = "Placeholder")
         Spacer(Modifier.height(30.dp))
-        BasicField(value = "Placeholder")
+        BasicField(value = "Placeholder", label = "Label", placeholder = "Placeholder")
     }
 
 }
