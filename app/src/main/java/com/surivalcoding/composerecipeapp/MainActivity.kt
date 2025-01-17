@@ -29,12 +29,7 @@ class MainActivity : ComponentActivity() {
                             .padding(innerPadding)
                             .background(color = MaterialTheme.colorScheme.onPrimary)
                     ) {
-                        TaskSubmissionPressedButton()
-//                        DynamicAsyncImage(
-//                            imageUrl = "https://t1.daumcdn.net/cfile/tistory/992371395B3B0B2731",
-//                            contentDescription = null,
-//                            modifier = Modifier.size(80.dp)
-//                        )
+
                     }
                 }
             }

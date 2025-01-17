@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,7 +28,10 @@ import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 @Composable
 fun RatingDialog(
+    onSend: () -> Unit,
+    rating: Int = 0,
     onDismiss: () -> Unit,
+    onRatingChanged: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Dialog(
@@ -39,7 +43,9 @@ fun RatingDialog(
             shape = RoundedCornerShape(8.dp),
         ) {
             Column(
-                modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp),
+                modifier = Modifier
+                    .background(AppColors.White)
+                    .padding(horizontal = 15.dp, vertical = 10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
@@ -48,11 +54,11 @@ fun RatingDialog(
                     style = AppTextStyles.smallTextRegular
                 )
                 RatingBar(
-                    rating = 3,
-                    onRatingChanged = {},
+                    rating = rating,
+                    onRatingChanged = onRatingChanged,
                 )
                 NoPaddingButton(
-                    onClick = onDismiss,
+                    onClick = onSend,
                     contentPadding = PaddingValues(20.dp, 4.dp),
                     shape = RoundedCornerShape(6.dp),
                     colors = ButtonDefaults.buttonColors(
@@ -64,6 +70,7 @@ fun RatingDialog(
                 ) {
                     Text(
                         text = "Send",
+                        style = AppTextStyles.smallerTextSmallLabel
                     )
                 }
             }
@@ -100,7 +107,10 @@ fun RatingBar(
 private fun RatingDialogPreview() {
     ComposeRecipeAppTheme {
         RatingDialog(
-            onDismiss = {}
+            onDismiss = {},
+            onSend = {},
+            rating = 2,
+            onRatingChanged = {}
         )
     }
 }

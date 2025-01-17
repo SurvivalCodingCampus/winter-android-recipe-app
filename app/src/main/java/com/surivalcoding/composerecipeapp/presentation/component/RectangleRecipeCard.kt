@@ -17,7 +17,7 @@ fun RectangleRecipeCard(
     recipeItem: RecipeItem,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    placeholder: Painter = painterResource(R.drawable.spare_ribs),
+    placeholder: Painter = painterResource(R.drawable.traditional_spare_ribs_baked),
 ) {
     RecipeCard(
         recipeItem = recipeItem,
