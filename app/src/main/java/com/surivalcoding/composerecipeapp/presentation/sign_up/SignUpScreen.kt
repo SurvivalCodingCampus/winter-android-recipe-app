@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation.sign_up
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,8 +30,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -113,32 +120,41 @@ fun SignUpScreen(
                     onValueChange = onValueChange
                 )
 
-                Row() {
+                Row(
+                    modifier = Modifier
+                        .width(180.dp)
+                        .padding(top = 20.dp, start = 10.dp),
+                ) {
                     Button(
-                        modifier = Modifier
-                            .padding(top = 20.dp, start = 10.dp)
-                            .width(142.dp)
-                            .height(17.dp),
+                        modifier = Modifier.size(17.dp),
                         onClick = onForgotPasswordClick,
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Transparent, // 버튼의 배경색을 투명으로 설정
-                            contentColor = AppColors.secondary100 // 텍스트 색상
+                            containerColor = Color.Transparent, // 필요 없으면 제거 가능
+                            contentColor = AppColors.secondary100
                         ),
-                        contentPadding = PaddingValues(0.dp) // contentPadding을 0으로 설정
+                        contentPadding = PaddingValues(0.dp),
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.timer),
-                            contentDescription = "Cooking Time",
-                            tint = AppColors.secondary100,
+                        Box(
                             modifier = Modifier
-                                .size(17.dp)
+                                .size(15.dp)
+                                .clip(RoundedCornerShape(5.dp)) // 모양을 강제
+                                .background(Color.White) // 배경 적용
+                                .border(
+                                    width = 1.dp,
+                                    color = Color(0xFFFF9C00),
+                                    shape = RoundedCornerShape(5.dp) // 동일한 모양 유지
+                                ),
                         )
                     }
 
+                    Spacer(
+                        modifier = Modifier
+                            .width(5.dp)
+                            .height(17.dp)
+                    )
 
                     Button(
                         modifier = Modifier
-                            .padding(top = 20.dp, start = 10.dp)
                             .width(142.dp)
                             .height(17.dp),
                         onClick = onForgotPasswordClick,
@@ -149,7 +165,7 @@ fun SignUpScreen(
                         contentPadding = PaddingValues(0.dp) // contentPadding을 0으로 설정
                     ) {
                         Text(
-                            modifier = Modifier,
+                            modifier = Modifier.height(142.dp),
                             text = "Accept terms & Condition",
                             style = AppTextStyles.smallerTextRegular.copy(
                                 fontSize = 11.sp,
@@ -249,7 +265,7 @@ fun SignUpScreen(
                 }
                 Row(
                     modifier = Modifier
-                        .padding(top = 55.dp)
+                        .padding(top = 20.dp)
                         .width(177.dp)
                         .height(17.dp)
                         .align(Alignment.CenterHorizontally),
