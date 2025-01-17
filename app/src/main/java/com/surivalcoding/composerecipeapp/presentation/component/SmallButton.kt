@@ -28,7 +28,7 @@ fun SmallButton(
             .width(174.dp)
             .height(37.dp)
             .background(
-                color = AppColors.primary,
+                color = AppColors.primary100,
                 shape = RoundedCornerShape(10.dp)
             )
             .clickable {
