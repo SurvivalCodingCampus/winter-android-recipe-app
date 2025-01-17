@@ -1,6 +1,6 @@
-package com.surivalcoding.composerecipeapp.presentation.data.mock
+package com.surivalcoding.composerecipeapp.data.mock
 
-import com.surivalcoding.composerecipeapp.presentation.data.model.Ingredient
+import com.surivalcoding.composerecipeapp.data.model.Ingredient
 
 
 val fakeIngredients = listOf(

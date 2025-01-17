@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.R
-import com.surivalcoding.composerecipeapp.presentation.data.model.RecipeItem
+import com.surivalcoding.composerecipeapp.data.model.RecipeItem
 import com.surivalcoding.composerecipeapp.ui.CraIcons
 import com.surivalcoding.composerecipeapp.ui.component.FoodImageBackground
 import com.surivalcoding.composerecipeapp.ui.component.IconToggleButton
