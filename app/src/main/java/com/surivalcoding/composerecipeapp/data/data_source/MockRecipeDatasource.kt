@@ -6,11 +6,17 @@ import kotlinx.serialization.json.Json
 
 class MockRecipeDatasource : RecipeDatasource {
     override suspend fun getSavedRecipes(): List<RecipeDto> {
-        val response = Json.decodeFromString<RecipeResponse>(savedRecipeJson)
-        return response.recipes ?: emptyList()
+        return try {
+            val response = Json.decodeFromString<RecipeResponse>(savedRecipeJson)
+            response.recipes ?: emptyList()
+        } catch (e: Exception) {
+            println("JSON 파싱 에러: ${e.message}")
+            emptyList()
+        }
     }
 
-    private val savedRecipeJson = """
+    companion object {
+        private val savedRecipeJson = """
         {
           "recipes": [
             {
@@ -285,4 +291,5 @@ class MockRecipeDatasource : RecipeDatasource {
           ]
         }
     """.trimIndent()
+    }
 }
