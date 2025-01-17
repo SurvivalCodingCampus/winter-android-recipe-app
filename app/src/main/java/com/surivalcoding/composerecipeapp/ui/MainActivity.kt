@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp
+package com.surivalcoding.composerecipeapp.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
