@@ -14,6 +14,10 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,18 +26,25 @@ import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
+enum class ButtonState {
+    Default,
+    Pressed,
+    Disabled
+}
+
 @Composable
-fun BigButton(
+fun BigButton2(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit = {},
 ) {
+    var buttonState by remember { mutableStateOf(ButtonState.Default) }
     Box(
         modifier = modifier
             .width(315.dp)
             .height(60.dp)
             .background(
-                color = AppColors.primary,
+                color = AppColors.primary100,
                 shape = RoundedCornerShape(10.dp),
             )
             .clickable {
@@ -68,7 +79,7 @@ fun BigButton(
 }
 
 @Composable
-fun MediumButton(
+fun MediumButton2(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit = {},
@@ -78,7 +89,7 @@ fun MediumButton(
             .width(245.dp)
             .height(54.dp)
             .background(
-                color = AppColors.primary,
+                color = AppColors.primary100,
                 shape = RoundedCornerShape(10.dp),
             )
             .clickable {
@@ -113,9 +124,10 @@ fun MediumButton(
 }
 
 @Composable
-fun SmallButton(
+fun SmallButton2(
     modifier: Modifier = Modifier,
     text: String,
+    buttonState: ButtonState = ButtonState.Default,
     onClick: () -> Unit = {},
 ) {
     Box(
@@ -123,7 +135,11 @@ fun SmallButton(
             .width(174.dp)
             .height(37.dp)
             .background(
-                color = AppColors.primary,
+                color = when (buttonState) {
+                    ButtonState.Default -> AppColors.primary100
+                    ButtonState.Pressed -> AppColors.primary100 // Use a lighter shade of primary for pressed state
+                    ButtonState.Disabled -> Color.Gray // Gray color for disabled state
+                },
                 shape = RoundedCornerShape(10.dp),
             )
             .clickable {
@@ -157,12 +173,10 @@ fun SmallButton(
     }
 }
 
-
-
 @Preview(showBackground = true)
 @Composable
 private fun BigButtonPreview() {
-    BigButton(
+    BigButton2(
         text = "Button"
     )
 }
@@ -170,7 +184,7 @@ private fun BigButtonPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun MediumButtonPreview() {
-    MediumButton(
+    MediumButton2(
         text = "Button"
     )
 }
@@ -178,7 +192,7 @@ private fun MediumButtonPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun SmallButtonPreview() {
-    SmallButton(
+    SmallButton2(
         text = "Button"
     )
 }

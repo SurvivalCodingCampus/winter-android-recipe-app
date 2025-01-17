@@ -56,7 +56,7 @@ fun InputField(
                   unfocusedPlaceholderColor = Color.Gray,
                   focusedTextColor = Color.Black,
                   unfocusedTextColor = Color.Black,
-                  focusedBorderColor = AppColors.primary
+                  focusedBorderColor = AppColors.primary100
             ),
             modifier = Modifier
                 .fillMaxWidth()
