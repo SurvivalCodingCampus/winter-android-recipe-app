@@ -1,134 +1,183 @@
-package com.surivalcoding.composerecipeapp.presentation.component
-
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Add
-
-import androidx.compose.material.icons.outlined.DateRange
-
-import androidx.compose.material3.Icon
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.surivalcoding.composerecipeapp.R
+import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
-
-data class Recipe(
-    val title: String,
-    val creator: String,
-    val imageUrl: String,
-    val rating: Float,
-    val cookingTime: Int,
-    val isBookmarked: Boolean = false
-)
 
 @Composable
 fun RecipeCard(
     recipe: Recipe,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onBookmarkClick: () -> Unit = {}
 ) {
-    val configuration = LocalConfiguration.current
-    val screenWidth = configuration.screenWidthDp.dp
-
-    ConstraintLayout(
+    Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(150.dp)
+            .aspectRatio(315f / 150f)
+            .clip(RoundedCornerShape(10.dp))
+            .background(Color.Black)
     ) {
-        val (image, title, creator, timeIcon, time, ratingIcon, rating, bookmark) = createRefs()
+        // 이미지 및 그라데이션 오버레이
+        Box(modifier = Modifier.fillMaxSize()) {
+            AsyncImage(
+                model = recipe.image,
+                contentDescription = recipe.name,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
 
-        AsyncImage(
-            model = recipe.imageUrl,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
+            // 그라데이션 오버레이
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Transparent,
+                                Color.Black.copy(alpha = 0.7f)
+                            )
+                        )
+                    )
+            )
+        }
+
+        // 컨텐츠
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .constrainAs(image) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
+                .fillMaxSize()
+                .padding(10.dp),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            // 상단 평점
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                Box(
+                    modifier = Modifier
+                        .background(
+                            color = AppColors.secondary20,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.star),
+                            contentDescription = "Rating",
+                            modifier = Modifier.size(8.dp)
+                        )
+                        Text(
+                            text = recipe.rating.toString(),
+                            style = AppTextStyles.smallerTextRegular.copy(
+                                fontSize = 8.sp,
+                                color = AppColors.black
+                            )
+                        )
+                    }
                 }
-        )
-
-        Text(
-            text = recipe.title,
-            style = AppTextStyles.normalTextBold,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.constrainAs(title) {
-                bottom.linkTo(creator.top, margin = 4.dp)
-                start.linkTo(parent.start, margin = 16.dp)
-                end.linkTo(parent.end, margin = 16.dp)
-                width = Dimension.fillToConstraints
             }
-        )
 
-        Text(
-            text = "By ${recipe.creator}",
-            style = AppTextStyles.smallTextRegular,
-            modifier = Modifier.constrainAs(creator) {
-                bottom.linkTo(parent.bottom, margin = 16.dp)
-                start.linkTo(parent.start, margin = 16.dp)
-            }
-        )
+            // 하단 정보
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                // 레시피 정보
+                Column {
+                    Text(
+                        text = recipe.name,
+                        style = AppTextStyles.smallTextBold.copy(
+                            color = Color.White,
+                        ),
+                        maxLines = 2,
+                        modifier = Modifier.width(150.dp)
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "By ${recipe.chef}",
+                        style = AppTextStyles.smallerTextRegular.copy(
+                            color = AppColors.gray4
+                        )
+                    )
+                }
 
-        Icon(
-            imageVector = Icons.Outlined.DateRange,
-            contentDescription = null,
-            modifier = Modifier.constrainAs(timeIcon) {
-                bottom.linkTo(parent.bottom, margin = 16.dp)
-                start.linkTo(creator.end, margin = 16.dp)
-            }
-        )
+                // 시간 및 북마크
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(5.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.timer),
+                            contentDescription = "Timer",
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Text(
+                            text = recipe.time,
+                            style = AppTextStyles.smallerTextRegular.copy(
+                                color = AppColors.gray4
+                            )
+                        )
+                    }
 
-        Text(
-            text = "${recipe.cookingTime} min",
-            style = AppTextStyles.smallTextRegular,
-            modifier = Modifier.constrainAs(time) {
-                bottom.linkTo(parent.bottom, margin = 16.dp)
-                start.linkTo(timeIcon.end, margin = 4.dp)
+                    // 북마크 버튼
+                    Box(
+                        modifier = Modifier
+                            .size(24.dp)
+                            .background(
+                                color = Color.White,
+                                shape = CircleShape
+                            )
+                            .clickable(onClick = onBookmarkClick),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.inactive),
+                            contentDescription = "Bookmark",
+                            modifier = Modifier
+                                .size(16.dp)
+                        )
+                    }
+                }
             }
-        )
-
-        Icon(
-            imageVector = Icons.Default.Star,
-            contentDescription = null,
-            tint = AppColors.secondary100,
-            modifier = Modifier.constrainAs(ratingIcon) {
-                top.linkTo(parent.top, margin = 16.dp)
-                end.linkTo(rating.start, margin = 4.dp)
-            }
-        )
-
-        Text(
-            text = "${recipe.rating}",
-            style = AppTextStyles.smallTextRegular,
-            modifier = Modifier.constrainAs(rating) {
-                top.linkTo(parent.top, margin = 16.dp)
-                end.linkTo(parent.end, margin = 16.dp)
-            }
-        )
-
-        Icon(
-            imageVector = Icons.Outlined.Add,
-            contentDescription = null,
-            modifier = Modifier.constrainAs(bookmark) {
-                bottom.linkTo(parent.bottom, margin = 16.dp)
-                end.linkTo(parent.end, margin = 16.dp)
-            }
-        )
+        }
     }
 }
 
@@ -137,11 +186,14 @@ fun RecipeCard(
 private fun RecipeCardPreview() {
     RecipeCard(
         recipe = Recipe(
-            title = "Spicy fried rice mix chicken bali",
-            creator = "Spicy Nelly",
-            imageUrl = "https://example.com/image.jpg",
+            category = "Indian",
+            id = 1,
+            name = "Traditional spare ribs baked",
+            image = "https://cdn.pixabay.com/photo/2017/11/10/15/04/steak-2936531_1280.jpg",
+            chef = "Chef John",
+            time = "20 min",
             rating = 4.0f,
-            cookingTime = 20
+            ingredients = emptyList()
         )
     )
 }
