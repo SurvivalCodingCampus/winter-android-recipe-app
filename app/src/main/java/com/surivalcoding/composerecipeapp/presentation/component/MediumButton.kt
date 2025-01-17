@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,9 +16,14 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,16 +36,24 @@ fun MediumButton(
     text: String,
     onClick: () -> Unit = {},
 ) {
+    var isPressed by remember { mutableStateOf(false) }
     Box(
         modifier = modifier
             .width(243.dp)
             .height(54.dp)
             .background(
-                color = AppColors.primary,
+                color = if(isPressed) AppColors.darkgray else AppColors.primary,
                 shape = RoundedCornerShape(10.dp),
             )
-            .clickable {
-                onClick()
+            .pointerInput(Unit) {
+                detectTapGestures (
+                    onPress = {
+                        isPressed = true
+                        tryAwaitRelease()
+                        isPressed = false
+                    },
+                    onTap = { /* 클릭시 수행할 동작 */ }
+                )
             },
         contentAlignment = Alignment.Center,
     ) {

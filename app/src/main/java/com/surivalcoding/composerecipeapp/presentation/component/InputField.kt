@@ -35,7 +35,9 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun InputField(
     modifier: Modifier = Modifier,
-    text: String,
+    title: String,
+    placeholder: String,
+    typing: String,
     borderColor: Color,
     onValueChange: (String) -> Unit = {},
     onFocusChanged: (FocusState) -> Unit = {}
@@ -48,7 +50,7 @@ fun InputField(
         Column(
         ) {
             Box() {
-                Text("Label")
+                Text(text = title)
             }
             Spacer(Modifier.height(8.dp))
             TextField(
@@ -57,16 +59,15 @@ fun InputField(
                     .background(Color.White)
                     .border(1.5.dp, color = borderColor, shape = RoundedCornerShape(8.dp))
                     .onFocusChanged(onFocusChanged),
-                value = text,
+                value = typing,
                 onValueChange = onValueChange,
                 colors = TextFieldDefaults.colors(
                     unfocusedContainerColor = Color.White,
-                    unfocusedTextColor = Color(
-                        android.graphics.Color.parseColor("#D9D9D9")
-                    ),
+                    unfocusedTextColor = AppColors.gray,
                     focusedContainerColor = Color.White,
                 ),
-                shape = RoundedCornerShape(10.dp)
+                shape = RoundedCornerShape(10.dp),
+                placeholder = { Text(text = placeholder, color = AppColors.gray) }
             )
         }
     }
@@ -75,12 +76,19 @@ fun InputField(
 @Preview(showBackground = true)
 @Composable
 private fun InputFieldPreview() {
-    var text by remember { mutableStateOf("placeholder") }
+    makeInputField(title = "hello", placeholder = "hello")
+}
+
+@Composable
+fun makeInputField(title: String, placeholder: String) {
+    var typing by remember { mutableStateOf("") }
     var borderColor by remember { mutableStateOf(Color.Gray) }
     InputField(
-        text = text,
+        title = title,
+        placeholder = placeholder,
+        typing = typing,
         borderColor = borderColor,
-        onValueChange = { newText -> text = newText },
+        onValueChange = { newText -> typing = newText },
         onFocusChanged = { onFocusState ->
             if(onFocusState.isFocused) {
                 borderColor = AppColors.primary
