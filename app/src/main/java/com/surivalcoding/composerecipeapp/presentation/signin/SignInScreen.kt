@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.screen
+package com.surivalcoding.composerecipeapp.presentation.signin
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
