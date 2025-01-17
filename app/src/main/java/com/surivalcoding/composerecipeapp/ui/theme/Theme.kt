@@ -58,6 +58,33 @@ private val DarkColorScheme = darkColorScheme(
     onSurfaceVariant = AppColors.White
 )
 
+
+object DesignTokens {
+    // Layout
+    object Layout {
+        // Figma screen size
+        const val FIGMA_SCREEN_WIDTH = 375f
+        const val FIGMA_SCREEN_HEIGHT = 823f
+    }
+
+    // Spacing (Figma px values)
+    object Spacing {
+        val small = 8
+        val medium = 16
+        val large = 24
+        val xlarge = 32
+    }
+
+    // Component sizes (Figma px values)
+    object Components {
+        val buttonWidth = 315
+        val buttonHeight = 60
+        val iconSize = 24
+        val inputHeight = 48
+    }
+}
+
+
 @Composable
 fun ComposeRecipeAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

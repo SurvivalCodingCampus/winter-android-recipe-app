@@ -9,7 +9,7 @@ object AppColors {
     val Gray3 = Color(0xFFA9A9A9)
     val Gray4 = Color(0xFFD9D9D9)
     val White = Color(0xFFFFFFFF)
-    val LabelWhite = Color(0x9d9d9d9d)
+    val LabelWhite = Color(0xFFD9D9D9)
 
     val Primary100 = Color(0xFF129575)
     val Primary80 = Color(0xFF71B1A1)
