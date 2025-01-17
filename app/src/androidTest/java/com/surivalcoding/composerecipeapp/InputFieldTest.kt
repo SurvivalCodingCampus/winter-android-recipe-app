@@ -5,25 +5,26 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTextInput
-import com.surivalcoding.composerecipeapp.presentation.component.CraOutlinedTextField
+import com.surivalcoding.composerecipeapp.presentation.component.InputField
 import org.junit.Rule
 import org.junit.Test
 
-class CraOutlinedTextFieldTest {
+class InputFieldTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
     @Test
-    fun testCraOutlinedTextFieldInput() {
+    fun test_InputField_Input() {
         val inputText = mutableStateOf("")
 
         composeTestRule.setContent {
-            CraOutlinedTextField(
+            InputField(
                 value = inputText.value,
                 onValueChange = { inputText.value = it },
                 placeholder = "Enter text",
-                enabled = true
+                enabled = true,
+                label = "Label"
             )
         }
 
