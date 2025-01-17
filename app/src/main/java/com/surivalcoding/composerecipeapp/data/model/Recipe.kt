@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.model
+package com.surivalcoding.composerecipeapp.data.model
 
 data class Recipe(
     val chef: String = "By Chef",
