@@ -122,8 +122,8 @@ fun SignUpScreen(
 
                 Row(
                     modifier = Modifier
-                        .width(180.dp)
-                        .padding(top = 20.dp, start = 10.dp),
+                        .width(170.dp)
+                        .padding(top = 20.dp, start = 9.dp),
                 ) {
                     Button(
                         modifier = Modifier.size(17.dp),
@@ -149,7 +149,7 @@ fun SignUpScreen(
 
                     Spacer(
                         modifier = Modifier
-                            .width(5.dp)
+                            .width(4.dp)
                             .height(17.dp)
                     )
 
@@ -159,10 +159,10 @@ fun SignUpScreen(
                             .height(17.dp),
                         onClick = onForgotPasswordClick,
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Transparent, // 버튼의 배경색을 투명으로 설정
-                            contentColor = AppColors.secondary100 // 텍스트 색상
+                            containerColor = Color.Transparent,
+                            contentColor = AppColors.secondary100
                         ),
-                        contentPadding = PaddingValues(0.dp) // contentPadding을 0으로 설정
+                        contentPadding = PaddingValues(0.dp)
                     ) {
                         Text(
                             modifier = Modifier.height(142.dp),
