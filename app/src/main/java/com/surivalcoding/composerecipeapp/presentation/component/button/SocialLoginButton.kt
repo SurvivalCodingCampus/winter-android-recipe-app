@@ -25,7 +25,7 @@ fun SocialLoginButton(
     Box(
         modifier = modifier
             .size(44.dp)
-            .clip(RoundedCornerShape(10.dp))
+//            .clip(RoundedCornerShape(10.dp))
             .shadow(
                 elevation = 5.dp,
                 spotColor = Color.Black,
