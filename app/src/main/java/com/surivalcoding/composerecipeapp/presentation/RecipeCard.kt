@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -133,22 +135,23 @@ fun RecipeCard(
                         shape = RoundedCornerShape(20.dp)
                     )
                     .align(Alignment.TopEnd)
-                    .padding(vertical = 4.dp, horizontal = 7.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(horizontal = 7.dp, vertical = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(3.dp)
             ) {
                 Image(
                     painter = starImage,
-                    contentScale = ContentScale.Crop,
-                    contentDescription = null
+                    modifier = Modifier
+                        .size(8.dp)
+                        .offset(y = ((-0.5).dp)),
+                    contentDescription = null,
                 )
-
-                Spacer(modifier = Modifier.width(3.dp))
 
                 Text(
                     text = rate.toString(),
                     style = AppTextStyles.smallTextRegular.copy(
                         fontSize = 8.sp, color = AppColors.black
-                    )
+                    ),
                 )
             }
         }

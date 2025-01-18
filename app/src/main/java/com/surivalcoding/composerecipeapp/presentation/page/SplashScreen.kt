@@ -32,9 +32,6 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
-    logoText: String,
-    contentText: String,
-    contentDescription: String,
     onClick: () -> Unit,
 ) {
 
@@ -72,7 +69,7 @@ fun SplashScreen(
             Spacer(modifier = Modifier.height(14.dp))
 
             Text(
-                text = logoText,
+                text = "100K+ Premium Recipe",
                 style = AppTextStyles.mediumTextSemiBold.copy(
                     color = AppColors.white
                 )
@@ -82,7 +79,7 @@ fun SplashScreen(
 
             Text(
                 modifier = Modifier.width(213.dp),
-                text = contentText,
+                text = "Get Cooking",
                 style = AppTextStyles.mediumTextSemiBold.copy(
                     fontSize = 50.sp, color = AppColors.white
                 ),
@@ -92,7 +89,7 @@ fun SplashScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(
-                text = contentDescription,
+                text = "Simple way to find Tasty Recipe",
                 style = AppTextStyles.smallTextRegular.copy(
                     fontSize = 16.sp,
                     color = AppColors.white
@@ -112,9 +109,7 @@ fun SplashScreen(
 @Preview
 @Composable
 private fun SplashScreenPreview() {
-    SplashScreen(
-        logoText = "100K+ Premium Recipe",
-        contentText = "Get Cooking",
-        contentDescription = "Simple way to find Tasty Recipe"
-    ) {}
+    SplashScreen {
+        // 화면 이동 처리 필요
+    }
 }
