@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.R
-import com.surivalcoding.composerecipeapp.data.model.RecipeItem
+import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
 import com.surivalcoding.composerecipeapp.ui.CraIcons
 import com.surivalcoding.composerecipeapp.ui.component.FoodImageBackground
 import com.surivalcoding.composerecipeapp.ui.component.IconToggleButton
@@ -30,7 +30,7 @@ import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 
 @Composable
 fun RecipeCard(
-    recipeItem: RecipeItem,
+    savedRecipe: SavedRecipe,
     contentDescription: String?,
     shouldShowRecipeMetadata: Boolean = false,
     modifier: Modifier = Modifier,
@@ -41,14 +41,14 @@ fun RecipeCard(
         shape = RoundedCornerShape(10.dp)
     ) {
         FoodImageBackground(
-            imageUrl = recipeItem.thumbnailUrl,
+            imageUrl = savedRecipe.thumbnailUrl,
             placeholder = placeholder,
             contentDescription = contentDescription,
             modifier = Modifier
                 .fillMaxSize()
         ) {
             ReviewScore(
-                rating = recipeItem.rating,
+                rating = savedRecipe.rating,
                 modifier = Modifier.align(Alignment.TopEnd)
             )
             Row(
@@ -61,7 +61,7 @@ fun RecipeCard(
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(
-                        text = recipeItem.title,
+                        text = savedRecipe.title,
                         style = AppTextStyles.smallTextBold,
                         color = AppColors.White,
                         maxLines = 2,
@@ -69,7 +69,7 @@ fun RecipeCard(
                     )
                     Spacer(Modifier.height(3.dp))
                     Text(
-                        text = "By ${recipeItem.authorName}",
+                        text = "By ${savedRecipe.authorName}",
                         style = AppTextStyles.smallerTextSmallLabel.copy(
                             fontSize = 8.sp
                         ),
@@ -80,8 +80,8 @@ fun RecipeCard(
                 }
                 if (shouldShowRecipeMetadata) {
                     RecipeMetaData(
-                        isBookmarked = recipeItem.isBookmarked,
-                        cookingMinute = recipeItem.cookingMinute
+                        isBookmarked = savedRecipe.isBookmarked,
+                        cookingMinute = savedRecipe.cookingMinute
                     )
                 }
             }
