@@ -85,8 +85,8 @@ fun LoadingWheel(
         label = "wheel rotation animation",
     )
 
-    val baseLineColor = AppColors.White
-    val progressLineColor = AppColors.Primary100
+    val baseLineColor = AppColors.Primary100
+    val progressLineColor = AppColors.White
 
     val colorAnimValues = (0 until NUM_OF_LINES).map { index ->
         infiniteTransition.animateColor(

@@ -1,8 +1,10 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,15 +20,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.R
+import com.surivalcoding.composerecipeapp.data.mock.fakeSavedRecipe
 import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
 import com.surivalcoding.composerecipeapp.ui.CraIcons
 import com.surivalcoding.composerecipeapp.ui.component.FoodImageBackground
 import com.surivalcoding.composerecipeapp.ui.component.IconToggleButton
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
+import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 @Composable
 fun RecipeCard(
@@ -37,7 +42,8 @@ fun RecipeCard(
     placeholder: Painter = painterResource(R.drawable.traditional_spare_ribs_baked),
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxWidth(),
         shape = RoundedCornerShape(10.dp)
     ) {
         FoodImageBackground(
@@ -53,12 +59,15 @@ fun RecipeCard(
             )
             Row(
                 verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.BottomStart)
             ) {
                 Column(
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.fillMaxWidth(
+                        if (shouldShowRecipeMetadata) 0.5f else 1f
+                    )
                 ) {
                     Text(
                         text = savedRecipe.title,
@@ -125,6 +134,18 @@ fun RecipeMetaData(
                     contentDescription = null
                 )
             },
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun RecipeCardPreview() {
+    ComposeRecipeAppTheme {
+        RecipeCard(
+            fakeSavedRecipe[0],
+            contentDescription = null,
+            modifier = Modifier.aspectRatio(1f)
         )
     }
 }

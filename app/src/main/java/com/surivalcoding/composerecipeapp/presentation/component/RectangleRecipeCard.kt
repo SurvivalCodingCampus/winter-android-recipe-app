@@ -30,7 +30,7 @@ fun RectangleRecipeCard(
 
 @Preview
 @Composable
-fun RecipeCardPreview() {
+fun RectangleRecipeCardPreview() {
     val savedRecipe = SavedRecipe(
         title = "Lamb chops with fruity couscous and mint\n\n",
         rating = 4.0,
