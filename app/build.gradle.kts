@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("plugin.serialization") version "2.1.0"
 }
 
 android {
@@ -58,6 +59,17 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.core)
+    testImplementation (libs.kotlinx.coroutines.test)
+    implementation(libs.slf4j.simple)
+    implementation(libs.dotenv.kotlin)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+
+    val ktor_version = "3.0.3"
+
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    testImplementation(libs.ktor.client.mock)
 }
