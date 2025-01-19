@@ -1,18 +1,20 @@
 package com.surivalcoding.composerecipeapp.data.model
 
+import kotlinx.serialization.SerialName
+
 data class Recipe(
-    val chef: String = "By Chef",
-    val title: String = "Title",
-    val cookingDuration: Int = 0,
-    val starRate: Double = 0.0,
-    val thumbnailUrl: String = "",
+    val category: String,
+    val id: Int,
+    @SerialName("name") val title: String,
+    @SerialName("image") val thumbnailUrl: String,
+    val chef: String? = "By Chef",
+    @SerialName("time") val cookingDuration: String,
+    @SerialName("rating") val starRate: Double,
+    val ingredients: List<Ingredient>,
 ) {
-    val id: Int = 0
     val procedure: String = ""
-    val ingredients: String = ""
     val editedAt: String = ""
     val createdAy: String = ""
-    val category: String = ""
     val savedCount: String = ""
     val serving: String = ""
     val videoUrl: String = ""
