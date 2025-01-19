@@ -1,6 +1,5 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
-import android.graphics.drawable.Icon
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
@@ -31,25 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
+import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 import java.time.LocalDateTime
-
-data class Recipe(
-    val id: String,
-    val name: String,
-    val authorName: String,
-    val timeTaken: Int,
-    val rate: Float,
-    val circledThumbnailImageUrl: String,
-    val thumbnailImageUrl: String,
-    val isUserSaved: Boolean,
-    val isUserReviewed: Boolean,
-    val isUserRated: Boolean,
-    val isNew: Boolean,
-    val categories: List<String>,
-    val createdAt: LocalDateTime
-)
 
 @Composable
 fun RecipeCard(
@@ -66,7 +49,7 @@ fun RecipeCard(
         // 배경 이미지
         AsyncImage(
             model = recipe.thumbnailImageUrl,
-            contentDescription = "Recipe Thumbnail",
+            contentDescription = "com.surivalcoding.composerecipeapp.data.model.Recipe Thumbnail",
             modifier = Modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(12.dp)),
@@ -165,7 +148,6 @@ fun RecipeCard(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun RecipeCardPreview() {
@@ -183,7 +165,7 @@ fun RecipeCardPreview() {
             isUserRated = true,
             isNew = false,
             categories = listOf("Italian", "Pasta"),
-            createdAt = LocalDateTime.now()
+            createdAt = "2023-10-16T12:00:00"
         )
     )
 }
