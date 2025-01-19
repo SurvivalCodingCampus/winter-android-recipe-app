@@ -40,7 +40,8 @@ fun ReviewScore(
         Spacer(Modifier.width(3.dp))
         Text(
             text = "${round(rating * 10) / 10}",
-            style = AppTextStyles.smallerTextSmallLabel
+            style = AppTextStyles.smallerTextSmallLabel,
+            color = AppColors.Black
         )
     }
 }
