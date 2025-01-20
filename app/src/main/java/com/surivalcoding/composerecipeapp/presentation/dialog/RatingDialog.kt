@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.component.dialog
+package com.surivalcoding.composerecipeapp.presentation.dialog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -39,7 +39,7 @@ fun RatingDialog(
     starIndex: Int = 0,
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit = {},
-    onChange: (Int) -> Unit = {}
+    send: (Int) -> Unit = {},
 ) {
     Dialog(
         onDismissRequest = { onDismissRequest() }
@@ -47,6 +47,8 @@ fun RatingDialog(
 
         val emptyStarImage = painterResource(R.drawable.star_empty)
         val fillStarImage = painterResource(R.drawable.star_fill)
+        // 별 채워짐 상태 변수
+        var starState by remember { mutableIntStateOf(starIndex) }
 
 
         Card(
@@ -79,15 +81,12 @@ fun RatingDialog(
                 ) {
                     repeat(5) { index ->
                         Image(
-                            painter = if (index < starIndex) fillStarImage else emptyStarImage,
+                            painter = if (index < starState) fillStarImage else emptyStarImage,
                             contentDescription = null,
                             modifier = Modifier
                                 .weight(1f)
                                 .padding(horizontal = 2.dp)
-                                .clickable {
-                                    // 선택된 개수를 콜백으로 반환 (인덱스 + 1)
-                                    onChange(index + 1)
-                                },
+                                .clickable { starState = index + 1 },
                         )
                     }
 
@@ -97,11 +96,11 @@ fun RatingDialog(
                 Box(
                     modifier = Modifier
                         .background(
-                            color = if (starIndex > 0) AppColors.rating else AppColors.gray_4,
+                            color = if (starState > 0) AppColors.rating else AppColors.gray_4,
                             shape = RoundedCornerShape(6.dp)
                         )
-                        .clickable(enabled = starIndex > 0) {
-                            println("점수 리턴 $starIndex")
+                        .clickable(enabled = starState > 0) {
+                            send(starState)
                         }
                         .padding(vertical = 4.dp, horizontal = 20.dp)
                 ) {
@@ -122,12 +121,10 @@ fun RatingDialog(
 @Preview(showBackground = true)
 @Composable
 private fun RatingDialogPreview() {
-    // 별 채워짐 상태 변수
-    var starIndex by remember { mutableIntStateOf(0) }
-    RatingDialog(title = "Rate recipe", actionName = "Send", starIndex = starIndex, onChange = { index ->
-        starIndex = index
-    }, onDismissRequest = {
+    RatingDialog(title = "Rate recipe", actionName = "Send", starIndex = 0, onDismissRequest = {
         println("다이얼로그 종료 해버리깅!!")
+    }, send = {
+        println("보낸 별 갯수 $it ")
     })
 }
 
@@ -136,17 +133,10 @@ private fun RatingDialogPreview() {
 private fun RatingDialogPreviewCheck() {
     // 별 채워짐 상태 변수
     var starIndex by remember { mutableIntStateOf(3) }
-    RatingDialog(title = "Rate recipe", actionName = "Send", starIndex = starIndex, onChange = { index ->
-        starIndex = index
-    }, onDismissRequest = {
+    RatingDialog(title = "Rate recipe", actionName = "Send", starIndex = starIndex, onDismissRequest = {
         println("다이얼로그 종료 해버리깅!!")
     })
 }
 
-fun main() {
-    for (i in 0..5) {
-        println("$i")
-    }
-}
 
 

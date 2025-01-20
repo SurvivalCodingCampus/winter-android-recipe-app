@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 android {
@@ -61,4 +62,13 @@ dependencies {
     // coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+
+    // kotlin - serialization
+    implementation(libs.kotlinx.serialization.json)
+
+    // viewModel - compose
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // viewModel - ktx
+    implementation(libs.lifecycle.viewmodel.ktx)
 }

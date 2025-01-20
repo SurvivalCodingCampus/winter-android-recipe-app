@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.component.button
+package com.surivalcoding.composerecipeapp.presentation.button
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
