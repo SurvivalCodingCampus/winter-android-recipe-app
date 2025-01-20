@@ -150,7 +150,7 @@ fun RecipeCard(
                     modifier = Modifier.size(17.dp)
                 )
                 Text(
-                    text = cookTime,
+                    text = "$cookTime min",
                     style = PoppinsRegularTypography.bodySmall.copy(
                         color = Gray4,
                         fontSize = 11.sp,
@@ -188,7 +188,7 @@ fun RecipeCardExample() {
             title = "Traditional Korean Fried Rice",
             chefName = "Chef Felix",
             rating = "4.0",
-            cookTime = "20 min"
+            cookTime = "20"
         )
     }
 }
@@ -203,6 +203,6 @@ fun RecipeCardPreview() {
         title = "Traditional Korean Fried Ricedsafasdfasfsadadsfasdafdsddssss",
         chefName = "Chef Felix",
         rating = "4.0",
-        cookTime = "20 min"
+        cookTime = "20"
     )
 }
