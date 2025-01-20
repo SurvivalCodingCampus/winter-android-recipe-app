@@ -283,25 +283,19 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun RecipeCard(
     modifier: Modifier = Modifier,
+    foodImage: String,
     title: String,
     chefName: String,
     rate: Float,
     cookingTimeMinute: Int,
 ) {
 
-    val foodImageUrl =
-        "https://s3-alpha-sig.figma.com/img/2234/134e/6e53ef9148ab9085bbd1369e270f0bba?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=EqiXQQNVRFWuqESZom-1RtDiC9xnbTUwd86cR8JgxmbZsq-Jt-7BUsHJqphUR76SIa1H94xf3gs7-6Ox--ScLe82XIXZGRpAv~s8ovK0RjoEDU8lIIj6H6lPXgKGXFIwFQb3oO6d5SD4~61Vw0F-fX-RJ5Q-Gp86CzooV62~PykTQuptWK~zcSWnzIcus7zB4qLWW7Kqn0Ipb2zMeNjqj2U5Dm69ouwW~mz4Aw22hJQgkw4fzVDzoPIBEWcouxuRgrL4UY8Zb020hZ8yC7AipzhgR4h6fl5zia1qRSZBgHJ~suoyk571P0HZmX0s6tfInaIOnJmPdvGa0kDp3r~qqw__"
+    val foodImageUrl = foodImage
 
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Spacer(
-            modifier = Modifier
-                .padding(100.dp)
-        )
-
-
 
         Box(    // 전체 화면 규격
             modifier = Modifier
@@ -364,12 +358,12 @@ fun RecipeCard(
 @Preview(showBackground = true)
 @Composable
 private fun RecipeCardPreview() {
-    RecipeCard(
+    /*RecipeCard(
         title = "Traditional spare ribs baked",
         chefName = "John",
         rate = 4.0f,
         cookingTimeMinute = 20,
-    )
+    )*/
 }
 
 @Composable
@@ -423,7 +417,7 @@ fun RecipeRate(modifier: Modifier = Modifier, rate: Float) {
             modifier = Modifier
                 .size(10.dp),
             imageVector = Icons.Rounded.Star,
-            colorFilter = ColorFilter.tint(AppColors.goldyello),
+            colorFilter = ColorFilter.tint(AppColors.Secondary_100),
             contentDescription = null
         )
 

@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.ui.AppColors
+import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
 fun InputField(
@@ -41,11 +43,18 @@ fun InputField(
             .height(81.dp)
     ) {
         Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             Box() {
-                Text(text = title)
+                Text(
+                    text = title,
+                    style = AppTextStyles.smallTextRegular,
+                    color = AppColors.Label_Colour
+                )
             }
-            Spacer(Modifier.height(8.dp))
+
             TextField(
                 modifier = Modifier
                     .fillMaxSize()
@@ -53,16 +62,24 @@ fun InputField(
                     .border(1.5.dp, color = borderColor, shape = RoundedCornerShape(8.dp))
                     .onFocusChanged(onFocusChanged),
                 value = typing,
+                textStyle = AppTextStyles.smallerTextRegular,
                 onValueChange = onValueChange,
                 colors = TextFieldDefaults.colors(
                     unfocusedContainerColor = Color.White,
                     unfocusedTextColor = AppColors.gray_04,
                     focusedContainerColor = Color.White,
                     focusedIndicatorColor = Color.Transparent,
+                    focusedTextColor = AppColors.Label_Colour,
                     unfocusedIndicatorColor = Color.Transparent
                 ),
                 shape = RoundedCornerShape(10.dp),
-                placeholder = { Text(text = placeholder, color = AppColors.gray_04) }
+                placeholder = {
+                    Text(
+                    text = placeholder,
+                    style = AppTextStyles.smallerTextRegular,
+                    color = AppColors.gray_04
+                    )
+                }
             )
         }
     }
@@ -77,7 +94,7 @@ private fun InputFieldPreview() {
 @Composable
 fun makeInputField(title: String, placeholder: String) {
     var typing by remember { mutableStateOf("") }
-    var borderColor by remember { mutableStateOf(Color.Gray) }
+    var borderColor by remember { mutableStateOf(AppColors.gray_04) }
     InputField(
         title = title,
         placeholder = placeholder,
@@ -85,10 +102,10 @@ fun makeInputField(title: String, placeholder: String) {
         borderColor = borderColor,
         onValueChange = { newText -> typing = newText },
         onFocusChanged = { onFocusState ->
-            if(onFocusState.isFocused) {
+            if (onFocusState.isFocused) {
                 borderColor = AppColors.primary
             } else {
-                borderColor = Color.Gray
+                borderColor = AppColors.gray_04
             }
         }
     )

@@ -3,8 +3,11 @@ package com.surivalcoding.composerecipeapp.presentation.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -12,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.sharp.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -20,14 +24,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.simulateHotReload
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.ui.AppColors
+import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 /*@Composable
 fun RatingButton(
@@ -99,9 +106,64 @@ fun RatingButton(
 }*/
 
 @Composable
-fun RatingButton(modifier: Modifier = Modifier) {
-    
+fun RatingButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    isSelected: Boolean
+) {
+    Box(
+        modifier = Modifier
+            .width(50.dp)
+            .height(28.dp)
+            .background(
+                color = if (isSelected) {
+                    AppColors.primary_100
+                } else {
+                    AppColors.white
+                },
+                shape = RoundedCornerShape(10.dp)
+            )
+            .border(
+                width = 1.dp,
+                brush = if(isSelected) {
+                    SolidColor(AppColors.white)
+                } else {
+                    SolidColor(AppColors.primary_80)
+                },
+                shape = RoundedCornerShape(10.dp)),
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxHeight(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Text(
+                text = "5",
+                color = if (isSelected) {
+                    AppColors.white
+                } else {
+                    AppColors.primary_80
+                },
+                style = AppTextStyles.smallerTextRegular,
+            )
+            Icon(
+                modifier = Modifier
+                    .size(20.dp),
+                imageVector = Icons.Rounded.Star,
+                contentDescription = null,
+                tint = if (isSelected) {
+                    AppColors.white
+                } else {
+                    AppColors.primary_80
+                },
+
+            )
+        }
+    }
 }
+
 @Preview(showBackground = true)
 @Composable
 private fun RatingButtonPreview() {
@@ -126,4 +188,9 @@ private fun RatingButtonPreview() {
             backGroundColorSecond = AppColors.primary
             textColorSecond = Color.White
         })*/
+
+    RatingButton(
+        text = "5",
+        isSelected = false
+    )
 }
