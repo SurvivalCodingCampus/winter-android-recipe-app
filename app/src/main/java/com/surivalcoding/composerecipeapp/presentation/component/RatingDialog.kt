@@ -1,7 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,8 +12,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Star
-import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -155,7 +152,7 @@ fun RatingDialog(
                 modifier = Modifier
                     .width(61.dp)
                     .height(20.dp)
-                    .background(color = AppColors.gray, shape = RoundedCornerShape(7.dp)),
+                    .background(color = AppColors.gray_04, shape = RoundedCornerShape(7.dp)),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
