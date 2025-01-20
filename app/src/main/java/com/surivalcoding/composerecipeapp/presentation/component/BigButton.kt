@@ -34,6 +34,8 @@ fun BigButton(
     modifier: Modifier = Modifier,
     buttonText: String,
     iconSizePercent: Float = 1.0f,
+    onClick: () -> Unit,
+    enabled: Boolean = true,
 ) {
     val configuration = LocalConfiguration.current
     val fontScale = configuration.fontScale
@@ -51,13 +53,16 @@ fun BigButton(
                 shape = RoundedCornerShape(10.dp)
             )
             .pointerInput(Unit) {
-                detectTapGestures(
-                    onPress = {
-                        isPressed = true
-                        tryAwaitRelease()
-                        isPressed = false
-                    }
-                )
+                if (enabled) {  // enabled 상태일 때만 터치 이벤트 처리
+                    detectTapGestures(
+                        onPress = {
+                            isPressed = true
+                            tryAwaitRelease()
+                            isPressed = false
+                            onClick()
+                        }
+                    )
+                }
             },
         horizontalArrangement = Arrangement.spacedBy(11.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
@@ -84,6 +89,7 @@ fun BigButton(
 @Composable
 private fun BigButtonPreview() {
     BigButton(
-        buttonText = "Button"
+        buttonText = "Button",
+        onClick = {}
     )
 }

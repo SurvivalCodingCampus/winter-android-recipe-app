@@ -56,7 +56,7 @@ fun InputField(
 
         Box(
             modifier = Modifier
-                .width(315.dp)
+                .fillMaxWidth()
                 .heightIn(min = 55.dp)  // 최소 높이만 지정
                 .border(
                     width = 1.5.dp,
