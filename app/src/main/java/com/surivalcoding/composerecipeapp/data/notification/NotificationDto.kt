@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.data.recipe.notification
+package com.surivalcoding.composerecipeapp.data.notification
 
 import NotificationModel
 import NotificationType
