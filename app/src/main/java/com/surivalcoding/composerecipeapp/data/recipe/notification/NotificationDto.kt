@@ -1,3 +1,7 @@
+package com.surivalcoding.composerecipeapp.data.recipe.notification
+
+import NotificationModel
+import NotificationType
 
 data class NotificationDto(
     val id: String = "",

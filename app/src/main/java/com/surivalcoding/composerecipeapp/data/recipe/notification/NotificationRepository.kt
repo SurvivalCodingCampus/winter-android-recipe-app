@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.data.repository
+package com.surivalcoding.composerecipeapp.data.recipe.notification
 
 import NotificationModel
 import com.surivalcoding.composerecipeapp.util.CustomError
