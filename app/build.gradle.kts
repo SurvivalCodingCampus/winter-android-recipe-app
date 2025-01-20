@@ -71,5 +71,7 @@ dependencies {
 
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
     testImplementation(libs.ktor.client.mock)
 }
