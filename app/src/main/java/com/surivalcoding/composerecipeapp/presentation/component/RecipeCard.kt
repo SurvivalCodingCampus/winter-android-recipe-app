@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -47,7 +48,7 @@ fun RecipeCard(
 ) {
     Box(
         modifier = modifier.fillMaxWidth()
-            .height(150.dp)
+            .aspectRatio(315 / 150f)
             .clip(RoundedCornerShape(10.dp))
     ) {
         AsyncImage(
