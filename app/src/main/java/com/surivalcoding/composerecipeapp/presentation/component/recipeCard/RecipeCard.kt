@@ -1,7 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.component.ingredientItem
 
-import android.graphics.Canvas
-import androidx.compose.foundation.Canvas
+import Recipe
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,9 +22,6 @@ import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +29,7 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,26 +41,21 @@ import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 
+
+
 @Composable
 fun RecipeCard(
-    title: String = "Title",
-    name: String = "name",
-    cookingDuration: Int,
-    onClick: () -> Unit = {},
-    onClickBookmark: () -> Unit = {}
+    recipe: Recipe, modifier: Modifier, onClick: () -> Unit = {}, onClickBookmark: () -> Unit = {}
 ) {
-    // 3version
-    // search version
-    val _title by remember { mutableStateOf(title) }
-    val _name by remember { mutableStateOf(name) }
-    val _cookingDuration by remember { mutableStateOf(cookingDuration) }
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp
 
 
     val aspectRatio = 315f / 150f // 원래 비율 계산 (2.1)
+
     val brush = Brush.verticalGradient(
         colors = listOf(
-            Color.Transparent,
-            Color.Black.copy(alpha = 0.8f)
+            Color.Transparent, Color.Black.copy(alpha = 0.8f)
         ), startY = 0f, endY = 800f
     )
 
@@ -79,18 +70,15 @@ fun RecipeCard(
             },
         contentAlignment = Alignment.BottomStart,
     ) {
-        Box(modifier = Modifier
-            .drawWithContent {
-                drawContent()
-                drawRect(brush = brush)
-            }
-        )
-        {
+        Box(modifier = Modifier.drawWithContent {
+            drawContent()
+            drawRect(brush = brush)
+        }) {
             AsyncImage(
                 model = if (LocalInspectionMode.current) {
                     R.drawable.ic_launcher_background
                 } else {
-                    "https://s3-alpha-sig.figma.com/img/2234/134e/6e53ef9148ab9085bbd1369e270f0bba?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=EqiXQQNVRFWuqESZom-1RtDiC9xnbTUwd86cR8JgxmbZsq-Jt-7BUsHJqphUR76SIa1H94xf3gs7-6Ox--ScLe82XIXZGRpAv~s8ovK0RjoEDU8lIIj6H6lPXgKGXFIwFQb3oO6d5SD4~61Vw0F-fX-RJ5Q-Gp86CzooV62~PykTQuptWK~zcSWnzIcus7zB4qLWW7Kqn0Ipb2zMeNjqj2U5Dm69ouwW~mz4Aw22hJQgkw4fzVDzoPIBEWcouxuRgrL4UY8Zb020hZ8yC7AipzhgR4h6fl5zia1qRSZBgHJ~suoyk571P0HZmX0s6tfInaIOnJmPdvGa0kDp3r~qqw__"
+                    recipe.image
                 },
                 contentDescription = "ingredient picture",
                 contentScale = ContentScale.FillWidth,
@@ -151,12 +139,13 @@ fun RecipeCard(
                     Column(
                         verticalArrangement = Arrangement.Bottom
                     ) {
-                        Box(modifier = Modifier
-                            .height(42.dp)
-                            .width((200.dp))) {
+                        Box(
+                            modifier = Modifier
+                                .height(42.dp)
+                                .width((200.dp))
+                        ) {
                             Text(
-                                _title,
-                                style = AppTextStyles.boldSmall.copy(
+                                recipe.name, style = AppTextStyles.boldSmall.copy(
                                     color = AppColors.White,
                                     lineHeightStyle = AppTextStyles.boldSmall.lineHeightStyle,
                                     lineHeight = AppTextStyles.boldSmall.lineHeight
@@ -166,7 +155,7 @@ fun RecipeCard(
 
                         }
                         Text(
-                            "By Chef ${_name}", style = AppTextStyles.regularSmall.copy(
+                            "By Chef ${recipe.chef}", style = AppTextStyles.regularSmall.copy(
                                 color = AppColors.LabelWhite,
                             )
                         )
@@ -188,7 +177,7 @@ fun RecipeCard(
                             modifier = Modifier.size(17.dp)
                         )
                         Text(
-                            "${_cookingDuration.toString()} min",
+                            "${recipe.time} min",
                             style = AppTextStyles.boldSmall.copy(
                                 color = AppColors.LabelWhite,
                             )
@@ -200,10 +189,7 @@ fun RecipeCard(
                                 .background(
                                     color = Color.White, shape = RoundedCornerShape(size = 12.dp)
                                 )
-                                .clickable {
-                                }
-
-                            , contentAlignment = Alignment.Center
+                                .clickable {}, contentAlignment = Alignment.Center
                         ) {
                             Image(
                                 painter = painterResource(R.drawable.inactive),
@@ -227,5 +213,10 @@ fun RecipeCard(
 @Preview(showBackground = true)
 @Composable
 private fun RecipieCardPreview() {
-    RecipeCard("Traditional spare ribs baked", name = "John", cookingDuration = 30)
+//    RecipeCard(
+//        modifier = Modifier,
+//        recipe =
+//        ),
+//
+//        )
 }

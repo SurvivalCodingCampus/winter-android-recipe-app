@@ -3,7 +3,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.surivalcoding.composerecipeapp.presentation.component.button.BaseButton
+import com.surivalcoding.composerecipeapp.presentation.component.global.button.BaseButton
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable

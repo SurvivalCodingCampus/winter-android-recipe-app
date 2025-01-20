@@ -1,8 +1,12 @@
 package com.surivalcoding.composerecipeapp.presentation.sign_in
 
+import DividerWithText
+import SocialLoginButton
+import TextWithLink
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
@@ -35,12 +39,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.presentation.component.button.BaseButton
+import com.surivalcoding.composerecipeapp.presentation.component.text.CustomTextField
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 
 @Composable
 fun SignInScreen(
+    onSignInClick: () -> Unit,
+    onForgotPasswordClick: () -> Unit,
+    onGoogleSignInClick: () -> Unit,
+    onFacebookSignInClick: () -> Unit,
+    onSignUpClick: () -> Unit
 ) {
     var text by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -51,8 +61,7 @@ fun SignInScreen(
             .padding(start = 30.dp, top = 94.dp, end = 30.dp),
         contentAlignment = Alignment.TopCenter
     ) {
-        Column(
-        ) {
+        Column {
             Text(
                 text = "Hello,",
                 modifier = Modifier,
@@ -63,78 +72,36 @@ fun SignInScreen(
                 style = AppTextStyles.regularMedium
             )
 
+
             Box(
                 modifier = Modifier.padding(top = 57.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(
-                        30.dp,
-                        Alignment.CenterVertically
-                    )
+                    verticalArrangement = Arrangement.spacedBy(30.dp, Alignment.CenterVertically)
                 ) {
-                    Column {
-                        Text(
-                            text = "Email",
-                            style = AppTextStyles.regularSmall,
-                            modifier = Modifier.padding(bottom = 5.dp)
-                        )
-                        OutlinedTextField(
-                            value = text,
-                            onValueChange = { text = it },
-                            placeholder = {
-                                Text(
-                                    text = "Email",
-                                    style = AppTextStyles.regularSmaller,
-                                    color = AppColors.LabelWhite
-                                )
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(shape = RoundedCornerShape(size = 10.dp))
-                                .border(
-                                    width = 1.5.dp,
-                                    color = Color(0xFFD9D9D9),
-                                    shape = RoundedCornerShape(size = 10.dp)
-                                )
-                                .width(315.dp)
-                                .height(55.dp)
-                        )
-                    }
+                    CustomTextField(
+                        value = text,
+                        onValueChange = { text = it },
+                        label = "Name",
+                        placeholder = "Enter Name"
+                    )
 
-                    Column(
-                    ) {
-                        Text(
-                            text = "Enter Password",
-                            style = AppTextStyles.regularSmall,
-                            modifier = Modifier.padding(bottom = 5.dp)
-                        )
+                    CustomTextField(
+                        value = password,
+                        onValueChange = { password = it },
+                        label = "Enter Password",
+                        placeholder = "Enter Password"
+                    )
 
-                        OutlinedTextField(
-                            value = text,
-                            onValueChange = { password = it },
-                            placeholder = {
-
-                                Text(
-                                    text = "Enter Password",
-                                    style = AppTextStyles.regularSmaller,
-                                    color = AppColors.LabelWhite
-                                )
-                                 },
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                    .clip(shape = RoundedCornerShape(size = 10.dp))
-                                .border(
-                                    width = 1.5.dp,
-                                    color = Color(0xFFD9D9D9),
-                                    shape = RoundedCornerShape(size = 10.dp)
-                                )
-                                .width(315.dp)
-                                .height(55.dp)
-                        )
-                    }
-
-                    Text("Forgot Password?", style = AppTextStyles.regularSmall, color = AppColors.Secondary100, modifier = Modifier.padding(start = 10.dp))
+                    Text(
+                        "Forgot Password?",
+                        style = AppTextStyles.regularSmall,
+                        color = AppColors.Secondary100,
+                        modifier = Modifier
+                            .padding(start = 10.dp)
+                            .clickable { onForgotPasswordClick() }  // 클릭 이벤트 추가
+                    )
 
                     BaseButton(
                         modifier = Modifier.fillMaxWidth(),
@@ -144,134 +111,53 @@ fun SignInScreen(
                         color = AppColors.Primary100,
                         fontStyle = AppTextStyles.boldNormal,
                         iconSize = 20.dp,
-                        enabled = true
-                    ) {
+                        enabled = true,
+                        onClick = onSignInClick  // 클릭 이벤트 추가
+                    )
 
-                    }
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        HorizontalDivider(
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(end = 16.dp),
-                            thickness = 1.dp,
-                            color = AppColors.LabelWhite
-                        )
-                        Text(
-                            text = "Or Sign in With",
-                            style = AppTextStyles.regularSmall,
-                            color = AppColors.LabelWhite
-                        )
-                        HorizontalDivider(
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(start = 16.dp),
-                            color = AppColors.LabelWhite,
-                            thickness = 1.dp
-                        )
-                    }
-
+                    DividerWithText(text = "Or Sign in With")
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(
-                            20.dp,
-                            Alignment.CenterHorizontally
-                        ),
+                        horizontalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterHorizontally),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .size(44.dp)
-                                .shadow(
-                                    elevation = 5.dp,
-                                    spotColor = Color.Black,
-                                    ambientColor = Color.Black,
-                                    shape = RoundedCornerShape(10.dp)
-                                )
-                                .background(
-                                    color = Color(0xFFFFFFFF),
-                                    shape = RoundedCornerShape(10.dp)
-                                ),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.icons_google),
-                                contentDescription = "image description",
-                                contentScale = ContentScale.None
-                            )
+                        SocialLoginButton(
+                            icon = R.drawable.icons_google,
+                            onClick = onGoogleSignInClick  // 클릭 이벤트 추가
+                        )
 
-                        }
-
-                        Box(
-                            modifier = Modifier
-                                .size(44.dp)
-                                .shadow(
-                                    elevation = 5.dp,
-                                    spotColor = Color.Black,
-                                    ambientColor = Color.Black,
-                                    shape = RoundedCornerShape(10.dp)
-                                )
-                                .background(
-                                    color = Color(0xFFFFFFFF),
-                                    shape = RoundedCornerShape(10.dp)
-                                ),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.facebook),
-                                contentDescription = "image description",
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .size(26.dp)
-                                    .clip(shape = RoundedCornerShape(10.dp))
-                                    .background(
-                                        color = Color.White,
-                                        shape = RoundedCornerShape(10.dp)
-                                    )
-
-                            )
-
-                        }
-
-
+                        SocialLoginButton(
+                            icon = R.drawable.facebook,
+                            onClick = onFacebookSignInClick  // 클릭 이벤트 추가
+                        )
                     }
 
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            Text("Don’t have an account?")
-                            Text(
-                                "Sign In",
-                                style = AppTextStyles.regularSmall.copy(color = AppColors.Secondary100)
-                            )
-                        }
+                        TextWithLink(
+                            text = "Don't have an account?",
+                            linkText = "Sign Up",
+                            onClick = onSignUpClick  // 클릭 이벤트 추가
+                        )
                     }
                 }
             }
         }
-
-
     }
-
-
 }
 
 
 @Preview(showBackground = true)
 @Composable
 fun SigninScreenPreview() {
-    SignInScreen()
-
+    SignInScreen(
+        onSignInClick = {},
+        onForgotPasswordClick = {},
+        onGoogleSignInClick = {},
+        onFacebookSignInClick = {},
+        onSignUpClick = {}
+    )
 }

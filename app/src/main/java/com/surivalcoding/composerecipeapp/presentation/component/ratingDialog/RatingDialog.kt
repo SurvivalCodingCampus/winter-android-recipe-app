@@ -38,7 +38,7 @@ import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.surivalcoding.composerecipeapp.presentation.component.button.BaseButton
+import com.surivalcoding.composerecipeapp.presentation.component.global.button.BaseButton
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
