@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -35,7 +37,6 @@ fun SavedRecipeScreen(
     viewModel: SavedRecipeViewModel = viewModel(factory = SavedRecipeViewModel.Factory)
 ) {
     val savedRecipeUiState: SavedRecipeUiState by viewModel.recipeUiState.collectAsStateWithLifecycle()
-
     SavedRecipeScreen(
         title = "Saved Recipes",
         savedRecipeUiState = savedRecipeUiState,
@@ -72,6 +73,7 @@ fun SavedRecipeScreen(
             is SavedRecipeUiState.Success -> {
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(20.dp),
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     items(savedRecipeUiState.recipes) { recipe ->
                         RectangleRecipeCard(
@@ -89,7 +91,9 @@ fun SavedRecipeScreen(
             is SavedRecipeUiState.Loading -> {
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.8f)
                 ) {
                     LoadingWheel(
                         contentDescription = "Saved Recipes 불러오는 중",
