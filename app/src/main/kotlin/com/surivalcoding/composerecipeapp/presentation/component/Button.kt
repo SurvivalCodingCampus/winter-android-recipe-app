@@ -1,10 +1,11 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -14,29 +15,42 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
+import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import kotlin.String
 
 @Composable
 private fun Button(
     modifier: Modifier = Modifier,
     text: @Composable () -> Unit = {},
-    icon: (@Composable () -> Unit)? = null,
+    icon: @Composable () -> Unit = {},
+    enabled: Boolean = true,
     onClick: () -> Unit = {},
 ) {
+    var enabled = rememberSaveable { mutableStateOf(enabled) }
+
     Box(
         modifier = modifier
             .background(
-                color = AppColors.primary,
+                color = if (enabled.value) AppColors.primary100 else AppColors.gray4,
                 shape = RoundedCornerShape(10.dp),
             )
-            .clickable {
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = { offset ->
+                        enabled.value = false
+                        awaitRelease()
+                        enabled.value = true
+                    }
+                )
                 onClick()
             },
         contentAlignment = Alignment.Center,
@@ -45,7 +59,7 @@ private fun Button(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             text()
-            icon?.invoke()
+            icon()
         }
     }
 }
@@ -58,7 +72,7 @@ fun BigButton(
 ) {
     Button(
         modifier = modifier
-            .width(315.dp)
+            .fillMaxWidth()
             .height(60.dp),
         text = {
             Text(
@@ -139,7 +153,6 @@ fun SmallButton(
         }
     )
 }
-
 
 @Preview(showBackground = true)
 @Composable
