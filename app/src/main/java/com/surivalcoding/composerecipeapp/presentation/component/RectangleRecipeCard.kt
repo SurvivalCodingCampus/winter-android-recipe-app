@@ -20,7 +20,12 @@ fun RectangleRecipeCard(
     placeholder: Painter = painterResource(R.drawable.traditional_spare_ribs_baked),
 ) {
     RecipeCard(
-        savedRecipe = savedRecipe,
+        thumbnailUrl = savedRecipe.thumbnailUrl,
+        title = savedRecipe.title,
+        rating = savedRecipe.rating,
+        authorName = savedRecipe.authorName,
+        cookingMinute = savedRecipe.cookingMinute,
+        isBookmarked = savedRecipe.isBookmarked,
         shouldShowRecipeMetadata = true,
         contentDescription = contentDescription,
         modifier = modifier.aspectRatio(2.1f),

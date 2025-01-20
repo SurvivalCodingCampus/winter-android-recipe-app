@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.data.mock.fakeSavedRecipe
-import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
 import com.surivalcoding.composerecipeapp.ui.CraIcons
 import com.surivalcoding.composerecipeapp.ui.component.FoodImageBackground
 import com.surivalcoding.composerecipeapp.ui.component.IconToggleButton
@@ -35,7 +34,12 @@ import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 @Composable
 fun RecipeCard(
-    savedRecipe: SavedRecipe,
+    thumbnailUrl: String,
+    title: String,
+    rating: Double,
+    authorName: String,
+    cookingMinute: Int = 0,
+    isBookmarked: Boolean = false,
     contentDescription: String?,
     shouldShowRecipeMetadata: Boolean = false,
     modifier: Modifier = Modifier,
@@ -47,14 +51,14 @@ fun RecipeCard(
         shape = RoundedCornerShape(10.dp)
     ) {
         FoodImageBackground(
-            imageUrl = savedRecipe.thumbnailUrl,
+            imageUrl = thumbnailUrl,
             placeholder = placeholder,
             contentDescription = contentDescription,
             modifier = Modifier
                 .fillMaxSize()
         ) {
             ReviewScore(
-                rating = savedRecipe.rating,
+                rating = rating,
                 modifier = Modifier.align(Alignment.TopEnd)
             )
             Row(
@@ -70,7 +74,7 @@ fun RecipeCard(
                     )
                 ) {
                     Text(
-                        text = savedRecipe.title,
+                        text = title,
                         style = AppTextStyles.smallTextBold,
                         color = AppColors.White,
                         maxLines = 2,
@@ -78,7 +82,7 @@ fun RecipeCard(
                     )
                     Spacer(Modifier.height(3.dp))
                     Text(
-                        text = "By ${savedRecipe.authorName}",
+                        text = "By $authorName",
                         style = AppTextStyles.smallerTextSmallLabel.copy(
                             fontSize = 8.sp
                         ),
@@ -89,8 +93,8 @@ fun RecipeCard(
                 }
                 if (shouldShowRecipeMetadata) {
                     RecipeMetaData(
-                        isBookmarked = savedRecipe.isBookmarked,
-                        cookingMinute = savedRecipe.cookingMinute
+                        isBookmarked = isBookmarked,
+                        cookingMinute = cookingMinute
                     )
                 }
             }
@@ -143,7 +147,12 @@ fun RecipeMetaData(
 private fun RecipeCardPreview() {
     ComposeRecipeAppTheme {
         RecipeCard(
-            fakeSavedRecipe[0],
+            thumbnailUrl = fakeSavedRecipe[0].thumbnailUrl,
+            title = fakeSavedRecipe[0].title,
+            rating = fakeSavedRecipe[0].rating,
+            authorName = fakeSavedRecipe[0].authorName,
+            cookingMinute = fakeSavedRecipe[0].cookingMinute,
+            isBookmarked = fakeSavedRecipe[0].isBookmarked,
             contentDescription = null,
             modifier = Modifier.aspectRatio(1f)
         )

@@ -9,18 +9,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.R
-import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
+import com.surivalcoding.composerecipeapp.data.mock.fakeSearchRecipe
+import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 @Composable
 fun SquareRecipeCard(
-    savedRecipe: SavedRecipe,
+    searchRecipe: SearchRecipe,
     contentDescription: String?,
     modifier: Modifier = Modifier,
     placeholder: Painter = painterResource(R.drawable.spare_ribs),
 ) {
     RecipeCard(
-        savedRecipe = savedRecipe,
+        thumbnailUrl = searchRecipe.thumbnailUrl,
+        title = searchRecipe.title,
+        rating = searchRecipe.rating,
+        authorName = searchRecipe.authorName,
         contentDescription = contentDescription,
         modifier = modifier.aspectRatio(1f),
         placeholder = placeholder,
@@ -30,18 +34,10 @@ fun SquareRecipeCard(
 @Preview
 @Composable
 fun SquareRecipeCardPreview() {
-    val savedRecipe = SavedRecipe(
-        title = "Lamb chops with fruity couscous and mint\n\n",
-        rating = 4.0,
-        thumbnailUrl = "",
-        authorName = "Spicy Nelly",
-        cookingMinute = 20,
-        isBookmarked = false
-    )
     ComposeRecipeAppTheme {
         SquareRecipeCard(
+            searchRecipe = fakeSearchRecipe[0],
             modifier = Modifier.width(150.dp),
-            savedRecipe = savedRecipe,
             contentDescription = null
         )
     }
