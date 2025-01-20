@@ -1,18 +1,27 @@
-package com.surivalcoding.composerecipeapp.data.repository
+package com.surivalcoding.composerecipeapp.data.recipe
 
 import Recipe
 import RecipeDataSource
-import RecipeModel
-import RecipeRepository
-import com.surivalcoding.composerecipeapp.data.data_source.RecipeDataSourceImpl
+import com.surivalcoding.composerecipeapp.data.recipe.data_source.RecipeDataSourceImpl
 import com.surivalcoding.composerecipeapp.util.CustomError
 import com.surivalcoding.composerecipeapp.util.RResult
+import kotlinx.coroutines.delay
 
 class RecipeRepositoryImpl(
     private val recipeDataSource: RecipeDataSource = RecipeDataSourceImpl()
 ) : RecipeRepository {
     override suspend fun getSearchRecipes(keyword: String): RResult<List<Recipe>, CustomError> {
-        TODO("Not yet implemented")
+        try {
+            val recipes = recipeDataSource.getSearchRecipes(keyword)
+
+            return RResult.Success(recipes)
+        } catch (e: Exception) {
+
+            return RResult.Error(CustomError.ServerError.UnknownError(
+                details = e.message ?: "알수 없는 에러"
+            ))
+        }
+
     }
 
     override suspend fun createRecipe(recipe: Recipe): RResult<Unit, CustomError> {
@@ -69,6 +78,7 @@ class RecipeRepositoryImpl(
         try {
             val recipes = recipeDataSource.getSearchRecipes("")
 
+            delay(1000)
             return RResult.Success(recipes)
         } catch (e: Exception) {
             
@@ -88,6 +98,21 @@ class RecipeRepositoryImpl(
 
     override suspend fun checkSavedRecipeIds(): RResult<List<String>, CustomError> {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun getRecipeDetailByChefName(chefName: String): RResult<Recipe, CustomError> {
+        try {
+            val recipes = recipeDataSource.getSearchRecipes("")
+
+            val result = recipes.filter { recipe -> recipe.chef == chefName }[0]
+
+            return RResult.Success(result)
+        } catch (e: Exception) {
+
+            return RResult.Error(CustomError.ServerError.UnknownError(
+                details = e.message ?: "알수 없는 에러"
+            ))
+        }
     }
 
 

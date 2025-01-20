@@ -10,7 +10,7 @@ data class Recipe(
     val chef: String,
     val time: String,
     val rating: Double,
-    val ingredients: List<RecipeIngredient>
+    val ingredients: List<IngredientDto>
 )
 
 data class RecipeIngredient(
@@ -34,7 +34,7 @@ data class RecipeDto(
     val chef: String = "",
     val time: String = "",
     val rating: Double = 0.0,
-    val ingredients: List<RecipeIngredientDto> = emptyList()
+    val ingredients: List<IngredientDto> = emptyList()
 )
 
 @Serializable
@@ -65,7 +65,7 @@ fun RecipeDto.toModel() = Recipe(
     chef = chef,
     time = time,
     rating = rating,
-    ingredients = ingredients.map { it.toModel() }
+    ingredients = ingredients.map { it }
 )
 
 fun RecipeIngredientDto.toModel() = RecipeIngredient(
@@ -87,7 +87,7 @@ fun Recipe.toDto() = RecipeDto(
     chef = chef,
     time = time,
     rating = rating,
-    ingredients = ingredients.map { it.toDto() }
+    ingredients = ingredients.map { it }
 )
 
 fun RecipeIngredient.toDto() = RecipeIngredientDto(

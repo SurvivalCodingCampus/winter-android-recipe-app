@@ -1,3 +1,6 @@
+package com.surivalcoding.composerecipeapp.data.recipe
+
+import Recipe
 import com.surivalcoding.composerecipeapp.util.CustomError
 import com.surivalcoding.composerecipeapp.util.RResult
 
@@ -17,5 +20,6 @@ interface RecipeRepository {
     suspend fun saveRecipe(recipeId: String): RResult<Unit, CustomError>
     suspend fun unsavedRecipe(recipeId: String): RResult<Unit, CustomError>
     suspend fun checkSavedRecipeIds(): RResult<List<String>, CustomError>
+    suspend fun getRecipeDetailByChefName(chefName: String): RResult<Recipe, CustomError>
 }
 

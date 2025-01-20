@@ -1,3 +1,6 @@
+package com.surivalcoding.composerecipeapp.data.recipe
+
+import com.surivalcoding.composerecipeapp.data.recipe.ingrident.IngredientModel
 
 data class RecipeModel(
     val id: String,

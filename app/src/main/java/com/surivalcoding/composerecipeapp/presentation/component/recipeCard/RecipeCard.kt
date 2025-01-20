@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.component.ingredientItem
 
+import IngredientDto
 import Recipe
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -37,13 +38,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
+import com.surivalcoding.composerecipeapp.data.chef.UserDto
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 
 @Composable
 fun RecipeCard(
-    recipe: Recipe, modifier: Modifier, onClick: () -> Unit = {}, onClickBookmark: () -> Unit = {}
+    recipe: Recipe,
+    modifier: Modifier,
+    onClick: () -> Unit = {},
+    onClickBookmark: () -> Unit = {},
+    isShowingDetail: Boolean = false,
+    isShowingTime: Boolean = false
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
@@ -88,7 +95,7 @@ fun RecipeCard(
         }
         Column(
             modifier = Modifier
-                .fillMaxHeight()
+                .fillMaxSize()
                 .padding(end = 10.dp, top = 10.dp),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.End
@@ -126,84 +133,89 @@ fun RecipeCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 10.dp, bottom = 10.dp),
+                    .padding(bottom = 10.dp),
+
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.Bottom
             ) {
+
                 Box(
                     modifier = Modifier.padding(start = 10.dp),
                     contentAlignment = Alignment.BottomCenter
                 ) {
-                    Column(
-                        verticalArrangement = Arrangement.Bottom
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .height(42.dp)
-                                .width((200.dp)),
-                            contentAlignment = Alignment.BottomStart
-
+                    if (isShowingDetail) {
+                        Column(
+                            verticalArrangement = Arrangement.Bottom
                         ) {
-                            Text(
-                                recipe.name, style = AppTextStyles.boldSmall.copy(
-                                    color = AppColors.White,
-                                    lineHeightStyle = AppTextStyles.boldSmall.lineHeightStyle,
-                                    lineHeight = AppTextStyles.boldSmall.lineHeight
+                            Box(
+                                modifier = Modifier
+                                    .height(42.dp)
+                                    .width((200.dp)),
+                                contentAlignment = Alignment.BottomStart
 
+                            ) {
+                                Text(
+                                    recipe.name, style = AppTextStyles.boldSmall.copy(
+                                        color = AppColors.White,
+                                        lineHeightStyle = AppTextStyles.boldSmall.lineHeightStyle,
+                                        lineHeight = AppTextStyles.boldSmall.lineHeight
+
+                                    )
+                                )
+
+                            }
+                            Text(
+                                "By Chef ${recipe.chef}", style = AppTextStyles.regularTiny.copy(
+                                    color = AppColors.LabelWhite,
                                 )
                             )
-
                         }
-                        Text(
-                            "By Chef ${recipe.chef}", style = AppTextStyles.regularTiny.copy(
-                                color = AppColors.LabelWhite,
-                            )
-                        )
                     }
                 }
                 Box(
-                    modifier = Modifier.padding(start = 10.dp),
+                    modifier = Modifier
+                        .padding(start = 10.dp),
                     contentAlignment = Alignment.BottomEnd
                 ) {
-                    Row(
-                        modifier = Modifier.padding(top = 3.5.dp, bottom = 3.5.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(5.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Timer,
-                            contentDescription = "Time Icon",
-                            tint = AppColors.LabelWhite,
-                            modifier = Modifier.size(17.dp)
-                        )
-                        Text(
-                            recipe.time,
-                            style = AppTextStyles.boldSmall.copy(
-                                color = AppColors.LabelWhite,
-                            )
-                        )
-
-                        Box(
-                            modifier = Modifier
-                                .size(24.dp)
-                                .background(
-                                    color = Color.White, shape = RoundedCornerShape(size = 12.dp)
-                                )
-                                .clickable {}, contentAlignment = Alignment.Center
+                    if (isShowingTime) {
+                        Row(
+                            modifier = Modifier.padding(top = 3.5.dp, bottom = 3.5.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(5.dp)
                         ) {
-                            Image(
-                                painter = painterResource(R.drawable.inactive),
-                                contentDescription = "union",
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .clip(shape = RoundedCornerShape(size = 5.dp))
-                                    .padding(4.dp)
+                            Icon(
+                                imageVector = Icons.Outlined.Timer,
+                                contentDescription = "Time Icon",
+                                tint = AppColors.LabelWhite,
+                                modifier = Modifier.size(17.dp)
                             )
+                            Text(
+                                recipe.time, style = AppTextStyles.boldSmall.copy(
+                                    color = AppColors.LabelWhite,
+                                )
+                            )
+
+                            Box(
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .background(
+                                        color = Color.White,
+                                        shape = RoundedCornerShape(size = 12.dp)
+                                    )
+                                    .clickable {}, contentAlignment = Alignment.Center
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.inactive),
+                                    contentDescription = "union",
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .clip(shape = RoundedCornerShape(size = 5.dp))
+                                        .padding(4.dp)
+                                )
+                            }
                         }
                     }
                 }
-
-
             }
         }
     }
@@ -213,10 +225,22 @@ fun RecipeCard(
 @Preview(showBackground = true)
 @Composable
 private fun RecipieCardPreview() {
-//    RecipeCard(
-//        modifier = Modifier,
-//        recipe =
-//        ),
-//
-//        )
+    val recipe = Recipe(
+        id = 30,
+        name = "hh",
+        time = "10",
+        category = "Itailian",
+        image = "http://",
+        chef = "steve",
+        rating = 3.0,
+        ingredients = listOf<IngredientDto>(IngredientDto(1, "a", "b")),
+    )
+
+    RecipeCard(
+        modifier = Modifier,
+        recipe = recipe,
+        isShowingDetail = true,
+        isShowingTime = false,
+
+        )
 }

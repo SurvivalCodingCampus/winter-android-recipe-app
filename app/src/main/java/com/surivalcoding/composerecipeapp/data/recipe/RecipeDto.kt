@@ -16,7 +16,7 @@
 //    val createdAt: Long = 0,
 //    val editedAt: Long? = null
 //) {
-//    fun toModel() = RecipeModel(
+//    fun toModel() = com.surivalcoding.composerecipeapp.data.recipe.RecipeModel(
 //        id = id,
 //        title = title,
 //        procedure = procedure,
