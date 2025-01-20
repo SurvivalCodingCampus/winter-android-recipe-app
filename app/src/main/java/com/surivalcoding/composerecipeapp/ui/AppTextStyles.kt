@@ -14,9 +14,10 @@ object AppTextStyles {
         Font(R.font.poppins_regular, FontWeight.Normal),
     )
 
-    val normalTextBold = TextStyle(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
+    val smallerTextSemiBold = TextStyle(
+        fontSize = 11.sp,
+        lineHeight = 17.sp,
+        fontWeight = FontWeight.W500,
         fontFamily = poppinsFamily,
     )
 
@@ -26,16 +27,23 @@ object AppTextStyles {
         fontFamily = poppinsFamily,
     )
 
-    val smallerTextRegular = TextStyle(
-        fontSize = 14.sp,
-        fontWeight = FontWeight.Normal,
+    val normalTextBold = TextStyle(
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
         fontFamily = poppinsFamily,
     )
 
-    val smallerTextLabel = TextStyle(
-        fontSize = 8.sp,
-        lineHeight = 12.sp,
-        fontWeight = FontWeight.Normal,
+    val mediumTextBold = TextStyle(
+        fontSize = 18.sp,
+        lineHeight = 27.sp,
+        fontWeight = FontWeight.W600,
+        fontFamily = poppinsFamily,
+    )
+
+    val largeTextBold = TextStyle(
+        fontSize = 20.sp,
+        lineHeight = 30.sp,
+        fontWeight = FontWeight.W600,
         fontFamily = poppinsFamily,
     )
 
@@ -46,24 +54,23 @@ object AppTextStyles {
         fontFamily = poppinsFamily,
     )
 
-    val largeTextRegular = TextStyle(
-        fontSize = 20.sp,
-        lineHeight = 30.sp,
+    val smallerTextLabel = TextStyle(
+        fontSize = 8.sp,
+        lineHeight = 12.sp,
         fontWeight = FontWeight.Normal,
         fontFamily = poppinsFamily,
     )
 
-    val smallerTextSemiBold = TextStyle(
-        fontSize = 11.sp,
-        lineHeight = 17.sp,
-        fontWeight = FontWeight.W500,
+    val smallerTextRegular = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal,
         fontFamily = poppinsFamily,
     )
 
-    val largeTextBold = TextStyle(
+    val largeTextRegular = TextStyle(
         fontSize = 20.sp,
         lineHeight = 30.sp,
-        fontWeight = FontWeight.W600,
+        fontWeight = FontWeight.Normal,
         fontFamily = poppinsFamily,
     )
 }

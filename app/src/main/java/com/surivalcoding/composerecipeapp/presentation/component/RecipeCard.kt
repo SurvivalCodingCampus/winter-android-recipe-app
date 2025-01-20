@@ -46,8 +46,7 @@ fun RecipeCard(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
-            .width(315.dp)
+        modifier = modifier.fillMaxWidth()
             .height(150.dp)
             .clip(RoundedCornerShape(10.dp))
     ) {
@@ -153,7 +152,7 @@ fun RecipeCard(
                         .size(17.dp)
                 )
                 Text(
-                    text = "${recipe.cookingDuration} min",
+                    text = recipe.cookingDuration,
                     style = AppTextStyles.smallerTextRegular.copy(
                         color = AppColors.white
                     ),
@@ -194,11 +193,14 @@ fun RecipeCard(
 @Composable
 private fun RecipeCardPreview() {
     val recipe1 = Recipe(
-        "Chef John",
+        "Italian",
+        1,
         "Traditional spare ribs baked",
-        20,
+        "https://www.foodnews.news/data/photos/20210728/art_16261398155074_8642d5.jpg",
+        "Chef John",
+        "20 min",
         4.0,
-        "https://www.foodnews.news/data/photos/20210728/art_16261398155074_8642d5.jpg"
+        emptyList(),
     )
 
     Column(
