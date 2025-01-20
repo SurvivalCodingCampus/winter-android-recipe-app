@@ -1,4 +1,4 @@
-
+package com.surivalcoding.composerecipeapp.data.recipe.review
 data class ReviewModel(
     val id: String,
     val comment: String,

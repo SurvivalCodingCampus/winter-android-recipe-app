@@ -1,6 +1,5 @@
-package com.surivalcoding.composerecipeapp.data.repository
+package com.surivalcoding.composerecipeapp.data.recipe.review
 
-import ReviewModel
 import com.surivalcoding.composerecipeapp.util.CustomError
 import com.surivalcoding.composerecipeapp.util.RResult
 

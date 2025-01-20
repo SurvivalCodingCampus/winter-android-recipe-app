@@ -1,3 +1,5 @@
+package com.surivalcoding.composerecipeapp.data.recipe.review
+
 data class ReviewDto(
     val id: String = "",
     val comment: String = "",
