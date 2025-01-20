@@ -1,68 +1,79 @@
 package com.surivalcoding.composerecipeapp.presentation.saved_recipes.view_model
 
 import Recipe
-import androidx.lifecycle.SavedStateHandle
-import com.surivalcoding.composerecipeapp.data.recipe.RecipeRepository
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.surivalcoding.composerecipeapp.AppApplication
+import com.surivalcoding.composerecipeapp.data.recipe.RecipeRepository
 import com.surivalcoding.composerecipeapp.util.RResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class SavedRecipesState(
-    val recipes: List<Recipe> = emptyList(),
-    val isLoading: Boolean = false
+data class RecipeSearchState(
+    val keyword: String = "",
+    val recipeList: List<Recipe> = emptyList(),
+    val isLoading: Boolean = false,
 )
 
 
-
-class RecipeViewModel(
+class RecipeSearchViewModel(
     private val recipeRepository: RecipeRepository,
-    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val _state = MutableStateFlow(SavedRecipesState())
+    private val _state = MutableStateFlow(RecipeSearchState())
     val state = _state.asStateFlow()
 
-
     init {
-        getRecipes()
+        getSearchRecipes()
     }
 
-
-    private fun getRecipes() {
-        viewModelScope.launch {
+    fun searchRecipes(newKeyword: String) {
+        if (newKeyword.isEmpty()) {
             _state.update {
                 it.copy(
-                    isLoading = true
+                    isLoading = false
                 )
             }
-            when (val result = recipeRepository.getSavedRecipes()) {
+        } else {
+            _state.update {
+                it.copy(
+                    keyword = newKeyword
+                )
+            }
+            getSearchRecipes()
+            _state.update {
+                it.copy(
+                    isLoading = true,
+                )
+            }
+
+        }
+    }
+
+    private fun getSearchRecipes() {
+        val keyword = _state.value.keyword
+
+        viewModelScope.launch {
+            when (val result = recipeRepository.getSearchRecipes(keyword = keyword)) {
                 is RResult.Success -> {
                     _state.update {
                         it.copy(
-                            recipes = result.data,
-                            isLoading = false
+                            recipeList = result.data
                         )
                     }
                 }
 
                 is RResult.Error -> {
-                    _state.update {
-                        it.copy(
-                            recipes = emptyList()
-                        )
-                    }
+                    emptyList<Recipe>()
                 }
             }
 
         }
+
     }
 
 
@@ -76,11 +87,10 @@ class RecipeViewModel(
                 // Get the Application object from extras
                 val application = checkNotNull(extras[APPLICATION_KEY] as AppApplication)
                 // Create a SavedStateHandle for this ViewModel from extras
-                val savedStateHandle = extras.createSavedStateHandle()
+//                val savedStateHandle = extras.createSavedStateHandle()
 
-                return RecipeViewModel(
+                return RecipeSearchViewModel(
                     application.recipeRepository,
-                    savedStateHandle
                 ) as T
             }
         }
