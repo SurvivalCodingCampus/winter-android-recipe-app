@@ -67,5 +67,5 @@ dependencies {
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.content.negotiation)
-    testImplementation(libs.ktor.client.mock)
+    implementation(libs.ktor.client.mock)
 }
