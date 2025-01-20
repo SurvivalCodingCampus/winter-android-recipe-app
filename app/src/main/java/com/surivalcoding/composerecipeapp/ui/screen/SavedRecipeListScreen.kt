@@ -75,19 +75,6 @@ fun RecipeListScreenStub() {
                     cookTime = recipe.cookingMinute.toString()
                 )
             }
-            item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.Red),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.img_chef_hat),
-                        contentDescription = "Background Image",
-                    )
-                }
-            }
         }
     }
 }
