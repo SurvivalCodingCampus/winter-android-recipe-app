@@ -71,4 +71,8 @@ dependencies {
 
     // viewModel - ktx
     implementation(libs.lifecycle.viewmodel.ktx)
+
+
+    // lottieAnimation
+    implementation (libs.lottie.compose)
 }

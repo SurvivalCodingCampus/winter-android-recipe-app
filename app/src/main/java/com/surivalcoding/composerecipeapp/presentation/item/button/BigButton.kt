@@ -1,11 +1,14 @@
-package com.surivalcoding.composerecipeapp.presentation.button
+package com.surivalcoding.composerecipeapp.presentation.item.button
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.GestureCancellationException
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -28,17 +31,19 @@ import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
+
 @Composable
-fun MediumButton(
+fun BigButton(
     modifier: Modifier = Modifier,
     text: String,
     buttonState: ButtonState,
-    onClick: (ButtonState) -> Unit = {}
+    onClick: (ButtonState) -> Unit = {},
 ) {
+
     Box(
         modifier = modifier
-            .width(243.dp)
-            .height(54.dp)
+            .fillMaxWidth()
+            .height(60.dp)
             .background(
                 color = when (buttonState) {
                     ButtonState.NORMAL -> AppColors.primary_100
@@ -77,7 +82,7 @@ fun MediumButton(
                     ),
                 )
             }
-            Spacer(Modifier.width(9.dp))
+            Spacer(modifier = Modifier.width(11.dp))
             Icon(
                 modifier = Modifier.size(20.dp),
                 imageVector = Icons.AutoMirrored.Default.ArrowForward,
@@ -88,12 +93,81 @@ fun MediumButton(
     }
 }
 
-@Preview
 @Composable
-private fun MediumButtonPreview() {
+fun AllButton(text: String) {
+    var bigButtonState by remember { mutableStateOf(ButtonState.NORMAL) }
+
+    var mediumButtonState by remember { mutableStateOf(ButtonState.NORMAL) }
+
+    var smallButtonState by remember { mutableStateOf(ButtonState.NORMAL) }
+
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Spacer(modifier = Modifier.height(30.dp))
+        BigButton(text = text, buttonState = bigButtonState) { newState ->
+            bigButtonState = newState
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+        MediumButton(text = text, buttonState = mediumButtonState) { newState ->
+            mediumButtonState = newState
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+        SmallButton(text = text, buttonState = smallButtonState) { newState ->
+            smallButtonState = newState
+        }
+    }
+}
+
+@Composable
+fun AllButtonPressed(text: String) {
+    var bigButtonState by remember { mutableStateOf(ButtonState.NORMAL) }
+
+    var mediumButtonState by remember { mutableStateOf(ButtonState.NORMAL) }
+
+    var smallButtonState by remember { mutableStateOf(ButtonState.NORMAL) }
+
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Spacer(modifier = Modifier.height(30.dp))
+        BigButton(text = text, buttonState = ButtonState.PRESSED) { newState ->
+            bigButtonState = newState
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+        MediumButton(text = text, buttonState = ButtonState.PRESSED) { newState ->
+            mediumButtonState = newState
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+        SmallButton(text = text, buttonState = ButtonState.PRESSED) { newState ->
+            smallButtonState = newState
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BigButtonPreview() {
     var buttonState by remember { mutableStateOf(ButtonState.NORMAL) }
 
-    MediumButton(text = "Button", buttonState = buttonState) { newState ->
+    BigButton(
+        text = "Button",
+        buttonState = buttonState
+    ) { newState ->
         buttonState = newState
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun AllButtonPreview() {
+    AllButton(text = "Button")
+}
+
+
+@Preview(showBackground = true)
+@Composable
+private fun AllButtonPressedPreview() {
+    AllButtonPressed(text = "Button")
+}
+

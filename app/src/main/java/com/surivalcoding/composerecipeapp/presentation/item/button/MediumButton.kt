@@ -1,13 +1,18 @@
-package com.surivalcoding.composerecipeapp.presentation.button
+package com.surivalcoding.composerecipeapp.presentation.item.button
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.GestureCancellationException
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,9 +28,8 @@ import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
-
 @Composable
-fun SmallButton(
+fun MediumButton(
     modifier: Modifier = Modifier,
     text: String,
     buttonState: ButtonState,
@@ -33,8 +37,8 @@ fun SmallButton(
 ) {
     Box(
         modifier = modifier
-            .width(174.dp)
-            .height(37.dp)
+            .width(243.dp)
+            .height(54.dp)
             .background(
                 color = when (buttonState) {
                     ButtonState.NORMAL -> AppColors.primary_100
@@ -68,22 +72,28 @@ fun SmallButton(
             ) {
                 Text(
                     text = text,
-                    style = AppTextStyles.smallTextBold.copy(
+                    style = AppTextStyles.normalTextBold.copy(
                         color = Color.White,
                     ),
                 )
             }
+            Spacer(Modifier.width(9.dp))
+            Icon(
+                modifier = Modifier.size(20.dp),
+                imageVector = Icons.AutoMirrored.Default.ArrowForward,
+                contentDescription = null,
+                tint = Color.White,
+            )
         }
     }
 }
 
-
 @Preview
 @Composable
-private fun SmallButtonPreview() {
+private fun MediumButtonPreview() {
     var buttonState by remember { mutableStateOf(ButtonState.NORMAL) }
 
-    SmallButton(text = "Button", buttonState = buttonState) { newState ->
+    MediumButton(text = "Button", buttonState = buttonState) { newState ->
         buttonState = newState
     }
 }

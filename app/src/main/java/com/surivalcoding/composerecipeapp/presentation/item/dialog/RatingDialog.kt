@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.dialog
+package com.surivalcoding.composerecipeapp.presentation.item.dialog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
