@@ -3,7 +3,6 @@ package com.surivalcoding.composerecipeapp.ui.screen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,14 +18,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.data.local.mock.MockRecipeData
-import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.component.RecipeCard
-import com.surivalcoding.composerecipeapp.ui.theme.Poppins
 import com.surivalcoding.composerecipeapp.ui.theme.PoppinsBoldTypography
-import com.surivalcoding.composerecipeapp.ui.theme.PoppinsRegularTypography
 import com.surivalcoding.composerecipeapp.ui.viewmodel.RecipeViewModel
 
 @Composable
@@ -47,22 +42,7 @@ fun SavedRecipeListScreen(viewModel: RecipeViewModel, modifier: Modifier = Modif
             )
         }
     }
-
-    Box(
-        modifier = Modifier
-            .padding(20.dp)
-            .background(Color.Red)
-    ) {
-        AsyncImage(
-            model = {
-                R.drawable.img_chef_hat
-            },
-            contentDescription = "Background Image",
-        )
-    }
 }
-
-// TODO: 북마크 처리하기
 
 @Composable
 fun RecipeListScreenStub() {
@@ -73,9 +53,10 @@ fun RecipeListScreenStub() {
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Text(
             modifier = Modifier
-                .padding(vertical = 20.dp),
+                .padding(top = 20.dp, bottom = 10.dp),
             text = "Saved Recipes",
             style = PoppinsBoldTypography.bodyLarge,
         )
@@ -107,16 +88,13 @@ fun RecipeListScreenStub() {
                     )
                 }
             }
-
         }
     }
-
-
-
-
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true
+)
 @Composable
 fun RecipeListScreenPreview() {
     RecipeListScreenStub()
