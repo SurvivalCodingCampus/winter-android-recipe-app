@@ -53,7 +53,7 @@ private fun BigButtonPreview() {
         BigButton(
             onClick = {},
             text = "Button",
-            enabled = false,
+            enabled = true,
         )
     }
 }

@@ -23,10 +23,10 @@ object AppTextStyles {
     )
 
     // Title Text Styles
-    val titleTextBold = TextStyle(
+    val titleTextSemiBold = TextStyle(
         fontSize = 50.sp,
-        lineHeight = 75.sp,
-        fontWeight = FontWeight.Bold,
+        lineHeight = 60.sp,
+        fontWeight = FontWeight.SemiBold,
         fontFamily = poppinsFamily
     )
 
@@ -86,6 +86,13 @@ object AppTextStyles {
         fontSize = 18.sp,
         lineHeight = 27.sp,
         fontWeight = FontWeight.Bold,
+        fontFamily = poppinsFamily
+    )
+
+    val mediumTextSemiBold = TextStyle(
+        fontSize = 18.sp,
+        lineHeight = 27.sp,
+        fontWeight = FontWeight.SemiBold,
         fontFamily = poppinsFamily
     )
 

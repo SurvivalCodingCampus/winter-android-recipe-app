@@ -9,18 +9,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.R
-import com.surivalcoding.composerecipeapp.presentation.data.model.RecipeItem
+import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 @Composable
 fun RectangleRecipeCard(
-    recipeItem: RecipeItem,
+    savedRecipe: SavedRecipe,
     contentDescription: String?,
     modifier: Modifier = Modifier,
     placeholder: Painter = painterResource(R.drawable.traditional_spare_ribs_baked),
 ) {
     RecipeCard(
-        recipeItem = recipeItem,
+        savedRecipe = savedRecipe,
         shouldShowRecipeMetadata = true,
         contentDescription = contentDescription,
         modifier = modifier.aspectRatio(2.1f),
@@ -30,8 +30,8 @@ fun RectangleRecipeCard(
 
 @Preview
 @Composable
-fun RecipeCardPreview() {
-    val recipeItem = RecipeItem(
+fun RectangleRecipeCardPreview() {
+    val savedRecipe = SavedRecipe(
         title = "Lamb chops with fruity couscous and mint\n\n",
         rating = 4.0,
         thumbnailUrl = "",
@@ -42,7 +42,7 @@ fun RecipeCardPreview() {
     ComposeRecipeAppTheme {
         RectangleRecipeCard(
             modifier = Modifier.width(315.dp),
-            recipeItem = recipeItem,
+            savedRecipe = savedRecipe,
             contentDescription = null,
         )
     }

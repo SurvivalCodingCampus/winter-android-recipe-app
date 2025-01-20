@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.surivalcoding.composerecipeapp.task.day2.TaskSubmissionPressedButton
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 class MainActivity : ComponentActivity() {

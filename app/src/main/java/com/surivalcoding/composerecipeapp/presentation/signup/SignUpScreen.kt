@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.screen
+package com.surivalcoding.composerecipeapp.presentation.signup
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -15,14 +15,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -32,7 +30,8 @@ import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.presentation.component.BigButton
 import com.surivalcoding.composerecipeapp.presentation.component.InputField
 import com.surivalcoding.composerecipeapp.presentation.component.SocialLogin
-import com.surivalcoding.composerecipeapp.ui.component.NoPaddingButton
+import com.surivalcoding.composerecipeapp.presentation.signin.OrSignInDivider
+import com.surivalcoding.composerecipeapp.presentation.signin.TextWithLinkButton
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
@@ -43,9 +42,9 @@ fun SignUpScreen(
     email: String,
     password: String,
     confirmPassword: String,
-    selectedTerms: Boolean,
-    onTermsChange: (Boolean) -> Unit,
-    onSignUpClick: () -> Unit,
+    checkedTerms: Boolean,
+    onCheckedTermsChange: (Boolean) -> Unit,
+    onSignInClick: () -> Unit,
     loginWithGoogle: () -> Unit,
     loginWithFacebook: () -> Unit,
     onEmailChange: (String) -> Unit,
@@ -60,7 +59,7 @@ fun SignUpScreen(
             .background(AppColors.White)
             .padding(horizontal = 30.dp)
     ) {
-        SignUpHeader(modifier = Modifier.padding(top = 10.dp, bottom = 20.dp))
+        SignUpHeader(modifier = Modifier.padding(top = 20.dp, bottom = 20.dp))
         SignUpInputField(
             name = name,
             email = email,
@@ -73,65 +72,26 @@ fun SignUpScreen(
             modifier = Modifier
                 .fillMaxWidth()
         )
-        Row(
-            modifier = Modifier
-                .padding(top = 20.dp, bottom = 26.dp)
-                .clickable {
-                    onTermsChange(!selectedTerms)
-                }
-        ) {
-            CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides Dp.Unspecified) {
-                Checkbox(
-                    checked = selectedTerms,
-                    onCheckedChange = onTermsChange,
-                    colors = CheckboxDefaults.colors(
-                        checkedColor = Color.Transparent,
-                        uncheckedColor = Color.Transparent,
-                    ),
-                    modifier = Modifier
-                        .size(16.dp)
-                        .border(
-                            BorderStroke(1.dp, AppColors.Secondary100),
-                            RoundedCornerShape(5.dp)
-                        )
-                )
-            }
-            Spacer(Modifier.width(5.dp))
-            Text(
-                text = "Accept terms & Condition",
-                style = AppTextStyles.smallerTextRegular,
-                color = AppColors.Secondary100
-            )
-        }
+        SignUpTermsCheckBox(
+            label = "Accept terms & Condition",
+            checked = checkedTerms,
+            onCheckedChange = onCheckedTermsChange,
+        )
         BigButton(
             text = "Sign Up",
-            onClick = onSignUpClick,
+            onClick = onSignInClick,
         )
-        LoginDivider(Modifier.padding(top = 14.dp, bottom = 20.dp))
+        OrSignInDivider(Modifier.padding(top = 14.dp, bottom = 20.dp))
         SocialLogin(
             loginWithGoogle = loginWithGoogle,
             loginWithFacebook = loginWithFacebook,
             modifier = Modifier.padding(bottom = 20.dp)
         )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = "Already a member?  ", style = AppTextStyles.smallerTextSemiBold
-            )
-            NoPaddingButton(
-                onClick = onSignUpClick,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent, contentColor = AppColors.Secondary100
-                )
-            ) {
-                Text(
-                    text = "Sign In", style = AppTextStyles.smallerTextSemiBold
-                )
-            }
-        }
+        TextWithLinkButton(
+            text = "Already have an account?",
+            linkText = "Sign In",
+            onLinkClick = onSignInClick,
+        )
     }
 }
 
@@ -150,7 +110,7 @@ private fun SignUpHeader(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SignUpInputField(
+private fun SignUpInputField(
     name: String,
     email: String,
     password: String,
@@ -180,16 +140,55 @@ fun SignUpInputField(
         InputField(
             value = password,
             label = "Password",
-            placeholder = "Enter Email",
+            placeholder = "Enter Password",
             onValueChange = onPasswordChange,
             visualTransformation = PasswordVisualTransformation()
         )
         InputField(
             value = confirmPassword,
             label = "ConfirmPassword",
-            placeholder = "Enter Email",
+            placeholder = "Enter Password",
             onValueChange = onConfirmPasswordChange,
             visualTransformation = PasswordVisualTransformation()
+        )
+    }
+}
+
+@Composable
+fun SignUpTermsCheckBox(
+    label: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier
+            .padding(top = 20.dp, bottom = 26.dp)
+            .clickable {
+                onCheckedChange(!checked)
+            }
+    ) {
+        CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides Dp.Unspecified) {
+            Checkbox(
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+                colors = CheckboxDefaults.colors(
+                    checkedColor = Color.Transparent,
+                    uncheckedColor = Color.Transparent,
+                ),
+                modifier = Modifier
+                    .size(16.dp)
+                    .border(
+                        BorderStroke(1.dp, AppColors.Secondary100),
+                        RoundedCornerShape(5.dp)
+                    )
+            )
+        }
+        Spacer(Modifier.width(5.dp))
+        Text(
+            text = label,
+            style = AppTextStyles.smallerTextRegular,
+            color = AppColors.Secondary100
         )
     }
 }
@@ -203,9 +202,9 @@ private fun SignUpScreenPreview() {
             email = "",
             password = "",
             confirmPassword = "",
-            selectedTerms = false,
-            onTermsChange = {},
-            onSignUpClick = {},
+            checkedTerms = false,
+            onCheckedTermsChange = {},
+            onSignInClick = {},
             loginWithGoogle = {},
             loginWithFacebook = {},
             onEmailChange = {},

@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.screen
+package com.surivalcoding.composerecipeapp.presentation.signin
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,7 +49,7 @@ fun SignInScreen(
             .background(AppColors.White)
             .padding(horizontal = 30.dp)
     ) {
-        LoginHeader(Modifier.padding(top = 50.dp, bottom = 56.dp))
+        LoginHeader(Modifier.padding(top = 60.dp, bottom = 56.dp))
         LoginInputField(
             email = email,
             password = password,
@@ -70,31 +72,17 @@ fun SignInScreen(
             text = "Sign In",
             onClick = onSignInClick,
         )
-        LoginDivider(modifier = Modifier.padding(vertical = 20.dp))
+        OrSignInDivider(modifier = Modifier.padding(vertical = 20.dp))
         SocialLogin(
             loginWithGoogle = loginWithGoogle,
             loginWithFacebook = loginWithFacebook,
             modifier = Modifier.padding(bottom = 55.dp)
         )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = "Don't have an account? ", style = AppTextStyles.smallerTextSemiBold
-            )
-            NoPaddingButton(
-                onClick = onSignUpClick,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent, contentColor = AppColors.Secondary100
-                )
-            ) {
-                Text(
-                    text = "Sign Up", style = AppTextStyles.smallerTextSemiBold
-                )
-            }
-        }
+        TextWithLinkButton(
+            text = "Don't have an account?",
+            linkText = "Sign Up",
+            onLinkClick = onSignUpClick,
+        )
     }
 }
 
@@ -142,26 +130,61 @@ private fun LoginInputField(
 }
 
 @Composable
-fun LoginDivider(modifier: Modifier = Modifier) {
+fun OrSignInDivider(
+    modifier: Modifier = Modifier,
+    color: Color = AppColors.Gray4,
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
         modifier = modifier.fillMaxWidth()
     ) {
         HorizontalDivider(
-            color = AppColors.Gray4,
+            color = color,
             modifier = Modifier.width(50.dp),
         )
         Text(
             text = "Or Sign In With",
-            style = AppTextStyles.smallerTextSemiBold,
-            color = AppColors.Gray4,
+            style = AppTextStyles.smallerTextSemiBold.copy(
+                fontWeight = FontWeight.W500
+            ),
+            color = color,
             modifier = Modifier.padding(horizontal = 7.dp)
         )
         HorizontalDivider(
-            color = AppColors.Gray4,
+            color = color,
             modifier = Modifier.width(50.dp),
         )
+    }
+}
+
+@Composable
+fun TextWithLinkButton(
+    text: String,
+    linkText: String,
+    onLinkClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    textStyle: TextStyle = AppTextStyles.smallerTextSemiBold.copy(fontWeight = FontWeight.W500),
+    linkColor: Color = AppColors.Secondary100
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = "$text ", style = textStyle
+        )
+        NoPaddingButton(
+            onClick = onLinkClick,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent, contentColor = linkColor
+            )
+        ) {
+            Text(
+                text = linkText, style = textStyle
+            )
+        }
     }
 }
 

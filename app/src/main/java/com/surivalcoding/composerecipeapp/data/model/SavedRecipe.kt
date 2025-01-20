@@ -1,6 +1,6 @@
-package com.surivalcoding.composerecipeapp.presentation.data.model
+package com.surivalcoding.composerecipeapp.data.model
 
-data class RecipeItem(
+data class SavedRecipe(
     val thumbnailUrl: String,
     val cookingMinute: Int,
     val title: String,

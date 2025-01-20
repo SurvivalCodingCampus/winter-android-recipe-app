@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.presentation.data.mock.fakeIngredients
-import com.surivalcoding.composerecipeapp.presentation.data.model.Ingredient
+import com.surivalcoding.composerecipeapp.data.mock.fakeIngredients
+import com.surivalcoding.composerecipeapp.data.model.Ingredient
 import com.surivalcoding.composerecipeapp.ui.component.DynamicAsyncImage
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
