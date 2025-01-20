@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.ui.AppColors
 
-@Composable
+/*@Composable
 fun RatingButton(
     modifier: Modifier = Modifier,
     backGroundColorFirst: Color,
@@ -96,12 +96,16 @@ fun RatingButton(
             )
         }
     }
-}
+}*/
 
+@Composable
+fun RatingButton(modifier: Modifier = Modifier) {
+    
+}
 @Preview(showBackground = true)
 @Composable
 private fun RatingButtonPreview() {
-    var backGroundColorFirst by remember { mutableStateOf(AppColors.primary) }
+    /*var backGroundColorFirst by remember { mutableStateOf(AppColors.primary) }
     var textColorFirst by remember { mutableStateOf(Color.White) }
     var backGroundColorSecond by remember { mutableStateOf(Color.White) }
     var textColorSecond by remember { mutableStateOf(AppColors.primary) }
@@ -121,5 +125,5 @@ private fun RatingButtonPreview() {
             textColorFirst = AppColors.primary
             backGroundColorSecond = AppColors.primary
             textColorSecond = Color.White
-        })
+        })*/
 }

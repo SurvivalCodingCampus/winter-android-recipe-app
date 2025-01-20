@@ -1,7 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -33,7 +32,7 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun MediumButton(
     modifier: Modifier = Modifier,
-    text: String,
+    title: String,
     onClick: () -> Unit = {},
 ) {
     var isPressed by remember { mutableStateOf(false) }
@@ -42,7 +41,7 @@ fun MediumButton(
             .width(243.dp)
             .height(54.dp)
             .background(
-                color = if(isPressed) AppColors.darkgray else AppColors.primary,
+                color = if(isPressed) AppColors.gray_03 else AppColors.primary,
                 shape = RoundedCornerShape(10.dp),
             )
             .pointerInput(Unit) {
@@ -52,7 +51,7 @@ fun MediumButton(
                         tryAwaitRelease()
                         isPressed = false
                     },
-                    onTap = { /* 클릭시 수행할 동작 */ }
+                    onTap = { onClick() }
                 )
             },
         contentAlignment = Alignment.Center,
@@ -64,7 +63,7 @@ fun MediumButton(
                 modifier = Modifier
                     .width(114.dp)
                     .height(24.dp),
-                text = text,
+                text = title,
                 style = AppTextStyles.normalTextBold.copy(
                     color = Color.White,
                 ),
@@ -85,6 +84,6 @@ fun MediumButton(
 @Composable
 private fun MediumButtonPreview() {
     MediumButton(
-        text = "Button"
+        title = "Button"
     )
 }

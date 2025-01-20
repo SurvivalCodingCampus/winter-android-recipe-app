@@ -1,18 +1,12 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,7 +26,7 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SmallButton(
     modifier: Modifier = Modifier,
-    text: String,
+    title: String,
     onClick: () -> Unit = {},
 ) {
     var isPressed by remember { mutableStateOf(false) }
@@ -41,7 +35,7 @@ fun SmallButton(
             .width(174.dp)
             .height(37.dp)
             .background(
-                color = if(isPressed) AppColors.gray else AppColors.primary,
+                color = if(isPressed) AppColors.gray_04 else AppColors.primary,
                 shape = RoundedCornerShape(10.dp),
             )
             .pointerInput(Unit) {
@@ -51,7 +45,7 @@ fun SmallButton(
                         tryAwaitRelease()
                         isPressed = false
                     },
-                    onTap = { /* 클릭시 수행할 동작 */ }
+                    onTap = { onClick() }
                 )
             },
         contentAlignment = Alignment.Center,
@@ -62,7 +56,7 @@ fun SmallButton(
             Text(
                 modifier = Modifier
                     .width(114.dp),
-                text = text,
+                text = title,
                 style = AppTextStyles.normalTextBold.copy(
                     color = Color.White,
                 ),
@@ -76,6 +70,6 @@ fun SmallButton(
 @Composable
 private fun SmallButtonPreview() {
     SmallButton(
-        text = "Button"
+        title = "Button"
     )
 }

@@ -24,6 +24,7 @@ class InputFieldKtTest {
     @Test
     fun checkInputField() {
         composeTestRule.setContent {
+            var typing by remember { mutableStateOf("") }
             var backgroundColorChanged = false
 
             var text by remember { mutableStateOf("placeholder") }
@@ -31,7 +32,9 @@ class InputFieldKtTest {
             InputField(
                 modifier = Modifier
                     .testTag("testInputField"),
-                text = text,
+                title = text,
+                typing = typing,
+                placeholder = "placeholder",
                 borderColor = borderColor,
                 onValueChange = { newText -> text = newText },
                 onFocusChanged = { onFocusState ->
