@@ -79,7 +79,7 @@ fun SavedRecipeScreen(
                             contentDescription = recipe.title,
                         )
                     }
-                    item{
+                    item {
                         Spacer(Modifier.height(80.dp))
                     }
                 }

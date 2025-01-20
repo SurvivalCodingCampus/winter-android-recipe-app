@@ -20,7 +20,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImagePainter.State.Loading
-import coil3.compose.AsyncImagePainter.State.Success
 import coil3.compose.rememberAsyncImagePainter
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
@@ -30,15 +29,15 @@ fun DynamicAsyncImage(
     imageUrl: String,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    placeholder: Painter = painterResource(R.drawable.placeholder_defalut)
+    placeholder: Painter = painterResource(R.drawable.traditional_spare_ribs_baked)
 ) {
     var isLoading by remember { mutableStateOf(true) }
-    var isSuccess by remember { mutableStateOf(false) }
+    var isError by remember { mutableStateOf(false) }
     val imageLoader = rememberAsyncImagePainter(
         model = imageUrl,
         onState = { state ->
             isLoading = state is Loading
-            isSuccess = state is Success
+            isError = state is Error
         },
     )
     val isLocalInspection = LocalInspectionMode.current
@@ -55,10 +54,11 @@ fun DynamicAsyncImage(
                 color = MaterialTheme.colorScheme.secondary,
             )
         }
+
         Image(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
-            painter = if (isSuccess && !isLocalInspection) imageLoader else placeholder,
+            painter = if (isError.not() && !isLocalInspection) imageLoader else placeholder,
             contentDescription = contentDescription,
         )
     }
@@ -71,6 +71,7 @@ private fun DynamicAsyncImagePreview() {
         DynamicAsyncImage(
             imageUrl = "https://t1.daumcdn.net/cfile/tistory/992371395B3B0B2731",
             contentDescription = null,
+            modifier = Modifier.size(200.dp)
         )
     }
 }
