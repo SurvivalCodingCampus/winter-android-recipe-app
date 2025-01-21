@@ -1,8 +1,6 @@
-package com.surivalcoding.composerecipeapp.presentation.splashscreen
+package com.surivalcoding.composerecipeapp.presentation
 
-import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -10,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.surivalcoding.composerecipeapp.presentation.sign_in.SignInScreen
 import com.surivalcoding.composerecipeapp.presentation.sign_up.SignUpScreen
+import com.surivalcoding.composerecipeapp.presentation.splashscreen.SplashScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -24,9 +23,6 @@ private sealed interface Route {
 
     @Serializable
     data object SignUp : Route
-
-//    @Serializable
-//    data object BottomNav : Route
 }
 
 @Composable
