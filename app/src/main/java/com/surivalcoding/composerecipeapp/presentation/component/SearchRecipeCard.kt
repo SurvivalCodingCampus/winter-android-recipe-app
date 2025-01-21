@@ -42,13 +42,14 @@ import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
-fun RecipeCard(
+fun SearchRecipeCard(
     recipe: Recipe,
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier.fillMaxWidth()
-            .aspectRatio(315 / 150f)
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(1f)
             .clip(RoundedCornerShape(10.dp))
     ) {
         AsyncImage(
@@ -97,7 +98,8 @@ fun RecipeCard(
                 imageVector = Icons.Default.Star,
                 contentDescription = "Rate Star",
                 tint = AppColors.rating,
-                modifier = Modifier.size(8.dp)
+                modifier = Modifier
+                    .aspectRatio(8 / 8f)
                     .weight(1f)
             )
             Text(
@@ -117,14 +119,14 @@ fun RecipeCard(
             verticalAlignment = Alignment.Bottom
         ) {
             Column(
-                modifier = Modifier.weight(2f)
+                modifier = Modifier
             ) {
                 Text(
                     text = recipe.title,
                     style = AppTextStyles.smallerTextBold.copy(
                         color = AppColors.white,
-                        fontSize = 14.sp,
-                        lineHeight = 21.sp
+                        fontSize = 11.sp,
+                        lineHeight = 17.sp
                     ),
                     maxLines = 2,
                     overflow = TextOverflow.Visible,
@@ -138,53 +140,6 @@ fun RecipeCard(
                     )
                 )
             }
-
-            Row(
-                modifier = Modifier
-                    .weight(1f),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.timer),
-                    contentDescription = "Cooking Time",
-                    tint = AppColors.gray4,
-                    modifier = Modifier
-                        .size(17.dp)
-                )
-                Text(
-                    text = recipe.cookingDuration,
-                    style = AppTextStyles.smallerTextRegular.copy(
-                        color = AppColors.white
-                    ),
-                    maxLines = 1,
-                    modifier = Modifier.padding(start = 5.dp, end = 10.dp)
-                )
-
-                Box(
-                    modifier = Modifier
-                        .background(AppColors.white, shape = CircleShape), // 흰색 원 배경
-                    contentAlignment = Alignment.Center
-                ) {
-                    // 배경 원
-                    Box(
-                        modifier = Modifier
-                            .size(20.dp)
-                            .background(AppColors.white, shape = CircleShape)
-                            .align(Alignment.Center) // 중앙 정렬
-                    )
-
-                    // 아이콘
-                    Icon(
-                        painter = painterResource(id = R.drawable.bookmark),
-                        contentDescription = "Save Recipe",
-                        tint = AppColors.primary80,
-                        modifier = Modifier
-                            .size(17.dp)
-                            .align(Alignment.Center) // 중앙 정렬로 아이콘 겹침
-                    )
-                }
-            }
         }
     }
 }
@@ -192,7 +147,7 @@ fun RecipeCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun RecipeCardPreview() {
+private fun SearchRecipeCardPreview() {
     val recipe1 = Recipe(
         "Italian",
         1,
@@ -204,12 +159,11 @@ private fun RecipeCardPreview() {
         emptyList(),
     )
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+    Row (
+        modifier = Modifier.size(300.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        RecipeCard(recipe = recipe1)
-        Spacer(modifier = Modifier.height(10.dp))
-        RecipeCard(recipe = recipe1)
+        SearchRecipeCard(recipe = recipe1)
+        SearchRecipeCard(recipe = recipe1)
     }
 }

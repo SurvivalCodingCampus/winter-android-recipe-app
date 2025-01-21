@@ -3,34 +3,53 @@ package com.surivalcoding.composerecipeapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.surivalcoding.composerecipeapp.presentation.saved_recipe_screen.SavedRecipeScreenViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.surivalcoding.composerecipeapp.presentation.saved_recipe_screen.SavedRecipeViewModel
 import com.surivalcoding.composerecipeapp.presentation.saved_recipe_screen.SavedRecipesScreen
-import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
+import com.surivalcoding.composerecipeapp.presentation.search_recipes_screen.SearchRecipeViewModel
+import com.surivalcoding.composerecipeapp.presentation.search_recipes_screen.SearchRecipesScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModel: SavedRecipeScreenViewModel by viewModels{
-            SavedRecipeScreenViewModel.Factory
-        }
+//        val viewModels: SavedRecipeViewModel by viewModels{
+//            SavedRecipeViewModel.Factory
+//        }
 
         setContent {
-            val savedRecipes = viewModel.savedRecipes.collectAsState()
-            SavedRecipesScreen(
-                modifier = Modifier.fillMaxSize(),
-                recipes = savedRecipes.value
+//            val viewModel: SavedRecipeViewModel = viewModel(
+//                factory = SavedRecipeViewModel.Factory
+//            )
+//
+//            val state = viewModel.state.collectAsStateWithLifecycle()
+//
+//            SavedRecipesScreen(
+//                modifier = Modifier.fillMaxSize(),
+//                state = state.value,
+//                waitSavedRecipes = { viewModel.waitSavedRecipes() }
+//            )
+
+            val viewModel: SearchRecipeViewModel = viewModel(
+                factory = SearchRecipeViewModel.Factory
             )
+
+            val state by viewModel.state.collectAsStateWithLifecycle()
+
+            SearchRecipesScreen(
+                modifier = Modifier.fillMaxSize(),
+                state = state,
+                waitSavedRecipes = { viewModel.waitSearchRecipes() },
+                onValueChange = { viewModel.onSearchQueryChanged(it) }
+            )
+
         }
     }
 }

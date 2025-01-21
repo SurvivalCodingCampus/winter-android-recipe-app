@@ -8,13 +8,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.data.model.Recipe
@@ -25,15 +28,18 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SavedRecipesScreen(
     modifier: Modifier = Modifier,
-    recipes: List<Recipe>,
-) {
+    state: SavedRecipeState = SavedRecipeState(),
+    waitSavedRecipes: () -> Unit = {},
+
+    ) {
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.TopCenter
-    ){
+    ) {
         Column(
             modifier = Modifier
-                .padding(top = 54.dp),
+                .fillMaxSize()
+                .padding(top = 54.dp, bottom = 51.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
@@ -44,25 +50,34 @@ fun SavedRecipesScreen(
                 )
             )
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(629.dp)
-                    .background(color = AppColors.white)
-                    .padding(top = 10.dp, start = 30.dp, end = 30.dp),
-                verticalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
-                items(recipes) { recipe ->
-                    RecipeCard(
-                        recipe = recipe,
-                        modifier = Modifier
-                    )
+            if (state.isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(200.dp)
+                        .padding(top = 200.dp)
+                        .align(Alignment.CenterHorizontally),
+                    color = AppColors.primary80,
+                    strokeWidth = 10.dp,
+                )
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .background(color = AppColors.white)
+                        .padding(start = 30.dp, end = 30.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(20.dp),
+
+                    ) {
+                    items(state.savedRecipes) { recipe ->
+                        RecipeCard(
+                            recipe = recipe,
+                            modifier = Modifier,
+                        )
+                    }
                 }
             }
         }
     }
-
-
 }
 
 @Preview(showBackground = true)
@@ -81,6 +96,6 @@ private fun SavedRecipesScreenPreview() {
     val recipes = listOf(recipe1, recipe1, recipe1, recipe1, recipe1)
 
     SavedRecipesScreen(
-        recipes = recipes
+        state = SavedRecipeState(recipes)
     )
 }
