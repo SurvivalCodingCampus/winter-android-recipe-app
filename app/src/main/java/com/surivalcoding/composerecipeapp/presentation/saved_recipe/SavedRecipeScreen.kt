@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -18,77 +18,117 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
+import com.lottiefiles.dotlottie.core.compose.ui.DotLottieAnimation
+import com.lottiefiles.dotlottie.core.util.DotLottieSource
+import com.dotlottie.dlplayer.Mode
 
 @Composable
-fun SavedRecipeScreen(recipes: List<Recipe>) {
+fun SavedRecipeScreen(
+    state: SavedRecipeState,
+    onRecipeClick: (Recipe) -> Unit = {},
+    onBookmarkClick: (Recipe) -> Unit = {}
+) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Saved recipes 타이틀
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 10.dp)
-        ) {
-            Text(
-                text = "Saved recipes",
-                style = AppTextStyles.largeTextBold
-                ,
-                modifier = Modifier.align(Alignment.Center)  // Box 내에서 중앙 정렬
-            )
-        }
+        Text(
+            text = "Saved recipes",
+            style = AppTextStyles.largeTextBold,
+            modifier = Modifier.padding(vertical = 10.dp)
+        )
 
-        // 레시피 리스트
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 30.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp), // 카드 간 간격
-            contentPadding = PaddingValues(vertical = 8.dp)
-        ) {
-            items(recipes) { recipe ->
-                RecipeCard(
-                    recipe = recipe,
-                    modifier = Modifier
-                )
+        Box(modifier = Modifier.fillMaxSize()) {
+            when {
+                state.isLoading -> {
+                    DotLottieAnimation(
+                        source = DotLottieSource.Url("https://lottie.host/bb71f4a6-1af3-4f94-8fc1-534aae11ef23/CHz2ZvcxYN.lottie"),
+                        autoplay = true,
+                        loop = true,
+                        speed = 3f,
+                        useFrameInterpolation = false,
+                        playMode = Mode.FORWARD,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .size(400.dp)
+                    )
+                }
+
+                else -> {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 30.dp),
+                        verticalArrangement = Arrangement.spacedBy(20.dp),
+                        contentPadding = PaddingValues(vertical = 8.dp)
+                    ) {
+                        items(state.recipes) { recipe ->
+                            RecipeCard(
+                                recipe = recipe,
+                                // onClick = { onRecipeClick(recipe) },
+                                onBookmarkClick = { onBookmarkClick(recipe) }
+                            )
+                        }
+                    }
+                }
             }
         }
     }
 }
-@Preview
+
+@Preview(showBackground = true)
 @Composable
 private fun SavedRecipeScreenPreview() {
     SavedRecipeScreen(
-        recipes = listOf(
-            Recipe(
-                id = 1,
-                name = "Spicy fried rice mix chicken bali",
-                chef = "Spicy Nelly",
-                image = "https://example.com/image.jpg",
-                rating = 4.0f,
-                time = "11",
-                category = "Chinese",
-                ingredients = emptyList()
-            ),
-            Recipe(
-                id = 1,
-                name = "Spicy fried rice mix chicken bali",
-                chef = "Spicy Nelly",
-                image = "https://example.com/image.jpg",
-                rating = 4.0f,
-                time = "11",
-                category = "Chinese",
-                ingredients = emptyList()
-            )
-            ,Recipe(
-                id = 1,
-                name = "Spicy fried rice mix chicken bali",
-                chef = "Spicy Nelly",
-                image = "https://example.com/image.jpg",
-                rating = 4.0f,
-                time = "11",
-                category = "Chinese",
-                ingredients = emptyList()
+        state = SavedRecipeState(
+            recipes = listOf(
+                Recipe(
+                    id = 1,
+                    name = "Spicy fried rice mix chicken bali",
+                    chef = "Spicy Nelly",
+                    image = "https://example.com/image.jpg",
+                    rating = 4.0f,
+                    time = "11",
+                    category = "Chinese",
+                    ingredients = emptyList()
+                ),
+                Recipe(
+                    id = 1,
+                    name = "Spicy fried rice mix chicken bali",
+                    chef = "Spicy Nelly",
+                    image = "https://example.com/image.jpg",
+                    rating = 4.0f,
+                    time = "11",
+                    category = "Chinese",
+                    ingredients = emptyList()
+                ), Recipe(
+                    id = 1,
+                    name = "Spicy fried rice mix chicken bali",
+                    chef = "Spicy Nelly",
+                    image = "https://example.com/image.jpg",
+                    rating = 4.0f,
+                    time = "11",
+                    category = "Chinese",
+                    ingredients = emptyList()
+                ), Recipe(
+                    id = 1,
+                    name = "Spicy fried rice mix chicken bali",
+                    chef = "Spicy Nelly",
+                    image = "https://example.com/image.jpg",
+                    rating = 4.0f,
+                    time = "11",
+                    category = "Chinese",
+                    ingredients = emptyList()
+                ), Recipe(
+                    id = 1,
+                    name = "Spicy fried rice mix chicken bali",
+                    chef = "Spicy Nelly",
+                    image = "https://example.com/image.jpg",
+                    rating = 4.0f,
+                    time = "11",
+                    category = "Chinese",
+                    ingredients = emptyList()
+                )
             )
         )
     )
