@@ -30,6 +30,11 @@
             android:exported="true"
             android:theme="@style/Theme.ComposeRecipeApp">
         </activity>
+        <activity
+            android:name=".SearchRecipesActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ComposeRecipeApp">
+        </activity>
     </application>
 
 </manifest>

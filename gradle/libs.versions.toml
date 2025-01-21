@@ -16,6 +16,7 @@ constraintlayout = "2.2.0"
 firebasePerfKtx = "21.0.4"
 lottieVersion = "6.6.2"
 volley = "1.2.1"
+foundationAndroid = "1.6.7"
 
 [libraries]
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutComposeVersion" }
@@ -41,6 +42,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 firebase-perf-ktx = { group = "com.google.firebase", name = "firebase-perf-ktx", version.ref = "firebasePerfKtx" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottieVersion" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
+androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
