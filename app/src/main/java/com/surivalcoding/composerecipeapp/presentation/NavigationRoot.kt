@@ -26,7 +26,7 @@ private sealed interface Route {
 }
 
 @Composable
-fun NavigationSplashRoot(
+fun NavigationRoot(
     navController: NavHostController,
 ) {
     NavHost(
