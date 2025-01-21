@@ -16,11 +16,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.surivalcoding.composerecipeapp.navigation.NavigationRoot
 import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipesScreen
 import com.surivalcoding.composerecipeapp.presentation.recipe_detail.RecipeDetailScreen
 import com.surivalcoding.composerecipeapp.presentation.saved_recipes.view_model.RecipeDetailViewModel
 import com.surivalcoding.composerecipeapp.presentation.saved_recipes.view_model.RecipeSearchViewModel
-import com.surivalcoding.composerecipeapp.presentation.recently_search_recipe.RecipeBeforeSearchScreen
+import com.surivalcoding.composerecipeapp.presentation.recently_search_recipe.RecipeSearchScreen
 import kotlinx.serialization.Serializable
 
 class MainActivity : ComponentActivity() {
@@ -36,56 +37,16 @@ class MainActivity : ComponentActivity() {
 data class UserRouter(val userId: Int, val chefName: String)
 
 
+
+
+
+
 class RecipeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeRecipeAppTheme {
-                val navController = rememberNavController()
-
-                NavHost(
-                    navController = navController,
-                    startDestination = RecipeDtoRouter(id = "1")
-                ) {
-                    composable<RecipeDtoRouter> { backStackEntry ->
-                        val viewModel =
-                            viewModel<RecipeViewModel>(factory = RecipeViewModel.Factory)
-                        val state by viewModel.state.collectAsStateWithLifecycle()
-
-                        SavedRecipesScreen(
-                            state = state,
-                            onRecipeClick = { recipe ->
-                                navController.navigate(
-                                    route = UserRouter(userId = 1, chefName = recipe.chef)
-                                )
-                            },
-                            onBookmarkClick = {},
-                        )
-                    }
-
-                    composable<UserRouter>
-                    { backStackEntry ->
-                        backStackEntry.toRoute<UserRouter>()
-                        val viewModel =
-                            viewModel<RecipeDetailViewModel>(factory = RecipeDetailViewModel.Factory)
-                        val state by viewModel.state.collectAsStateWithLifecycle()
-                        RecipeDetailScreen(
-                            state = state,
-                            onBackClick = { navController.popBackStack() },
-                        )
-                    }
-
-
-//                    composable<UserDto> { backStackEntry ->
-//                        val viewModel = viewModel<RecipeSearchViewModel>()
-//                        val state by viewModel.state.collectAsStateWithLifecycle()
-//
-//                        RecipeBeforeSearchScreen(
-//                            state = state,
-//                            onValueChange = viewModel::searchRecipes,
-//                        )
-//                    }
-                }
+                NavigationRoot()
             }
         }
     }
@@ -108,9 +69,10 @@ class SearchActivity : ComponentActivity() {
                         val state by viewModel.state.collectAsStateWithLifecycle()
 
 
-                        RecipeBeforeSearchScreen(
+                        RecipeSearchScreen(
                             state = state,
-                            onValueChange = viewModel::searchRecipes,
+                            onValueChange = { newKeyword -> viewModel.searchRecipes(newKeyword) },
+                            onSearching = { isSearching -> viewModel.onSearching(isSearching) }
                         )
                     }
                 }
