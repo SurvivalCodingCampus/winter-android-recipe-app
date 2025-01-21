@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.surivalcoding.composerecipeapp.data.mock.fakeSearchRecipe
+import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
 import com.surivalcoding.composerecipeapp.presentation.component.SearchField
 import com.surivalcoding.composerecipeapp.presentation.component.SquareRecipeCard
 import com.surivalcoding.composerecipeapp.ui.CraIcons
@@ -104,7 +105,6 @@ fun SearchRecipeScreen(
         )
 
         when (searchRecipeUiState) {
-            SearchRecipeUiState.EmptyQuery -> {}
             SearchRecipeUiState.LoadFailed -> {}
             SearchRecipeUiState.Loading -> {
                 Box(
@@ -120,45 +120,25 @@ fun SearchRecipeScreen(
                 }
             }
 
+            is SearchRecipeUiState.EmptyQuery -> {
+                RecentRecipeResultBody(
+                    searchRecipeUiState.recentRecipes,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
 
             is SearchRecipeUiState.Success -> {
                 if (searchRecipeUiState.isEmpty()) {
-                    val message = """Sorry, there is no recipe found for your search "$query""""
-                    val start = message.indexOf(query)
-                    Text(
-                        text = AnnotatedString(
-                            text = message,
-                            spanStyles = listOf(
-                                AnnotatedString.Range(
-                                    SpanStyle(color = AppColors.Primary100),
-                                    start = start,
-                                    end = start + query.length,
-                                ),
-                            ),
-                        ),
-                        style = AppTextStyles.mediumTextRegular,
-                        textAlign = TextAlign.Center,
+                    EmptySearchResultBody(
+                        query = query,
+                        message = "Sorry, there is no recipe found for your search",
                         modifier = Modifier.padding(vertical = 24.dp),
                     )
                 } else {
-                    Text(
-                        text = if (query.isBlank()) "Recent Search" else "Search Result",
-                        style = AppTextStyles.mediumTextSemiBold,
-                        modifier = Modifier.padding(vertical = 20.dp)
+                    SearchRecipeResultBody(
+                        searchRecipes = searchRecipeUiState.searchRecipes,
+                        modifier = Modifier.fillMaxWidth()
                     )
-
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        verticalArrangement = Arrangement.spacedBy(15.dp),
-                        horizontalArrangement = Arrangement.spacedBy(15.dp)
-                    ) {
-                        items(searchRecipeUiState.recipes) { searchRecipe ->
-                            SquareRecipeCard(
-                                searchRecipe = searchRecipe,
-                                contentDescription = searchRecipe.title
-                            )
-                        }
-                    }
                 }
             }
         }
@@ -166,7 +146,7 @@ fun SearchRecipeScreen(
 }
 
 @Composable
-fun SearchField(
+private fun SearchField(
     query: String,
     onQueryChange: (String) -> Unit,
     onFilterClick: () -> Unit,
@@ -189,6 +169,98 @@ fun SearchField(
                 imageVector = ImageVector.vectorResource(CraIcons.outlinedSetting),
                 contentDescription = "Search setting",
                 modifier = Modifier.padding(10.dp)
+            )
+        }
+    }
+}
+
+@Composable
+private fun RecentRecipeResultBody(
+    recentRecipes: List<SearchRecipe>,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+    ) {
+        Text(
+            text = "Recent Search",
+            style = AppTextStyles.mediumTextSemiBold,
+            modifier = Modifier.padding(vertical = 20.dp)
+        )
+
+        SearchResultGrid(recentRecipes)
+    }
+}
+
+@Composable
+private fun SearchRecipeResultBody(
+    searchRecipes: List<SearchRecipe>,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(
+                text = "Search Result",
+                style = AppTextStyles.mediumTextSemiBold,
+            )
+            Text(
+                text = "${searchRecipes.size} results",
+                style = AppTextStyles.smallerTextRegular,
+                color = AppColors.Gray3
+            )
+        }
+
+        SearchResultGrid(searchRecipes)
+    }
+}
+
+@Composable
+private fun EmptySearchResultBody(
+    message: String,
+    query: String,
+    modifier: Modifier = Modifier
+) {
+    val annotatedMessage = AnnotatedString(
+        text = "$message \"$query\"",
+        spanStyles = listOf(
+            AnnotatedString.Range(
+                SpanStyle(color = AppColors.Primary100),
+                start = message.length,
+                end = message.length + query.length + 2
+            )
+        )
+    )
+    Text(
+        text = annotatedMessage,
+        style = AppTextStyles.mediumTextRegular,
+        textAlign = TextAlign.Center,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun SearchResultGrid(
+    searchRecipes: List<SearchRecipe>,
+    modifier: Modifier = Modifier
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        verticalArrangement = Arrangement.spacedBy(15.dp),
+        horizontalArrangement = Arrangement.spacedBy(15.dp),
+        modifier = modifier,
+    ) {
+        items(searchRecipes) { searchRecipe ->
+            SquareRecipeCard(
+                searchRecipe = searchRecipe,
+                contentDescription = searchRecipe.title
             )
         }
     }

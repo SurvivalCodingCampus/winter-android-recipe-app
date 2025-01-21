@@ -16,8 +16,12 @@ class RecipeDataSourceImpl @OptIn(ExperimentalSerializationApi::class) construct
     private val httpClient: HttpClient = createJsonHttpClient()
 ) : RecipeDataSource {
     override fun getSearchRecipes(query: String): Flow<List<SearchRecipe>> = flow {
+        val normalizedQuery = query.trim().lowercase().replace("\\s+".toRegex(), "")
         emit(fakeSearchRecipe.filter {
-            query in it.title || query in it.authorName
+            val normalizedTitle = it.title.trim().lowercase().replace("\\s+".toRegex(), "")
+            val normalizedAuthorName =
+                it.authorName.trim().lowercase().replace("\\s+".toRegex(), "")
+            normalizedQuery in normalizedTitle || normalizedQuery in normalizedAuthorName
         })
     }
 
