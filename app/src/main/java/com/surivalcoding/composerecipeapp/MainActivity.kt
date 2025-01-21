@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,11 +41,11 @@ class MainActivity : ComponentActivity() {
                 factory = SearchRecipeViewModel.Factory
             )
 
-            val state = viewModel.state.collectAsStateWithLifecycle()
+            val state by viewModel.state.collectAsStateWithLifecycle()
 
             SearchRecipesScreen(
                 modifier = Modifier.fillMaxSize(),
-                state = state.value,
+                state = state,
                 waitSavedRecipes = { viewModel.waitSearchRecipes() },
                 onValueChange = { viewModel.onSearchQueryChanged(it) }
             )
