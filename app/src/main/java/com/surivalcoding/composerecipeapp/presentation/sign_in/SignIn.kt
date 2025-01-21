@@ -30,6 +30,7 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
 fun SignInScreen(
+    modifier: Modifier = Modifier,
     onSignInClick: () -> Unit,
     onForgotPasswordClick: () -> Unit,
     onGoogleSignInClick: () -> Unit,
@@ -40,7 +41,7 @@ fun SignInScreen(
     var password by remember { mutableStateOf("") }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxHeight()
             .padding(start = 30.dp, top = 94.dp, end = 30.dp),
         contentAlignment = Alignment.TopCenter
