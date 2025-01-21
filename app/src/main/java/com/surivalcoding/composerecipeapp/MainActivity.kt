@@ -29,57 +29,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            NavigationRoot()
         }
     }
 }
 
-@Serializable
-data class UserRouter(val userId: Int, val chefName: String)
 
 
-
-
-
-
-class RecipeActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            ComposeRecipeAppTheme {
-                NavigationRoot()
-            }
-        }
-    }
-}
-
-class SearchActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            ComposeRecipeAppTheme {
-                val navController = rememberNavController()
-
-                NavHost(
-                    navController = navController,
-                    startDestination = RecipeDtoRouter(id = "1")
-                ) {
-                    composable<RecipeDtoRouter> { backStackEntry ->
-                        val viewModel =
-                            viewModel<RecipeSearchViewModel>(factory = RecipeSearchViewModel.Factory)
-                        val state by viewModel.state.collectAsStateWithLifecycle()
-
-
-                        RecipeSearchScreen(
-                            state = state,
-                            onValueChange = { newKeyword -> viewModel.searchRecipes(newKeyword) },
-                            onSearching = { isSearching -> viewModel.onSearching(isSearching) }
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
