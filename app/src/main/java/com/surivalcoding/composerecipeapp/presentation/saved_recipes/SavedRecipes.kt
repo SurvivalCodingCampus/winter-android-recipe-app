@@ -40,13 +40,14 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SavedRecipesScreen(
     state: SavedRecipesState,
+    modifier: Modifier,
     onRecipeClick: (Recipe) -> Unit,
     onBookmarkClick: (Recipe) -> Unit,
 ) {
     val recipes =  state.recipes
 
     Column(
-        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
+        modifier = modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
 
@@ -180,6 +181,7 @@ fun SavedRecipesScreenPreview() {
 
     SavedRecipesScreen(
         state = SavedRecipesState(recipes),
+        modifier = Modifier,
         onRecipeClick = {},
         onBookmarkClick = {}
     )
