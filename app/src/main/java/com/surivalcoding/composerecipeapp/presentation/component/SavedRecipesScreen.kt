@@ -27,7 +27,8 @@ fun SavedRecipesScreen(
     titles: List<String> = emptyList(),
     chefNames: List<String> = emptyList(),
     rates: List<Float> = emptyList(),
-    cookingTimeMinutes: List<Int> = emptyList()
+    cookingTimeMinutes: List<Int> = emptyList(),
+    state: SavedRecipesState = SavedRecipesState()
 ) {
     Column(
         modifier = Modifier
@@ -53,13 +54,17 @@ fun SavedRecipesScreen(
             verticalArrangement = Arrangement.spacedBy(30.dp)
         ) {
             items(titles.size) { index ->
-                RecipeCard(
-                    foodImage = foodImage[index],
-                    title = titles[index],
-                    chefName = chefNames[index],
-                    rate = rates[index],
-                    cookingTimeMinute = cookingTimeMinutes[index]
-                )
+                if(state.isLoading) {
+                    RecipeCardLoadingUI()
+                } else {
+                    RecipeCard(
+                        foodImage = foodImage[index],
+                        title = titles[index],
+                        chefName = chefNames[index],
+                        rate = rates[index],
+                        cookingTimeMinute = cookingTimeMinutes[index]
+                    )
+                }
             }
         }
 

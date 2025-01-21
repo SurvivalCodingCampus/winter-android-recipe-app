@@ -8,31 +8,74 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.surivalcoding.composerecipeapp.presentation.component.AppApplication
+import com.surivalcoding.composerecipeapp.presentation.component.SavedRecipesState
 import com.surivalcoding.composerecipeapp.presentation.component.datasource.RecipeDataSourceImpl
 import com.surivalcoding.composerecipeapp.presentation.component.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.presentation.component.repository.RecipeRepositoryImpl
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class RecipeViewModel(
     private val repository: RecipeRepository = RecipeRepositoryImpl(RecipeDataSourceImpl()),
     private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
-    fun getDataCount(): Int {
-        return repository.getDataCount()
+    private var _state = MutableStateFlow(SavedRecipesState())
+    val state = _state.asStateFlow()
+
+    suspend fun getDataCount(): Int {
+        val data = repository.getDataCount()
+        _state.update {
+            it.copy(
+                isLoading = false
+            )
+        }
+        return data
     }
-    fun getFoodImage(): List<String> {
-        return repository.getFoodImage()
+    suspend fun getFoodImage(): List<String> {
+        val data = repository.getFoodImage()
+        _state.update {
+            it.copy(
+                isLoading = false
+            )
+        }
+        return data
     }
-    fun getRecipeTitles(): List<String> {
-        return repository.getRecipeTitles()
+    suspend fun getRecipeTitles(): List<String> {
+        val data = repository.getRecipeTitles()
+        _state.update {
+            it.copy(
+                isLoading = false
+            )
+        }
+        return data
     }
-    fun getChefNames(): List<String> {
-        return repository.getChefNames()
+    suspend fun getChefNames(): List<String> {
+        val data = repository.getChefNames()
+        _state.update {
+            it.copy(
+                isLoading = false
+            )
+        }
+        return data
     }
-    fun getCookingTimes(): List<Int> {
-        return repository.getCookingTimes()
+    suspend fun getCookingTimes(): List<Int> {
+        val data = repository.getCookingTimes()
+        _state.update {
+            it.copy(
+                isLoading = false
+            )
+        }
+        return data
     }
-    fun getRatings(): List<Float> {
-        return repository.getRatings()
+    suspend fun getRatings(): List<Float> {
+        val data = repository.getRatings()
+        _state.update {
+            it.copy(
+                isLoading = false
+            )
+        }
+        return data
     }
 
     companion object {

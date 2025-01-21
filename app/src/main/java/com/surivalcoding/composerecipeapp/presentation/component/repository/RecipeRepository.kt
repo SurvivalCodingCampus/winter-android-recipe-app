@@ -1,10 +1,10 @@
 package com.surivalcoding.composerecipeapp.presentation.component.repository
 
 interface RecipeRepository {
-    fun getFoodImage(): List<String>
-    fun getRecipeTitles(): List<String>
-    fun getChefNames(): List<String>
-    fun getCookingTimes(): List<Int>
-    fun getRatings(): List<Float>
-    fun getDataCount(): Int
+    suspend fun getFoodImage(): List<String>
+    suspend fun getRecipeTitles(): List<String>
+    suspend fun getChefNames(): List<String>
+    suspend fun getCookingTimes(): List<Int>
+    suspend fun getRatings(): List<Float>
+    suspend fun getDataCount(): Int
 }

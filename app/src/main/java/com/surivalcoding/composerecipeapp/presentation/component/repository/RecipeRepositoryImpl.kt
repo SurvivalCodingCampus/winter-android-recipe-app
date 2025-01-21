@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation.component.repository
 
 import com.surivalcoding.composerecipeapp.presentation.component.datasource.RecipeDataSource
 import com.surivalcoding.composerecipeapp.presentation.component.mapper.toRecipe
+import kotlinx.coroutines.delay
 
 class RecipeRepositoryImpl(
     dataSource: RecipeDataSource
@@ -10,37 +11,43 @@ class RecipeRepositoryImpl(
         it.toRecipe()
     }
 
-    override fun getFoodImage(): List<String> {
+    override suspend fun getFoodImage(): List<String> {
+        delay(1000L)
         return recipeData.map {
             it.foodImage
         }
     }
 
-    override fun getRecipeTitles(): List<String> {
+    override suspend fun getRecipeTitles(): List<String> {
+        delay(1000L)
         return recipeData.map {
             it.title
         }
     }
 
-    override fun getChefNames(): List<String> {
+    override suspend fun getChefNames(): List<String> {
+        delay(1000L)
         return recipeData.map {
             it.chefName
         }
     }
 
-    override fun getCookingTimes(): List<Int> {
+    override suspend fun getCookingTimes(): List<Int> {
+        delay(1000L)
         return recipeData.map {
             it.cookingTime
         }
     }
 
-    override fun getRatings(): List<Float> {
+    override suspend fun getRatings(): List<Float> {
+        delay(1000L)
         return recipeData.map {
             it.rating
         }
     }
 
-    override fun getDataCount(): Int {
+    override suspend fun getDataCount(): Int {
+        delay(1000L)
         return recipeData.size
     }
 
