@@ -67,11 +67,11 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
 
-    val ktor_version = "3.0.3"
-
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     testImplementation(libs.ktor.client.mock)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.material)
 }
