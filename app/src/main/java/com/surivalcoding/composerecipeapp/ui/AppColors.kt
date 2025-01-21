@@ -9,8 +9,8 @@ object AppColors {
     val gray_03 = Color(android.graphics.Color.parseColor("#A9A9A9"))
     val gray_04 = Color(android.graphics.Color.parseColor("#D9D9D9"))
     val Label_Colour = Color(android.graphics.Color.parseColor("#121212"))
-    val yellow = Color(android.graphics.Color.parseColor("#FFAD30"))
-    val goldyello = Color(android.graphics.Color.parseColor("#FF9C00"))
+    val Rating = Color(android.graphics.Color.parseColor("#FFAD30"))
+    val Secondary_100 = Color(android.graphics.Color.parseColor("#FF9C00"))
     val lightyello = Color(android.graphics.Color.parseColor("#FFE1B3"))
     val white = Color(android.graphics.Color.parseColor("#FFFFFF"))
 }

@@ -1,12 +1,17 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -26,9 +31,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.ui.AppColors
+import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 
-@Composable
+/*@Composable
 fun RatingDialog(
     title: String,
     modifier: Modifier = Modifier,
@@ -168,10 +174,89 @@ fun RatingDialog(
         }
     }
 }
+*/
+
+@Composable
+fun RatingDialog(
+    modifier: Modifier = Modifier,
+    title: String,
+    actionName: String,
+    onChange: (Int) -> Unit = {}
+    ) {
+    Box(
+        modifier = Modifier
+            .width(170.dp)
+            .height(91.dp)
+            .background(
+                color = AppColors.white,
+                shape = RoundedCornerShape(10.dp)
+            )
+            .padding(vertical = 10.dp, horizontal = 15.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
+            Text(
+                modifier = Modifier
+                    .width(63.dp)
+                    .height(17.dp),
+                text = title,
+                style = AppTextStyles.smallerTextRegular,
+                color = AppColors.Label_Colour
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(24.dp)
+                    .padding(bottom = 2.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                repeat(5) { index ->
+                    Icon(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clickable {
+                                onChange(index + 1)
+                            },
+                        imageVector = Icons.Rounded.StarBorder,
+                        contentDescription = null,
+                        tint = AppColors.Rating
+                    )
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .width(61.dp)
+                    .height(20.dp)
+                    .background(
+                        color = AppColors.Rating,
+                        shape = RoundedCornerShape(5.dp)),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    modifier = Modifier
+                        .width(21.dp)
+                        .height(12.dp),
+                    text = actionName,
+                    style = AppTextStyles.smallerTextLabel,
+                    color = AppColors.white
+                )
+            }
+        }
+    }
+}
 
 @Preview(showBackground = false)
 @Composable
 private fun RatingDialogPreview() {
+    /*
     var starFill by remember { mutableStateOf(mutableListOf<Color>()) }
     var select by remember { mutableStateOf(-1) }
 
@@ -185,5 +270,11 @@ private fun RatingDialogPreview() {
         onClick = {
 
         }
+    )
+    */
+
+    RatingDialog(
+        title = "Rate recipe",
+        actionName = "Send"
     )
 }

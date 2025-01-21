@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -57,6 +58,8 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended-android:1.7.6")
     implementation("androidx.compose.material:material-icons-core:1.3.0")
     implementation("androidx.compose.material:material-icons-extended:1.3.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation("com.google.accompanist:accompanist-placeholder-material:0.28.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation("androidx.test:rules:1.6.1")
