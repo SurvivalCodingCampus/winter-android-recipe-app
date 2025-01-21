@@ -1,6 +1,8 @@
 package com.surivalcoding.composerecipeapp.data.model
 
-// 레시피 데이터 클래스
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Recipe(
     val id: Int,
     val title: String,

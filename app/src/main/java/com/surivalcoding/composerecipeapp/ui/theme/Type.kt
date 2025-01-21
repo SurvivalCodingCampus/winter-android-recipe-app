@@ -111,6 +111,13 @@ object AppTextStyles {
         fontFamily = poppinsFamily
     )
 
+    val normalTextSemiBold = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        fontWeight = FontWeight.SemiBold,
+        fontFamily = poppinsFamily
+    )
+
     val normalTextRegular = TextStyle(
         fontSize = 16.sp,
         lineHeight = 24.sp,

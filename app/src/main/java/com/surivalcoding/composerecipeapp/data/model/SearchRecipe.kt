@@ -1,6 +1,9 @@
 package com.surivalcoding.composerecipeapp.data.model
 
-data class SearchRecipeItem(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class SearchRecipe(
     val thumbnailUrl: String,
     val title: String,
     val rating: Double,
