@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.dotlottie.android)
+    implementation(libs.lottie)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
