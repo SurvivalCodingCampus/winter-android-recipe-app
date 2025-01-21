@@ -58,6 +58,8 @@ Figma 커뮤니티의 Recipe UI 디자인을 참고하여, Jetpack Compose로 �
 ### 일일 작업 일지
 - [1일차](/docs/daily/2025-01-14.md) - 프로젝트 초기 디자인 시스템 및 컴포넌트 구현 시작
 - [2일차](/docs/daily/2025-01-15.md) - 상태를 가지는 컴포저블. IngredientItem, RecipeCard, RatingDialog, FilterChip 컴포넌트 구현
+- [3일차](/docs/daily/2025-01-16.md) - Flow/Modifier 학습 및 SignIn, SignUp UI 구현
+- [4일차](/docs/daily/2025-01-17.md) - MVVM 패턴 학습 및 SavedRecipesScreen 구현
 
 ## 학습 로드맵
 
@@ -91,9 +93,9 @@ Figma 커뮤니티의 Recipe UI 디자인을 참고하여, Jetpack Compose로 �
 - [x] 앱 생태계 개론(Android, iOS, 멀티플랫폼)
 - [x] Composable 작성 규칙
 - [x] 상태가 있는 Composable 작성 규칙
-- [ ] 상태관리, Activity 생명주기
+- [x] 상태관리, Activity 생명주기
 - [ ] 네비게이션
-- [ ] MVVM 패턴
+- [x] MVVM 패턴
 - [ ] 단일 상태 객체 도입
 - [ ] 클린 아키텍처
 - [ ] 의존성 주입

@@ -2,6 +2,7 @@
 agp = "8.8.0"
 coilCompose = "3.0.4"
 constraintlayoutComposeVersion = "1.1.0"
+dotlottieAndroid = "0.5.0"
 kotlin = "2.0.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -13,13 +14,16 @@ activityCompose = "1.9.3"
 composeBom = "2024.04.01"
 constraintlayout = "2.2.0"
 firebasePerfKtx = "21.0.4"
+lottieVersion = "6.6.2"
 volley = "1.2.1"
+foundationAndroid = "1.6.7"
 
 [libraries]
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutComposeVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
+dotlottie-android = { module = "com.github.LottieFiles:dotlottie-android", version.ref = "dotlottieAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -36,7 +40,9 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 firebase-perf-ktx = { group = "com.google.firebase", name = "firebase-perf-ktx", version.ref = "firebasePerfKtx" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottieVersion" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
+androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

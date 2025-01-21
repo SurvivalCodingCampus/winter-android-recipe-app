@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.dotlottie.android)
+    implementation(libs.lottie)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
@@ -56,6 +58,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.firebase.perf.ktx)
     implementation(libs.volley)
+    implementation(libs.androidx.foundation.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
