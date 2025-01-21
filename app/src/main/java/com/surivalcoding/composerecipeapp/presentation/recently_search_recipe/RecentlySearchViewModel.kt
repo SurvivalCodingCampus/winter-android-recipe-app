@@ -14,11 +14,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class RecipeSearchState(
-    val keyword: String = "",
-    val recipeList: List<Recipe> = emptyList(),
-    val isLoading: Boolean = false,
-)
 
 
 class RecipeSearchViewModel(

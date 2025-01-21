@@ -22,13 +22,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-data class RecipeDetailState(
-    val recipes: List<Recipe> = emptyList(),
-    val reviews: List<ReviewDto> = emptyList(),
-    val chefProfile: User? = null,
-    val isLoading: Boolean = false
-)
-
 
 class RecipeDetailViewModel(
     private val recipeRepository: RecipeRepository,

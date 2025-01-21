@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.surivalcoding.composerecipeapp.presentation.saved_recipes.view_model.RecipeViewModel
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.RecipeViewModel
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle

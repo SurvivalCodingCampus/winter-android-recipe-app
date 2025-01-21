@@ -34,7 +34,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.presentation.component.ingredientItem.RecipeCard
-import com.surivalcoding.composerecipeapp.presentation.saved_recipes.view_model.SavedRecipesState
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 

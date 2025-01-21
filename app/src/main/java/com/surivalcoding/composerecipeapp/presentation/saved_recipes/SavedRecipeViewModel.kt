@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.saved_recipes.view_model
+package com.surivalcoding.composerecipeapp.presentation.saved_recipes
 
 import Recipe
 import androidx.lifecycle.SavedStateHandle
@@ -16,10 +16,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class SavedRecipesState(
-    val recipes: List<Recipe> = emptyList(),
-    val isLoading: Boolean = false
-)
 
 
 
