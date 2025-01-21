@@ -101,7 +101,7 @@ fun BaseButton(
 @Composable
 private fun ButtonsPreview() {
     BigButton(
-        text = "Big Button", onClick = {},
+        text = "Big Button", onClick = { println("hello world")},
         isDisable = true
     )
 }
