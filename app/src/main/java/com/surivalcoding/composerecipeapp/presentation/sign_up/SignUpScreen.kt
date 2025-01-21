@@ -51,13 +51,14 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
-    isFocused: Boolean,
-    onValueChange: (String) -> Unit,
-    onSignInClick: () -> Unit,
-    onForgotPasswordClick: () -> Unit,
-    onSignUpClick: () -> Unit,
-    onSignInWithGoogleClick: () -> Unit,
-    onSignInWithFacebookClick: () -> Unit,
+    state: SignUpState = SignUpState(),
+    isFocused: Boolean = false,
+    onValueChange: (String) -> Unit = {},
+    onSignInClick: () -> Unit = {},
+    onForgotPasswordClick: () -> Unit = {},
+    onSignUpClick: () -> Unit = {},
+    onSignInWithGoogleClick: () -> Unit = {},
+    onSignInWithFacebookClick: () -> Unit = {},
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -177,8 +178,8 @@ fun SignUpScreen(
 
                 BigButton(
                     modifier = Modifier.padding(top = 25.dp),
-                    text = "Sign In",
-                    onClick = onSignInClick,
+                    text = "Sign Up",
+                    onClick = onSignUpClick,
                 )
                 Row(
                     modifier = Modifier
@@ -277,7 +278,7 @@ fun SignUpScreen(
                         ),
                     )
                     Button(
-                        onClick = onSignUpClick,
+                        onClick = onSignInClick,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.Transparent, // 버튼의 배경색을 투명으로 설정
                             contentColor = AppColors.secondary100 // 텍스트 색상

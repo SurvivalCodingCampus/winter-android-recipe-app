@@ -51,13 +51,13 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SignInScreen(
     modifier: Modifier = Modifier,
-    isFocused: Boolean,
-    onValueChange: (String) -> Unit,
-    onSignInClick: () -> Unit,
-    onForgotPasswordClick: () -> Unit,
-    onSignUpClick: () -> Unit,
-    onSignInWithGoogleClick: () -> Unit,
-    onSignInWithFacebookClick: () -> Unit,
+    isFocused: Boolean = false,
+    onValueChange: (String) -> Unit = {},
+    onSignInClick: () -> Unit = {},
+    onForgotPasswordClick: () -> Unit = {},
+    onSignUpClick: () -> Unit = {},
+    onSignInWithGoogleClick: () -> Unit = {},
+    onSignInWithFacebookClick: () -> Unit = {},
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
