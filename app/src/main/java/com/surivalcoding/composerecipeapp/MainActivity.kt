@@ -12,6 +12,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.surivalcoding.composerecipeapp.presentation.saved_recipe_screen.SavedRecipeViewModel
 import com.surivalcoding.composerecipeapp.presentation.saved_recipe_screen.SavedRecipesScreen
+import com.surivalcoding.composerecipeapp.presentation.search_recipes_screen.SearchRecipeViewModel
+import com.surivalcoding.composerecipeapp.presentation.search_recipes_screen.SearchRecipesScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,17 +24,31 @@ class MainActivity : ComponentActivity() {
 //        }
 
         setContent {
-            val viewModel: SavedRecipeViewModel = viewModel(
-                factory = SavedRecipeViewModel.Factory
+//            val viewModel: SavedRecipeViewModel = viewModel(
+//                factory = SavedRecipeViewModel.Factory
+//            )
+//
+//            val state = viewModel.state.collectAsStateWithLifecycle()
+//
+//            SavedRecipesScreen(
+//                modifier = Modifier.fillMaxSize(),
+//                state = state.value,
+//                waitSavedRecipes = { viewModel.waitSavedRecipes() }
+//            )
+
+            val viewModel: SearchRecipeViewModel = viewModel(
+                factory = SearchRecipeViewModel.Factory
             )
 
             val state = viewModel.state.collectAsStateWithLifecycle()
 
-            SavedRecipesScreen(
+            SearchRecipesScreen(
                 modifier = Modifier.fillMaxSize(),
                 state = state.value,
-                waitSavedRecipes = { viewModel.waitSavedRecipes() }
+                waitSavedRecipes = { viewModel.waitSearchRecipes() },
+                onValueChange = { viewModel.onSearchQueryChanged(it) }
             )
+
         }
     }
 }
