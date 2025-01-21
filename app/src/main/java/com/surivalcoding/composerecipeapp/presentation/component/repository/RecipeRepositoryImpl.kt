@@ -13,6 +13,7 @@ class RecipeRepositoryImpl(
 
     override suspend fun getFoodImage(): List<String> {
         delay(1000L)
+
         return recipeData.map {
             it.foodImage
         }
@@ -46,8 +47,8 @@ class RecipeRepositoryImpl(
         }
     }
 
-    override suspend fun getDataCount(): Int {
-        delay(1000L)
+    override fun getDataCount(): Int {
+
         return recipeData.size
     }
 

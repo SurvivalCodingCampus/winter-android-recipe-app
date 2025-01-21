@@ -6,5 +6,5 @@ interface RecipeRepository {
     suspend fun getChefNames(): List<String>
     suspend fun getCookingTimes(): List<Int>
     suspend fun getRatings(): List<Float>
-    suspend fun getDataCount(): Int
+    fun getDataCount(): Int
 }
