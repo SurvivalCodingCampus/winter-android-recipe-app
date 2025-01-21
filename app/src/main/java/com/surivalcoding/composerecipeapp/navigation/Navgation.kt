@@ -14,7 +14,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.surivalcoding.composerecipeapp.UserRouter
 import com.surivalcoding.composerecipeapp.presentation.recently_search_recipe.RecipeSearchScreen
 import com.surivalcoding.composerecipeapp.presentation.recipe_detail.RecipeDetailScreen
 import com.surivalcoding.composerecipeapp.presentation.saved_recipes.RecipeViewModel
@@ -64,10 +63,8 @@ fun NavigationRoot(
 ) {
     val navController = rememberNavController()
 
-
     NavHost(
-        navController = navController,
-        startDestination = Route.Main
+        navController = navController, startDestination = Route.Main
     ) {
         composable<Route.Main> {
             val viewModel = viewModel<SplashViewModel>(factory = SplashViewModel.Factory)
@@ -80,8 +77,7 @@ fun NavigationRoot(
 
         composable<Route.SignIn> {
             Scaffold { innerPadding ->
-                SignInScreen(
-                    modifier = Modifier.padding(innerPadding),
+                SignInScreen(modifier = Modifier.padding(innerPadding),
                     onSignInClick = {
                         toRecipeGraph(navController)
                     },
@@ -90,8 +86,7 @@ fun NavigationRoot(
                     onFacebookSignInClick = {},
                     onSignUpClick = {
                         toSignUpGraph(navController)
-                    }
-                )
+                    })
 
             }
 
@@ -99,24 +94,17 @@ fun NavigationRoot(
 
         composable<Route.SignUp> {
             Scaffold { innerPadding ->
-                SignUpScreen(
-                    modifier = Modifier.padding(innerPadding),
-                    onSignUpClick = {
-                        toSignUpGraph(navController)
-                    },
-                    onGoogleSignInClick = {},
-                    onFacebookSignInClick = {},
-                    onSignInClick = {
-                        toSignInGraph(navController)
-                    }
-                ) { }
+                SignUpScreen(modifier = Modifier.padding(innerPadding), onSignUpClick = {
+                    toSignUpGraph(navController)
+                }, onGoogleSignInClick = {}, onFacebookSignInClick = {}, onSignInClick = {
+                    toSignInGraph(navController)
+                }) { }
 
             }
 
         }
         composable<Route.Recipe> { backStackEntry ->
-            val viewModel =
-                viewModel<RecipeViewModel>(factory = RecipeViewModel.Factory)
+            val viewModel = viewModel<RecipeViewModel>(factory = RecipeViewModel.Factory)
             val state by viewModel.state.collectAsStateWithLifecycle()
 
             Scaffold { innerPadding ->
@@ -131,8 +119,7 @@ fun NavigationRoot(
 
             }
         }
-        composable<Route.RecipeDetail>
-        { backStackEntry ->
+        composable<Route.RecipeDetail> { backStackEntry ->
             backStackEntry.toRoute<Route.Recipe>()
             val viewModel =
                 viewModel<RecipeDetailViewModel>(factory = RecipeDetailViewModel.Factory)
@@ -153,11 +140,9 @@ fun NavigationRoot(
                 viewModel<RecipeSearchViewModel>(factory = RecipeSearchViewModel.Factory)
             val state by viewModel.state.collectAsStateWithLifecycle()
 
-            RecipeSearchScreen(
-                state = state,
+            RecipeSearchScreen(state = state,
                 onValueChange = { newKeyword -> viewModel.searchRecipes(newKeyword) },
-                onSearching = { isSearching -> viewModel.onSearching(isSearching) }
-            )
+                onSearching = { isSearching -> viewModel.onSearching(isSearching) })
         }
 
     }
@@ -192,14 +177,11 @@ private fun NavGraphBuilder.toRecipeGraph(navController: NavHostController) {
 }
 
 private fun NavGraphBuilder.toRecipeDetailGraph(
-    navController: NavHostController,
-    userId: Int,
-    recipe: Recipe
+    navController: NavHostController, userId: Int, recipe: Recipe
 ) {
     navController.navigate(
         Route.RecipeDetail(
-            userId = userId,
-            chefName = recipe.chef
+            userId = userId, chefName = recipe.chef
         )
     )
 }
