@@ -36,11 +36,9 @@ import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
-fun RecipeCard(
+fun SearchRecipeCard(
     recipe: Recipe
 ) {
-    val timerImage = painterResource(R.drawable.timer)
-    val bookMarkImage = painterResource(R.drawable.union)
     val starImage = painterResource(R.drawable.star)
 
     Box(
@@ -50,7 +48,7 @@ fun RecipeCard(
                 shape = RoundedCornerShape(10.dp)
             )
             .fillMaxWidth()
-            .aspectRatio(2f),
+            .aspectRatio(1f),
         contentAlignment = Alignment.TopStart,
     ) {
         AsyncImage(
@@ -74,7 +72,8 @@ fun RecipeCard(
         ) {
 
             Column(
-                modifier = Modifier.align(Alignment.BottomStart)
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
                     .width(150.dp)
 
             ) {
@@ -95,38 +94,6 @@ fun RecipeCard(
                 )
             }
 
-
-            Row(
-                modifier = Modifier.align(Alignment.BottomEnd),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-
-                Image(painter = timerImage, contentDescription = null)
-
-                Spacer(modifier = Modifier.width(5.dp))
-                Text(
-                    text = recipe.time,
-                    style = AppTextStyles.normalTextRegular.copy(color = AppColors.gray4,
-                        fontSize = 11.sp)
-                )
-
-                Spacer(modifier = Modifier.width(10.dp))
-
-                Box(
-                    Modifier
-                        .size(24.dp)
-                        .background(color = AppColors.white, shape = RoundedCornerShape(50.dp))
-                ) {
-                    Image(
-                        modifier = Modifier
-                            .size(16.dp)
-                            .align(Alignment.Center)
-                            .padding(1.dp),
-                        painter = bookMarkImage, contentDescription = null
-                    )
-                }
-            }
 
             Row(
                 modifier = Modifier
