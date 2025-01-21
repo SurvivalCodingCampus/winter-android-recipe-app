@@ -23,8 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.R
-import com.surivalcoding.composerecipeapp.presentation.button.ButtonState
-import com.surivalcoding.composerecipeapp.presentation.button.MediumButton
+import com.surivalcoding.composerecipeapp.presentation.item.button.ButtonState
+import com.surivalcoding.composerecipeapp.presentation.item.button.MediumButton
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 

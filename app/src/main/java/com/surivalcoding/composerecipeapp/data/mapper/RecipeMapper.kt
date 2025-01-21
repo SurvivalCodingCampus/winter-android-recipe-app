@@ -4,9 +4,9 @@ package com.surivalcoding.composerecipeapp.data.mapper
 import com.surivalcoding.composerecipeapp.data.dto.IngredientDetailDto
 import com.surivalcoding.composerecipeapp.data.dto.IngredientDto
 import com.surivalcoding.composerecipeapp.data.dto.RecipeDto
-import com.surivalcoding.composerecipeapp.data.model.Ingredient
-import com.surivalcoding.composerecipeapp.data.model.IngredientDetail
-import com.surivalcoding.composerecipeapp.data.model.Recipe
+import com.surivalcoding.composerecipeapp.domain.model.Ingredient
+import com.surivalcoding.composerecipeapp.domain.model.IngredientDetail
+import com.surivalcoding.composerecipeapp.domain.model.Recipe
 
 fun RecipeDto.toMapper(): Recipe {
     return Recipe(

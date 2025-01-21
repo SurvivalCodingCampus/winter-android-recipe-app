@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation
+package com.surivalcoding.composerecipeapp.presentation.item
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
