@@ -44,12 +44,11 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun RecipeDetailScreen(
     state: RecipeDetailState,
+    modifier: Modifier,
     onBackClick: () -> Boolean,
 ) {
     RecipeDetailScreen(
-        state = state,
-        reviewCount = 0,
-        onBackClick = onBackClick
+        state = state, modifier = Modifier, reviewCount = 0, onBackClick = onBackClick
     )
 }
 
@@ -57,6 +56,7 @@ fun RecipeDetailScreen(
 @Composable
 fun RecipeDetailScreen(
     state: RecipeDetailState,
+    modifier: Modifier,
     reviewCount: Int = 0,
     onBackClick: () -> Boolean,
 ) {
@@ -69,7 +69,7 @@ fun RecipeDetailScreen(
 
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(start = 30.dp, end = 30.dp, top = 30.dp, bottom = 30.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -88,8 +88,7 @@ fun RecipeDetailScreen(
                 .padding(start = 5.dp, end = 5.dp)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
 
             ) {
                 Text(
@@ -114,8 +113,7 @@ fun RecipeDetailScreen(
             contentAlignment = Alignment.Center
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
                 Row(
@@ -133,12 +131,10 @@ fun RecipeDetailScreen(
                         },
                         contentDescription = "avatar",
                         contentScale = ContentScale.FillBounds,
-                        modifier = Modifier
-                            .size(40.dp)
+                        modifier = Modifier.size(40.dp)
                     )
                     Column(
-                        modifier = Modifier,
-                        verticalArrangement = Arrangement.spacedBy(0.dp)
+                        modifier = Modifier, verticalArrangement = Arrangement.spacedBy(0.dp)
                     ) {
                         if (user != null) {
                             Text(
@@ -179,12 +175,10 @@ fun RecipeDetailScreen(
         }
 
 
-        TabRow(
-            modifier = Modifier.padding(16.dp),
+        TabRow(modifier = Modifier.padding(16.dp),
             tabItems = tabItems,
             selectedTabIndex = selectedTabIndex,
-            onTabSelected = { selectedTabIndex = it }
-        )
+            onTabSelected = { selectedTabIndex = it })
     }
 
 
@@ -203,28 +197,21 @@ fun TabRow(
             .fillMaxWidth()
             .height(48.dp)
             .background(
-                color = Color.Transparent,
-                shape = RoundedCornerShape(10.dp)
-            ),
-        horizontalArrangement = Arrangement.spacedBy(15.dp)
+                color = Color.Transparent, shape = RoundedCornerShape(10.dp)
+            ), horizontalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         tabItems.forEachIndexed { index, text ->
-            TabItem(
-                modifier = Modifier.weight(1f),
+            TabItem(modifier = Modifier.weight(1f),
                 text = text,
                 isSelected = index == selectedTabIndex,
-                onClick = { onTabSelected(index) }
-            )
+                onClick = { onTabSelected(index) })
         }
     }
 }
 
 @Composable
 private fun TabItem(
-    modifier: Modifier = Modifier,
-    text: String,
-    isSelected: Boolean,
-    onClick: () -> Unit
+    modifier: Modifier = Modifier, text: String, isSelected: Boolean, onClick: () -> Unit
 ) {
     Box(
         modifier = modifier
@@ -233,12 +220,10 @@ private fun TabItem(
                 color = if (isSelected) AppColors.Primary100 else Color.Transparent,
                 shape = RoundedCornerShape(10.dp)
             )
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center
+            .clickable(onClick = onClick), contentAlignment = Alignment.Center
     ) {
         Text(
-            text = text,
-            style = AppTextStyles.regularNormal.copy(
+            text = text, style = AppTextStyles.regularNormal.copy(
                 color = if (isSelected) Color.White else AppColors.Primary100
             )
         )
@@ -267,8 +252,8 @@ fun RecipeDetailPreview() {
         address = "Seoul",
     )
 
-    RecipeDetailScreen(
-        RecipeDetailState(recipes = listOf(recipe), chefProfile = user),
+    RecipeDetailScreen(RecipeDetailState(recipes = listOf(recipe), chefProfile = user),
+        modifier = Modifier,
         onBackClick = {
             true
         })
