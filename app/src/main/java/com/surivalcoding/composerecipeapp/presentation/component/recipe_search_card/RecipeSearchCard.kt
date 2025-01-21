@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -45,7 +46,6 @@ fun RecipSearchGrid(
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier
-            .defaultMinSize(minWidth = 150.dp, minHeight = 150.dp)
             .padding(bottom = 20.dp)
         ,
         contentPadding = PaddingValues(0.dp),
@@ -76,7 +76,7 @@ fun RecipeSearchCard(
 
     Box(
         modifier = Modifier
-            .height(150.dp)
+            .aspectRatio(1f)
             .clip(shape = RoundedCornerShape(size = 10.dp))
             .background(color = AppColors.Black, shape = RoundedCornerShape(size = 10.dp))
             .clickable {

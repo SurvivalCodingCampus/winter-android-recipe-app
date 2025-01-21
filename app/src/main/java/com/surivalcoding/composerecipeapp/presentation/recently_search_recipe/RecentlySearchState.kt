@@ -5,5 +5,7 @@ import Recipe
 data class RecipeSearchState(
     val keyword: String = "",
     val recipeList: List<Recipe> = emptyList(),
-    val isLoading: Boolean = false,
+    val filteredRecipeList: List<Recipe> = emptyList(),
+    val isLoading: Boolean = true,
+    val isSearching: Boolean = false,
 )
