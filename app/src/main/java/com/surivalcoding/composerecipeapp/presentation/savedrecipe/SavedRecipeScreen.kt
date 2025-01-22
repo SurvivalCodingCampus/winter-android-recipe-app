@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -66,6 +67,7 @@ fun SavedRecipeScreen(
             colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                 containerColor = Color.Transparent
             ),
+            windowInsets = WindowInsets(0, 0, 0, 0),
             expandedHeight = 27.dp,
             modifier = Modifier.padding(vertical = 20.dp)
         )
@@ -84,10 +86,15 @@ fun SavedRecipeScreen(
                     item {
                         Spacer(Modifier.height(80.dp))
                     }
+                    item {
+                        Text("error2")
+                    }
                 }
             }
 
-            is SavedRecipeUiState.Error -> {}
+            is SavedRecipeUiState.Error -> {
+                Text("error: ${savedRecipeUiState.e}")
+            }
             is SavedRecipeUiState.Loading -> {
                 Box(
                     contentAlignment = Alignment.Center,

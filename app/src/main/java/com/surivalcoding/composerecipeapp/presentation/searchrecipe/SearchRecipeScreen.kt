@@ -146,11 +146,12 @@ fun SearchRecipeScreen(
 }
 
 @Composable
-private fun SearchField(
+fun SearchField(
     query: String,
     onQueryChange: (String) -> Unit,
     onFilterClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
 ) {
     Row(
         modifier = modifier
@@ -158,6 +159,7 @@ private fun SearchField(
         SearchField(
             value = query,
             onValueChange = onQueryChange,
+            enabled = enabled,
             modifier = Modifier.weight(1f)
         )
         Spacer(Modifier.width(20.dp))

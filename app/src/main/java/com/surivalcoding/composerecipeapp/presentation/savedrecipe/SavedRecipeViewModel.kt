@@ -61,12 +61,14 @@ private fun savedRecipeUiState(
         when (savedRecipesResult) {
             is Result.Success -> SavedRecipeUiState.Success(savedRecipesResult.data)
             is Result.Loading -> SavedRecipeUiState.Loading
-            is Result.Error -> SavedRecipeUiState.Error
+            is Result.Error -> {
+                SavedRecipeUiState.Error(savedRecipesResult.exception)
+            }
         }
     }
 
 sealed interface SavedRecipeUiState {
     data class Success(val recipes: List<SavedRecipe>) : SavedRecipeUiState
-    data object Error : SavedRecipeUiState
+    data class Error(val e: Throwable) : SavedRecipeUiState
     data object Loading : SavedRecipeUiState
 }
