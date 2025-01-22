@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
+import AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,7 +15,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
@@ -39,7 +39,7 @@ fun Tabs(
                     .height(33.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .background(
-                        if (isSelected) AppColors.primary else AppColors.white
+                        if (isSelected) AppColors.primary100 else AppColors.white
                     ),
                 selected = isSelected,
                 onClick = { onValueChange(index) },

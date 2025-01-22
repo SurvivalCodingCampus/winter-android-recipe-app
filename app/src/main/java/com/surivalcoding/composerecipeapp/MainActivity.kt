@@ -4,27 +4,32 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.activity.viewModels
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipeViewModel
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipesScreen
+import com.surivalcoding.composerecipeapp.presentation.search_recipes.SearchRecipeScreen
+import com.surivalcoding.composerecipeapp.presentation.search_recipes.SearchRecipeViewModel
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 class MainActivity : ComponentActivity() {
+    //private val viewModel: SavedRecipeViewModel by viewModels { SavedRecipeViewModel.Factory }
+    private val viewModel: SearchRecipeViewModel by viewModels { SearchRecipeViewModel.Factory }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             ComposeRecipeAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                //val recipes by viewModel.recipes.collectAsState()
+                //val savedRecipes = viewModel.recipes.collectAsState()
+                //SavedRecipesScreen(viewModel.state.collectAsState().value)
+                SearchRecipeScreen(viewModel.state.collectAsState().value, onValueChange = viewModel::onSearchTextChange)
             }
         }
     }

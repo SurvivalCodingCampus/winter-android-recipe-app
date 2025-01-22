@@ -1,6 +1,7 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
 
+import AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -20,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
@@ -34,7 +34,7 @@ fun MediumButton(
             .width(243.dp)
             .height(54.dp)
             .background(
-                color = AppColors.primary,
+                color = AppColors.primary100,
                 shape = RoundedCornerShape(10.dp),
             )
             .clickable {

@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
@@ -33,7 +32,7 @@ fun BigButton(
             .width(315.dp)
             .height(60.dp)
             .background(
-                color = AppColors.primary,
+                color = AppColors.primary100,
                 shape = RoundedCornerShape(10.dp),
             )
             .clickable {
