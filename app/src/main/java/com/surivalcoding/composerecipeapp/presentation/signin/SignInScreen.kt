@@ -49,7 +49,7 @@ fun SignInScreen(
             .background(AppColors.White)
             .padding(horizontal = 30.dp)
     ) {
-        LoginHeader(Modifier.padding(top = 60.dp, bottom = 56.dp))
+        LoginHeader(Modifier.padding(top = 94.dp, bottom = 56.dp))
         LoginInputField(
             email = email,
             password = password,

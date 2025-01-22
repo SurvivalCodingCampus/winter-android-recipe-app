@@ -60,7 +60,7 @@ fun IntroScreen(
                 modifier = modifier.matchParentSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(Modifier.height(70.dp))
+                Spacer(Modifier.height(104.dp))
                 Icon(
                     painter = painterResource(id = R.drawable.ic_intro),
                     contentDescription = "chef hat",

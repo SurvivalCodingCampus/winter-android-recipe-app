@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     navController = rememberNavController()
                 )
                 RecipeApp(
-                    appState,
+                    appState = appState,
                     modifier = Modifier.fillMaxSize()
                 )
             }

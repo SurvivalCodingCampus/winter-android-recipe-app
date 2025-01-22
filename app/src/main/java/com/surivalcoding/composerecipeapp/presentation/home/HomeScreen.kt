@@ -38,7 +38,7 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(30.dp)
+                .padding(top = 64.dp, bottom = 30.dp, start = 30.dp, end = 30.dp)
         ) {
             Column {
                 Text(

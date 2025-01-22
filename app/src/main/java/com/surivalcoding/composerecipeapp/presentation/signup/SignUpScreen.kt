@@ -59,7 +59,7 @@ fun SignUpScreen(
             .background(AppColors.White)
             .padding(horizontal = 30.dp)
     ) {
-        SignUpHeader(modifier = Modifier.padding(top = 20.dp, bottom = 20.dp))
+        SignUpHeader(modifier = Modifier.padding(top = 54.dp, bottom = 20.dp))
         SignUpInputField(
             name = name,
             email = email,

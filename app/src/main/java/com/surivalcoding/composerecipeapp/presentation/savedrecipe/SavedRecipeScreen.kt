@@ -71,7 +71,7 @@ fun SavedRecipeScreen(
             ),
             windowInsets = WindowInsets(0, 0, 0, 0),
             expandedHeight = 27.dp,
-            modifier = Modifier.padding(vertical = 20.dp)
+            modifier = Modifier.padding(top = 54.dp, bottom = 20.dp)
         )
         when (savedRecipeUiState) {
             is SavedRecipeUiState.Success -> {
