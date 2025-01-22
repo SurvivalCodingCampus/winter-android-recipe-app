@@ -1,6 +1,5 @@
-package com.surivalcoding.composerecipeapp.presentation.searchrecipe
+package com.surivalcoding.composerecipeapp.presentation.page.main
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,41 +21,28 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.surivalcoding.composerecipeapp.R
-import com.surivalcoding.composerecipeapp.presentation.item.RecipeListGrid
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
-
 @Composable
-fun SearchRecipeScreen(
-    viewModel: SearchRecipeViewModel
+fun HomeScreen(
+    modifier: Modifier = Modifier
 ) {
-    val backImage = painterResource(R.drawable.arrow_left)
     val searchIcon = painterResource(R.drawable.search)
     val filterIcon = painterResource(R.drawable.setting_4)
-    val recipeList by viewModel.searchRecipeState.collectAsStateWithLifecycle()
+    val profileImage = painterResource(R.drawable.d6cbc6849fe48a0f9d7a0778502d14b5_removebg_preview_1)
 
     val (value, onValueChange) = rememberSaveable { mutableStateOf("") }
-
-    // rememberUpdatedState: LaunchedEffect나 SideEffect내에서 같은값을 참조할경우 컴포지션이 다시 실행되기 전의 값일 수 있기때문에 컴포지션을 실행한 후에도 최신 상태값을 유지할수 있도록 함
-    val filterText = rememberUpdatedState(value)
-    LaunchedEffect(filterText.value) {
-        Log.e("컴포즈", "런치드 이펙트 발동! $value")
-        viewModel.filterRecipeList(filterText.value)
-    }
 
     Column(
         modifier = Modifier
@@ -65,24 +51,39 @@ fun SearchRecipeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
+        Spacer(Modifier.height(20.dp))
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = backImage,
-                contentDescription = "back",
-                modifier = Modifier.size(20.dp)
-            )
 
-            Spacer(modifier = Modifier.width(69.dp))
-
-            Text(
-                text = "Search recipes",
-                style = AppTextStyles.mediumTextSemiBold.copy(
-                    color = AppColors.label_color,
-                    fontSize = 18.sp
+            Column(
+                verticalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
+                Text(
+                    text = "Hello Jega",
+                    style = AppTextStyles.mediumTextSemiBold.copy(
+                        fontSize = 20.sp, color = AppColors.black
+                    )
                 )
+
+                Text(
+                    text = "What are you cooking today?",
+                    style = AppTextStyles.smallTextRegular.copy(
+                        fontSize = 11.sp,
+                        color = AppColors.gray_3
+                    )
+                )
+            }
+
+            Spacer(Modifier.weight(1f))
+
+
+            Image(
+                painter = profileImage,
+                contentDescription = "",
+                modifier = Modifier.size(40.dp)
             )
         }
 
@@ -159,33 +160,13 @@ fun SearchRecipeScreen(
             }
         }
 
-        Spacer(Modifier.height(20.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = if (value.isBlank()) "Recent Search" else "Search Result",
-                style = AppTextStyles.mediumTextSemiBold.copy(
-                    fontSize = 16.sp,
-                    color = AppColors.black
-                )
-            )
-
-            Spacer(Modifier.weight(1f))
-
-            Text(
-                text = "${recipeList.filteredRecipeList.size} results",
-                style = AppTextStyles.smallTextRegular.copy(
-                    fontSize = 11.sp,
-                    color = AppColors.gray_3
-                )
-            )
-        }
-
         Spacer(modifier = Modifier.height(20.dp))
 
-        RecipeListGrid(recipeList.filteredRecipeList)
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun HomeScreenPreview() {
+    HomeScreen()
 }

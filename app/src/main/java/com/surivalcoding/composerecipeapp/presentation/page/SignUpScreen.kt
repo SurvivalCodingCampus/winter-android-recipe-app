@@ -20,6 +20,8 @@ import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,21 +41,18 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
-    name: String,
-    email: String,
-    password: String,
-    passWordConfirm: String,
-    isChecked: Boolean,
-    nameChange: (String) -> Unit,
-    emailChange: (String) -> Unit,
-    passWordChange: (String) -> Unit,
-    passWordConfirmChange: (String) -> Unit,
     googleSignIn: () -> Unit,
     facebookSignIn: () -> Unit,
     signIn: () -> Unit,
     signUp: () -> Unit,
-    onCheckedChange: (Boolean) -> Unit,
 ) {
+
+    val (email, emailChange) = rememberSaveable { mutableStateOf("") }
+    val (password, passWordChange) = rememberSaveable { mutableStateOf("") }
+    val (name, nameChange) = rememberSaveable { mutableStateOf("") }
+    val (passWordConfirm, passWordConfirmChange) = rememberSaveable { mutableStateOf("") }
+    val (isChecked, onCheckedChange) = rememberSaveable { mutableStateOf(false) }
+
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -234,19 +233,9 @@ fun SignUpScreen(
 fun SignUpScreenPreview(modifier: Modifier = Modifier) {
 
     SignUpScreen(
-        name = "",
-        email = "",
-        password = "",
-        passWordConfirm = "",
-        isChecked = false,
-        nameChange = {},
-        emailChange = {},
-        passWordChange = {},
-        passWordConfirmChange = {},
         signUp = {},
         googleSignIn = {},
         facebookSignIn = {},
         signIn = {},
-        onCheckedChange = {}
     )
 }

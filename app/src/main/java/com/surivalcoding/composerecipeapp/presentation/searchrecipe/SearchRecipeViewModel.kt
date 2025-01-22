@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.util.AppApplication
 import com.surivalcoding.composerecipeapp.util.ResponseResult
@@ -23,8 +22,6 @@ class SearchRecipeViewModel(
     private val _searchRecipeState = MutableStateFlow(SearchRecipesState())
     val searchRecipeState = _searchRecipeState.asStateFlow()
 
-    private var originalRecipeList: List<Recipe> = emptyList() // 원본 리스트 저장
-
 
     init {
         getRecipeList()
@@ -35,8 +32,12 @@ class SearchRecipeViewModel(
             when (val result = recipeRepository.getRecipeList()) {
                 is ResponseResult.Success -> {
                     Log.d("RecipeViewModel", "getRecipeList: ${result.data}")
-                    originalRecipeList = result.data
-                    _searchRecipeState.update { it.copy(recipeList = result.data) }
+                    _searchRecipeState.update {
+                        it.copy(
+                            recipeList = result.data,
+                            filteredRecipeList = result.data
+                        )
+                    }
                 }
 
                 is ResponseResult.Failure -> {
@@ -50,11 +51,11 @@ class SearchRecipeViewModel(
     fun filterRecipeList(value: String) {
 
         val filteredList = if (value.isBlank()) {
-            originalRecipeList
+            _searchRecipeState.value.recipeList
         } else {
-            originalRecipeList.filter { it.name.contains(value, ignoreCase = true) }
+            _searchRecipeState.value.recipeList.filter { it.name.contains(value, ignoreCase = true) }
         }
-        _searchRecipeState.update { it.copy(recipeList = filteredList) }
+        _searchRecipeState.update { it.copy(filteredRecipeList = filteredList) }
     }
 
 
