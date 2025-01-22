@@ -13,4 +13,5 @@ object AppColors {
     val Secondary_100 = Color(android.graphics.Color.parseColor("#FF9C00"))
     val lightyello = Color(android.graphics.Color.parseColor("#FFE1B3"))
     val white = Color(android.graphics.Color.parseColor("#FFFFFF"))
+    val black = Color(android.graphics.Color.parseColor("#000000"))
 }

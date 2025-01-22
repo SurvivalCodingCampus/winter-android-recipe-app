@@ -1,6 +1,7 @@
 package com.surivalcoding.composerecipeapp.presentation.component.repository
 
 import com.surivalcoding.composerecipeapp.presentation.component.datasource.RecipeDataSourceImpl
+import com.surivalcoding.composerecipeapp.presentation.component.model.Recipe
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 
@@ -41,5 +42,13 @@ class RecipeRepositoryImplTest {
         val recipeDataCount = recipeRepositoryImpl.getDataCount()
 
         assertEquals(10, recipeDataCount)
+    }
+
+    @Test
+    fun getSearchedRecipes() {
+        val recipeDataSearched = recipeRepositoryImpl.getSearchedRecipes("spi")
+
+
+        //assertEquals(3, recipeDataSearched.size)
     }
 }

@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation.component.repository
 
 import com.surivalcoding.composerecipeapp.presentation.component.datasource.RecipeDataSource
 import com.surivalcoding.composerecipeapp.presentation.component.mapper.toRecipe
+import com.surivalcoding.composerecipeapp.presentation.component.model.Recipe
 import kotlinx.coroutines.delay
 
 class RecipeRepositoryImpl(
@@ -11,25 +12,51 @@ class RecipeRepositoryImpl(
         it.toRecipe()
     }
 
-    override suspend fun getFoodImage(): List<String> {
+    override suspend fun getFoodImages(query: String): List<String> {
         delay(1000L)
 
-        return recipeData.map {
-            it.foodImage
+        return if (query == "") {
+            recipeData.map {
+                it.foodImage
+            }
+        } else {
+            recipeData.filter {
+                it.title.lowercase().contains(query.lowercase())
+            }.map {
+                it.foodImage
+            }
         }
     }
 
-    override suspend fun getRecipeTitles(): List<String> {
+    override suspend fun getRecipeTitles(query: String): List<String> {
         delay(1000L)
-        return recipeData.map {
-            it.title
+
+        return if (query == "") {
+            recipeData.map {
+                it.title
+            }
+        } else {
+            recipeData.filter {
+                it.title.lowercase().contains(query.lowercase())
+            }.map {
+                it.title
+            }
         }
     }
 
-    override suspend fun getChefNames(): List<String> {
+    override suspend fun getChefNames(query: String): List<String> {
         delay(1000L)
-        return recipeData.map {
-            it.chefName
+
+        return if (query == "") {
+            recipeData.map {
+                it.chefName
+            }
+        } else {
+            recipeData.filter {
+                it.title.lowercase().contains(query.lowercase())
+            }.map {
+                it.chefName
+            }
         }
     }
 
@@ -40,16 +67,35 @@ class RecipeRepositoryImpl(
         }
     }
 
-    override suspend fun getRatings(): List<Float> {
+    override suspend fun getRatings(query: String): List<Float> {
         delay(1000L)
-        return recipeData.map {
-            it.rating
+
+        return if (query == "") {
+            recipeData.map {
+                it.rating
+            }
+        } else {
+            recipeData.filter {
+                it.title.lowercase().contains(query.lowercase())
+            }.map {
+                it.rating
+            }
         }
     }
 
     override fun getDataCount(): Int {
-
         return recipeData.size
+    }
+
+    override fun getSearchedRecipes(query: String): List<Recipe> {
+        return if (query == "") {
+            recipeData
+        } else {
+            recipeData.filter {
+                it.title.lowercase().contains(query.lowercase())
+            }
+        }
+
     }
 
 }

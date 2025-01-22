@@ -31,6 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -323,7 +324,6 @@ fun RecipeCard(
                 Column( // 음식 이름과 요리사 이름을 배치하는 레이아웃
                     modifier = Modifier
                         .width(200.dp)
-                        .height(54.dp)
                         .align(Alignment.BottomStart)
                 ) {
                     RecipeTitle(title = title)
@@ -368,39 +368,29 @@ private fun RecipeCardPreview() {
 
 @Composable
 fun RecipeTitle(modifier: Modifier = Modifier, title: String) {
-    Box(
+    Text(
         modifier = Modifier
-            .width(200.dp)
-            .height(42.dp)
-    ) {
-        Text(
-            modifier = Modifier
-                .width(150.dp),
-            text = title,
-            style = AppTextStyles.smallTextBold,
-            fontSize = 14.sp,
-            color = AppColors.white,
-            maxLines = 2,
-            lineHeight = 19.sp
-        )
-    }
+            .width(150.dp),
+        text = title,
+        style = AppTextStyles.smallTextBold,
+        fontSize = 14.sp,
+        color = AppColors.white,
+        maxLines = 2,
+        //lineHeight = 19.sp,
+        overflow = TextOverflow.Ellipsis,
+    )
 }
 
 @Composable
 fun RecipeChefName(modifier: Modifier = Modifier, chefName: String) {
-    Box(
+    Text(
         modifier = Modifier
-            .width(53.dp)
-            .height(12.dp)
-    ) {
-        Text(
-            text = "By Chef $chefName",
-            style = AppTextStyles.smallerTextLabel,
-            fontSize = 8.sp,
-            color = AppColors.gray_04
-        )
-    }
-
+            .height(12.dp),
+        text = "By $chefName",
+        style = AppTextStyles.smallerTextLabel,
+        fontSize = 8.sp,
+        color = AppColors.gray_04
+    )
 }
 
 @Composable
