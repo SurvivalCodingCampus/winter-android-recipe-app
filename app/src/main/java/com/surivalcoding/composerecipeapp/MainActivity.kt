@@ -11,6 +11,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.surivalcoding.composerecipeapp.presentation.NavigationRoot
 import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipeViewModel
 import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipesScreen
 import com.surivalcoding.composerecipeapp.presentation.search_recipes.SearchRecipeScreen
@@ -29,7 +31,9 @@ class MainActivity : ComponentActivity() {
                 //val recipes by viewModel.recipes.collectAsState()
                 //val savedRecipes = viewModel.recipes.collectAsState()
                 //SavedRecipesScreen(viewModel.state.collectAsState().value)
-                SearchRecipeScreen(viewModel.state.collectAsState().value, onValueChange = viewModel::onSearchTextChange)
+                //SearchRecipeScreen(viewModel.state.collectAsState().value, onValueChange = viewModel::onSearchTextChange)
+                val navController = rememberNavController()
+                NavigationRoot(navController = navController)
             }
         }
     }

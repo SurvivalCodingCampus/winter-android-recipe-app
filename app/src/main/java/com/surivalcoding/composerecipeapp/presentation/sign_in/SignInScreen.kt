@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation.sign_in
 
 import AppColors
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -149,11 +150,13 @@ fun SignInScreen(
                 )
             )
             Text(
-                modifier = modifier.padding(start = 5.dp),
+                modifier = modifier.padding(start = 5.dp)
+                    .clickable(onClick = onSignUpClicked),
                 text = "Sign Up",
                 style = AppTextStyles.normalTextSemiBold.copy(
                     color = AppColors.secondary100
-                )
+                ),
+
             )
 
         }
