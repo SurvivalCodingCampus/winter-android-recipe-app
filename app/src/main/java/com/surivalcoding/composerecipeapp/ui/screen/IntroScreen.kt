@@ -15,20 +15,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.ui.component.MediumButton
-import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 import com.surivalcoding.composerecipeapp.ui.theme.PoppinsBoldTypography
 import com.surivalcoding.composerecipeapp.ui.theme.PoppinsRegularTypography
 
 @Composable
-fun IntroScreen() {
+fun IntroScreen(enableEdgeToEdge: Unit) {
     Box(
         modifier = Modifier
-            .padding(0.dp)
             .paint(
                 painter = painterResource(R.drawable.img_intro_background),
                 contentScale = androidx.compose.ui.layout.ContentScale.FillBounds
@@ -90,16 +87,5 @@ fun IntroScreen() {
                 )
             }
         }
-
-    }
-}
-
-@Preview(
-    showBackground = true
-)
-@Composable
-private fun IntroScreenPreview() {
-    ComposeRecipeAppTheme {
-        IntroScreen()
     }
 }
