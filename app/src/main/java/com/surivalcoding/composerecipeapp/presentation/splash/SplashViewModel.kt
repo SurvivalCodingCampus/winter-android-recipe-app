@@ -20,14 +20,11 @@ import kotlinx.coroutines.launch
 
 
 
-
 class SplashViewModel(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val _state = MutableStateFlow(SplashState())
     val state = _state.asStateFlow()
-
-
 
     companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {

@@ -35,10 +35,8 @@ fun SplashScreen(
     onStartClick: (Boolean) -> Unit,
 ) {
 
-    Scaffold() { innerPadding ->
         Box(
             modifier = Modifier
-                .padding(innerPadding)
                 .fillMaxSize()
                 .paint(
                     painterResource(id = R.drawable.splash),
@@ -47,7 +45,6 @@ fun SplashScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(innerPadding)
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -103,13 +100,12 @@ fun SplashScreen(
     }
 
 
-}
 
 @Preview(showBackground = true)
 @Composable
 fun SignUpScreenPreview() {
     SplashScreen(
         SplashState(),
-        onStartClick = {}
+        onStartClick = {},
     )
 }
