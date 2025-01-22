@@ -43,6 +43,7 @@ fun RecipeCard(
     cookingMinute: Int = 0,
     isBookmarked: Boolean = false,
     contentDescription: String?,
+    onCheckedChange: () -> Unit = {},
     shouldShowRecipeMetadata: Boolean = false,
     modifier: Modifier = Modifier,
     placeholder: Painter = painterResource(R.drawable.traditional_spare_ribs_baked),
@@ -96,6 +97,7 @@ fun RecipeCard(
                 if (shouldShowRecipeMetadata) {
                     RecipeMetaData(
                         isBookmarked = isBookmarked,
+                        onCheckedChange = onCheckedChange,
                         cookingMinute = cookingMinute
                     )
                 }
@@ -107,6 +109,7 @@ fun RecipeCard(
 @Composable
 fun RecipeMetaData(
     isBookmarked: Boolean,
+    onCheckedChange: () -> Unit,
     cookingMinute: Int,
 ) {
     Row(
@@ -126,7 +129,7 @@ fun RecipeMetaData(
         Spacer(Modifier.width(10.dp))
         IconToggleButton(
             modifier = Modifier.size(24.dp),
-            onCheckedChange = { },
+            onCheckedChange = onCheckedChange,
             checked = isBookmarked,
             icon = {
                 Icon(

@@ -17,6 +17,7 @@ fun RectangleRecipeCard(
     savedRecipe: SavedRecipe,
     contentDescription: String?,
     isBookmarked: Boolean = false,
+    onCheckedChange: () -> Unit,
     modifier: Modifier = Modifier,
     placeholder: Painter = painterResource(R.drawable.traditional_spare_ribs_baked),
 ) {
@@ -30,6 +31,7 @@ fun RectangleRecipeCard(
         shouldShowRecipeMetadata = true,
         contentDescription = contentDescription,
         modifier = modifier.aspectRatio(2.1f),
+        onCheckedChange = onCheckedChange,
         placeholder = placeholder,
     )
 }
@@ -50,6 +52,7 @@ fun RectangleRecipeCardPreview() {
             modifier = Modifier.width(315.dp),
             savedRecipe = savedRecipe,
             contentDescription = null,
+            onCheckedChange = {}
         )
     }
 }

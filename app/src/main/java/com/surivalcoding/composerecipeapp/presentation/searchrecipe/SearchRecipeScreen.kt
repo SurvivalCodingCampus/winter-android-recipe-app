@@ -22,6 +22,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,6 +39,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.surivalcoding.composerecipeapp.data.mock.fakeSearchRecipe
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
+import com.surivalcoding.composerecipeapp.presentation.component.FilterSearchBottomSheet
 import com.surivalcoding.composerecipeapp.presentation.component.SearchField
 import com.surivalcoding.composerecipeapp.presentation.component.SquareRecipeCard
 import com.surivalcoding.composerecipeapp.ui.CraIcons
@@ -72,84 +76,97 @@ fun SearchRecipeScreen(
     modifier: Modifier = Modifier,
     query: String = ""
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = 30.dp)
-    ) {
-        CenterAlignedTopAppBar(
-            title = {
-                Text(
-                    text = title,
-                    style = AppTextStyles.mediumTextSemiBold
-                )
-            },
-            navigationIcon = {
-                Icon(
-                    imageVector = CraIcons.ArrowBack,
-                    contentDescription = "Back"
-                )
-            },
-            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                containerColor = Color.Transparent
-            ),
-            expandedHeight = 27.dp,
-            modifier = Modifier.padding(vertical = 20.dp)
-        )
-
-        SearchField(
-            query = query,
-            onQueryChange = onQueryChange,
-            onFilterClick = onFilterClick,
-            modifier = Modifier.padding(bottom = 20.dp)
-        )
-
-        when (searchRecipeUiState) {
-            SearchRecipeUiState.LoadFailed -> {}
-            SearchRecipeUiState.Loading -> {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.8f)
-                ) {
-                    LoadingWheel(
-                        contentDescription = "Saved Recipes 불러오는 중",
-                        modifier = Modifier.size(120.dp)
+    var showBottomSheet by remember { mutableStateOf(false) }
+    Box {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = 30.dp)
+        ) {
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        text = title,
+                        style = AppTextStyles.mediumTextSemiBold
                     )
+                },
+                navigationIcon = {
+                    Icon(
+                        imageVector = CraIcons.ArrowBack,
+                        contentDescription = "Back"
+                    )
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = Color.Transparent
+                ),
+                expandedHeight = 27.dp,
+                modifier = Modifier.padding(vertical = 20.dp)
+            )
+
+            SearchField(
+                query = query,
+                onQueryChange = onQueryChange,
+                onFilterClick = {
+                    showBottomSheet = true
+                },
+                modifier = Modifier.padding(bottom = 20.dp)
+            )
+
+            when (searchRecipeUiState) {
+                SearchRecipeUiState.LoadFailed -> {}
+                SearchRecipeUiState.Loading -> {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.8f)
+                    ) {
+                        LoadingWheel(
+                            contentDescription = "Saved Recipes 불러오는 중",
+                            modifier = Modifier.size(120.dp)
+                        )
+                    }
                 }
-            }
 
-            is SearchRecipeUiState.EmptyQuery -> {
-                RecentRecipeResultBody(
-                    searchRecipeUiState.recentRecipes,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-
-            is SearchRecipeUiState.Success -> {
-                if (searchRecipeUiState.isEmpty()) {
-                    EmptySearchResultBody(
-                        query = query,
-                        message = "Sorry, there is no recipe found for your search",
-                        modifier = Modifier.padding(vertical = 24.dp),
-                    )
-                } else {
-                    SearchRecipeResultBody(
-                        searchRecipes = searchRecipeUiState.searchRecipes,
+                is SearchRecipeUiState.EmptyQuery -> {
+                    RecentRecipeResultBody(
+                        searchRecipeUiState.recentRecipes,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
+
+                is SearchRecipeUiState.Success -> {
+                    if (searchRecipeUiState.isEmpty()) {
+                        EmptySearchResultBody(
+                            query = query,
+                            message = "Sorry, there is no recipe found for your search",
+                            modifier = Modifier.padding(vertical = 24.dp),
+                        )
+                    } else {
+                        SearchRecipeResultBody(
+                            searchRecipes = searchRecipeUiState.searchRecipes,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                }
             }
+        }
+        if (showBottomSheet) {
+            FilterSearchBottomSheet(
+                onDismissRequest = { showBottomSheet = false },
+                onFilterClick = {
+                    showBottomSheet = false
+                }
+            )
         }
     }
 }
 
 @Composable
 fun SearchField(
-    query: String,
-    onQueryChange: (String) -> Unit,
-    onFilterClick: () -> Unit,
+    query: String = "",
+    onQueryChange: (String) -> Unit = {},
+    onFilterClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
