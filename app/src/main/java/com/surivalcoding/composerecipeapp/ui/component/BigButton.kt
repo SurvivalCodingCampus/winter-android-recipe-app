@@ -76,7 +76,7 @@ fun BigButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun MediumButtonPreview() {
+private fun BigButtonPreview() {
     BigButton(
         text = "Button"
     )
