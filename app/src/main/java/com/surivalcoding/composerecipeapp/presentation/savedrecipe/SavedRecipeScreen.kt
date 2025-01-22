@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.savedrecipe
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,6 +42,7 @@ fun SavedRecipeScreen(
     SavedRecipeScreen(
         title = "Saved Recipes",
         savedRecipeUiState = savedRecipeUiState,
+        onSavedRecipeClick = viewModel::setSavedRecipeBookmarked,
         modifier = modifier,
     )
 }
@@ -50,7 +52,8 @@ fun SavedRecipeScreen(
 fun SavedRecipeScreen(
     title: String,
     savedRecipeUiState: SavedRecipeUiState,
-    modifier: Modifier = Modifier
+    onSavedRecipeClick: (Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -79,8 +82,14 @@ fun SavedRecipeScreen(
                 ) {
                     items(savedRecipeUiState.recipes) { recipe ->
                         RectangleRecipeCard(
+                            isBookmarked = true,
                             savedRecipe = recipe,
                             contentDescription = recipe.title,
+                            modifier = Modifier.clickable(
+                                onClick = {
+                                    onSavedRecipeClick(recipe.id)
+                                }
+                            )
                         )
                     }
                     item {
@@ -113,6 +122,7 @@ private fun SavedRecipeScreenPreview() {
     ComposeRecipeAppTheme {
         SavedRecipeScreen(
             title = "Saved Recipes",
+            onSavedRecipeClick = {},
             savedRecipeUiState = SavedRecipeUiState.Success(fakeSavedRecipe)
         )
     }

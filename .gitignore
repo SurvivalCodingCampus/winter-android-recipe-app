@@ -15,3 +15,4 @@
 local.properties
 
 /.idea
+/app/src/main/java/com/surivalcoding/composerecipeapp/presentation/savedrecipe/trash.kt
