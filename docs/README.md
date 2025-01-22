@@ -57,8 +57,8 @@ Figma 커뮤니티의 Recipe UI 디자인을 참고하여, Jetpack Compose로 �
 - [2일차](/docs/daily/2025-01-15.md) - 상태를 가지는 컴포저블. IngredientItem, RecipeCard, RatingDialog, FilterChip 컴포넌트 구현
 - [3일차](/docs/daily/2025-01-16.md) - Flow/Modifier 학습 및 SignIn, SignUp UI 구현
 - [4일차](/docs/daily/2025-01-17.md) - MVVM 패턴 학습 및 SavedRecipesScreen 구현
-- [5일차](/docs/daily/2025-01-20.md) - UI State Holder 패턴 학습 및 SearchRecipesScreen 구현
-- [6일차](/docs/daily/2025-01-21.md) - Navigation 학습 및 SignIn, SignUp Screen 이동 구현
+- [5일차](/docs/daily/2025-01-20.md) - UI State Holder 패턴 학습 및 Lottie 활용 SavedRecipesScreen 로딩 화면, SearchRecipesScreen 구현
+- [6일차](/docs/daily/2025-01-21.md) - Navigation 학습 및 Splash -> SignIn -> SignUp Screen 이동 구현
 
 ## 학습 로드맵
 
