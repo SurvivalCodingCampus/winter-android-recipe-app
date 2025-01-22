@@ -33,7 +33,7 @@ class SearchRecipeViewModel(
                 recentSearchRecipeRepository
                     .getRecentSearchRecipe()
                     .map { recentRecipes ->
-                        SearchRecipeUiState.Success(recentRecipes)
+                        SearchRecipeUiState.EmptyQuery(recentRecipes)
                     }
                     .catch {
                         SearchRecipeUiState.LoadFailed
@@ -80,12 +80,17 @@ class SearchRecipeViewModel(
 
 sealed interface SearchRecipeUiState {
     data object Loading : SearchRecipeUiState
-    data object EmptyQuery : SearchRecipeUiState
     data object LoadFailed : SearchRecipeUiState
-    data class Success(
-        val recipes: List<SearchRecipe>,
+    data class EmptyQuery(
+        val recentRecipes: List<SearchRecipe>,
     ) : SearchRecipeUiState {
-        fun isEmpty(): Boolean = recipes.isEmpty()
+        fun isEmpty(): Boolean = recentRecipes.isEmpty()
+    }
+
+    data class Success(
+        val searchRecipes: List<SearchRecipe>,
+    ) : SearchRecipeUiState {
+        fun isEmpty(): Boolean = searchRecipes.isEmpty()
     }
 }
 

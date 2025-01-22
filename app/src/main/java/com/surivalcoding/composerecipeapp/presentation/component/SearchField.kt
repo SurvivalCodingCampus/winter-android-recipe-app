@@ -21,9 +21,11 @@ fun SearchField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
 ) {
     HoOutlinedTextField(
         value = value,
+        enabled = enabled,
         onValueChange = onValueChange,
         textStyle = AppTextStyles.smallerTextRegular.copy(
             color = AppColors.Black
