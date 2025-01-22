@@ -1,12 +1,13 @@
-package com.surivalcoding.composerecipeapp.presentation
+package com.surivalcoding.composerecipeapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import com.surivalcoding.composerecipeapp.navigation.MyApp
 import com.surivalcoding.composerecipeapp.presentation.savedrecipe.RecipeViewModel
 import com.surivalcoding.composerecipeapp.presentation.searchrecipe.SearchRecipeViewModel
-import com.surivalcoding.composerecipeapp.presentation.savedrecipe.SavedRecipeScreen
+import com.surivalcoding.composerecipeapp.presentation.searchrecipe.SearchRecipeScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -17,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         // enableEdgeToEdge()
         setContent {
-            SavedRecipeScreen(recipeViewModel)
+            MyApp()
         }
     }
 }

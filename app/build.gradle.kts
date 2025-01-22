@@ -75,4 +75,10 @@ dependencies {
 
     // lottieAnimation
     implementation (libs.lottie.compose)
+
+
+    // navigation
+    implementation(libs.androidx.navigation.compose)
+
+    implementation (libs.androidx.material)
 }
