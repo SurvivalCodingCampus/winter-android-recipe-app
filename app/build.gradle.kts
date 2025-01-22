@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.dotlottie.android)
     implementation(libs.lottie)
     implementation(libs.kotlinx.serialization.json)
@@ -59,6 +60,8 @@ dependencies {
     implementation(libs.firebase.perf.ktx)
     implementation(libs.volley)
     implementation(libs.androidx.foundation.android)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
