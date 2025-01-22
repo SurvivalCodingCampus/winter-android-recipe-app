@@ -1,7 +1,9 @@
 package com.surivalcoding.composerecipeapp.data.datasource
 
+import com.surivalcoding.composerecipeapp.data.mock.fakeRecipe
 import com.surivalcoding.composerecipeapp.data.mock.fakeSavedRecipe
 import com.surivalcoding.composerecipeapp.data.mock.fakeSearchRecipe
+import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
 import com.surivalcoding.composerecipeapp.util.createJsonHttpClient
@@ -25,5 +27,9 @@ class RecipeDataSourceImpl @OptIn(ExperimentalSerializationApi::class) construct
 
     override fun getSavedRecipe(ids: List<Int>): Flow<List<SavedRecipe>> = flow {
         emit(fakeSavedRecipe)
+    }
+
+    override fun getRecipes(): Flow<List<Recipe>> = flow {
+        emit(fakeRecipe)
     }
 }

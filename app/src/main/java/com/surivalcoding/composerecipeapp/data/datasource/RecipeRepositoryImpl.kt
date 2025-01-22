@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.data.datasource
 
+import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
 import kotlinx.coroutines.flow.Flow
@@ -12,4 +13,7 @@ class RecipeRepositoryImpl(
 
     override fun getSavedRecipes(ids: List<Int>): Flow<List<SavedRecipe>> =
         recipeDataSource.getSavedRecipe(ids)
+
+    override fun getRecipes(): Flow<List<Recipe>> =
+        recipeDataSource.getRecipes()
 }
