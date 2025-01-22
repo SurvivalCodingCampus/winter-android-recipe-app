@@ -22,10 +22,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.presentation.component.BigButton
-import com.surivalcoding.composerecipeapp.presentation.component.InputField
-import com.surivalcoding.composerecipeapp.presentation.component.SocialLogin
-import com.surivalcoding.composerecipeapp.ui.component.NoPaddingButton
+import com.surivalcoding.composerecipeapp.ui.component.BigButton
+import com.surivalcoding.composerecipeapp.ui.component.InputField
+import com.surivalcoding.composerecipeapp.ui.component.SocialLogin
+import com.surivalcoding.composerecipeapp.ui.custom.NoPaddingButton
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme

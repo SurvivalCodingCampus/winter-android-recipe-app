@@ -2,11 +2,11 @@ package com.surivalcoding.composerecipeapp
 
 import android.app.Application
 import com.surivalcoding.composerecipeapp.data.datasource.FakePreferenceDataSource
-import com.surivalcoding.composerecipeapp.data.datasource.RecentSearchRecipeRepositoryImpl
 import com.surivalcoding.composerecipeapp.data.datasource.RecipeDataSourceImpl
-import com.surivalcoding.composerecipeapp.data.datasource.RecipeRepositoryImpl
-import com.surivalcoding.composerecipeapp.data.datasource.UserDataRepositoryImpl
 import com.surivalcoding.composerecipeapp.data.mock.savedRecipeMockEngine
+import com.surivalcoding.composerecipeapp.data.repository.RecentSearchRecipeRepositoryImpl
+import com.surivalcoding.composerecipeapp.data.repository.RecipeRepositoryImpl
+import com.surivalcoding.composerecipeapp.data.repository.UserDataRepositoryImpl
 import com.surivalcoding.composerecipeapp.data.usecase.GetSavedRecipesUseCase
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

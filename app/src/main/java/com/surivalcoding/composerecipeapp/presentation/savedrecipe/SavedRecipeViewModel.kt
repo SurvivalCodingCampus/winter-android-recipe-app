@@ -8,9 +8,9 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.surivalcoding.composerecipeapp.AppApplication
-import com.surivalcoding.composerecipeapp.data.datasource.RecipeRepository
-import com.surivalcoding.composerecipeapp.data.datasource.UserDataRepository
 import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
+import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.data.repository.UserDataRepository
 import com.surivalcoding.composerecipeapp.data.usecase.GetSavedRecipesUseCase
 import com.surivalcoding.composerecipeapp.util.Result
 import com.surivalcoding.composerecipeapp.util.asResult

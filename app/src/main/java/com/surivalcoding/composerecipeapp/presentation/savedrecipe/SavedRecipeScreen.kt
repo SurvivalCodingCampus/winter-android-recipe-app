@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.surivalcoding.composerecipeapp.data.mock.fakeSavedRecipe
-import com.surivalcoding.composerecipeapp.presentation.component.RectangleRecipeCard
-import com.surivalcoding.composerecipeapp.ui.component.LoadingWheel
+import com.surivalcoding.composerecipeapp.ui.component.RectangleRecipeCard
+import com.surivalcoding.composerecipeapp.ui.custom.LoadingWheel
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 

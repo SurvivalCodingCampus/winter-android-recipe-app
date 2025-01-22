@@ -5,7 +5,7 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTextInput
-import com.surivalcoding.composerecipeapp.presentation.component.InputField
+import com.surivalcoding.composerecipeapp.ui.component.InputField
 import org.junit.Rule
 import org.junit.Test
 

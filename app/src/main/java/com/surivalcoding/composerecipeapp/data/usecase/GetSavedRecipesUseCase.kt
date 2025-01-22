@@ -1,9 +1,9 @@
 package com.surivalcoding.composerecipeapp.data.usecase
 
-import com.surivalcoding.composerecipeapp.data.datasource.RecipeRepository
-import com.surivalcoding.composerecipeapp.data.datasource.UserDataRepository
 import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
 import com.surivalcoding.composerecipeapp.data.model.toSavedRecipe
+import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.data.repository.UserDataRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map

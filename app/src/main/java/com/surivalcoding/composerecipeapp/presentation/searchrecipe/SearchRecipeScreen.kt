@@ -39,12 +39,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.surivalcoding.composerecipeapp.data.mock.fakeSearchRecipe
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
-import com.surivalcoding.composerecipeapp.presentation.component.FilterSearchBottomSheet
-import com.surivalcoding.composerecipeapp.presentation.component.SearchField
-import com.surivalcoding.composerecipeapp.presentation.component.SquareRecipeCard
-import com.surivalcoding.composerecipeapp.ui.CraIcons
-import com.surivalcoding.composerecipeapp.ui.component.LoadingWheel
-import com.surivalcoding.composerecipeapp.ui.component.NoPaddingButton
+import com.surivalcoding.composerecipeapp.ui.AppIcons
+import com.surivalcoding.composerecipeapp.ui.component.FilterSearchBottomSheet
+import com.surivalcoding.composerecipeapp.ui.component.SearchField
+import com.surivalcoding.composerecipeapp.ui.component.SquareRecipeCard
+import com.surivalcoding.composerecipeapp.ui.custom.LoadingWheel
+import com.surivalcoding.composerecipeapp.ui.custom.NoPaddingButton
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
@@ -92,7 +92,7 @@ fun SearchRecipeScreen(
                 },
                 navigationIcon = {
                     Icon(
-                        imageVector = CraIcons.ArrowBack,
+                        imageVector = AppIcons.ArrowBack,
                         contentDescription = "Back"
                     )
                 },
@@ -185,7 +185,7 @@ fun SearchField(
             shape = RoundedCornerShape(10.dp)
         ) {
             Icon(
-                imageVector = ImageVector.vectorResource(CraIcons.outlinedSetting),
+                imageVector = ImageVector.vectorResource(AppIcons.outlinedSetting),
                 contentDescription = "Search setting",
                 modifier = Modifier.padding(10.dp)
             )

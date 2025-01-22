@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.surivalcoding.composerecipeapp.ui.CraIcons
+import com.surivalcoding.composerecipeapp.ui.AppIcons
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import kotlin.reflect.KClass
 
@@ -106,7 +106,7 @@ fun AppBottomBar(
                 .align(Alignment.TopCenter)
         ) {
             Icon(
-                imageVector = CraIcons.Add,
+                imageVector = AppIcons.Add,
                 contentDescription = "add",
                 modifier = Modifier.size(20.dp)
             )

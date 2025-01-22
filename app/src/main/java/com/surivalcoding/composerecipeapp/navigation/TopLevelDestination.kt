@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.surivalcoding.composerecipeapp.presentation.home.navigation.HomeBaseRoute
 import com.surivalcoding.composerecipeapp.presentation.home.navigation.HomeRoute
 import com.surivalcoding.composerecipeapp.presentation.savedrecipe.navigation.SavedRecipeRoute
-import com.surivalcoding.composerecipeapp.ui.CraIcons
+import com.surivalcoding.composerecipeapp.ui.AppIcons
 import kotlin.reflect.KClass
 
 enum class TopLevelDestination(
@@ -14,12 +14,12 @@ enum class TopLevelDestination(
     val baseRoute: KClass<*> = route,
 ) {
     HOME(
-        icon = CraIcons.outlinedHome,
+        icon = AppIcons.outlinedHome,
         route = HomeRoute::class,
         baseRoute = HomeBaseRoute::class
     ),
     BOOKMARKS(
-        icon = CraIcons.bookMark,
+        icon = AppIcons.outlinedBookMark,
         route = SavedRecipeRoute::class,
     )
 }
