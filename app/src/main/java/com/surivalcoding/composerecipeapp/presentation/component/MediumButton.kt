@@ -33,6 +33,7 @@ fun MediumButton(
     modifier: Modifier = Modifier,
     buttonText: String,
     iconSizePercent: Float = 1.0f,
+    onClick: () -> Unit = {}
 ) {
     val configuration = LocalConfiguration.current
     val fontScale = configuration.fontScale
@@ -55,6 +56,7 @@ fun MediumButton(
                         isPressed = true
                         tryAwaitRelease()
                         isPressed = false
+                        onClick()
                     }
                 )
             },
@@ -84,6 +86,7 @@ fun MediumButton(
 @Composable
 private fun MediumButtonPreview() {
     MediumButton(
-        buttonText = "Button"
+        buttonText = "Button",
+        onClick = {}
     )
 }
