@@ -4,11 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavDestination
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.navOptions
 import com.surivalcoding.composerecipeapp.navigation.TopLevelDestination.BOOKMARKS
 import com.surivalcoding.composerecipeapp.navigation.TopLevelDestination.HOME
+import com.surivalcoding.composerecipeapp.presentation.home.navigation.HomeRoute
 import com.surivalcoding.composerecipeapp.presentation.home.navigation.navigateToHome
 import com.surivalcoding.composerecipeapp.presentation.savedrecipe.navigation.navigateToSavedRecipe
 
@@ -45,7 +45,7 @@ class RecipeAppState(
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
         val topLevelNavOptions = navOptions {
-            popUpTo(navController.graph.findStartDestination().id) {
+            popUpTo<HomeRoute> {
                 saveState = true
             }
             launchSingleTop = true

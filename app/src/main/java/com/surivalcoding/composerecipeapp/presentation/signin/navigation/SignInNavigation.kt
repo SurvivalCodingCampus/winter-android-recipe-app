@@ -20,6 +20,7 @@ fun NavController.navigateToSignIn(navOptions: NavOptionsBuilder.() -> Unit = {}
         popUpTo<IntroRoute> {
             inclusive = true
         }
+        launchSingleTop = true
         navOptions()
     }
 
