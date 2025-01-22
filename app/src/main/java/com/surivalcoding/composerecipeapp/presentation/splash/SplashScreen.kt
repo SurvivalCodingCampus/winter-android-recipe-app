@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,74 +32,81 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
-    onNavigateToSignIn: () -> Unit = {}
+    onNavigateToSignIn: () -> Unit = {}  // 파라미터 이름 수정
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .paint(
-                painter = painterResource(R.drawable.splash_bg),
-                contentScale = ContentScale.Crop
-            )
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color.Transparent,
-                        AppColors.black
-                    )
-                )
-            )
-    ) {
-        Column(
+    Scaffold { paddingValues ->
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 30.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(paddingValues)
+                .paint(
+                    painter = painterResource(R.drawable.splash_bg),
+                    contentScale = ContentScale.Crop
+                )
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            Color.Black
+                        )
+                    )
+                )
         ) {
-            Spacer(modifier = Modifier.height(104.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 30.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.height(104.dp))
 
-            Image(
-                modifier = Modifier.size(79.dp),
-                painter = painterResource(R.drawable.splash_logo),
-                contentDescription = "Recipe App Logo"
-            )
-
-            Spacer(modifier = Modifier.height(14.dp))
-
-            Text(
-                text = "100K+ Premium Recipe",
-                style = AppTextStyles.mediumTextBold.copy(
-                    color = AppColors.white
+                Image(
+                    modifier = Modifier.size(79.dp),
+                    painter = painterResource(R.drawable.splash_logo),
+                    contentDescription = "Recipe App Logo"
                 )
-            )
 
-            Spacer(modifier = Modifier.height(222.dp))
+                Spacer(modifier = Modifier.height(14.dp))
 
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = "Get\nCooking",
-                style = AppTextStyles.titleTextBold.copy(
-                    color = AppColors.white,
-                    lineHeight = 60.sp
-                ),
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Text(
-                text = "Simple way to find Tasty Recipe",
-                style = AppTextStyles.normalTextRegular.copy(
-                    color = AppColors.white
+                Text(
+                    text = "100K+ Premium Recipe",
+                    style = AppTextStyles.mediumTextBold.copy(
+                        color = AppColors.white
+                    )
                 )
-            )
 
-            Spacer(modifier = Modifier.height(64.dp))
+                // weight를 사용하여 유동적인 공간 확보
+                Spacer(modifier = Modifier.weight(1f))
 
-            MediumButton(
-                buttonText = "Start Cooking",
-                //onClick = onNavigateToSignIn
-            )
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "Get\nCooking",
+                    style = AppTextStyles.titleTextBold.copy(
+                        color = AppColors.white,
+                        lineHeight = 60.sp
+                    ),
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Text(
+                    text = "Simple way to find Tasty Recipe",
+                    style = AppTextStyles.normalTextRegular.copy(
+                        color = AppColors.white
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(64.dp))
+
+                MediumButton(
+                    buttonText = "Start Cooking",
+                    onClick = onNavigateToSignIn  // 콜백 연결
+                )
+
+                // 하단 여백 추가
+                Spacer(modifier = Modifier.height(32.dp))
+            }
         }
     }
 }
