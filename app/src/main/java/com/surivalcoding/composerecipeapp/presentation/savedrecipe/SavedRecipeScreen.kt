@@ -92,10 +92,15 @@ fun SavedRecipeScreen(
                     item {
                         Spacer(Modifier.height(80.dp))
                     }
+                    item {
+                        Text("error2")
+                    }
                 }
             }
 
-            is SavedRecipeUiState.Error -> {}
+            is SavedRecipeUiState.Error -> {
+                Text("error: ${savedRecipeUiState.e}")
+            }
             is SavedRecipeUiState.Loading -> {
                 Box(
                     contentAlignment = Alignment.Center,
