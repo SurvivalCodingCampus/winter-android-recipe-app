@@ -1,5 +1,6 @@
-package com.surivalcoding.composerecipeapp.data.data_source
+package com.surivalcoding.composerecipeapp.data.data_source.local
 
+import com.surivalcoding.composerecipeapp.data.data_source.RecipeDatasource
 import com.surivalcoding.composerecipeapp.data.dto.RecipeDto
 import com.surivalcoding.composerecipeapp.data.dto.RecipeResponse
 import kotlinx.serialization.json.Json

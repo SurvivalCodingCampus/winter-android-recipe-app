@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.saved_recipe
+package com.surivalcoding.composerecipeapp.presentation.saved_recipes
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,15 +7,14 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.surivalcoding.composerecipeapp.AppApplication
-import com.surivalcoding.composerecipeapp.data.model.Recipe
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SavedRecipeViewModel(private val recipeRepository: RecipeRepository) : ViewModel() {
-    private val _state = MutableStateFlow(SavedRecipeState())
+class SavedRecipesViewModel(private val recipeRepository: RecipeRepository) : ViewModel() {
+    private val _state = MutableStateFlow(SavedRecipesState())
     val state = _state.asStateFlow()  // UI에서 관찰할 수 있도록 public StateFlow 노출
 
     init {
@@ -50,7 +49,7 @@ class SavedRecipeViewModel(private val recipeRepository: RecipeRepository) : Vie
                 // Create a SavedStateHandle for this ViewModel from extras
                 val savedStateHandle = extras.createSavedStateHandle()
 
-                return SavedRecipeViewModel(
+                return SavedRecipesViewModel(
                     (application as AppApplication).recipeRepository,
                 ) as T
             }

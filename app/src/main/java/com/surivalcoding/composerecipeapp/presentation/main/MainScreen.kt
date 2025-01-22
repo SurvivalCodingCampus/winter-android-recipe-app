@@ -1,8 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ListItemDefaults.contentColor
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,9 +14,8 @@ import com.surivalcoding.composerecipeapp.presentation.component.BottomNavigatio
 import com.surivalcoding.composerecipeapp.presentation.main.home.HomeScreen
 import com.surivalcoding.composerecipeapp.presentation.main.home.HomeViewModel
 import com.surivalcoding.composerecipeapp.presentation.navigation.BottomNavItem
-import com.surivalcoding.composerecipeapp.presentation.saved_recipe.SavedRecipeScreen
-import com.surivalcoding.composerecipeapp.presentation.saved_recipe.SavedRecipeViewModel
-import com.surivalcoding.composerecipeapp.ui.AppColors
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipeScreen
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipesViewModel
 
 @Composable
 fun MainScreen() {
@@ -41,7 +38,7 @@ fun MainScreen() {
             }
 
             composable(BottomNavItem.SavedRecipes.route) {
-                val viewModel: SavedRecipeViewModel = viewModel(factory = SavedRecipeViewModel.Factory)
+                val viewModel: SavedRecipesViewModel = viewModel(factory = SavedRecipesViewModel.Factory)
                 val state by viewModel.state.collectAsStateWithLifecycle()
                 SavedRecipeScreen(state = state)
             }

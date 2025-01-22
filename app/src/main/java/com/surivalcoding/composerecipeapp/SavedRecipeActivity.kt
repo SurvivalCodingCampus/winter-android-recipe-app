@@ -6,13 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.surivalcoding.composerecipeapp.presentation.saved_recipe.SavedRecipeScreen
-import com.surivalcoding.composerecipeapp.presentation.saved_recipe.SavedRecipeViewModel
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipeScreen
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipesViewModel
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 
 class SavedRecipeActivity : ComponentActivity() {
-    private val viewModel: SavedRecipeViewModel by viewModels { SavedRecipeViewModel.Factory }
+    private val viewModel: SavedRecipesViewModel by viewModels { SavedRecipesViewModel.Factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,9 +1,9 @@
 package com.surivalcoding.composerecipeapp
 
 import android.app.Application
-import com.surivalcoding.composerecipeapp.data.data_source.MockRecipeDatasource
-import com.surivalcoding.composerecipeapp.data.repository.MockRecipeRepositoryImpl
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.data.data_source.local.MockRecipeDatasource
+import com.surivalcoding.composerecipeapp.data.repository.impl.MockRecipeRepositoryImpl
+import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
 
 class AppApplication : Application() {
     // RecipeDatasource 싱글턴 추가
