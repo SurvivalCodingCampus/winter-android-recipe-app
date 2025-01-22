@@ -29,7 +29,7 @@ class SavedRecipeViewModel(
         recipeRepository = recipeRepository
     ).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.WhileSubscribed(5_000L),
         initialValue = SavedRecipeUiState.Loading
     )
 
@@ -61,14 +61,12 @@ private fun savedRecipeUiState(
         when (savedRecipesResult) {
             is Result.Success -> SavedRecipeUiState.Success(savedRecipesResult.data)
             is Result.Loading -> SavedRecipeUiState.Loading
-            is Result.Error -> {
-                SavedRecipeUiState.Error(savedRecipesResult.exception)
-            }
+            is Result.Error -> SavedRecipeUiState.Error
         }
     }
 
 sealed interface SavedRecipeUiState {
     data class Success(val recipes: List<SavedRecipe>) : SavedRecipeUiState
-    data class Error(val e: Throwable) : SavedRecipeUiState
+    data object Error : SavedRecipeUiState
     data object Loading : SavedRecipeUiState
 }
