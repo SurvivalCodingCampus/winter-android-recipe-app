@@ -63,4 +63,9 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose.android)
+
+    val nav_version = "2.8.4"
+
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation("androidx.compose.material:material-android:1.7.6")
 }
