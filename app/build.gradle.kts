@@ -71,5 +71,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:${lifecycle_version}")
+    implementation("androidx.compose.material:material:1.7.6")
 
 }

@@ -23,7 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -40,16 +40,16 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SavedRecipesScreen(
     state: SavedRecipesState,
+    modifier: Modifier,
     onRecipeClick: (Recipe) -> Unit,
     onBookmarkClick: (Recipe) -> Unit,
 ) {
-    val recipes =  state.recipes
+    val recipes = state.recipes
 
     Column(
-        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
+        modifier = modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-
     ) {
         Text("Saved recipes", style = AppTextStyles.boldMedium)
         LazyColumn(
@@ -61,8 +61,7 @@ fun SavedRecipesScreen(
                 items(5) {
                     ShimmerRecipeCard()
                 }
-
-            }else {
+            } else {
                 items(
                     count = recipes.size,
                     key = { index -> recipes[index].id },
@@ -84,7 +83,7 @@ fun SavedRecipesScreen(
 
 @Composable
 fun ShimmerRecipeCard() {
-    var currentTranslation by remember { mutableStateOf(0f) }
+    var currentTranslation by remember { mutableFloatStateOf(0f) }
     val shimmerColors = listOf(
         Color.LightGray.copy(alpha = 0.6f),
         Color.LightGray.copy(alpha = 0.2f),
@@ -154,11 +153,11 @@ fun SavedRecipesScreenPreview() {
         id = 30,
         name = "hh",
         time = "10",
-        category = "Itailian",
+        category = "Italian",
         image = "http://",
         chef = "steve",
         rating = 3.0,
-        ingredients = listOf<IngredientDto>(IngredientDto(1, "a", "b")),
+        ingredients = listOf(IngredientDto(1, "a", "b")),
     )
 
     val recipes = listOf(
@@ -180,6 +179,7 @@ fun SavedRecipesScreenPreview() {
 
     SavedRecipesScreen(
         state = SavedRecipesState(recipes),
+        modifier = Modifier,
         onRecipeClick = {},
         onBookmarkClick = {}
     )

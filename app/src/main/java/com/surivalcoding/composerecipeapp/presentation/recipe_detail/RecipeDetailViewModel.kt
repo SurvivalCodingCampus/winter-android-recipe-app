@@ -11,10 +11,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.navigation.toRoute
 import com.surivalcoding.composerecipeapp.AppApplication
-import com.surivalcoding.composerecipeapp.UserRouter
 import com.surivalcoding.composerecipeapp.data.chef.User
 import com.surivalcoding.composerecipeapp.data.chef.UserRepository
 import com.surivalcoding.composerecipeapp.data.recipe.review.ReviewDto
+import com.surivalcoding.composerecipeapp.navigation.Route
 import com.surivalcoding.composerecipeapp.util.RResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,8 +28,8 @@ class RecipeDetailViewModel(
     private val userRepository: UserRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val id = savedStateHandle.toRoute<UserRouter>().userId
-    private val chefName = savedStateHandle.toRoute<UserRouter>().chefName
+    private val id = savedStateHandle.toRoute<Route.RecipeDetail>().userId
+    private val chefName = savedStateHandle.toRoute<Route.RecipeDetail>().chefName
 
     private val _state = MutableStateFlow(RecipeDetailState())
     val state = _state.asStateFlow()

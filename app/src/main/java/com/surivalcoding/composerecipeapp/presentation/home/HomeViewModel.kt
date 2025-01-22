@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.saved_recipes.view_model
+package com.surivalcoding.composerecipeapp.presentation.home
 
 import Recipe
 import androidx.lifecycle.ViewModel
@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.surivalcoding.composerecipeapp.AppApplication
 import com.surivalcoding.composerecipeapp.data.recipe.RecipeRepository
+import com.surivalcoding.composerecipeapp.navigation.Route
 import com.surivalcoding.composerecipeapp.util.RResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,15 +17,31 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-class RecipeSearchViewModel(
+class HomeViewModel(
     private val recipeRepository: RecipeRepository,
 ) : ViewModel() {
-    private val _state = MutableStateFlow(RecipeSearchState())
+    private val _state = MutableStateFlow(HomeState(
+        isSelected = Route.Splash,
+        recipeList = emptyList(),
+        filteredRecipeList = emptyList(),
+    ))
     val state = _state.asStateFlow()
+
+
+
 
     init {
         viewModelScope.launch {
             searchRecipes("")
+        }
+    }
+
+    fun selectRoute(route: Route) {
+        println(route)
+        _state.update {
+            it.copy(
+                isSelected = route
+            )
         }
     }
 
@@ -62,25 +79,25 @@ class RecipeSearchViewModel(
                 emptyList<Recipe>()
             }
         }
-}
+    }
 
 
-companion object {
-    val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(
-            modelClass: Class<T>,
-            extras: CreationExtras
-        ): T {
-            // Get the Application object from extras
-            val application = checkNotNull(extras[APPLICATION_KEY] as AppApplication)
-            // Create a SavedStateHandle for this ViewModel from extras
+    companion object {
+        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(
+                modelClass: Class<T>,
+                extras: CreationExtras
+            ): T {
+                // Get the Application object from extras
+                val application = checkNotNull(extras[APPLICATION_KEY] as AppApplication)
+                // Create a SavedStateHandle for this ViewModel from extras
 //                val savedStateHandle = extras.createSavedStateHandle()
 
-            return RecipeSearchViewModel(
-                application.recipeRepository,
-            ) as T
+                return HomeViewModel(
+                    application.recipeRepository,
+                ) as T
+            }
         }
     }
-}
 }

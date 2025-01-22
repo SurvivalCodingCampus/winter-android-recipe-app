@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.recently_search_recipe
+package com.surivalcoding.composerecipeapp.presentation.home
 
 import IngredientDto
 import Recipe
@@ -18,14 +18,13 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,24 +34,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.presentation.component.ingredientItem.RecipSearchGrid
-import com.surivalcoding.composerecipeapp.presentation.saved_recipes.view_model.RecipeSearchState
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 import kotlinx.coroutines.delay
 
 
 @Composable
-fun RecipeBeforeSearchScreen(
-    state: RecipeSearchState = RecipeSearchState(),
+fun HomeScreen(
+    state: HomeState,
+    modifier: Modifier,
     onValueChange: (String) -> Unit,
+    onSearching: (Boolean) -> Unit,
 ) {
-    var value by remember { mutableStateOf("") }
-    var isSearching by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
 
     Column(
-        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
+        modifier = modifier
+            .padding(start = 20.dp, bottom = 20.dp, end = 20.dp),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(17.dp)
     ) {
@@ -62,7 +60,7 @@ fun RecipeBeforeSearchScreen(
             horizontalArrangement = Arrangement.Center
         ) {
 
-            Text("Search recipes", style = AppTextStyles.boldMedium)
+            Text("Hello Jega", style = AppTextStyles.boldMedium)
         }
 
         Row(
@@ -82,7 +80,7 @@ fun RecipeBeforeSearchScreen(
                         shape = RoundedCornerShape(10.dp)
                     )
                     .clickable {
-                        isSearching = true
+                        onSearching(true)
                     },
                 contentAlignment = Alignment.CenterStart
             ) {
@@ -99,11 +97,10 @@ fun RecipeBeforeSearchScreen(
                         tint = AppColors.LabelWhite,
                         modifier = Modifier.size(18.dp)
                     )
-                    if (isSearching) {
+                    if (state.isSearching) {
                         BasicTextField(
-                            value = value,
+                            value = state.keyword,
                             onValueChange = {
-                                value = it
                                 onValueChange(it)
                             },
                             modifier = Modifier
@@ -141,27 +138,11 @@ fun RecipeBeforeSearchScreen(
             }
         }
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                if (!state.isLoading) "Recent Search" else "Search Result",
-                style = AppTextStyles.boldMedium
-            )
-            Text(
-                "${state.recipeList.size} results",
-                style = AppTextStyles.regularSmaller,
-                color = AppColors.LabelWhite
-            )
-        }
-        RecipSearchGrid(state.recipeList)
     }
 
     // 포커스 요청
-    LaunchedEffect(isSearching) {
-        if (isSearching) {
+    LaunchedEffect(state.isSearching) {
+        if (state.isSearching) {
             delay(100)
             focusRequester.requestFocus()
         }
@@ -171,7 +152,7 @@ fun RecipeBeforeSearchScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun RecipeBeforeSearchScreenPreview() {
+fun HomeScreenPreview() {
 
     val recipe = Recipe(
         id = 30,
@@ -200,6 +181,11 @@ fun RecipeBeforeSearchScreenPreview() {
         recipe
     )
 
-    RecipeBeforeSearchScreen(RecipeSearchState(recipeList = recipes), onValueChange = {})
+//    HomeScreen(
+//        HomeState(recipeList = recipes),
+//        onValueChange = {},
+//        onSearching = {},
+//        modifier = Modifier,
+//    )
 
 }

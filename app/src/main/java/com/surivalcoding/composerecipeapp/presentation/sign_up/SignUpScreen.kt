@@ -34,6 +34,7 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
 fun SignUpScreen(
+    modifier: Modifier,
     onSignUpClick: () -> Unit,
     onGoogleSignInClick: () -> Unit,
     onFacebookSignInClick: () -> Unit,
@@ -47,7 +48,7 @@ fun SignUpScreen(
     var isChecked by remember { mutableStateOf(false) }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxHeight()
             .padding(horizontal = 30.dp, vertical = 10.dp)
             .verticalScroll(rememberScrollState()),
@@ -151,6 +152,7 @@ fun SignUpScreen(
 @Composable
 fun SignUpScreenPreview() {
     SignUpScreen(
+        modifier = Modifier,
         onSignUpClick = {},
         onGoogleSignInClick = {},
         onFacebookSignInClick = {},
