@@ -154,7 +154,7 @@ private fun RecipeCardPreview() {
             rating = fakeSavedRecipe[0].rating,
             authorName = fakeSavedRecipe[0].authorName,
             cookingMinute = fakeSavedRecipe[0].cookingMinute,
-            isBookmarked = fakeSavedRecipe[0].isBookmarked,
+            isBookmarked = false,
             contentDescription = null,
             modifier = Modifier.aspectRatio(1f)
         )

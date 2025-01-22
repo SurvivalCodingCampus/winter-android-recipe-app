@@ -16,6 +16,7 @@ import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 fun RectangleRecipeCard(
     savedRecipe: SavedRecipe,
     contentDescription: String?,
+    isBookmarked: Boolean = false,
     modifier: Modifier = Modifier,
     placeholder: Painter = painterResource(R.drawable.traditional_spare_ribs_baked),
 ) {
@@ -25,7 +26,7 @@ fun RectangleRecipeCard(
         rating = savedRecipe.rating,
         authorName = savedRecipe.authorName,
         cookingMinute = savedRecipe.cookingMinute,
-        isBookmarked = savedRecipe.isBookmarked,
+        isBookmarked = isBookmarked,
         shouldShowRecipeMetadata = true,
         contentDescription = contentDescription,
         modifier = modifier.aspectRatio(2.1f),
@@ -37,12 +38,12 @@ fun RectangleRecipeCard(
 @Composable
 fun RectangleRecipeCardPreview() {
     val savedRecipe = SavedRecipe(
+        id = 1,
         title = "Lamb chops with fruity couscous and mint\n\n",
         rating = 4.0,
         thumbnailUrl = "",
         authorName = "Spicy Nelly",
         cookingMinute = 20,
-        isBookmarked = false
     )
     ComposeRecipeAppTheme {
         RectangleRecipeCard(
