@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -120,10 +121,11 @@ fun RecipeCard(
                 modifier = Modifier.weight(2f)
             ) {
                 Text(
+                    modifier = Modifier.aspectRatio(200/42f),
                     text = recipe.title,
-                    style = AppTextStyles.smallerTextBold.copy(
+                    style = AppTextStyles.smallerTextSemiBold.copy(
                         color = AppColors.white,
-                        fontSize = 14.sp,
+                        fontSize = 18.sp,
                         lineHeight = 21.sp
                     ),
                     maxLines = 2,
@@ -140,36 +142,43 @@ fun RecipeCard(
             }
 
             Row(
-                modifier = Modifier
+                modifier = Modifier.aspectRatio(94/24f)
                     .weight(1f),
-                horizontalArrangement = Arrangement.Start,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                Spacer(
+                    modifier = Modifier.size(10.dp)
+                )
                 Icon(
                     painter = painterResource(id = R.drawable.timer),
                     contentDescription = "Cooking Time",
                     tint = AppColors.gray4,
                     modifier = Modifier
                         .size(17.dp)
+                        .aspectRatio(1f)
                 )
                 Text(
                     text = recipe.cookingDuration,
                     style = AppTextStyles.smallerTextRegular.copy(
+                        fontSize = 11.sp,
+                        lineHeight = 17.sp,
                         color = AppColors.white
                     ),
                     maxLines = 1,
-                    modifier = Modifier.padding(start = 5.dp, end = 10.dp)
+                    modifier = Modifier.padding(start = 5.dp, end = 20.dp)
                 )
 
                 Box(
                     modifier = Modifier
-                        .background(AppColors.white, shape = CircleShape), // 흰색 원 배경
+                        .background(AppColors.white, shape = CircleShape)
+                        , // 흰색 원 배경
                     contentAlignment = Alignment.Center
                 ) {
                     // 배경 원
                     Box(
                         modifier = Modifier
-                            .size(20.dp)
+                            .size(24.dp)
                             .background(AppColors.white, shape = CircleShape)
                             .align(Alignment.Center) // 중앙 정렬
                     )

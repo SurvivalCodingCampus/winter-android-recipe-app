@@ -3,22 +3,11 @@ package com.surivalcoding.composerecipeapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.surivalcoding.composerecipeapp.presentation.NavigationRoot
 import com.surivalcoding.composerecipeapp.presentation.saved_recipe_screen.SavedRecipeViewModel
-import com.surivalcoding.composerecipeapp.presentation.saved_recipe_screen.SavedRecipesScreen
-import com.surivalcoding.composerecipeapp.presentation.screen.NavigationRoot
-import com.surivalcoding.composerecipeapp.presentation.screen.bottomnav.BottomNavigationScreen
-import com.surivalcoding.composerecipeapp.presentation.search_recipes_screen.SearchRecipeViewModel
-import com.surivalcoding.composerecipeapp.presentation.search_recipes_screen.SearchRecipesScreen
-import com.surivalcoding.composerecipeapp.presentation.splashscreen.NavigationSplashRoot
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +15,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
 
-            NavigationSplashRoot(
-                navController = navController
+            val savedRecipeViewModel: SavedRecipeViewModel = viewModel(
+                factory = SavedRecipeViewModel.Factory
+            )
+
+            val savedRecipeState = savedRecipeViewModel.state.collectAsStateWithLifecycle()
+
+            NavigationRoot(
+                navController = navController,
+                savedRecipeState = savedRecipeState.value,
             )
         }
     }

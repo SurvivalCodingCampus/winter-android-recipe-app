@@ -38,8 +38,7 @@ fun SavedRecipesScreen(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 54.dp, bottom = 51.dp),
+                .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
