@@ -41,7 +41,6 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 import kotlinx.coroutines.delay
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeSearchScreen(
     state: RecipeSearchState = RecipeSearchState(),
@@ -51,123 +50,119 @@ fun RecipeSearchScreen(
     val focusRequester = remember { FocusRequester() }
 
 
-    Scaffold { innerPadding ->
-
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .padding(start = 20.dp, bottom = 20.dp, end = 20.dp),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(17.dp)
+    Column(
+        modifier = Modifier
+            .padding(start = 20.dp, top = 20.dp, end = 20.dp),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.spacedBy(17.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
 
-                Text("Search recipes", style = AppTextStyles.boldMedium)
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(40.dp)
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(Color.White)
-                        .border(
-                            width = 1.dp,
-                            color = Color(0xFFD9D9D9),
-                            shape = RoundedCornerShape(10.dp)
-                        )
-                        .clickable {
-                            onSearching(true)
-                        },
-                    contentAlignment = Alignment.CenterStart
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Search,
-                            contentDescription = "Search Icon",
-                            tint = AppColors.LabelWhite,
-                            modifier = Modifier.size(18.dp)
-                        )
-                        if (state.isSearching) {
-                            BasicTextField(
-                                value = state.keyword,
-                                onValueChange = {
-                                    onValueChange(it)
-                                },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .focusRequester(focusRequester),
-                                textStyle = AppTextStyles.regularSmaller,
-                                singleLine = true,
-                                cursorBrush = SolidColor(AppColors.Primary100)
-                            )
-                        } else {
-                            Text(
-                                text = "Search recipe",
-                                style = AppTextStyles.regularSmaller,
-                                color = AppColors.LabelWhite
-                            )
-                        }
-                    }
-                }
-
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .background(
-                            color = AppColors.Primary100,
-                            shape = RoundedCornerShape(10.dp)
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Settings,
-                        contentDescription = "Settings Icon",
-                        tint = Color.White,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    if (state.isLoading) "Recent Search" else "Search Result",
-                    style = AppTextStyles.boldMedium
-                )
-                Text(
-                    "${state.recipeList.size} results",
-                    style = AppTextStyles.regularSmaller,
-                    color = AppColors.LabelWhite
-                )
-            }
-            RecipSearchGrid(state.recipeList)
+            Text("Search recipes", style = AppTextStyles.boldMedium)
         }
 
-        // 포커스 요청
-        LaunchedEffect(state.isSearching) {
-            if (state.isSearching) {
-                delay(100)
-                focusRequester.requestFocus()
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(40.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(Color.White)
+                    .border(
+                        width = 1.dp,
+                        color = Color(0xFFD9D9D9),
+                        shape = RoundedCornerShape(10.dp)
+                    )
+                    .clickable {
+                        onSearching(true)
+                    },
+                contentAlignment = Alignment.CenterStart
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Search,
+                        contentDescription = "Search Icon",
+                        tint = AppColors.LabelWhite,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    if (state.isSearching) {
+                        BasicTextField(
+                            value = state.keyword,
+                            onValueChange = {
+                                onValueChange(it)
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .focusRequester(focusRequester),
+                            textStyle = AppTextStyles.regularSmaller,
+                            singleLine = true,
+                            cursorBrush = SolidColor(AppColors.Primary100)
+                        )
+                    } else {
+                        Text(
+                            text = "Search recipe",
+                            style = AppTextStyles.regularSmaller,
+                            color = AppColors.LabelWhite
+                        )
+                    }
+                }
             }
+
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .background(
+                        color = AppColors.Primary100,
+                        shape = RoundedCornerShape(10.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Settings,
+                    contentDescription = "Settings Icon",
+                    tint = Color.White,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                if (state.isLoading) "Recent Search" else "Search Result",
+                style = AppTextStyles.boldMedium
+            )
+            Text(
+                "${state.recipeList.size} results",
+                style = AppTextStyles.regularSmaller,
+                color = AppColors.LabelWhite
+            )
+        }
+        RecipSearchGrid(state.recipeList)
+    }
+
+    // 포커스 요청
+    LaunchedEffect(state.isSearching) {
+        if (state.isSearching) {
+            delay(100)
+            focusRequester.requestFocus()
         }
     }
 }

@@ -112,7 +112,6 @@ fun NavigationMain() {
                 val recipeViewModel = viewModel<RecipeViewModel>(factory = RecipeViewModel.Factory)
                 val recipeState by recipeViewModel.state.collectAsStateWithLifecycle()
 
-
                 SavedRecipesScreen(
                     modifier = Modifier,
                     state = recipeState,
