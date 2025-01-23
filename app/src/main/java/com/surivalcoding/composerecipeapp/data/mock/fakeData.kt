@@ -1,9 +1,11 @@
 package com.surivalcoding.composerecipeapp.data.mock
 
+import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.data.model.Ingredient
 import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
+import com.surivalcoding.composerecipeapp.data.model.toRecipeDish
 import com.surivalcoding.composerecipeapp.data.model.toSavedRecipe
 
 
@@ -14,6 +16,13 @@ val fakeIngredients = listOf(
         "https://s3-alpha-sig.figma.com/img/3c30/4e61/3dd3e1dd1f7360a6ef1c04399b0609ab?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=YiqyiHT-Zf75PgFIhZQxqfcESF8MKWPUTlonvU3jheAOVv1huhxp7SglpH7uoZSIVWGlyY~u1IteavPE54fgxHO8G1XfSznhjP3U1uT5kX9gQVO7BAyrhf25xjiugekaJnOFlKBlgOAorCpNeCMxmvknb9UB6nqpASrBrkg0GAxt0ENYDZawsQ3rArK5ix7Xk0djrw33wYMpggc~4AvJ1QOJdlWag0Y2A9YrXPjf1rutmfTJ3d3GWYbrR1nPmAzAcTFbUGz40NJjEBQRJqgYlkNxb33zpUh6NzDrzZp-RGURdUYHrK-8JwhKUmjgjfWqR9fP-j5PUhHkn7MRdGVe3w__",
     )
 )
+
+val fakeImageDrawables = listOf(
+    R.drawable.img_rounded_classic_greek_salad,
+    R.drawable.img_rounded_crunchy_nut_coleaslaw,
+    R.drawable.img_rounded_steak_with_tomato
+)
+
 
 val fakeRecipe = listOf(
     Recipe(
@@ -257,6 +266,7 @@ val fakeRecipe = listOf(
     )
 )
 
+val fakeRecipeDishes = fakeRecipe.map { it.toRecipeDish() }
 val fakeSavedRecipe = fakeRecipe.map { it.toSavedRecipe() }
 //val fakeSavedRecipe = listOf(
 //    SavedRecipe(
