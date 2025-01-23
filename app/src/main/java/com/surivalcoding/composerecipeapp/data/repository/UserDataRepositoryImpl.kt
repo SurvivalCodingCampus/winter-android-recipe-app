@@ -5,9 +5,10 @@ import com.surivalcoding.composerecipeapp.data.model.UserData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class UserDataRepositoryImpl(
-    private val preferenceDataSource: PreferenceDataSource
+class UserDataRepositoryImpl @Inject constructor(
+    preferenceDataSource: PreferenceDataSource
 ) : UserDataRepository {
     private val _userData: MutableStateFlow<UserData> =
         MutableStateFlow(preferenceDataSource.userData)
@@ -20,5 +21,4 @@ class UserDataRepositoryImpl(
             )
         }
     }
-
 }

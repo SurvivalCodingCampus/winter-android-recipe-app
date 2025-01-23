@@ -35,8 +35,8 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.surivalcoding.composerecipeapp.data.mock.fakeSearchRecipe
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
 import com.surivalcoding.composerecipeapp.ui.AppIcons
@@ -52,7 +52,7 @@ import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 @Composable
 fun SearchRecipeScreen(
     modifier: Modifier = Modifier,
-    searchRecipeViewModel: SearchRecipeViewModel = viewModel(factory = SearchRecipeViewModel.Factory)
+    searchRecipeViewModel: SearchRecipeViewModel = hiltViewModel()
 ) {
     val searchRecipeUiState by searchRecipeViewModel.searchRecipeUiState.collectAsStateWithLifecycle()
     val searchQuery by searchRecipeViewModel.searchQuery.collectAsStateWithLifecycle()
