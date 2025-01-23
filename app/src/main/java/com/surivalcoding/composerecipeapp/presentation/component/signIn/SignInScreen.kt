@@ -3,6 +3,7 @@ package com.surivalcoding.composerecipeapp.presentation.component.signIn
 import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.presentation.component.BigButton
@@ -184,7 +186,8 @@ fun SignInScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun SignInScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -312,6 +315,10 @@ fun SignInScreen(
                 style = AppTextStyles.smallerTextSemiBold
             )
             Text(
+                modifier = Modifier
+                    .clickable {
+                        onClick()
+                    },
                 text = "Sign up",
                 style = AppTextStyles.smallerTextSemiBold,
                 color = AppColors.Secondary_100

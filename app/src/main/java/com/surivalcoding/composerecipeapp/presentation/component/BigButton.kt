@@ -38,7 +38,7 @@ fun BigButton(
     var isPressed by remember { mutableStateOf(false) }
 
     Box(
-        modifier = modifier
+        modifier = Modifier
             .width(315.dp)
             .height(60.dp)
             .background(
@@ -64,7 +64,6 @@ fun BigButton(
         ) {
             Text(
                 modifier = Modifier
-                    .width(114.dp)
                     .height(24.dp),
                 text = title,
                 style = AppTextStyles.normalTextBold.copy(

@@ -3,6 +3,7 @@ package com.surivalcoding.composerecipeapp.presentation.component.signUp
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.presentation.component.BigButton
 import com.surivalcoding.composerecipeapp.presentation.component.makeInputField
@@ -37,7 +39,10 @@ import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
-fun SignUpScreen(modifier: Modifier = Modifier) {
+fun SignUpScreen(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
     var isCheckBoxSelected by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
@@ -209,6 +214,10 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
                 style = AppTextStyles.smallerTextSemiBold
             )
             Text(
+                modifier = Modifier
+                    .clickable {
+                        onClick()
+                    },
                 text = "Sign In",
                 style = AppTextStyles.smallerTextSemiBold,
                 color = AppColors.Secondary_100
