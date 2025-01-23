@@ -1,5 +1,7 @@
 package com.surivalcoding.composerecipeapp.presentation.component.viewModel
 
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -19,63 +21,92 @@ import kotlinx.coroutines.flow.update
 class RecipeViewModel(
     private val repository: RecipeRepository = RecipeRepositoryImpl(RecipeDataSourceImpl()),
     private val savedStateHandle: SavedStateHandle
-): ViewModel() {
+) : ViewModel() {
     private var _state = MutableStateFlow(SavedRecipesState())
     val state = _state.asStateFlow()
 
-    suspend fun getDataCount(): Int {
-        val data = repository.getDataCount()
+    private fun updateDataCount() {
         _state.update {
             it.copy(
-                isLoading = false
+                dataCount = repository.getDataCount()
             )
         }
-        return data
     }
-    suspend fun getFoodImage(): List<String> {
-        val data = repository.getFoodImage()
+
+    private suspend fun updateRecipeData() {
         _state.update {
             it.copy(
-                isLoading = false
+                foodImages = repository.getFoodImages(),
+                titles = repository.getRecipeTitles(),
+                chefNames = repository.getChefNames(),
+                cookingTimeMinutes = repository.getCookingTimes(),
+                rates = repository.getRatings(),
             )
         }
-        return data
     }
-    suspend fun getRecipeTitles(): List<String> {
-        val data = repository.getRecipeTitles()
+
+    private fun loadStart() {
         _state.update {
             it.copy(
-                isLoading = false
+                isLoading = true
             )
         }
-        return data
     }
-    suspend fun getChefNames(): List<String> {
-        val data = repository.getChefNames()
+
+    private fun loadFinished() {
         _state.update {
             it.copy(
                 isLoading = false
             )
         }
-        return data
     }
-    suspend fun getCookingTimes(): List<Int> {
-        val data = repository.getCookingTimes()
-        _state.update {
-            it.copy(
-                isLoading = false
-            )
-        }
-        return data
+
+    suspend fun injectRecipeDataToState() {
+        updateDataCount()
+        updateRecipeData()
+        loadFinished()
     }
-    suspend fun getRatings(): List<Float> {
-        val data = repository.getRatings()
+
+    fun startSearching() {
         _state.update {
             it.copy(
-                isLoading = false
+                isSearching = true
             )
         }
-        return data
+    }
+
+    fun endSearching() {
+        _state.update {
+            it.copy(
+                isSearching = false
+            )
+        }
+    }
+
+    private fun updateCountOfSearchedResult(query: String) {
+        _state.update {
+            it.copy(
+                dataCount = repository.getSearchedRecipes(query).size
+            )
+        }
+    }
+
+    private suspend fun updateSearchedRecipes(query: String) {
+        _state.update {
+            it.copy(
+                foodImages = repository.getFoodImages(query),
+                titles = repository.getRecipeTitles(query),
+                chefNames = repository.getChefNames(query),
+                rates = repository.getRatings(query)
+            )
+        }
+    }
+
+    suspend fun onInputTextChanged(newText: TextFieldValue) {
+        loadStart()
+        updateCountOfSearchedResult(newText.text)
+        updateSearchedRecipes(newText.text)
+        loadFinished()
     }
 
     companion object {
