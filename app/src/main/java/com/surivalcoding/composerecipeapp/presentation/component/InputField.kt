@@ -1,6 +1,7 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,9 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -25,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.VerticalAlign
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
@@ -39,6 +37,10 @@ fun InputField(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     onValueChange: (String) -> Unit,
+    // 새로 추가할 파라미터들
+    isClickable: Boolean = true, // 클릭 가능 여부
+    onClick: (() -> Unit)? = null, // 클릭 시 실행될 람다 함수
+    isEditable: Boolean = true // 입력 가능 여부
 ) {
     var isFieldFocused by remember { mutableStateOf(isFocused) }
 
@@ -46,6 +48,10 @@ fun InputField(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
+            // 클릭 가능한 경우 클릭 이벤트 추가
+            .then(if (isClickable && onClick != null) {
+                Modifier.clickable(onClick = onClick)
+            } else Modifier)
     ) {
         if (label.isNotEmpty()) {
             Text(
@@ -91,9 +97,11 @@ fun InputField(
                     onValueChange = onValueChange,
                     modifier = Modifier
                         .weight(1f)
-                        //.padding(vertical = 8.dp)
                         .onFocusChanged {
-                            isFieldFocused = it.isFocused
+                            // 입력 가능한 경우에만 포커스 상태 변경
+                            if (isEditable) {
+                                isFieldFocused = it.isFocused
+                            }
                         },
                     textStyle = AppTextStyles.smallerTextRegular.copy(
                         color = AppColors.font

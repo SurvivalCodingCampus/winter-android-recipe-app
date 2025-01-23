@@ -27,6 +27,7 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 fun SmallButton(
     modifier: Modifier = Modifier,
     buttonText: String,
+    onClick: () -> Unit = {}
 ) {
     var isPressed by remember { mutableStateOf(false) }
 
@@ -44,6 +45,7 @@ fun SmallButton(
                         isPressed = true
                         tryAwaitRelease()
                         isPressed = false
+                        onClick()
                     }
                 )
             },
@@ -66,6 +68,7 @@ fun SmallButton(
 @Composable
 private fun SmallButtonPreview() {
     SmallButton(
-        buttonText = "Button"
+        buttonText = "Button",
+        onClick = {}
     )
 }
