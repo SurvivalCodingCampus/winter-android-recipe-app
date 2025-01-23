@@ -49,7 +49,6 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun SearchRecipeScreen(
     modifier: Modifier = Modifier,
-    typing: TextFieldValue,
     onValueChanged: (TextFieldValue) -> Unit,
     state: State<SavedRecipesState>
 ) {
@@ -115,7 +114,7 @@ fun SearchRecipeScreen(
                         .padding(10.dp)
                 )
                 CustomTextField(
-                    value = typing,
+                    value = state.value.typing,
                     onValueChange = onValueChanged,
                     label = "Search recipe",
                 )

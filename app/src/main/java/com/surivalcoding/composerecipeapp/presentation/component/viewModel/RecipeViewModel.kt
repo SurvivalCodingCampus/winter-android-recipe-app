@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.surivalcoding.composerecipeapp.presentation.component.AppApplication
@@ -17,6 +18,7 @@ import com.surivalcoding.composerecipeapp.presentation.component.repository.Reci
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class RecipeViewModel(
     private val repository: RecipeRepository = RecipeRepositoryImpl(RecipeDataSourceImpl()),
@@ -61,6 +63,21 @@ class RecipeViewModel(
         }
     }
 
+    private fun updateCountOfSearchedResult(query: String) {
+        _state.update {
+            it.copy(
+                dataCount = repository.getSearchedRecipes(query).size
+            )
+        }
+    }
+
+    private fun updateTypingText(newText: TextFieldValue) {
+        _state.update {
+            it.copy(
+                typing = newText
+            )
+        }
+    }
     suspend fun injectRecipeDataToState() {
         updateDataCount()
         updateRecipeData()
@@ -83,10 +100,19 @@ class RecipeViewModel(
         }
     }
 
-    private fun updateCountOfSearchedResult(query: String) {
+    fun onValueChanged(newText: TextFieldValue) {
+        if(newText.text == "") {
+            endSearching()
+        } else {
+            startSearching()
+        }
+
+        viewModelScope.launch {
+            onInputTextChanged(newText)
+        }
         _state.update {
             it.copy(
-                dataCount = repository.getSearchedRecipes(query).size
+                typing = newText
             )
         }
     }

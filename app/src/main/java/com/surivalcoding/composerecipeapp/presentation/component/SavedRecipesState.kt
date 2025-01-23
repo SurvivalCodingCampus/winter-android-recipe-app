@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
+import androidx.compose.ui.text.input.TextFieldValue
 import com.surivalcoding.composerecipeapp.presentation.component.model.Recipe
 
 data class SavedRecipesState(
@@ -12,4 +13,6 @@ data class SavedRecipesState(
     var dataCount: Int = 0,
 
     var isSearching: Boolean = false,
+
+    var typing: TextFieldValue = TextFieldValue(text = "")
 )

@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.component
+package com.surivalcoding.composerecipeapp.presentation.component.splash
 
 import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.Image
@@ -25,9 +25,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
+import com.surivalcoding.composerecipeapp.presentation.component.MediumButton
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
@@ -71,7 +71,7 @@ fun SplashScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(top = 104.dp, bottom = 84.dp),
+                    .padding(top = 94.dp, bottom = 34.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {

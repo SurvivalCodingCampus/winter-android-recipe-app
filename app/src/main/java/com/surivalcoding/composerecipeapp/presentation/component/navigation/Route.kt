@@ -12,4 +12,10 @@ sealed interface Route {
 
     @Serializable
     object SignUpScreen: Route
+
+    @Serializable
+    object HomeScreen: Route
+
+    @Serializable
+    object SearchScreen: Route
 }
