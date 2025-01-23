@@ -6,13 +6,14 @@ import com.surivalcoding.composerecipeapp.data.data_source.MockUserDataSource
 import com.surivalcoding.composerecipeapp.data.repository.BookmarkRepositoryImpl
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepositoryImpl
+import com.surivalcoding.composerecipeapp.domain.savedscreen.CancelBookmarkUseCase
 import com.surivalcoding.composerecipeapp.domain.savedscreen.GetSavedRecipesUseCase
 
 class AppApplication: Application() {
     val getSavedRecipesUseCase: GetSavedRecipesUseCase by lazy {
         GetSavedRecipesUseCase(
             recipeRepository = RecipeRepositoryImpl(MockRecipeDataSourceImpl()),
-            bookmarkRepository = BookmarkRepositoryImpl(MockUserDataSource())
+            bookmarkUseCase = CancelBookmarkUseCase(BookmarkRepositoryImpl(MockUserDataSource()))
         )
     }
 
