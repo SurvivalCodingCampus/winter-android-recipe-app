@@ -148,7 +148,7 @@ private fun RecipeMetaData(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            imageVector = AppIcons.alarm,
+            painter = painterResource(AppIcons.alarm),
             contentDescription = null,
             tint = AppColors.Gray4
         )
