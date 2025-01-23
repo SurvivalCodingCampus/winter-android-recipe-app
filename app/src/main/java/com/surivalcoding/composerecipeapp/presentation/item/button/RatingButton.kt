@@ -41,12 +41,12 @@ fun RatingButton(
         modifier = modifier
             .background(
                 color = if (isSelected) AppColors.primary_100 else Color.Transparent,
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(10.dp)
             )
             .border(
                 width = 1.dp,
                 color = if (isSelected) Color.Transparent else AppColors.primary_80,
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(10.dp)
             )
             .clickable {
                 onClick(isSelected)

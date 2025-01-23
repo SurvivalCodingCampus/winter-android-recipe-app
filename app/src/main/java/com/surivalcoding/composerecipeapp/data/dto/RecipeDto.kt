@@ -16,6 +16,7 @@ data class RecipeDto(
     val chef: String? = null,
     val time: String? = null,
     val rating: Double? = null,
+    val isBookMarked: Boolean? = null,
     val ingredients: List<IngredientDto?>? = listOf()
 )
 
