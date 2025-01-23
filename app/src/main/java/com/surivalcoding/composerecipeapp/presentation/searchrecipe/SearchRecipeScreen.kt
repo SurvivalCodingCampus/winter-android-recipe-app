@@ -27,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,6 +44,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.presentation.item.FilterSearchBottomSheet
 import com.surivalcoding.composerecipeapp.presentation.item.RecipeListGrid
@@ -59,6 +63,9 @@ fun SearchRecipeScreen(
     val searchIcon = painterResource(R.drawable.search)
     val filterIcon = painterResource(R.drawable.setting_4)
     val recipeList by viewModel.searchRecipeState.collectAsStateWithLifecycle()
+    val loadingState by viewModel.loadingState.collectAsState()
+    // 로티 애니메이션
+    val lottieLoading by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.animal))
 
     val (value, onValueChange) = rememberSaveable { mutableStateOf("") }
 
@@ -233,6 +240,20 @@ fun SearchRecipeScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             RecipeListGrid(recipeList.filteredRecipeList)
+
+
+        }
+    }
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        if (loadingState.isLoading) {
+            // 로티 애니메이션 로딩
+            LottieAnimation(
+                composition = lottieLoading,
+                modifier = Modifier
+                    .size(400.dp)
+                    .align(Alignment.Center)
+            )
         }
     }
 

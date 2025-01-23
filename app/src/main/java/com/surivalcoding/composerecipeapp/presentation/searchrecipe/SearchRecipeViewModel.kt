@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.presentation.savedrecipe.LoadingState
 import com.surivalcoding.composerecipeapp.util.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,12 +21,16 @@ class SearchRecipeViewModel @Inject constructor(
     private val _searchRecipeState = MutableStateFlow(SearchRecipesState())
     val searchRecipeState = _searchRecipeState.asStateFlow()
 
+    private val _loadingState = MutableStateFlow(LoadingState())
+    val loadingState = _loadingState.asStateFlow()
+
 
     init {
         getRecipeList()
     }
 
     private fun getRecipeList() {
+        _loadingState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
             when (val result = recipeRepository.getRecipeList()) {
                 is ResponseResult.Success -> {
@@ -43,6 +48,7 @@ class SearchRecipeViewModel @Inject constructor(
                     _searchRecipeState.update { it.copy(recipeList = emptyList()) }
                 }
             }
+            _loadingState.update { it.copy(isLoading = false) }
         }
     }
 

@@ -60,17 +60,17 @@ fun SavedRecipeScreen(viewModel: SavedRecipeViewModel = hiltViewModel()) {
         Spacer(modifier = Modifier.height(20.dp))
 
         RecipeList(recipeList = bookMarkList.bookMarkList, viewModel = viewModel)
+    }
 
-        Box(modifier = Modifier.fillMaxSize()) {
-            if (loadingState.isLoading) {
-                // 로티 애니메이션 로딩
-                LottieAnimation(
-                    composition = lottieLoading,
-                    modifier = Modifier
-                        .size(400.dp)
-                        .align(Alignment.Center)
-                )
-            }
+    Box(modifier = Modifier.fillMaxSize()) {
+        if (loadingState.isLoading) {
+            // 로티 애니메이션 로딩
+            LottieAnimation(
+                composition = lottieLoading,
+                modifier = Modifier
+                    .size(400.dp)
+                    .align(Alignment.Center)
+            )
         }
     }
 }

@@ -16,7 +16,7 @@ class RecipeRepositoryImpl @Inject constructor(
     override suspend fun getRecipeList(): ResponseResult<List<Recipe>> = withContext(Dispatchers.IO) {
 
         // 프로그래스바를 위한 딜레이
-        delay(2000L)
+        delay(1000L)
 
         safeCall {
             recipeDataSource.getRecipeList().map { it.toMapper() }

@@ -37,6 +37,7 @@ class SavedRecipeViewModel @Inject constructor(
     }
 
     private fun getBookMarkList() {
+        _loadingState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
             when (val result = getBookMarkListUseCase.execute()) {
                 is ResponseResult.Success -> {
@@ -57,6 +58,8 @@ class SavedRecipeViewModel @Inject constructor(
                     }
                 }
             }
+
+            _loadingState.update { it.copy(isLoading = false) }
         }
     }
 

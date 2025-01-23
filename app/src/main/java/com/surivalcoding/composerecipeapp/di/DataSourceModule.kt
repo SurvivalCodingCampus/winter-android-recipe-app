@@ -17,12 +17,19 @@ import javax.inject.Singleton
 abstract class DataSourceModule {
 
 
-    // 목 데이터 주입
+    // DEV 환경
     @Binds
     @Singleton
-    abstract fun bindRecipeDataSource(
+    abstract fun bindDevRecipeDataSource(
         recipeDataSourceImpl: MockRecipeDataSourceImpl
     ): RecipeDataSource
 
+
+//    // PROD 환경
+//    @Binds
+//    @Singleton
+//    abstract fun bindProdRecipeDataSource(
+//        recipeDataSourceImpl: ProdRecipeDataSourceImpl
+//    ): RecipeDataSource
 
 }
