@@ -4,7 +4,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.Alarm
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.material.icons.rounded.StarRate
@@ -19,7 +18,7 @@ object AppIcons {
     val starBorder = Icons.Rounded.StarBorder
     val outlinedHome = R.drawable.ic_outline_home
     val outlinedBookMark = R.drawable.ic_outlined_bookmark
-    val alarm = Icons.Rounded.Alarm
+    val alarm = R.drawable.ic_outline_timer
     val outlinedSetting = R.drawable.ic_outline_setting
     val searchNormal = R.drawable.ic_search_normal
 }

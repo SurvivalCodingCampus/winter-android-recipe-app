@@ -12,13 +12,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,16 +33,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.R
+import com.surivalcoding.composerecipeapp.data.mock.fakeNewRecipes
 import com.surivalcoding.composerecipeapp.data.mock.fakeRecipeDishes
+import com.surivalcoding.composerecipeapp.data.model.NewRecipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.model.RecipeDish
 import com.surivalcoding.composerecipeapp.presentation.searchrecipe.SearchField
@@ -47,10 +55,12 @@ import com.surivalcoding.composerecipeapp.ui.custom.NoPaddingButton
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
+import kotlin.math.roundToInt
 
 @Composable
 fun HomeScreen(
     recipeDishes: List<RecipeDish>,
+    newRecipes: List<NewRecipe>,
     onSearchClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -137,6 +147,29 @@ fun HomeScreen(
                 )
             }
         }
+
+        Text(
+            text = "New Recipes",
+            style = AppTextStyles.normalTextSemiBold,
+            color = AppColors.Black,
+            modifier = Modifier.padding(
+                PaddingValues(
+                    start = 30.dp,
+                    top = 20.dp,
+                )
+            )
+        )
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 30.dp),
+            horizontalArrangement = Arrangement.spacedBy(15.dp),
+            modifier = Modifier.padding(top = 4.dp)
+        ) {
+            items(newRecipes) { newRecipe ->
+                NewRecipeItem(
+                    newRecipe = newRecipe,
+                )
+            }
+        }
     }
 }
 
@@ -147,7 +180,7 @@ private fun DishItem(
     modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .width(150.dp)
             .height(232.dp)
     ) {
@@ -240,13 +273,118 @@ private fun DishItem(
     }
 }
 
+@Composable
+fun NewRecipeItem(
+    newRecipe: NewRecipe,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .width(252.dp)
+            .height(124.dp)
+    ) {
+        Card(
+            onClick = {},
+            colors = CardDefaults.cardColors(
+                containerColor = AppColors.White
+            ),
+            shape = RoundedCornerShape(10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomStart)
+                .shadow(
+                    elevation = 20.dp,
+                    spotColor = Color(0x1A000000),
+                    ambientColor = Color(0xFF000000)
+                )
+        ) {
+            Column(
+                modifier = Modifier.padding(10.dp)
+            ) {
+                Text(
+                    text = newRecipe.title,
+                    style = AppTextStyles.smallerTextSemiBold,
+                    color = AppColors.Gray1,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    modifier = Modifier.width(140.dp)
+                )
+                Spacer(Modifier.height(4.dp))
+                Row {
+                    repeat(newRecipe.rating.roundToInt()) {
+                        Icon(
+                            imageVector = AppIcons.starRate,
+                            contentDescription = "rate score",
+                            tint = AppColors.Rating,
+                            modifier = Modifier
+                                .size(12.dp)
+                                .offset(x = (-2).dp)
+                        )
+                    }
+                }
+                Spacer(Modifier.height(8.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(newRecipe.authorAvatarUrl),
+                        contentDescription = "author avatar image",
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(CircleShape)
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    Text(
+                        text = "By ${newRecipe.authorName}",
+                        style = AppTextStyles.smallerTextRegular,
+                        color = AppColors.Gray3,
+                    )
+                    Spacer(Modifier.weight(1f))
+                    Icon(
+                        painter = painterResource(AppIcons.alarm),
+                        contentDescription = "cooking time icon",
+                        tint = AppColors.Gray3,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(Modifier.width(4.dp))
+                    Text(
+                        text = "${newRecipe.cookingMinute} mins",
+                        style = AppTextStyles.smallerTextRegular,
+                        color = AppColors.Gray3
+                    )
+                }
+            }
+        }
+        Image(
+            painter = painterResource(newRecipe.foodIconUrl),
+            contentDescription = "food image",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .padding(end = 8.dp)
+                .size(88.dp)
+                .align(Alignment.TopEnd)
+        )
+    }
+}
+
+//@Preview
+//@Composable
+//private fun DishItemPreview() {
+//    ComposeRecipeAppTheme {
+//        DishItem(
+//            recipeDish = fakeRecipeDishes[0],
+//            isBookmarked = true
+//        )
+//    }
+//}
+//
+
 @Preview
 @Composable
-private fun DishItemPreview() {
+private fun NewRecipeItemPreview() {
     ComposeRecipeAppTheme {
-        DishItem(
-            recipeDish = fakeRecipeDishes[0],
-            isBookmarked = true
+        NewRecipeItem(
+            newRecipe = fakeNewRecipes[0],
         )
     }
 }
@@ -257,6 +395,7 @@ private fun HomeScreenPreview() {
     ComposeRecipeAppTheme {
         HomeScreen(
             recipeDishes = fakeRecipeDishes,
+            newRecipes = fakeNewRecipes,
             onSearchClick = {}
         )
     }

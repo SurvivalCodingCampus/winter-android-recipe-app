@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.data.model
 
+import com.surivalcoding.composerecipeapp.data.mock.fakeAvatarImage
 import com.surivalcoding.composerecipeapp.data.mock.fakeImageDrawables
 import kotlinx.serialization.Serializable
 
@@ -33,4 +34,14 @@ fun Recipe.toRecipeDish() = RecipeDish(
     cookingMinute = cookingMinute,
     title = title,
     rating = rating,
+)
+
+fun Recipe.toNewRecipe() = NewRecipe(
+    id = id,
+    foodIconUrl = fakeImageDrawables[(id + 1) % 3],
+    cookingMinute = cookingMinute,
+    title = title,
+    rating = rating,
+    authorName = authorName,
+    authorAvatarUrl = fakeAvatarImage[(id - 1) % 3],
 )
