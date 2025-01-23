@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Ingredient(
-    val imageUrl: String,
-    val name: String,
     val quantity: Int,
+    val name: String,
+    val imageUrl: String,
 )

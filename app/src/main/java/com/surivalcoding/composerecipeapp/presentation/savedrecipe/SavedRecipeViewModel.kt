@@ -8,12 +8,12 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.surivalcoding.composerecipeapp.AppApplication
-import com.surivalcoding.composerecipeapp.data.datasource.RecipeRepository
-import com.surivalcoding.composerecipeapp.data.mock.testIds
 import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
+import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.data.repository.UserDataRepository
+import com.surivalcoding.composerecipeapp.data.usecase.GetSavedRecipesUseCase
 import com.surivalcoding.composerecipeapp.util.Result
 import com.surivalcoding.composerecipeapp.util.asResult
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -21,17 +21,29 @@ import kotlinx.coroutines.flow.stateIn
 
 class SavedRecipeViewModel(
     private val savedStateHandle: SavedStateHandle,
+    private val getSavedRecipesUseCase: GetSavedRecipesUseCase,
+    private val userDataRepository: UserDataRepository,
     private val recipeRepository: RecipeRepository
 ) : ViewModel() {
 
-    val recipeUiState: StateFlow<SavedRecipeUiState> = savedRecipeUiState(
-        ids = testIds,
-        recipeRepository = recipeRepository
-    ).stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = SavedRecipeUiState.Loading
-    )
+    val recipeUiState: StateFlow<SavedRecipeUiState> = getSavedRecipesUseCase()
+        .asResult()
+        .map { savedRecipesResult ->
+            when (savedRecipesResult) {
+                is Result.Success -> SavedRecipeUiState.Success(savedRecipesResult.data)
+                is Result.Loading -> SavedRecipeUiState.Loading
+                is Result.Error -> SavedRecipeUiState.Error
+            }
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000L),
+            initialValue = SavedRecipeUiState.Loading
+        )
+
+    fun setSavedRecipeBookmarked(recipeId: Int) {
+        userDataRepository.setRecipeBookmarked(recipeId, false)
+    }
 
     companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
@@ -45,30 +57,17 @@ class SavedRecipeViewModel(
 
                 return SavedRecipeViewModel(
                     savedStateHandle,
-                    (application as AppApplication).recipeRepository,
+                    (application as AppApplication).getSavedRecipesUseCase,
+                    application.userDataRepository,
+                    application.recipeRepository,
                 ) as T
             }
         }
     }
 }
 
-private fun savedRecipeUiState(
-    ids: List<Int>,
-    recipeRepository: RecipeRepository
-): Flow<SavedRecipeUiState> = recipeRepository.getSavedRecipes(ids)
-    .asResult()
-    .map { savedRecipesResult ->
-        when (savedRecipesResult) {
-            is Result.Success -> SavedRecipeUiState.Success(savedRecipesResult.data)
-            is Result.Loading -> SavedRecipeUiState.Loading
-            is Result.Error -> {
-                SavedRecipeUiState.Error(savedRecipesResult.exception)
-            }
-        }
-    }
-
 sealed interface SavedRecipeUiState {
     data class Success(val recipes: List<SavedRecipe>) : SavedRecipeUiState
-    data class Error(val e: Throwable) : SavedRecipeUiState
+    data object Error : SavedRecipeUiState
     data object Loading : SavedRecipeUiState
 }

@@ -27,11 +27,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.presentation.component.BigButton
-import com.surivalcoding.composerecipeapp.presentation.component.InputField
-import com.surivalcoding.composerecipeapp.presentation.component.SocialLogin
 import com.surivalcoding.composerecipeapp.presentation.signin.OrSignInDivider
 import com.surivalcoding.composerecipeapp.presentation.signin.TextWithLinkButton
+import com.surivalcoding.composerecipeapp.ui.component.BigButton
+import com.surivalcoding.composerecipeapp.ui.component.InputField
+import com.surivalcoding.composerecipeapp.ui.component.SocialLogin
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
@@ -59,7 +59,7 @@ fun SignUpScreen(
             .background(AppColors.White)
             .padding(horizontal = 30.dp)
     ) {
-        SignUpHeader(modifier = Modifier.padding(top = 20.dp, bottom = 20.dp))
+        SignUpHeader(modifier = Modifier.padding(top = 54.dp, bottom = 20.dp))
         SignUpInputField(
             name = name,
             email = email,

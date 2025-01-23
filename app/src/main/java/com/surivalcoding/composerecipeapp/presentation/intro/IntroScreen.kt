@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.R
-import com.surivalcoding.composerecipeapp.presentation.component.MediumButton
+import com.surivalcoding.composerecipeapp.ui.component.MediumButton
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
@@ -60,7 +60,7 @@ fun IntroScreen(
                 modifier = modifier.matchParentSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(Modifier.height(70.dp))
+                Spacer(Modifier.height(104.dp))
                 Icon(
                     painter = painterResource(id = R.drawable.ic_intro),
                     contentDescription = "chef hat",

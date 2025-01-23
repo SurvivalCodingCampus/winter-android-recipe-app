@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.surivalcoding.composerecipeapp.data.mock.fakeSavedRecipe
-import com.surivalcoding.composerecipeapp.presentation.component.RectangleRecipeCard
-import com.surivalcoding.composerecipeapp.ui.component.LoadingWheel
+import com.surivalcoding.composerecipeapp.ui.component.RectangleRecipeCard
+import com.surivalcoding.composerecipeapp.ui.custom.LoadingWheel
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
@@ -41,6 +41,7 @@ fun SavedRecipeScreen(
     SavedRecipeScreen(
         title = "Saved Recipes",
         savedRecipeUiState = savedRecipeUiState,
+        onSavedRecipeClick = viewModel::setSavedRecipeBookmarked,
         modifier = modifier,
     )
 }
@@ -50,7 +51,8 @@ fun SavedRecipeScreen(
 fun SavedRecipeScreen(
     title: String,
     savedRecipeUiState: SavedRecipeUiState,
-    modifier: Modifier = Modifier
+    onSavedRecipeClick: (Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -69,7 +71,7 @@ fun SavedRecipeScreen(
             ),
             windowInsets = WindowInsets(0, 0, 0, 0),
             expandedHeight = 27.dp,
-            modifier = Modifier.padding(vertical = 20.dp)
+            modifier = Modifier.padding(top = 54.dp, bottom = 20.dp)
         )
         when (savedRecipeUiState) {
             is SavedRecipeUiState.Success -> {
@@ -79,22 +81,21 @@ fun SavedRecipeScreen(
                 ) {
                     items(savedRecipeUiState.recipes) { recipe ->
                         RectangleRecipeCard(
+                            isBookmarked = true,
                             savedRecipe = recipe,
                             contentDescription = recipe.title,
+                            onCheckedChange = {
+                                onSavedRecipeClick(recipe.id)
+                            },
                         )
                     }
                     item {
                         Spacer(Modifier.height(80.dp))
                     }
-                    item {
-                        Text("error2")
-                    }
                 }
             }
 
-            is SavedRecipeUiState.Error -> {
-                Text("error: ${savedRecipeUiState.e}")
-            }
+            is SavedRecipeUiState.Error -> {}
             is SavedRecipeUiState.Loading -> {
                 Box(
                     contentAlignment = Alignment.Center,
@@ -118,6 +119,7 @@ private fun SavedRecipeScreenPreview() {
     ComposeRecipeAppTheme {
         SavedRecipeScreen(
             title = "Saved Recipes",
+            onSavedRecipeClick = {},
             savedRecipeUiState = SavedRecipeUiState.Success(fakeSavedRecipe)
         )
     }

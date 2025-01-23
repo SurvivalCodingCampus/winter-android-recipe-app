@@ -4,7 +4,7 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.surivalcoding.composerecipeapp.ui.component.CraButton
+import com.surivalcoding.composerecipeapp.ui.custom.HoButton
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -17,7 +17,7 @@ class ButtonsTest() {
     fun test_button_click() {
         var isClicked = false
         composeTestRule.setContent {
-            CraButton(
+            HoButton(
                 onClick = { isClicked = true }
             ) {
                 Text(text = "Button")

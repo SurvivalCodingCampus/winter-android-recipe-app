@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
@@ -37,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.surivalcoding.composerecipeapp.ui.CraIcons
+import com.surivalcoding.composerecipeapp.ui.AppIcons
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import kotlin.reflect.KClass
 
@@ -52,13 +50,11 @@ fun RecipeApp(
         containerColor = AppColors.White,
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         modifier = modifier
-            .fillMaxSize()
     ) { innerPadding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .windowInsetsPadding(WindowInsets.statusBars)
         ) {
             Column(
                 modifier = Modifier
@@ -106,7 +102,7 @@ fun AppBottomBar(
                 .align(Alignment.TopCenter)
         ) {
             Icon(
-                imageVector = CraIcons.Add,
+                imageVector = AppIcons.Add,
                 contentDescription = "add",
                 modifier = Modifier.size(20.dp)
             )

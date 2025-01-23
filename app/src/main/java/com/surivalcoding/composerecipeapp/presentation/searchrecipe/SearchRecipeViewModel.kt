@@ -8,9 +8,9 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.surivalcoding.composerecipeapp.AppApplication
-import com.surivalcoding.composerecipeapp.data.datasource.RecentSearchRecipeRepository
-import com.surivalcoding.composerecipeapp.data.datasource.RecipeRepository
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
+import com.surivalcoding.composerecipeapp.data.repository.RecentSearchRecipeRepository
+import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

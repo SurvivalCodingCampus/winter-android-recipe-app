@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
-import com.surivalcoding.composerecipeapp.presentation.home.navigation.HomeBaseRoute
 import com.surivalcoding.composerecipeapp.presentation.home.navigation.homeScreen
 import com.surivalcoding.composerecipeapp.presentation.home.navigation.navigateToHome
+import com.surivalcoding.composerecipeapp.presentation.intro.navigation.IntroRoute
 import com.surivalcoding.composerecipeapp.presentation.intro.navigation.introScreen
 import com.surivalcoding.composerecipeapp.presentation.savedrecipe.navigation.savedRecipeScreen
 import com.surivalcoding.composerecipeapp.presentation.searchrecipe.navigation.navigateToSearchRecipe
@@ -26,7 +26,7 @@ fun RecipeNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = HomeBaseRoute,
+        startDestination = IntroRoute,
         modifier = modifier
     ) {
         introScreen(
