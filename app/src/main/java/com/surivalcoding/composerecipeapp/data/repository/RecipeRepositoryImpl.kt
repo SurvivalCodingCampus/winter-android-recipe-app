@@ -17,7 +17,6 @@ class RecipeRepositoryImpl(
         // 프로그래스바를 위한 딜레이
         delay(2000L)
 
-
         safeCall {
             recipeDataSource.getRecipeList().map { it.toMapper() }
         }

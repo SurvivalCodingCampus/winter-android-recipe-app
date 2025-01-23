@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -26,10 +27,10 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 // SavedRecipe 화면
 @Composable
-fun SavedRecipeScreen(viewModel: RecipeViewModel) {
+fun SavedRecipeScreen(viewModel: SavedRecipeViewModel = viewModel(factory = SavedRecipeViewModel.Factory)) {
     // collectAsStateWithLifecycle: composable함수로 flow에서 값을 수집하고 라이프사이클을 인식하여 최신값을 나타냄
     // 앱이 백그라운드에 있어 사용하지 않을 때 불필요한 리소스 낭비를 방지
-    val recipeList by viewModel.recipeList.collectAsStateWithLifecycle()
+    val bookMarkList by viewModel.bookMarkList.collectAsStateWithLifecycle()
     val loadingState by viewModel.loadingState.collectAsStateWithLifecycle()
 
 
@@ -54,7 +55,7 @@ fun SavedRecipeScreen(viewModel: RecipeViewModel) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        RecipeList(recipeList)
+        RecipeList(recipeList = bookMarkList.bookMarkList, viewModel = viewModel)
 
         Box(modifier = Modifier.fillMaxSize()) {
             if (loadingState.isLoading) {

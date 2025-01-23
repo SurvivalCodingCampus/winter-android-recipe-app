@@ -17,10 +17,13 @@ sealed class MainRoute(
 
     data object Profile : MainRoute(4, R.drawable.profile, PROFILE)
 
+    data object Search : MainRoute(5, R.drawable.ic_launcher_foreground, SEARCH)
+
     companion object {
         const val HOME = "HOME"
         const val BOOKMARK = "BOOKMARK"
         const val NOTIFICATION = "NOTIFICATION"
         const val PROFILE = "PROFILE"
+        const val SEARCH = "SEARCH"
     }
 }

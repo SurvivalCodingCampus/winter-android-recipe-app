@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation.item
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,6 +43,8 @@ fun RecipeCard(
     chefName: String,
     cookingTime: String,
     rate: Double,
+    id: Int,
+    onDeleteBookMark: (Int) -> Unit = {},
 ) {
     val timerImage = painterResource(R.drawable.timer)
     val bookMarkImage = painterResource(R.drawable.union)
@@ -117,6 +120,7 @@ fun RecipeCard(
                     Modifier
                         .size(24.dp)
                         .background(color = AppColors.white, shape = RoundedCornerShape(50.dp))
+                        .clickable { onDeleteBookMark(id) }
                 ) {
                     Image(
                         modifier = Modifier
@@ -168,6 +172,7 @@ private fun RecipeCardPreview() {
         recipeName = "Traditional spare ribs\nbaked",
         chefName = "By Chef John",
         cookingTime = "20 min",
-        rate = 4.0
+        rate = 4.0,
+        id = 0
     )
 }

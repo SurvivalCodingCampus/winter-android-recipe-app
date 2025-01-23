@@ -3,6 +3,7 @@ package com.surivalcoding.composerecipeapp.presentation.page.main
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,7 +37,8 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSearchClick: () -> Unit,
 ) {
     val searchIcon = painterResource(R.drawable.search)
     val filterIcon = painterResource(R.drawable.setting_4)
@@ -115,7 +117,9 @@ fun HomeScreen(
                             .fillMaxWidth()
                             .background(color = AppColors.white)
                             .border(1.dp, color = AppColors.gray_4, shape = RoundedCornerShape(10.dp))
-                            .padding(horizontal = 10.dp),
+                            .padding(horizontal = 10.dp)
+                            .clickable { onSearchClick() }
+                        ,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
@@ -168,5 +172,7 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(
+        onSearchClick = {}
+    )
 }
