@@ -29,8 +29,8 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 fun SavedRecipesScreen(
     modifier: Modifier = Modifier,
     state: SavedRecipeState = SavedRecipeState(),
-    waitSavedRecipes: () -> Unit = {},
-
+//    waitSavedRecipes: () -> Unit = {},
+    onBookmarkClick: (Int) -> Unit = {},
     ) {
     Box(
         modifier = modifier.fillMaxSize(),
@@ -71,6 +71,9 @@ fun SavedRecipesScreen(
                         RecipeCard(
                             recipe = recipe,
                             modifier = Modifier,
+                            onBookmarkClick = {
+                                onBookmarkClick(recipe.id)
+                            }
                         )
                     }
                 }

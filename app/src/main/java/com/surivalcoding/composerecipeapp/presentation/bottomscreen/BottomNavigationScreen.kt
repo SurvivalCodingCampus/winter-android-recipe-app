@@ -36,6 +36,7 @@ import kotlinx.serialization.Serializable
 @Composable
 fun BottomNavigationScreen(
     savedRecipeState: SavedRecipeState = SavedRecipeState(),
+    onBookmarkClick: (Int) -> Unit = {},
     onFocusedChange: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -160,7 +161,7 @@ fun BottomNavigationScreen(
                 MainScreen()
             }
             composable<Route.Bookmark> {
-                SavedRecipesScreen(Modifier,savedRecipeState)
+                SavedRecipesScreen(Modifier,savedRecipeState, onBookmarkClick)
             }
             composable<Route.Third> {
                 ThirdScreen()

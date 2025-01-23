@@ -2,10 +2,12 @@ package com.surivalcoding.composerecipeapp.presentation.component
 
 import android.graphics.Color.BLUE
 import android.graphics.drawable.ColorDrawable
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -20,6 +22,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,6 +50,7 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 fun RecipeCard(
     recipe: Recipe,
     modifier: Modifier = Modifier,
+    onBookmarkClick: (Int) -> Unit = {}
 ) {
     Box(
         modifier = modifier.fillMaxWidth()
@@ -166,33 +171,30 @@ fun RecipeCard(
                         color = AppColors.white
                     ),
                     maxLines = 1,
-                    modifier = Modifier.padding(start = 5.dp, end = 20.dp)
+                    modifier = Modifier.padding(start = 5.dp, end = 18.dp)
                 )
 
-                Box(
+                Button(
                     modifier = Modifier
-                        .background(AppColors.white, shape = CircleShape)
-                        , // 흰색 원 배경
-                    contentAlignment = Alignment.Center
-                ) {
-                    // 배경 원
-                    Box(
-                        modifier = Modifier
-                            .size(24.dp)
-                            .background(AppColors.white, shape = CircleShape)
-                            .align(Alignment.Center) // 중앙 정렬
+                        .size(30.dp)
+                        .padding(4.dp), // 여백 설정
+                    onClick = { onBookmarkClick(recipe.id) },
+                    contentPadding = PaddingValues(0.dp), // 추가 패딩 없음
+                    shape = CircleShape, // 버튼 모양
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.White
                     )
-
+                ) {
                     // 아이콘
                     Icon(
                         painter = painterResource(id = R.drawable.bookmark),
                         contentDescription = "Save Recipe",
                         tint = AppColors.primary80,
                         modifier = Modifier
-                            .size(17.dp)
-                            .align(Alignment.Center) // 중앙 정렬로 아이콘 겹침
+                            .size(17.dp) // 아이콘 크기
                     )
                 }
+
             }
         }
     }

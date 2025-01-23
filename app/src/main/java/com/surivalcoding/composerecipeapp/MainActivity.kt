@@ -3,6 +3,7 @@ package com.surivalcoding.composerecipeapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
@@ -19,11 +20,12 @@ class MainActivity : ComponentActivity() {
                 factory = SavedRecipeViewModel.Factory
             )
 
-            val savedRecipeState = savedRecipeViewModel.state.collectAsStateWithLifecycle()
+            val savedRecipeState by savedRecipeViewModel.state.collectAsStateWithLifecycle()
 
             NavigationRoot(
                 navController = navController,
-                savedRecipeState = savedRecipeState.value,
+                savedRecipeState = savedRecipeState,
+                onBookmarkClick = { savedRecipeViewModel.fetchSavedRecipes(it) }
             )
         }
     }

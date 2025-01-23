@@ -8,14 +8,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.surivalcoding.composerecipeapp.AppApplication
 import com.surivalcoding.composerecipeapp.data.model.Recipe
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.domain.savedscreen.GetSavedRecipesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SearchRecipeViewModel(
-    private val savedRecipeRepository: RecipeRepository,
+    private val getSavedRecipesUseCase: GetSavedRecipesUseCase,
 ) : ViewModel() {
 //    private val _savedRecipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
 //    val savedRecipes = _savedRecipes.asStateFlow()
@@ -31,7 +31,7 @@ class SearchRecipeViewModel(
         viewModelScope.launch {
             _state.emit(
                 SearchRecipeState(
-                    recipes = savedRecipeRepository.getRecipes()
+                    recipes = getSavedRecipesUseCase.execute()
                 )
             )
         }
@@ -53,7 +53,7 @@ class SearchRecipeViewModel(
                 )
             }
 
-            val allRecipes = savedRecipeRepository.getRecipes()
+            val allRecipes = getSavedRecipesUseCase.execute()
 
             performSearch(newQuery, allRecipes)
 
@@ -85,7 +85,7 @@ class SearchRecipeViewModel(
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
 
-            val recipes = savedRecipeRepository.getRecipes()
+            val recipes = getSavedRecipesUseCase.execute()
 
             _state.update {
                 it.copy(
@@ -102,7 +102,7 @@ class SearchRecipeViewModel(
             _state.update { it.copy(isLoading = true) }
 
             // Repository에서 데이터를 가져오기
-            val recipes = savedRecipeRepository.getRecipes()
+            val recipes = getSavedRecipesUseCase.execute()
 
             // 로딩 종료 및 상태 업데이트
             _state.update {
@@ -127,7 +127,7 @@ class SearchRecipeViewModel(
                 val savedStateHandle = extras.createSavedStateHandle()
 
                 return SearchRecipeViewModel(
-                    (application as AppApplication).recipeRepository,
+                    (application as AppApplication).getSavedRecipesUseCase,
                 ) as T
             }
         }

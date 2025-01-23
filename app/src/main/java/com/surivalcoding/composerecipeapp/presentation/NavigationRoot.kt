@@ -34,20 +34,20 @@ private sealed interface Route {
 fun NavigationRoot(
     navController: NavHostController,
     savedRecipeState: SavedRecipeState = SavedRecipeState(),
-    onFocusedChange: (Int) -> Unit = {},
+    onBookmarkClick: (Int) -> Unit = {},
 ) {
     NavHost(
         navController = navController,
         startDestination = AuthGraph,
     ) {
-        authGraph(navController, savedRecipeState, onFocusedChange)
+        authGraph(navController, savedRecipeState, onBookmarkClick)
     }
 }
 
 private fun NavGraphBuilder.authGraph(
     navHostController: NavHostController,
     savedRecipeState: SavedRecipeState = SavedRecipeState(),
-    onFocusedChange: (Int) -> Unit = {},
+    onBookmarkClick: (Int) -> Unit = {},
 ) {
     navigation<AuthGraph>(
         startDestination = Route.Splash
@@ -97,7 +97,10 @@ private fun NavGraphBuilder.authGraph(
         }
 
         composable<Route.BottomNav> {
-            BottomNavigationScreen(savedRecipeState, onFocusedChange)
+            BottomNavigationScreen(
+                savedRecipeState = savedRecipeState,
+                onBookmarkClick = onBookmarkClick
+            )
         }
     }
 }
