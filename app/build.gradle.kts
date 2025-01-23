@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     kotlin("plugin.serialization") version "1.9.22"
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -74,12 +76,31 @@ dependencies {
 
 
     // lottieAnimation
-    implementation (libs.lottie.compose)
+    implementation(libs.lottie.compose)
 
 
     // navigation
     implementation(libs.androidx.navigation.compose)
 
-    implementation (libs.androidx.material)
+    implementation(libs.androidx.material)
 
+
+    // Logger
+    implementation(libs.logger)
+
+
+    // hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
+
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose.v285)
+    implementation(libs.androidx.hilt.navigation.compose)
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

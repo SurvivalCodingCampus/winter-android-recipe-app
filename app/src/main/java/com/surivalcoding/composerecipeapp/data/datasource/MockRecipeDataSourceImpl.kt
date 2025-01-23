@@ -7,8 +7,9 @@ import com.surivalcoding.composerecipeapp.util.Urls
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
-class MockRecipeDataSourceImpl : RecipeDataSource {
+class MockRecipeDataSourceImpl @Inject constructor() : RecipeDataSource {
     override suspend fun getRecipeList(): List<RecipeDto> = withContext(Dispatchers.IO) {
         val data = Urls.RECIPE_JSON
 

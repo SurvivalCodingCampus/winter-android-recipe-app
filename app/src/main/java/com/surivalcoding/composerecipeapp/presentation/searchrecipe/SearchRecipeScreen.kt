@@ -41,8 +41,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.presentation.item.FilterSearchBottomSheet
 import com.surivalcoding.composerecipeapp.presentation.item.RecipeListGrid
@@ -53,7 +53,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SearchRecipeScreen(
-    viewModel: SearchRecipeViewModel = viewModel(factory = SearchRecipeViewModel.Factory)
+    viewModel: SearchRecipeViewModel = hiltViewModel()
 ) {
     val backImage = painterResource(R.drawable.arrow_left)
     val searchIcon = painterResource(R.drawable.search)

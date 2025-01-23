@@ -2,20 +2,18 @@ package com.surivalcoding.composerecipeapp.presentation.searchrecipe
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
-import com.surivalcoding.composerecipeapp.util.AppApplication
 import com.surivalcoding.composerecipeapp.util.ResponseResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchRecipeViewModel(
+@HiltViewModel
+class SearchRecipeViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository
 ) : ViewModel() {
 
@@ -56,18 +54,6 @@ class SearchRecipeViewModel(
             _searchRecipeState.value.recipeList.filter { it.name.contains(value, ignoreCase = true) }
         }
         _searchRecipeState.update { it.copy(filteredRecipeList = filteredList) }
-    }
-
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val recipeRepository = (this[APPLICATION_KEY] as AppApplication).recipeRepository
-                SearchRecipeViewModel(
-                    recipeRepository = recipeRepository
-                )
-            }
-        }
     }
 }
 

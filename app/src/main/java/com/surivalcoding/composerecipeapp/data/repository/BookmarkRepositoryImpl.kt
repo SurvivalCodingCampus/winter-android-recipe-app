@@ -5,8 +5,9 @@ import com.surivalcoding.composerecipeapp.data.mapper.toMapper
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class BookmarkRepositoryImpl(
+class BookmarkRepositoryImpl @Inject constructor(
     private val recipeDataSource: RecipeDataSource
 ) : BookmarkRepository {
 

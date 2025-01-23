@@ -8,8 +8,9 @@ import com.surivalcoding.composerecipeapp.util.safeCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RecipeRepositoryImpl(
+class RecipeRepositoryImpl @Inject constructor(
     private val recipeDataSource: RecipeDataSource
 ) : RecipeRepository {
     override suspend fun getRecipeList(): ResponseResult<List<Recipe>> = withContext(Dispatchers.IO) {

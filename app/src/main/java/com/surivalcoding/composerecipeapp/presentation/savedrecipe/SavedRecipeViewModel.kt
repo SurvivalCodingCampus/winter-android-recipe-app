@@ -7,18 +7,19 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.airbnb.lottie.utils.Logger
-import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import com.surivalcoding.composerecipeapp.domain.usecase.DeleteBookMarkUseCase
 import com.surivalcoding.composerecipeapp.domain.usecase.GetBookMarkListUseCase
 import com.surivalcoding.composerecipeapp.util.AppApplication
 import com.surivalcoding.composerecipeapp.util.ResponseResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SavedRecipeViewModel(
+@HiltViewModel
+class SavedRecipeViewModel @Inject constructor(
     private val deleteBookMarkUseCase: DeleteBookMarkUseCase,
     private val getBookMarkListUseCase: GetBookMarkListUseCase,
 ) : ViewModel() {
@@ -73,20 +74,6 @@ class SavedRecipeViewModel(
                 is ResponseResult.Failure -> {
                     Log.e("Saved", "삭제 실패")
                 }
-            }
-        }
-    }
-
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val deleteBookMarkUseCase = (this[APPLICATION_KEY] as AppApplication).deleteBookMarkUseCase
-                val getBookMarkListUseCase = (this[APPLICATION_KEY] as AppApplication).getBookMarkListUseCase
-                SavedRecipeViewModel(
-                    deleteBookMarkUseCase = deleteBookMarkUseCase,
-                    getBookMarkListUseCase = getBookMarkListUseCase
-                )
             }
         }
     }
