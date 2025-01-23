@@ -5,4 +5,5 @@ import com.surivalcoding.composerecipeapp.data.model.Recipe
 data class SavedRecipeState(
     val savedRecipes: List<Recipe> = emptyList(),
     val isLoading: Boolean = false,
+    val isBookmark: Boolean = true,
 )
