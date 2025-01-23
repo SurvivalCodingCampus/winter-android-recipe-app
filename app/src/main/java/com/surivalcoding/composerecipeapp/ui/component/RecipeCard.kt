@@ -35,10 +35,10 @@ import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.ui.theme.Black
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
-import com.surivalcoding.composerecipeapp.ui.theme.Gray2
 import com.surivalcoding.composerecipeapp.ui.theme.Gray4
 import com.surivalcoding.composerecipeapp.ui.theme.PoppinsBoldTypography
 import com.surivalcoding.composerecipeapp.ui.theme.PoppinsRegularTypography
+import com.surivalcoding.composerecipeapp.ui.theme.Primary80
 import com.surivalcoding.composerecipeapp.ui.theme.Rating
 import com.surivalcoding.composerecipeapp.ui.theme.Secondary20
 
@@ -173,7 +173,7 @@ fun RecipeCard(
                     Icon(
                         painter = painterResource(R.drawable.ic_bookmark),
                         contentDescription = "Bookmark",
-                        tint = Gray2,
+                        tint = Primary80,
                         modifier = Modifier
                             .size(16.dp)
                     )

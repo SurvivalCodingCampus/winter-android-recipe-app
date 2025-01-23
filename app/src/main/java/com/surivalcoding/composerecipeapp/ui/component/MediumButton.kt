@@ -5,9 +5,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -37,23 +38,23 @@ fun MediumButton(
 
     Box(
         modifier = modifier
-            .width(243.dp)
-            .height(54.dp)
             .background(
                 color = Primary100,
                 shape = RoundedCornerShape(10.dp),
             )
             .clickable {
                 onClick()
-            },
+            }
+            .wrapContentHeight(),
         contentAlignment = Alignment.Center,
     ) {
         Row(
+            modifier = Modifier
+                .padding(horizontal = 50.dp, vertical = 15.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
-                modifier = Modifier
-                    .width(114.dp),
+                modifier = Modifier,
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
@@ -65,7 +66,9 @@ fun MediumButton(
             }
             Spacer(modifier = Modifier.width(11.dp))
             Icon(
-                modifier = Modifier.size(calculateIconSize),
+                modifier = Modifier
+                    .size(calculateIconSize)
+                    .align(Alignment.Bottom),
                 imageVector = Icons.AutoMirrored.Default.ArrowForward,
                 contentDescription = null,
                 tint = Color.White,
