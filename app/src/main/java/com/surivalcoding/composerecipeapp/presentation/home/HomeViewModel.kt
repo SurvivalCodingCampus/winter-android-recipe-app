@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.surivalcoding.composerecipeapp.data.model.HomeRecipe
 import com.surivalcoding.composerecipeapp.data.model.NewRecipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
+import com.surivalcoding.composerecipeapp.data.model.toHomeRecipe
+import com.surivalcoding.composerecipeapp.data.model.toNewRecipe
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.UserDataRepository
 import com.surivalcoding.composerecipeapp.presentation.home.HomeUiAction.UpdateCategory
@@ -27,7 +29,8 @@ class HomeViewModel @Inject constructor(
     recipeRepository: RecipeRepository,
     private val userDataRepository: UserDataRepository,
 ) : ViewModel() {
-    private var _selectedCategory = MutableStateFlow(RecipeCategory.ALL)
+    private val _selectedCategory = MutableStateFlow(RecipeCategory.ALL)
+
     val homeUiState: StateFlow<HomeUiState> = homeUiState(
         _selectedCategory,
         userDataRepository,
@@ -41,7 +44,12 @@ class HomeViewModel @Inject constructor(
 
     fun onAction(action: HomeUiAction) {
         when (action) {
-            is UpdateCategory -> _selectedCategory.update { action.category }
+            is UpdateCategory -> {
+                _selectedCategory.update {
+                    action.category
+                }
+            }
+
             is UpdateUserBookMarked -> {
                 userDataRepository.setRecipeBookmarked(action.id, action.bookmarked)
             }
@@ -54,23 +62,25 @@ private fun homeUiState(
     userDataRepository: UserDataRepository,
     recipeRepository: RecipeRepository,
 ): Flow<HomeUiState> {
-    val bookmarkedIds = userDataRepository.userData.map { it.bookmarkIds }
     return combine(
         selectedCategory,
-        bookmarkedIds,
-        recipeRepository.getHomeRecipes(selectedCategory.value),
-        recipeRepository.getNewRecipes(),
-        HomeUiState::Loaded
+        userDataRepository.userData,
+        recipeRepository.getRecipes(),
+        ::Triple
     )
         .asResult()
         .map { homeUiResult ->
             when (homeUiResult) {
                 is Result.Success -> {
+                    val (selectedCategory, userData, recipes) = homeUiResult.data
+                    val category = selectedCategory
+                    val homeRecipes = (if (category == RecipeCategory.ALL) recipes
+                    else recipes.filter { it.category == category }).map { it.toHomeRecipe() }
                     HomeUiState.Loaded(
-                        selectedCategory = homeUiResult.data.selectedCategory,
-                        bookmarkedIds = homeUiResult.data.bookmarkedIds,
-                        homeRecipes = homeUiResult.data.homeRecipes,
-                        newRecipes = homeUiResult.data.newRecipes
+                        selectedCategory = category,
+                        bookmarkedIds = userData.bookmarkIds,
+                        homeRecipes = homeRecipes,
+                        newRecipes = recipes.map { it.toNewRecipe() }
                     )
                 }
 
@@ -85,7 +95,7 @@ sealed interface HomeUiState {
     data object Loading : HomeUiState
     data class Loaded(
         val selectedCategory: RecipeCategory = RecipeCategory.ALL,
-        val bookmarkedIds: List<Int>,
+        val bookmarkedIds: Set<Int>,
         val homeRecipes: List<HomeRecipe>,
         val newRecipes: List<NewRecipe>,
     ) : HomeUiState

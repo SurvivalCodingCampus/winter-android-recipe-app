@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -157,7 +158,10 @@ private fun HomeScreen(
                             homeRecipe = homeRecipe,
                             isBookmarked = isBookmarked,
                             onClick = {},
-                            onBookmarkClick = { onBookmarkClick(homeRecipe.id, !isBookmarked) },
+                            onBookmarkClick = {
+                                Log.d("testaaa", "${homeUiState.selectedCategory}")
+                                onBookmarkClick(homeRecipe.id, !isBookmarked)
+                            },
                             modifier = Modifier
                                 .width(150.dp)
                                 .height(232.dp)
@@ -222,7 +226,7 @@ private fun HomeScreenPreview() {
                 homeRecipes = fakeHomeRecipes,
                 newRecipes = fakeNewRecipes,
             ),
-            onBookmarkClick = { i, b -> },
+            onBookmarkClick = { _, _ -> },
             onCategoryChange = {},
             onSearchClick = {}
         )

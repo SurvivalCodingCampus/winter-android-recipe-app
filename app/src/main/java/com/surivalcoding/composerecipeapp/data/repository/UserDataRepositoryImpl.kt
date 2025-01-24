@@ -1,6 +1,7 @@
 package com.surivalcoding.composerecipeapp.data.repository
 
 import com.surivalcoding.composerecipeapp.data.datasource.PreferenceDataSource
+import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.model.UserData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +19,14 @@ class UserDataRepositoryImpl @Inject constructor(
         _userData.update {
             it.copy(
                 bookmarkIds = if (bookmarked) it.bookmarkIds + id else it.bookmarkIds - id
+            )
+        }
+    }
+
+    override fun setCategory(category: RecipeCategory) {
+        _userData.update {
+            it.copy(
+                selectedCategory = category
             )
         }
     }

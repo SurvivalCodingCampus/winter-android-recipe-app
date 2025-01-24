@@ -1,14 +1,10 @@
 package com.surivalcoding.composerecipeapp.data.repository
 
 import com.surivalcoding.composerecipeapp.data.datasource.RecipeDataSource
-import com.surivalcoding.composerecipeapp.data.model.HomeRecipe
-import com.surivalcoding.composerecipeapp.data.model.NewRecipe
 import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
-import com.surivalcoding.composerecipeapp.data.model.toHomeRecipe
-import com.surivalcoding.composerecipeapp.data.model.toNewRecipe
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -25,17 +21,12 @@ class RecipeRepositoryImpl @Inject constructor(
     override fun getSavedRecipes(ids: List<Int>): Flow<List<SavedRecipe>> =
         recipeDataSource.getSavedRecipe(ids)
 
-    override fun getNewRecipes(): Flow<List<NewRecipe>> =
-        getRecipes().map { recipes ->
-            recipes.map {
-                it.toNewRecipe()
-            }
+    override fun getRecipesByCategory(category: RecipeCategory): Flow<List<Recipe>> {
+        val recipes = getRecipes()
+        return if (category == RecipeCategory.ALL) {
+            recipes
+        } else {
+            recipes.map { it -> it.filter { it.category == category } }
         }
-
-    override fun getHomeRecipes(category: RecipeCategory): Flow<List<HomeRecipe>> =
-        getRecipes().map { recipes ->
-            val newRecipes = if (category == RecipeCategory.ALL) recipes
-            else recipes.filter { it.category == category }
-            newRecipes.map { it.toHomeRecipe() }
-        }
+    }
 }

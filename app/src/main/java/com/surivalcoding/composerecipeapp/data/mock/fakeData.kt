@@ -12,7 +12,10 @@ import com.surivalcoding.composerecipeapp.data.model.toSavedRecipe
 
 
 val fakeUserData = UserData(
-    bookmarkIds = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
+    selectedCategory = RecipeCategory.ALL,
+    bookmarkIds = setOf(
+        1, 2, 3, 4, 5, 6, 7, 8, 9
+    )
 )
 val fakeIngredients = listOf(
     Ingredient(

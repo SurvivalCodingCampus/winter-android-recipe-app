@@ -1,7 +1,5 @@
 package com.surivalcoding.composerecipeapp.data.repository
 
-import com.surivalcoding.composerecipeapp.data.model.HomeRecipe
-import com.surivalcoding.composerecipeapp.data.model.NewRecipe
 import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
@@ -11,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 interface RecipeRepository {
     fun getSearchRecipes(query: String): Flow<List<SearchRecipe>>
     fun getSavedRecipes(ids: List<Int>): Flow<List<SavedRecipe>>
-    fun getNewRecipes(): Flow<List<NewRecipe>>
-    fun getHomeRecipes(category: RecipeCategory): Flow<List<HomeRecipe>>
+    fun getRecipesByCategory(category: RecipeCategory): Flow<List<Recipe>>
     fun getRecipes(): Flow<List<Recipe>>
 }
