@@ -156,6 +156,7 @@ fun HomeScreen(
                 PaddingValues(
                     start = 30.dp,
                     top = 20.dp,
+                    bottom = 4.dp
                 )
             )
         )
@@ -189,7 +190,7 @@ private fun DishItem(
                 .fillMaxWidth()
                 .height(176.dp)
                 .background(
-                    color = AppColors.Gray4,
+                    color = AppColors.Gray4.copy(alpha = 0.5f),
                     shape = RoundedCornerShape(12.dp)
                 )
                 .padding(10.dp)
@@ -281,7 +282,7 @@ fun NewRecipeItem(
     Box(
         modifier = modifier
             .width(252.dp)
-            .height(124.dp)
+            .height(128.dp)
     ) {
         Card(
             onClick = {},
@@ -299,17 +300,18 @@ fun NewRecipeItem(
                 )
         ) {
             Column(
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier
+                    .padding(12.dp)
             ) {
                 Text(
                     text = newRecipe.title,
-                    style = AppTextStyles.smallerTextSemiBold,
+                    style = AppTextStyles.smallTextSemiBold,
                     color = AppColors.Gray1,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     modifier = Modifier.width(140.dp)
                 )
-                Spacer(Modifier.height(4.dp))
+                Spacer(Modifier.height(10.dp))
                 Row {
                     repeat(newRecipe.rating.roundToInt()) {
                         Icon(
@@ -322,7 +324,7 @@ fun NewRecipeItem(
                         )
                     }
                 }
-                Spacer(Modifier.height(8.dp))
+                Spacer(Modifier.height(10.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {

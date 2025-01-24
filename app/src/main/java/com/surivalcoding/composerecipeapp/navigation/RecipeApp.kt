@@ -85,8 +85,7 @@ fun AppBottomBar(
 ) {
     Box(
         modifier = modifier
-            .padding(top = 12.dp)
-            .height(108.dp)
+            .height(120.dp)
             .background(Color.Transparent)
     ) {
         FloatingActionButton(
@@ -110,8 +109,15 @@ fun AppBottomBar(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(84.dp)
-                .shadow(elevation = 8.dp, shape = BarShape(30.dp, 10.dp))
+                .height(104.dp)
+                .shadow(
+                    elevation = 8.dp,
+                    shape = BarShape(
+                        circleRadius = 28.dp,
+                        cornerRadius = 0.dp,
+                        circleGap = 12.dp
+                    )
+                )
                 .align(Alignment.BottomStart)
         ) {
             NavigationBar(
@@ -125,6 +131,7 @@ fun AppBottomBar(
                     NavigationBarItem(
                         selected = selected,
                         onClick = { appState.navigateToTopLevelDestination(destination) },
+                        label = {},
                         icon = {
                             Icon(
                                 painter = painterResource(destination.icon),
@@ -199,17 +206,17 @@ private class BarShape(
             lineTo(cutoutLeftX, 0f)
             // cutout
             cubicTo(
-                x1 = cutoutCenterX - cutoutRadius,
+                x1 = cutoutCenterX - cutoutRadius + 20,
                 y1 = 0f,
-                x2 = cutoutCenterX - cutoutRadius,
+                x2 = cutoutCenterX - cutoutRadius + 20,
                 y2 = cutoutRadius,
                 x3 = cutoutCenterX,
                 y3 = cutoutRadius,
             )
             cubicTo(
-                x1 = cutoutCenterX + cutoutRadius,
+                x1 = cutoutCenterX + cutoutRadius - 20,
                 y1 = cutoutRadius,
-                x2 = cutoutCenterX + cutoutRadius,
+                x2 = cutoutCenterX + cutoutRadius - 20,
                 y2 = 0f,
                 x3 = cutoutRightX,
                 y3 = 0f,
