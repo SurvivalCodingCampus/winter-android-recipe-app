@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -32,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -123,23 +125,17 @@ fun SearchRecipesScreen(
 
             // Modal Bottom Sheet 처리
             if (showBottomSheet) {
-                ModalBottomSheet(
-                    modifier = Modifier.fillMaxHeight(),
-                    sheetState = sheetState,
-                    onDismissRequest = { showBottomSheet = false }
-                ) {
-                    FilterBottomSheet(
-                        state = filterState,
-                        onTimeFilterChange = onTimeFilterChange,
-                        onRateFilterChange = onRateFilterChange,
-                        onCategoryFilterChange = onCategoryFilterChange,
-                        onFilterApply = {
-                            showBottomSheet = false
-                            // 필터 적용 로직: 필터 상태에 따라 결과를 필터링
-                            // 예: state.filteredRecipes = 필터링된 레시피 리스트
-                        }
-                    )
-                }
+                FilterBottomSheet(
+                    onDismiss = { showBottomSheet = false },
+                    state = filterState,
+                    onTimeFilterChange = onTimeFilterChange,
+                    onRateFilterChange = onRateFilterChange,
+                    onCategoryFilterChange = onCategoryFilterChange,
+                    onFilterApply = {
+                        showBottomSheet = false
+                        // 필터 적용 로직
+                    }
+                )
             }
 
 

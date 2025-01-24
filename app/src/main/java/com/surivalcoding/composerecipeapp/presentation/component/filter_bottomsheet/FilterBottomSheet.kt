@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,88 +24,96 @@ import com.surivalcoding.composerecipeapp.presentation.component.FilterChip
 import com.surivalcoding.composerecipeapp.presentation.component.SmallButton
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun FilterBottomSheet(
+    onDismiss: () -> Unit,
     state: FilterState,
     onTimeFilterChange: (TimeFilter) -> Unit,
     onRateFilterChange: (Int?) -> Unit,
     onCategoryFilterChange: (String?) -> Unit,
     onFilterApply: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 30.dp)
-            .navigationBarsPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = rememberModalBottomSheetState(
+            skipPartiallyExpanded = true
+        )
     ) {
-        Text(
-            text = "Filter Search",
-            style = AppTextStyles.mediumTextBold,
-            modifier = Modifier.padding(vertical = 24.dp)
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 30.dp)
+                .navigationBarsPadding(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Filter Search",
+                style = AppTextStyles.mediumTextBold,
+                modifier = Modifier.padding(bottom = 24.dp)
+            )
 
-        FilterSection("Time") {
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                TimeFilter.entries.forEach { timeFilter ->
-                    FilterChip(
-                        text = timeFilter.label,
-                        isSelected = state.timeFilter == timeFilter,
-                        onSelectionChange = { onTimeFilterChange(timeFilter) }
-                    )
+            FilterSection("Time") {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    TimeFilter.entries.forEach { timeFilter ->
+                        FilterChip(
+                            text = timeFilter.label,
+                            isSelected = state.timeFilter == timeFilter,
+                            onSelectionChange = { onTimeFilterChange(timeFilter) }
+                        )
+                    }
                 }
             }
-        }
 
-        FilterSection("Rate") {
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                (1..5).reversed().forEach { rate ->
-                    FilterChip(
-                        text = rate.toString(),
-                        showStar = true,
-                        isSelected = state.rateFilter == rate,
-                        onSelectionChange = {
-                            onRateFilterChange(if (state.rateFilter == rate) null else rate)
-                        }
-                    )
+            FilterSection("Rate") {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    (1..5).reversed().forEach { rate ->
+                        FilterChip(
+                            text = rate.toString(),
+                            showStar = true,
+                            isSelected = state.rateFilter == rate,
+                            onSelectionChange = {
+                                onRateFilterChange(if (state.rateFilter == rate) null else rate)
+                            }
+                        )
+                    }
                 }
             }
-        }
 
-        FilterSection("Category") {
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Categories.entries.forEach { category ->
-                    FilterChip(
-                        text = category.label,
-                        showStar = category == Categories.DINNER,
-                        isSelected = state.categoryFilter == category.label,
-                        onSelectionChange = {
-                            onCategoryFilterChange(
-                                if (state.categoryFilter == category.label) null
-                                else category.label
-                            )
-                        }
-                    )
+            FilterSection("Category") {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Categories.entries.forEach { category ->
+                        FilterChip(
+                            text = category.label,
+                            showStar = category == Categories.DINNER,
+                            isSelected = state.categoryFilter == category.label,
+                            onSelectionChange = {
+                                onCategoryFilterChange(
+                                    if (state.categoryFilter == category.label) null
+                                    else category.label
+                                )
+                            }
+                        )
+                    }
                 }
             }
-        }
 
-        Spacer(modifier = Modifier.height(24.dp))
-        SmallButton(
-            buttonText = "Filter",
-            onClick = onFilterApply,
-        )
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
+            SmallButton(
+                buttonText = "Filter",
+                onClick = onFilterApply,
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
     }
 }
 
@@ -128,5 +139,5 @@ private fun FilterSection(
 @Preview(showBackground = true)
 @Composable
 private fun FilterBottomSheetPreview() {
-    FilterBottomSheet(state = FilterState(), onTimeFilterChange = {}, onRateFilterChange = {}, onCategoryFilterChange = {}, onFilterApply = {})
+
 }
