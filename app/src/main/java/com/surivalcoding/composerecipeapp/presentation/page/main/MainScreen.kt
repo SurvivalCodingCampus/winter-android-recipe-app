@@ -1,7 +1,9 @@
 package com.surivalcoding.composerecipeapp.presentation.page.main
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.material.Scaffold
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,6 +43,12 @@ fun MainScreen(
             }
 
         },
+//        floatingActionButton = {
+//            FloatingActionButton(
+//                onClick = { },
+//                modifier = Modifier.offset(y = ())
+//            ) { }
+//        },
         backgroundColor = AppColors.white,
         contentColor = AppColors.white,
     ) { innerPadding ->

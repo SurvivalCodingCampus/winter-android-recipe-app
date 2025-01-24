@@ -4,15 +4,18 @@ import com.surivalcoding.composerecipeapp.data.datasource.RecipeDataSource
 import com.surivalcoding.composerecipeapp.data.mapper.toMapper
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class BookmarkRepositoryImpl(
+class BookmarkRepositoryImpl @Inject constructor(
     private val recipeDataSource: RecipeDataSource
 ) : BookmarkRepository {
 
     private var bookMarkedRecipeList: MutableList<Recipe>? = null
 
     override suspend fun getBookMarkList(): List<Recipe> = withContext(Dispatchers.IO) {
+        delay(1000L)
         if (bookMarkedRecipeList == null) {
             bookMarkedRecipeList = recipeDataSource.getRecipeList()
                 .filter { it.isBookMarked == true }

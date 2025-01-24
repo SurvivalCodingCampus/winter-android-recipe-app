@@ -1,23 +1,34 @@
 package com.surivalcoding.composerecipeapp.util
 
 import android.app.Application
-import com.surivalcoding.composerecipeapp.data.datasource.MockRecipeDataSourceImpl
-import com.surivalcoding.composerecipeapp.data.repository.BookmarkRepositoryImpl
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepositoryImpl
-import com.surivalcoding.composerecipeapp.domain.usecase.DeleteBookMarkUseCase
-import com.surivalcoding.composerecipeapp.domain.usecase.GetBookMarkListUseCase
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.FormatStrategy
+import com.orhanobut.logger.Logger
+import com.orhanobut.logger.PrettyFormatStrategy
+import dagger.hilt.android.HiltAndroidApp
 
+/*
+* Hilt를 사용하는 모든 앱은 @HiltAndroidApp으로 주석이 지정된 Application 클래스를 포함해야 한다.
+* */
+@HiltAndroidApp
 class AppApplication : Application() {
 
-    // 사용할 때 의존성 주입
-    private val recipeDataSource by lazy { MockRecipeDataSourceImpl() }
-    val recipeRepository by lazy { RecipeRepositoryImpl(recipeDataSource) }
+    override fun onCreate() {
+        super.onCreate()
 
+        initLogger()
+    }
 
-    // 북마크
-    private val bookMarkRepository by lazy { BookmarkRepositoryImpl(recipeDataSource) }
-    val deleteBookMarkUseCase by lazy { DeleteBookMarkUseCase(bookmarkRepository = bookMarkRepository) }
-    val getBookMarkListUseCase by lazy { GetBookMarkListUseCase(bookmarkRepository = bookMarkRepository) }
+    private fun initLogger() {
+        // Logger 설정
+        val strategy: FormatStrategy = PrettyFormatStrategy.newBuilder()
+            .showThreadInfo(false)
+            .methodCount(5)
+            .tag("LOG_RESULT")
+            .build()
+        Logger.clearLogAdapters()
+        Logger.addLogAdapter(AndroidLogAdapter(strategy))
+    }
 }
 
 

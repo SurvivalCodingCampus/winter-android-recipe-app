@@ -5,9 +5,11 @@ import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import com.surivalcoding.composerecipeapp.util.ResponseResult
 import com.surivalcoding.composerecipeapp.util.safeCall
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class GetBookMarkListUseCase(
+class GetBookMarkListUseCase @Inject constructor(
     private val bookmarkRepository: BookmarkRepository
 ) {
 

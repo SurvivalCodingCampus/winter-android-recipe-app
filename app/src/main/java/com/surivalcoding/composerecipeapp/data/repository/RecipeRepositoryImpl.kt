@@ -8,14 +8,15 @@ import com.surivalcoding.composerecipeapp.util.safeCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RecipeRepositoryImpl(
+class RecipeRepositoryImpl @Inject constructor(
     private val recipeDataSource: RecipeDataSource
 ) : RecipeRepository {
     override suspend fun getRecipeList(): ResponseResult<List<Recipe>> = withContext(Dispatchers.IO) {
 
         // 프로그래스바를 위한 딜레이
-        delay(2000L)
+        delay(1000L)
 
         safeCall {
             recipeDataSource.getRecipeList().map { it.toMapper() }

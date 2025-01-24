@@ -287,4 +287,293 @@ object Urls {
           ]
         }
     """.trimIndent()
+
+
+
+
+    val DEV_RECIPE_JSON = """
+        {
+          "recipes": [
+            {
+              "category": "Indian",
+              "id": 1,
+              "name": "DEV 환경 이라구!!",
+              "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
+              "chef": "Chef John",
+              "time": "20 min",
+              "rating": 4.0,
+              "isBookMarked" : false,
+              "ingredients": [
+                {
+                  "ingredient": {
+                    "id": 3,
+                    "name": "Pork",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 500
+                },
+                {
+                  "ingredient": {
+                    "id": 9,
+                    "name": "Onion",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 50
+                },
+                {
+                  "ingredient": {
+                    "id": 8,
+                    "name": "Pepper",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 10
+                },
+                {
+                  "ingredient": {
+                    "id": 1,
+                    "name": "Tomato",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 100
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "category": "Asian",
+              "name": "DEV 환경 이라구!!",
+              "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
+              "chef": "Mark Kelvin",
+              "time": "20 min",
+              "rating": 4.0,
+              "isBookMarked" : false,
+              "ingredients": [
+                {
+                  "ingredient": {
+                    "id": 6,
+                    "name": "Chicken",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 300
+                },
+                {
+                  "ingredient": {
+                    "id": 4,
+                    "name": "Rice",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 200
+                },
+                {
+                  "ingredient": {
+                    "id": 8,
+                    "name": "Pepper",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 5
+                },
+                {
+                  "ingredient": {
+                    "id": 3,
+                    "name": "Pork",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 500
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "category": "Chinese",
+              "name": "DEV 환경 이라구!!",
+              "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
+              "chef": "Spicy Nelly",
+              "time": "20 min",
+              "rating": 4.0,
+              "isBookMarked" : true,
+              "ingredients": [
+                {
+                  "ingredient": {
+                    "id": 6,
+                    "name": "Chicken",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 200
+                },
+                {
+                  "ingredient": {
+                    "id": 4,
+                    "name": "Rice",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 150
+                },
+                {
+                  "ingredient": {
+                    "id": 1,
+                    "name": "Tomato",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 100
+                }
+              ]
+            },
+            {
+              "category": "Japanese",
+              "id": 4,
+              "name": "DEV 환경 이라구!!",
+              "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
+              "chef": "Kim Dahee",
+              "time": "30 min",
+              "rating": 5.0,
+              "isBookMarked" : true,
+              "ingredients": []
+            },
+            {
+              "id": 5,
+              "category": "American",
+              "name": "DEV 환경 이라구!!",
+              "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
+              "chef": "Alice Johnson",
+              "time": "25 min",
+              "rating": 4.5,
+              "isBookMarked" : true,
+              "ingredients": [
+                {
+                  "ingredient": {
+                    "id": 5,
+                    "name": "Avocado",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 150
+                },
+                {
+                  "ingredient": {
+                    "id": 8,
+                    "name": "Pepper",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 5
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "category": "British",
+              "name": "DEV 환경 이라구!!",
+              "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
+              "chef": "Gordon Ramsay",
+              "time": "45 min",
+              "rating": 5.0,
+              "isBookMarked" : false,
+              "ingredients": [
+                {
+                  "ingredient": {
+                    "id": 2,
+                    "name": "Beef",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 500
+                },
+                {
+                  "ingredient": {
+                    "id": 9,
+                    "name": "Onion",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 100
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "category": "Italian",
+              "name": "DEV 환경 이라구!!",
+              "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
+              "chef": "Mario Batali",
+              "time": "15 min",
+              "rating": 4.3,
+              "isBookMarked" : true,
+              "ingredients": [
+                {
+                  "ingredient": {
+                    "id": 1,
+                    "name": "Tomato",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 200
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "category": "Japanese",
+              "name": "DEV 환경 이라구!!",
+              "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
+              "chef": "Jiro Ono",
+              "time": "60 min",
+              "rating": 4.8,
+              "isBookMarked" : false,
+              "ingredients": [
+                {
+                  "ingredient": {
+                    "id": 6,
+                    "name": "Chicken",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 200
+                },
+                {
+                  "ingredient": {
+                    "id": 4,
+                    "name": "Rice",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 100
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "category": "French",
+              "name": "DEV 환경 이라구!!",
+              "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
+              "chef": "Julia Child",
+              "time": "40 min",
+              "rating": 4.6,
+              "isBookMarked" : false,
+              "ingredients": [
+                {
+                  "ingredient": {
+                    "id": 9,
+                    "name": "Onion",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 300
+                }
+              ]
+            },
+            {
+              "id": 10,
+              "category": "French",
+              "name": "DEV 환경 이라구!!",
+              "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
+              "chef": "Paul Hollywood",
+              "time": "30 min",
+              "rating": 4.9,
+              "isBookMarked" : false,
+              "ingredients": [
+                {
+                  "ingredient": {
+                    "id": 7,
+                    "name": "Sugar",
+                    "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg"
+                  },
+                  "amount": 100
+                }
+              ]
+            }
+          ]
+        }
+    """.trimIndent()
 }

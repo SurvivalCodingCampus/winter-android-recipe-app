@@ -25,7 +25,6 @@ fun BottomNavigationBar(
         contentColor = AppColors.white
     ) {
 
-
         items.forEach { navItem ->
             BottomNavigationItem(
                 selected = currentRoute == navItem.screenRoute,
