@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,6 +36,12 @@ class HomeViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000L),
             initialValue = HomeUiState.Loading
         )
+
+    fun onAction(action: HomeUiAction) {
+        when (action) {
+            is HomeUiAction.UpdateCategory -> _selectedCategory.update { action.category }
+        }
+    }
 }
 
 private fun homeUiState(
@@ -77,4 +84,8 @@ sealed interface HomeUiState {
         val homeRecipes: List<HomeRecipe>,
         val newRecipes: List<NewRecipe>,
     ) : HomeUiState
+}
+
+sealed interface HomeUiAction {
+    data class UpdateCategory(val category: RecipeCategory) : HomeUiAction
 }

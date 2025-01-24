@@ -56,7 +56,9 @@ fun HomeScreen(
     HomeScreen(
         homeUiState = homeUiState,
         onSearchClick = onSearchClick,
-        onCategoryChange = {},
+        onCategoryChange = { category ->
+            viewModel.onAction(HomeUiAction.UpdateCategory(category))
+        },
         modifier = modifier,
     )
 }
@@ -124,9 +126,7 @@ private fun HomeScreen(
                     items(RecipeCategory.entries) { category ->
                         val selected = homeUiState.selectedCategory == category
                         NoPaddingButton(
-                            onClick = {
-                                onCategoryChange(category)
-                            },
+                            onClick = { onCategoryChange(category) },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = if (selected) AppColors.Primary100 else Color.Transparent,
                                 contentColor = if (selected) AppColors.White else AppColors.Primary80
