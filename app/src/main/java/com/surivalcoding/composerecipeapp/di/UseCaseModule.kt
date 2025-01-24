@@ -1,9 +1,10 @@
 package com.surivalcoding.composerecipeapp.di
 
 import com.surivalcoding.composerecipeapp.data.repository.BookmarkRepository
+import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.domain.usecase.DeleteBookMarkUseCase
 import com.surivalcoding.composerecipeapp.domain.usecase.GetBookMarkListUseCase
-import dagger.Binds
+import com.surivalcoding.composerecipeapp.domain.usecase.GetMainRecipeListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,4 +35,13 @@ object UseCaseModule {
     ): GetBookMarkListUseCase {
         return GetBookMarkListUseCase(bookmarkRepository)
     }
+
+    @Provides
+    @Singleton
+    fun bindGetHomeMainRecipeListUseCase(
+        recipeRepository: RecipeRepository
+    ): GetMainRecipeListUseCase {
+        return GetMainRecipeListUseCase(recipeRepository)
+    }
+
 }

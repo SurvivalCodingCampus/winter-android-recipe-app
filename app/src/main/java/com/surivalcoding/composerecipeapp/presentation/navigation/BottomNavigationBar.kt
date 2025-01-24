@@ -1,15 +1,16 @@
-package com.surivalcoding.composerecipeapp.navigation
+package com.surivalcoding.composerecipeapp.presentation.navigation
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.surivalcoding.composerecipeapp.ui.AppColors
-
-
 
 
 @Composable
@@ -21,6 +22,8 @@ fun BottomNavigationBar(
 ) {
 
     BottomNavigation(
+        modifier = Modifier
+            .height(80.dp),
         backgroundColor = AppColors.white,
         contentColor = AppColors.white
     ) {

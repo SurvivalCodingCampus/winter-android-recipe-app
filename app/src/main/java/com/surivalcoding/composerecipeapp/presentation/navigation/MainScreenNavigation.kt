@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.navigation
+package com.surivalcoding.composerecipeapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -7,8 +7,8 @@ import androidx.navigation.compose.composable
 import com.surivalcoding.composerecipeapp.presentation.page.main.HomeScreen
 import com.surivalcoding.composerecipeapp.presentation.page.main.NotificationScreen
 import com.surivalcoding.composerecipeapp.presentation.page.main.ProfileScreen
-import com.surivalcoding.composerecipeapp.presentation.savedrecipe.SavedRecipeScreen
-import com.surivalcoding.composerecipeapp.presentation.searchrecipe.SearchRecipeScreen
+import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeScreen
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipeScreen
 
 
 @Composable

@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.searchrecipe
+package com.surivalcoding.composerecipeapp.presentation.page.searchrecipe
 
 import android.util.Log
 import androidx.compose.foundation.Image

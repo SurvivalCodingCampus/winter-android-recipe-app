@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.navigation
+package com.surivalcoding.composerecipeapp.presentation.navigation
 
 import kotlinx.serialization.Serializable
 

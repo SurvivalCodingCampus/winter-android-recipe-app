@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.navigation
+package com.surivalcoding.composerecipeapp.presentation.page
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
@@ -7,9 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.surivalcoding.composerecipeapp.presentation.page.SignInScreen
-import com.surivalcoding.composerecipeapp.presentation.page.SignUpScreen
-import com.surivalcoding.composerecipeapp.presentation.page.SplashScreen
+import com.surivalcoding.composerecipeapp.presentation.navigation.Route
 import com.surivalcoding.composerecipeapp.presentation.page.main.MainScreen
 
 @Composable

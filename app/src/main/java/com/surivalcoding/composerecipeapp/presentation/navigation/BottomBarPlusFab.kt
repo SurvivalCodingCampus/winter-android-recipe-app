@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.navigation
+package com.surivalcoding.composerecipeapp.presentation.navigation
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape

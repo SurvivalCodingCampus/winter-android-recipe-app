@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.savedrecipe
+package com.surivalcoding.composerecipeapp.presentation.page.savedrecipe
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

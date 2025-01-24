@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.searchrecipe
+package com.surivalcoding.composerecipeapp.presentation.page.searchrecipe
 
 data class FilterButtonState(
     val time: Time,
@@ -13,5 +13,5 @@ enum class Time(val displayName: String) {
 enum class Category(val displayName: String) {
     All("All"), CEREAL("Cereal"), VEGETABLES("Vegetables"), DINNER("Dinner"),
     CHINESE("Chinese"), LOCAL_DISH("Local Dish"), FRUIT("Fruit"), BREAKFAST("BreakFast"),
-    SPANISH("Spanish"), LUNCH("lunch")
+    SPANISH("Spanish"), LUNCH("Lunch")
 }

@@ -1,15 +1,10 @@
-package com.surivalcoding.composerecipeapp.presentation.savedrecipe
+package com.surivalcoding.composerecipeapp.presentation.page.savedrecipe
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.surivalcoding.composerecipeapp.domain.usecase.DeleteBookMarkUseCase
 import com.surivalcoding.composerecipeapp.domain.usecase.GetBookMarkListUseCase
-import com.surivalcoding.composerecipeapp.util.AppApplication
 import com.surivalcoding.composerecipeapp.util.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,12 +26,12 @@ class SavedRecipeViewModel @Inject constructor(
     val loadingState = _loadingState.asStateFlow()
 
 
-
     init {
         getBookMarkList()
     }
 
     private fun getBookMarkList() {
+
         _loadingState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
             when (val result = getBookMarkListUseCase.execute()) {

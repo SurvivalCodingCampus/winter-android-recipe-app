@@ -23,8 +23,8 @@ import com.surivalcoding.composerecipeapp.presentation.item.button.ButtonState
 import com.surivalcoding.composerecipeapp.presentation.item.button.FilterButton
 import com.surivalcoding.composerecipeapp.presentation.item.button.RatingButton
 import com.surivalcoding.composerecipeapp.presentation.item.button.SmallButton
-import com.surivalcoding.composerecipeapp.presentation.searchrecipe.Category
-import com.surivalcoding.composerecipeapp.presentation.searchrecipe.Time
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.Category
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.Time
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 

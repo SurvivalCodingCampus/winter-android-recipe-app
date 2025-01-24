@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.savedrecipe
+package com.surivalcoding.composerecipeapp.presentation.page.savedrecipe
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

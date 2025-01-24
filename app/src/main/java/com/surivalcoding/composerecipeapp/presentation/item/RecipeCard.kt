@@ -131,37 +131,16 @@ fun RecipeCard(
                     )
                 }
             }
-
-            Row(
-                modifier = Modifier
-                    .background(
-                        color = AppColors.secondary20,
-                        shape = RoundedCornerShape(20.dp)
-                    )
-                    .align(Alignment.TopEnd)
-                    .padding(horizontal = 7.dp, vertical = 4.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(3.dp)
-            ) {
-                Image(
-                    painter = starImage,
-                    modifier = Modifier
-                        .size(8.dp)
-                        .offset(y = ((-0.5).dp)),
-                    contentDescription = null,
-                )
-
-                Text(
-                    text = rate.toString(),
-                    style = AppTextStyles.smallTextRegular.copy(
-                        fontSize = 8.sp, color = AppColors.black
-                    ),
-                )
-            }
+            RatingMark(
+                modifier = Modifier.align(Alignment.TopEnd),
+                rate = rate,
+                fontSize = 8.sp
+            )
         }
     }
 
 }
+
 
 
 @Preview(showBackground = true)

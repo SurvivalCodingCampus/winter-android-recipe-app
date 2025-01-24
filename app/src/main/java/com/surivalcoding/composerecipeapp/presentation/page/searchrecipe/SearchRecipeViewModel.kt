@@ -1,10 +1,10 @@
-package com.surivalcoding.composerecipeapp.presentation.searchrecipe
+package com.surivalcoding.composerecipeapp.presentation.page.searchrecipe
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
-import com.surivalcoding.composerecipeapp.presentation.savedrecipe.LoadingState
+import com.surivalcoding.composerecipeapp.domain.usecase.GetMainRecipeListUseCase
+import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.LoadingState
 import com.surivalcoding.composerecipeapp.util.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchRecipeViewModel @Inject constructor(
-    private val recipeRepository: RecipeRepository
+    private val getMainRecipeListUseCase: GetMainRecipeListUseCase
 ) : ViewModel() {
 
     private val _searchRecipeState = MutableStateFlow(SearchRecipesState())
@@ -32,7 +32,7 @@ class SearchRecipeViewModel @Inject constructor(
     private fun getRecipeList() {
         _loadingState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
-            when (val result = recipeRepository.getRecipeList()) {
+            when (val result = getMainRecipeListUseCase.execute()) {
                 is ResponseResult.Success -> {
                     Log.d("RecipeViewModel", "getRecipeList: ${result.data}")
                     _searchRecipeState.update {

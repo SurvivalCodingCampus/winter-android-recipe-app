@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
-import com.surivalcoding.composerecipeapp.presentation.savedrecipe.SavedRecipeViewModel
+import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeViewModel
 
 
 // RecipeList

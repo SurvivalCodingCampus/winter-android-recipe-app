@@ -6,7 +6,7 @@ object Urls {
         {
           "recipes": [
             {
-              "category": "Indian",
+              "category": "Dinner",
               "id": 1,
               "name": "Traditional spare ribs baked",
               "image": "https://cdn.pixabay.com/photo/2017/11/10/15/04/steak-2936531_1280.jpg",
@@ -51,7 +51,7 @@ object Urls {
             },
             {
               "id": 2,
-              "category": "Asian",
+              "category": "Chinese",
               "name": "Spice roasted chicken with flavored rice",
               "image": "https://cdn.pixabay.com/photo/2018/12/04/16/49/tandoori-3856045_1280.jpg",
               "chef": "Mark Kelvin",
@@ -95,7 +95,7 @@ object Urls {
             },
             {
               "id": 3,
-              "category": "Chinese",
+              "category": "Local Dish",
               "name": "Spicy fried rice mix chicken bali",
               "image": "https://cdn.pixabay.com/photo/2019/09/07/19/02/spanish-paella-4459519_1280.jpg",
               "chef": "Spicy Nelly",
@@ -130,7 +130,7 @@ object Urls {
               ]
             },
             {
-              "category": "Japanese",
+              "category": "Lunch",
               "id": 4,
               "name": "Ttekbokki",
               "image": "https://cdn.pixabay.com/photo/2017/07/27/16/48/toppokki-2545943_1280.jpg",
@@ -142,7 +142,7 @@ object Urls {
             },
             {
               "id": 5,
-              "category": "American",
+              "category": "Vegetables",
               "name": "Grilled salmon with avocado salsa",
               "image": "https://cdn.pixabay.com/photo/2014/11/05/15/57/salmon-518032_1280.jpg",
               "chef": "Alice Johnson",
@@ -170,7 +170,7 @@ object Urls {
             },
             {
               "id": 6,
-              "category": "British",
+              "category": "Spanish",
               "name": "Beef Wellington",
               "image": "https://cdn.pixabay.com/photo/2019/10/22/10/11/beef-wellington-4568239_1280.jpg",
               "chef": "Gordon Ramsay",
@@ -198,7 +198,7 @@ object Urls {
             },
             {
               "id": 7,
-              "category": "Italian",
+              "category": "Dinner",
               "name": "Classic Margherita Pizza",
               "image": "https://cdn.pixabay.com/photo/2019/05/15/18/56/pizza-4205701_1280.jpg",
               "chef": "Mario Batali",
@@ -218,7 +218,7 @@ object Urls {
             },
             {
               "id": 8,
-              "category": "Japanese",
+              "category": "Local Dish",
               "name": "Sushi Platter",
               "image": "https://cdn.pixabay.com/photo/2017/10/15/11/41/sushi-2853382_1280.jpg",
               "chef": "Jiro Ono",
@@ -246,7 +246,7 @@ object Urls {
             },
             {
               "id": 9,
-              "category": "French",
+              "category": "BreakFast",
               "name": "French Onion Soup",
               "image": "https://cdn.pixabay.com/photo/2016/03/03/16/19/food-1234483_1280.jpg",
               "chef": "Julia Child",
@@ -266,7 +266,7 @@ object Urls {
             },
             {
               "id": 10,
-              "category": "French",
+              "category": "Cereal",
               "name": "Chocolate Lava Cake",
               "image": "https://cdn.pixabay.com/photo/2016/11/22/18/52/cake-1850011_1280.jpg",
               "chef": "Paul Hollywood",
@@ -295,7 +295,7 @@ object Urls {
         {
           "recipes": [
             {
-              "category": "Indian",
+              "category": "Cereal",
               "id": 1,
               "name": "DEV 환경 이라구!!",
               "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
@@ -340,7 +340,7 @@ object Urls {
             },
             {
               "id": 2,
-              "category": "Asian",
+              "category": "Vegetables",
               "name": "DEV 환경 이라구!!",
               "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
               "chef": "Mark Kelvin",
@@ -384,7 +384,7 @@ object Urls {
             },
             {
               "id": 3,
-              "category": "Chinese",
+              "category": "Dinner",
               "name": "DEV 환경 이라구!!",
               "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
               "chef": "Spicy Nelly",
@@ -419,7 +419,7 @@ object Urls {
               ]
             },
             {
-              "category": "Japanese",
+              "category": "Chinese",
               "id": 4,
               "name": "DEV 환경 이라구!!",
               "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
@@ -431,7 +431,7 @@ object Urls {
             },
             {
               "id": 5,
-              "category": "American",
+              "category": "Local Dish",
               "name": "DEV 환경 이라구!!",
               "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
               "chef": "Alice Johnson",
@@ -459,7 +459,7 @@ object Urls {
             },
             {
               "id": 6,
-              "category": "British",
+              "category": "Fruit",
               "name": "DEV 환경 이라구!!",
               "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
               "chef": "Gordon Ramsay",
@@ -487,7 +487,7 @@ object Urls {
             },
             {
               "id": 7,
-              "category": "Italian",
+              "category": "BreakFast",
               "name": "DEV 환경 이라구!!",
               "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
               "chef": "Mario Batali",
@@ -507,7 +507,7 @@ object Urls {
             },
             {
               "id": 8,
-              "category": "Japanese",
+              "category": "Spanish",
               "name": "DEV 환경 이라구!!",
               "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
               "chef": "Jiro Ono",
@@ -535,7 +535,7 @@ object Urls {
             },
             {
               "id": 9,
-              "category": "French",
+              "category": "Lunch",
               "name": "DEV 환경 이라구!!",
               "image": "https://kid.chosun.com/site/data/img_dir/2005/09/11/20050911000042110_200.jpg",
               "chef": "Julia Child",
