@@ -1,6 +1,7 @@
 package com.surivalcoding.composerecipeapp.presentation.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -44,6 +45,9 @@ fun MediumButton(
                 color = if(isPressed) AppColors.gray_03 else AppColors.primary,
                 shape = RoundedCornerShape(10.dp),
             )
+            .clickable {
+                onClick()
+            }
             .pointerInput(Unit) {
                 detectTapGestures (
                     onPress = {
@@ -61,7 +65,6 @@ fun MediumButton(
         ) {
             Text(
                 modifier = Modifier
-                    .width(114.dp)
                     .height(24.dp),
                 text = title,
                 style = AppTextStyles.normalTextBold.copy(
