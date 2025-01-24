@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.data.repository
+package com.surivalcoding.composerecipeapp.domain.repository
 
 interface BookmarkRepository {
     suspend fun getBookmarkId(): List<Int>

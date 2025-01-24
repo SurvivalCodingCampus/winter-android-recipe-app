@@ -2,8 +2,10 @@ package com.surivalcoding.composerecipeapp.data.repository
 
 import com.surivalcoding.composerecipeapp.data.data_source.UserDataSource
 import com.surivalcoding.composerecipeapp.data.mapper.toUser
+import com.surivalcoding.composerecipeapp.domain.repository.BookmarkRepository
+import javax.inject.Inject
 
-class BookmarkRepositoryImpl(private val dataSource: UserDataSource): BookmarkRepository {
+class BookmarkRepositoryImpl @Inject constructor (private val dataSource: UserDataSource): BookmarkRepository {
     private var bookmarkList = mutableListOf<Int>()
 
     override suspend fun getBookmarkId(): List<Int> {
