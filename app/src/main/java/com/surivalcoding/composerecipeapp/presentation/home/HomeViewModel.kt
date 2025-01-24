@@ -7,6 +7,8 @@ import com.surivalcoding.composerecipeapp.data.model.NewRecipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.UserDataRepository
+import com.surivalcoding.composerecipeapp.presentation.home.HomeUiAction.UpdateCategory
+import com.surivalcoding.composerecipeapp.presentation.home.HomeUiAction.UpdateUserBookMarked
 import com.surivalcoding.composerecipeapp.util.Result
 import com.surivalcoding.composerecipeapp.util.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,8 +24,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    userDataRepository: UserDataRepository,
     recipeRepository: RecipeRepository,
+    private val userDataRepository: UserDataRepository,
 ) : ViewModel() {
     private var _selectedCategory = MutableStateFlow(RecipeCategory.ALL)
     val homeUiState: StateFlow<HomeUiState> = homeUiState(
@@ -39,7 +41,10 @@ class HomeViewModel @Inject constructor(
 
     fun onAction(action: HomeUiAction) {
         when (action) {
-            is HomeUiAction.UpdateCategory -> _selectedCategory.update { action.category }
+            is UpdateCategory -> _selectedCategory.update { action.category }
+            is UpdateUserBookMarked -> {
+                userDataRepository.setRecipeBookmarked(action.id, action.bookmarked)
+            }
         }
     }
 }
@@ -88,4 +93,5 @@ sealed interface HomeUiState {
 
 sealed interface HomeUiAction {
     data class UpdateCategory(val category: RecipeCategory) : HomeUiAction
+    data class UpdateUserBookMarked(val id: Int, val bookmarked: Boolean) : HomeUiAction
 }

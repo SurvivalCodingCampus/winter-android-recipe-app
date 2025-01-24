@@ -56,6 +56,9 @@ fun HomeScreen(
     HomeScreen(
         homeUiState = homeUiState,
         onSearchClick = onSearchClick,
+        onBookmarkClick = { id, bookmarked ->
+            viewModel.onAction(HomeUiAction.UpdateUserBookMarked(id, bookmarked))
+        },
         onCategoryChange = { category ->
             viewModel.onAction(HomeUiAction.UpdateCategory(category))
         },
@@ -67,6 +70,7 @@ fun HomeScreen(
 private fun HomeScreen(
     homeUiState: HomeUiState,
     onSearchClick: () -> Unit,
+    onBookmarkClick: (Int, Boolean) -> Unit,
     onCategoryChange: (RecipeCategory) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -147,12 +151,13 @@ private fun HomeScreen(
                     contentPadding = PaddingValues(horizontal = 30.dp),
                     horizontalArrangement = Arrangement.spacedBy(15.dp),
                 ) {
-                    items(homeUiState.homeRecipes) { recipeDish ->
+                    items(homeUiState.homeRecipes) { homeRecipe ->
+                        val isBookmarked = homeRecipe.id in homeUiState.bookmarkedIds
                         HomeRecipeItem(
-                            homeRecipe = recipeDish,
-                            isBookmarked = true,
+                            homeRecipe = homeRecipe,
+                            isBookmarked = isBookmarked,
                             onClick = {},
-                            onBookmarkClick = {},
+                            onBookmarkClick = { onBookmarkClick(homeRecipe.id, !isBookmarked) },
                             modifier = Modifier
                                 .width(150.dp)
                                 .height(232.dp)
@@ -217,6 +222,7 @@ private fun HomeScreenPreview() {
                 homeRecipes = fakeHomeRecipes,
                 newRecipes = fakeNewRecipes,
             ),
+            onBookmarkClick = { i, b -> },
             onCategoryChange = {},
             onSearchClick = {}
         )
