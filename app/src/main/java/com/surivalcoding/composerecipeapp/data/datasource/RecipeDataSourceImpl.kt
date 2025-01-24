@@ -6,14 +6,13 @@ import com.surivalcoding.composerecipeapp.data.mock.fakeSearchRecipe
 import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
-import com.surivalcoding.composerecipeapp.util.createJsonHttpClient
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.serialization.ExperimentalSerializationApi
+import javax.inject.Inject
 
-class RecipeDataSourceImpl @OptIn(ExperimentalSerializationApi::class) constructor(
-    private val httpClient: HttpClient = createJsonHttpClient()
+class RecipeDataSourceImpl @Inject constructor(
+    private val httpClient: HttpClient,
 ) : RecipeDataSource {
     override fun getSearchRecipes(query: String): Flow<List<SearchRecipe>> = flow {
         val normalizedQuery = query.trim().lowercase().replace("\\s+".toRegex(), "")

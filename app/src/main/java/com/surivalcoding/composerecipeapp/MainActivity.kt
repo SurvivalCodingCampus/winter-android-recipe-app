@@ -10,7 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import com.surivalcoding.composerecipeapp.navigation.RecipeApp
 import com.surivalcoding.composerecipeapp.navigation.RecipeAppState
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
