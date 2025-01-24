@@ -7,14 +7,17 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.surivalcoding.composerecipeapp.AppApplication
-import com.surivalcoding.composerecipeapp.data.model.Recipe
-import com.surivalcoding.composerecipeapp.domain.savedscreen.GetSavedRecipesUseCase
+import com.surivalcoding.composerecipeapp.domain.model.Recipe
+import com.surivalcoding.composerecipeapp.domain.GetSavedRecipesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchRecipeViewModel(
+@HiltViewModel
+class SearchRecipeViewModel @Inject constructor(
     private val getSavedRecipesUseCase: GetSavedRecipesUseCase,
 ) : ViewModel() {
 //    private val _savedRecipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
@@ -110,25 +113,6 @@ class SearchRecipeViewModel(
                     isLoading = false,
                     recipes = recipes
                 )
-            }
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                // Get the Application object from extras
-                val application = checkNotNull(extras[APPLICATION_KEY])
-                // Create a SavedStateHandle for this ViewModel from extras
-                val savedStateHandle = extras.createSavedStateHandle()
-
-                return SearchRecipeViewModel(
-                    (application as AppApplication).getSavedRecipesUseCase,
-                ) as T
             }
         }
     }

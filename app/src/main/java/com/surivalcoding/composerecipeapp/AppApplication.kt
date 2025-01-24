@@ -1,22 +1,28 @@
 package com.surivalcoding.composerecipeapp
 
 import android.app.Application
-import com.surivalcoding.composerecipeapp.data.data_source.MockRecipeDataSourceImpl
-import com.surivalcoding.composerecipeapp.data.data_source.MockUserDataSource
-import com.surivalcoding.composerecipeapp.data.repository.BookmarkRepositoryImpl
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepositoryImpl
-import com.surivalcoding.composerecipeapp.domain.savedscreen.GetSavedRecipesUseCase
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class AppApplication: Application() {
-    val getSavedRecipesUseCase: GetSavedRecipesUseCase by lazy {
-        GetSavedRecipesUseCase(
-            recipeRepository = RecipeRepositoryImpl(MockRecipeDataSourceImpl()),
-            bookmarkRepository = BookmarkRepositoryImpl(MockUserDataSource())
-        )
-    }
 
-//    val recipeRepository: RecipeRepository by lazy {
-//        RecipeRepositoryImpl(MockRecipeDataSourceImpl())
-//    }
 }
+
+// Koin 사용
+//class AppApplication: Application() {
+//
+//    override fun onCreate() {
+//        super.onCreate()
+//
+//        startKoin{
+//            androidLogger()
+//            androidContext(this@AppApplication)
+//
+//            modules(
+//                appModule,
+//                dataSourceModule,
+//                repositoryModule
+//            )
+//        }
+//    }
+//}

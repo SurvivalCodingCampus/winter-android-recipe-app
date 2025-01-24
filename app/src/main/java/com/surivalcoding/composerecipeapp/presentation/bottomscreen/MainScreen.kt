@@ -67,7 +67,7 @@ fun MainScreen(
                     verticalArrangement = Arrangement.spacedBy(5.dp)
                 ) {
                     Text(
-                        text = "Search recipes",
+                        text = "Hello Jega",
                         style = AppTextStyles.largeTextBold.copy(
                             color = AppColors.font
                         )

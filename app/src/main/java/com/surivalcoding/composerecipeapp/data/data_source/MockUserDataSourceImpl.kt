@@ -1,10 +1,10 @@
 package com.surivalcoding.composerecipeapp.data.data_source
 
 import com.surivalcoding.composerecipeapp.data.dto.UserDto
-import com.surivalcoding.composerecipeapp.data.model.User
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
-class MockUserDataSource: UserDataSource{
+class MockUserDataSourceImpl @Inject constructor() : UserDataSource {
     private val json = """
     [
         {

@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.data.model
+package com.surivalcoding.composerecipeapp.domain.model
 
 import kotlinx.serialization.SerialName
 

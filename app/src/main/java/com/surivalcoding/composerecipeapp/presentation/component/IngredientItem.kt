@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
-import com.surivalcoding.composerecipeapp.data.model.Ingredient
+import com.surivalcoding.composerecipeapp.domain.model.Ingredient
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 

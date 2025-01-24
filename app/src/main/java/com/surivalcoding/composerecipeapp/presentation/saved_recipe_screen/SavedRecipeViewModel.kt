@@ -7,25 +7,25 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.surivalcoding.composerecipeapp.AppApplication
-import com.surivalcoding.composerecipeapp.domain.savedscreen.GetSavedRecipesUseCase
+import com.surivalcoding.composerecipeapp.domain.GetSavedRecipesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SavedRecipeViewModel(
+@HiltViewModel
+class SavedRecipeViewModel @Inject constructor(
     private val getSavedRecipesUseCase: GetSavedRecipesUseCase,
 ) : ViewModel() {
-//    private val _savedRecipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
-//    val savedRecipes = _savedRecipes.asStateFlow()
 
     private val _state: MutableStateFlow<SavedRecipeState> = MutableStateFlow(SavedRecipeState())
     val state = _state.asStateFlow()
 
     init {
-        waitSavedRecipes()
+        fetchSavedRecipes()
 
-//        fetchSavedRecipes()
 //        viewModelScope.launch {
 //            val recipes = savedRecipeRepository.getRecipes()
 //            _savedRecipes.value = recipes
@@ -34,7 +34,7 @@ class SavedRecipeViewModel(
 //        }
     }
 
-    fun fetchSavedRecipes(id: Int) {
+    fun cancelBookmark(id: Int) {
         viewModelScope.launch {
             val recipes = getSavedRecipesUseCase.execute(id)
 
@@ -46,7 +46,7 @@ class SavedRecipeViewModel(
         }
     }
 
-    private fun waitSavedRecipes() {
+    private fun fetchSavedRecipes() {
         viewModelScope.launch {
             // 로딩 시작
             _state.update { it.copy(isLoading = true) }
@@ -60,25 +60,6 @@ class SavedRecipeViewModel(
                     isLoading = false,
                     savedRecipes = recipes
                 )
-            }
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                // Get the Application object from extras
-                val application = checkNotNull(extras[APPLICATION_KEY])
-                // Create a SavedStateHandle for this ViewModel from extras
-                val savedStateHandle = extras.createSavedStateHandle()
-
-                return SavedRecipeViewModel(
-                    (application as AppApplication).getSavedRecipesUseCase,
-                ) as T
             }
         }
     }
