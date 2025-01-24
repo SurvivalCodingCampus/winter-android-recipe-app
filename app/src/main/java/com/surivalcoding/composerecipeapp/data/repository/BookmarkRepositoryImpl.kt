@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.data.repository
 
 import com.surivalcoding.composerecipeapp.data.data_source.UserDataSource
 import com.surivalcoding.composerecipeapp.data.mapper.toUser
+import com.surivalcoding.composerecipeapp.domain.repository.BookmarkRepository
 
 class BookmarkRepositoryImpl(private val dataSource: UserDataSource): BookmarkRepository {
     private var bookmarkList = mutableListOf<Int>()

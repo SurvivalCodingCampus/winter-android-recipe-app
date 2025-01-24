@@ -1,7 +1,7 @@
 package com.surivalcoding.composerecipeapp.data.data_source
 
 import com.surivalcoding.composerecipeapp.data.dto.UserDto
-import com.surivalcoding.composerecipeapp.data.model.User
+import com.surivalcoding.composerecipeapp.domain.model.User
 import kotlinx.serialization.json.Json
 
 class MockUserDataSource: UserDataSource{

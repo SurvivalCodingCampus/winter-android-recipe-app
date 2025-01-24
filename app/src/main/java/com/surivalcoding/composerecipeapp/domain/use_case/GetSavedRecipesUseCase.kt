@@ -1,8 +1,8 @@
-package com.surivalcoding.composerecipeapp.domain.savedscreen
+package com.surivalcoding.composerecipeapp.domain.use_case
 
-import com.surivalcoding.composerecipeapp.data.model.Recipe
-import com.surivalcoding.composerecipeapp.data.repository.BookmarkRepository
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.domain.model.Recipe
+import com.surivalcoding.composerecipeapp.domain.repository.BookmarkRepository
+import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
 
 class GetSavedRecipesUseCase(
     private val recipeRepository: RecipeRepository,

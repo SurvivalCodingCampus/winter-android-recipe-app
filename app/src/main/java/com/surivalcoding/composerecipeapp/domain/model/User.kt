@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.data.model
+package com.surivalcoding.composerecipeapp.domain.model
 
 data class User(
     val userId: Int,
