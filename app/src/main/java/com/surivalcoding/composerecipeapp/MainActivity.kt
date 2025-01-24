@@ -3,45 +3,82 @@ package com.surivalcoding.composerecipeapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
+import com.surivalcoding.composerecipeapp.presentation.NavigationRoot
+import com.surivalcoding.composerecipeapp.presentation.saved_recipe_screen.SavedRecipeViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            ComposeRecipeAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            val navController = rememberNavController()
+
+            val savedRecipeViewModel: SavedRecipeViewModel = viewModel(
+                factory = SavedRecipeViewModel.Factory
+            )
+
+            val savedRecipeState by savedRecipeViewModel.state.collectAsStateWithLifecycle()
+
+            NavigationRoot(
+                navController = navController,
+                savedRecipeState = savedRecipeState,
+                onBookmarkClick = { savedRecipeViewModel.fetchSavedRecipes(it) }
+            )
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ComposeRecipeAppTheme {
-        Greeting("Android")
-    }
-}
+
+
+//class MainActivity : ComponentActivity() {
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//
+////        val viewModels: SavedRecipeViewModel by viewModels{
+////            SavedRecipeViewModel.Factory
+////        }
+//
+//        setContent {
+//            val viewModel: SavedRecipeViewModel = viewModel(
+//                factory = SavedRecipeViewModel.Factory
+//            )
+//
+//            val state = viewModel.state.collectAsStateWithLifecycle()
+//
+//            SavedRecipesScreen(
+//                modifier = Modifier.fillMaxSize(),
+//                state = state.value,
+//                waitSavedRecipes = { viewModel.waitSavedRecipes() }
+//            )
+//        }
+//    }
+//}
+
+//class MainActivity : ComponentActivity() {
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//
+////        val viewModels: SavedRecipeViewModel by viewModels{
+////            SavedRecipeViewModel.Factory
+////        }
+//
+//        setContent {
+//            val viewModel: SearchRecipeViewModel = viewModel(
+//                factory = SearchRecipeViewModel.Factory
+//            )
+//
+//            val state by viewModel.state.collectAsStateWithLifecycle()
+//
+//            SearchRecipesScreen(
+//                modifier = Modifier.fillMaxSize(),
+//                state = state,
+//                waitSavedRecipes = { viewModel.waitSearchRecipes() },
+//                onValueChange = { viewModel.onSearchQueryChanged(it) }
+//            )
+//        }
+//    }
+//}
