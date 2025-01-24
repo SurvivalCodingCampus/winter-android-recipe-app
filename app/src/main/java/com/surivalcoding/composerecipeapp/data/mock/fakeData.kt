@@ -5,11 +5,15 @@ import com.surivalcoding.composerecipeapp.data.model.Ingredient
 import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
+import com.surivalcoding.composerecipeapp.data.model.UserData
 import com.surivalcoding.composerecipeapp.data.model.toHomeRecipe
 import com.surivalcoding.composerecipeapp.data.model.toNewRecipe
 import com.surivalcoding.composerecipeapp.data.model.toSavedRecipe
 
 
+val fakeUserData = UserData(
+    bookmarkIds = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
+)
 val fakeIngredients = listOf(
     Ingredient(
         500,
@@ -339,6 +343,3 @@ val fakeSearchRecipe = listOf(
         authorName = "Paul Hollywood"
     )
 )
-
-
-val testIds = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)

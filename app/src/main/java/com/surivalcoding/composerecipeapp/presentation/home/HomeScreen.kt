@@ -30,15 +30,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.data.mock.fakeHomeRecipes
 import com.surivalcoding.composerecipeapp.data.mock.fakeNewRecipes
-import com.surivalcoding.composerecipeapp.data.model.HomeRecipe
-import com.surivalcoding.composerecipeapp.data.model.NewRecipe
+import com.surivalcoding.composerecipeapp.data.mock.fakeUserData
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.presentation.searchrecipe.SearchField
 import com.surivalcoding.composerecipeapp.ui.component.HomeRecipeItem
 import com.surivalcoding.composerecipeapp.ui.component.NewRecipeItem
+import com.surivalcoding.composerecipeapp.ui.custom.LoadingWheel
 import com.surivalcoding.composerecipeapp.ui.custom.NoPaddingButton
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
@@ -46,12 +48,26 @@ import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 @Composable
 fun HomeScreen(
-    homeRecipes: List<HomeRecipe>,
-    newRecipes: List<NewRecipe>,
     onSearchClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    var selectedCategory by remember { mutableStateOf(RecipeCategory.ALL) }
+    val homeUiState by viewModel.homeUiState.collectAsStateWithLifecycle()
+    HomeScreen(
+        homeUiState = homeUiState,
+        onSearchClick = onSearchClick,
+        onCategoryChange = {},
+        modifier = modifier,
+    )
+}
+
+@Composable
+private fun HomeScreen(
+    homeUiState: HomeUiState,
+    onSearchClick: () -> Unit,
+    onCategoryChange: (RecipeCategory) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier.fillMaxSize()
     ) {
@@ -99,85 +115,109 @@ fun HomeScreen(
             )
         }
 
-        LazyRow(
-            contentPadding = PaddingValues(vertical = 25.dp, horizontal = 30.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            items(RecipeCategory.entries) { category ->
-                val selected = selectedCategory == category
-                NoPaddingButton(
-                    onClick = { selectedCategory = category },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = if (selected) AppColors.Primary100 else Color.Transparent,
-                        contentColor = if (selected) AppColors.White else AppColors.Primary80
-                    ),
-                    shape = RoundedCornerShape(10.dp),
-                    contentPadding = PaddingValues(vertical = 7.dp, horizontal = 20.dp),
-                    modifier = Modifier
+        when (homeUiState) {
+            is HomeUiState.Loaded -> {
+                LazyRow(
+                    contentPadding = PaddingValues(vertical = 25.dp, horizontal = 30.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Text(
-                        text = category.name,
-                        style = AppTextStyles.smallerTextSemiBold,
+                    items(RecipeCategory.entries) { category ->
+                        val selected = homeUiState.selectedCategory == category
+                        NoPaddingButton(
+                            onClick = {
+                                onCategoryChange(category)
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (selected) AppColors.Primary100 else Color.Transparent,
+                                contentColor = if (selected) AppColors.White else AppColors.Primary80
+                            ),
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(vertical = 7.dp, horizontal = 20.dp),
+                            modifier = Modifier
+                        ) {
+                            Text(
+                                text = category.name,
+                                style = AppTextStyles.smallerTextSemiBold,
+                            )
+                        }
+                    }
+                }
+
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 30.dp),
+                    horizontalArrangement = Arrangement.spacedBy(15.dp),
+                ) {
+                    items(homeUiState.homeRecipes) { recipeDish ->
+                        HomeRecipeItem(
+                            homeRecipe = recipeDish,
+                            isBookmarked = true,
+                            onClick = {},
+                            onBookmarkClick = {},
+                            modifier = Modifier
+                                .width(150.dp)
+                                .height(232.dp)
+                        )
+                    }
+                }
+
+                Text(
+                    text = "New Recipes",
+                    style = AppTextStyles.normalTextSemiBold,
+                    color = AppColors.Black,
+                    modifier = Modifier.padding(
+                        PaddingValues(
+                            start = 30.dp,
+                            top = 20.dp,
+                            bottom = 4.dp
+                        )
+                    )
+                )
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 30.dp),
+                    horizontalArrangement = Arrangement.spacedBy(15.dp),
+                    modifier = Modifier.padding(top = 4.dp)
+                ) {
+                    items(homeUiState.newRecipes) { newRecipe ->
+                        NewRecipeItem(
+                            newRecipe = newRecipe,
+                            onClick = {},
+                            onProfileClick = {},
+                            modifier = Modifier
+                                .width(252.dp)
+                                .height(128.dp)
+                        )
+                    }
+                }
+            }
+
+            HomeUiState.Error -> {}
+            HomeUiState.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    LoadingWheel(
+                        contentDescription = "home recipe loading"
                     )
                 }
             }
         }
 
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 30.dp),
-            horizontalArrangement = Arrangement.spacedBy(15.dp),
-        ) {
-            items(homeRecipes) { recipeDish ->
-                HomeRecipeItem(
-                    homeRecipe = recipeDish,
-                    isBookmarked = true,
-                    onClick = {},
-                    onBookmarkClick = {},
-                    modifier = Modifier
-                        .width(150.dp)
-                        .height(232.dp)
-                )
-            }
-        }
-
-        Text(
-            text = "New Recipes",
-            style = AppTextStyles.normalTextSemiBold,
-            color = AppColors.Black,
-            modifier = Modifier.padding(
-                PaddingValues(
-                    start = 30.dp,
-                    top = 20.dp,
-                    bottom = 4.dp
-                )
-            )
-        )
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 30.dp),
-            horizontalArrangement = Arrangement.spacedBy(15.dp),
-            modifier = Modifier.padding(top = 4.dp)
-        ) {
-            items(newRecipes) { newRecipe ->
-                NewRecipeItem(
-                    newRecipe = newRecipe,
-                    onClick = {},
-                    onProfileClick = {},
-                    modifier = Modifier
-                        .width(252.dp)
-                        .height(128.dp)
-                )
-            }
-        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
+    var selectedCategory by remember { mutableStateOf(RecipeCategory.ALL) }
     ComposeRecipeAppTheme {
         HomeScreen(
-            homeRecipes = fakeHomeRecipes,
-            newRecipes = fakeNewRecipes,
+            homeUiState = HomeUiState.Loaded(
+                selectedCategory = selectedCategory,
+                bookmarkedIds = fakeUserData.bookmarkIds,
+                homeRecipes = fakeHomeRecipes,
+                newRecipes = fakeNewRecipes,
+            ),
+            onCategoryChange = {},
             onSearchClick = {}
         )
     }
