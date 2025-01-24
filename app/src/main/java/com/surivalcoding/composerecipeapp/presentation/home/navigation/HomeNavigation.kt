@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.surivalcoding.composerecipeapp.data.mock.fakeHomeRecipes
 import com.surivalcoding.composerecipeapp.data.mock.fakeNewRecipes
-import com.surivalcoding.composerecipeapp.data.mock.fakeRecipeDishes
 import com.surivalcoding.composerecipeapp.presentation.home.HomeScreen
 import kotlinx.serialization.Serializable
 
@@ -28,7 +28,7 @@ fun NavGraphBuilder.homeScreen(
     ) {
         composable<HomeRoute> {
             HomeScreen(
-                recipeDishes = fakeRecipeDishes,
+                homeRecipes = fakeHomeRecipes,
                 newRecipes = fakeNewRecipes,
                 onSearchClick = onSearchClick
             )

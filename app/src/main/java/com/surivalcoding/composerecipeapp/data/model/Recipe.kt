@@ -28,7 +28,7 @@ fun Recipe.toSavedRecipe() = SavedRecipe(
     rating = rating,
 )
 
-fun Recipe.toRecipeDish() = RecipeDish(
+fun Recipe.toHomeRecipe() = HomeRecipe(
     id = id,
     foodIconUrl = fakeImageDrawables[(id - 1) % 3],
     cookingMinute = cookingMinute,

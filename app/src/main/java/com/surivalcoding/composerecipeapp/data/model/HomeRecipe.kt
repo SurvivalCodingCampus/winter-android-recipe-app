@@ -2,7 +2,7 @@ package com.surivalcoding.composerecipeapp.data.model
 
 import androidx.annotation.DrawableRes
 
-class RecipeDish(
+class HomeRecipe(
     val id: Int,
     @DrawableRes
     val foodIconUrl: Int,

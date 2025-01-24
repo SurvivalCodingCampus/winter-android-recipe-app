@@ -5,8 +5,8 @@ import com.surivalcoding.composerecipeapp.data.model.Ingredient
 import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
+import com.surivalcoding.composerecipeapp.data.model.toHomeRecipe
 import com.surivalcoding.composerecipeapp.data.model.toNewRecipe
-import com.surivalcoding.composerecipeapp.data.model.toRecipeDish
 import com.surivalcoding.composerecipeapp.data.model.toSavedRecipe
 
 
@@ -273,7 +273,7 @@ val fakeRecipe = listOf(
     )
 )
 
-val fakeRecipeDishes = fakeRecipe.map { it.toRecipeDish() }
+val fakeHomeRecipes = fakeRecipe.map { it.toHomeRecipe() }
 val fakeSavedRecipe = fakeRecipe.map { it.toSavedRecipe() }
 val fakeNewRecipes = fakeRecipe.map { it.toNewRecipe() }
 
