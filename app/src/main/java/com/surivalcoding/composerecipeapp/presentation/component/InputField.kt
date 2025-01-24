@@ -22,6 +22,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.ui.AppColors
@@ -37,7 +39,6 @@ fun InputField(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     onValueChange: (String) -> Unit,
-    // 새로 추가할 파라미터들
     isClickable: Boolean = true, // 클릭 가능 여부
     onClick: (() -> Unit)? = null, // 클릭 시 실행될 람다 함수
     isEditable: Boolean = true // 입력 가능 여부
@@ -95,6 +96,7 @@ fun InputField(
                 BasicTextField(
                     value = value,
                     onValueChange = onValueChange,
+                    enabled = isEditable,
                     modifier = Modifier
                         .weight(1f)
                         .onFocusChanged {

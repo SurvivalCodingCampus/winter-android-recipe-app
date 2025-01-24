@@ -2,11 +2,13 @@ package com.surivalcoding.composerecipeapp.presentation.search_recipes
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,9 +17,16 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -32,16 +41,32 @@ import com.lottiefiles.dotlottie.core.compose.ui.DotLottieAnimation
 import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
+import com.surivalcoding.composerecipeapp.domain.model.enums.TimeFilter
 import com.surivalcoding.composerecipeapp.presentation.component.InputField
+import com.surivalcoding.composerecipeapp.presentation.component.filter_bottomsheet.FilterBottomSheet
+import com.surivalcoding.composerecipeapp.presentation.component.filter_bottomsheet.FilterState
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchRecipesScreen(
     modifier: Modifier = Modifier,
     state: SearchRecipesState = SearchRecipesState(),
     onQueryChange: (String) -> Unit = {},
+    onDismiss: () -> Unit,
 ) {
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
+
+    // 필터 상태
+    var filterState by remember { mutableStateOf(FilterState()) }
+
+    // 필터 변경 함수
+    val onTimeFilterChange: (TimeFilter) -> Unit = { filterState = filterState.copy(timeFilter = it) }
+    val onRateFilterChange: (Int?) -> Unit = { filterState = filterState.copy(rateFilter = it) }
+    val onCategoryFilterChange: (String?) -> Unit = { filterState = filterState.copy(categoryFilter = it) }
+
     Scaffold { innerPadding ->
         Column(
             modifier = modifier
@@ -84,13 +109,35 @@ fun SearchRecipesScreen(
                         .background(
                             color = AppColors.primary100,
                             shape = RoundedCornerShape(10.dp)
-                        ),
+                        )
+                        .clickable { showBottomSheet = true },
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
                         painter = painterResource(R.drawable.filter),
                         contentDescription = "Filter",
                         modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
+
+            // Modal Bottom Sheet 처리
+            if (showBottomSheet) {
+                ModalBottomSheet(
+                    modifier = Modifier.fillMaxHeight(),
+                    sheetState = sheetState,
+                    onDismissRequest = { showBottomSheet = false }
+                ) {
+                    FilterBottomSheet(
+                        state = filterState,
+                        onTimeFilterChange = onTimeFilterChange,
+                        onRateFilterChange = onRateFilterChange,
+                        onCategoryFilterChange = onCategoryFilterChange,
+                        onFilterApply = {
+                            showBottomSheet = false
+                            // 필터 적용 로직: 필터 상태에 따라 결과를 필터링
+                            // 예: state.filteredRecipes = 필터링된 레시피 리스트
+                        }
                     )
                 }
             }

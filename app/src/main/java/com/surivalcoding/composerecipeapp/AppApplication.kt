@@ -9,6 +9,7 @@ import com.surivalcoding.composerecipeapp.domain.repository.BookmarkRepository
 import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.domain.usecase.recipe.GetSavedRecipesUseCase
 import com.surivalcoding.composerecipeapp.domain.usecase.recipe.RemoveFromSavedRecipesUseCase
+import com.surivalcoding.composerecipeapp.domain.usecase.recipe.SearchRecipeUseCase
 
 class AppApplication : Application() {
     // 데이터 소스 초기화
@@ -31,6 +32,10 @@ class AppApplication : Application() {
 
     val removeFromSavedRecipesUseCase by lazy {
         RemoveFromSavedRecipesUseCase(bookmarkRepository)
+    }
+
+    val searchRecipeUseCase by lazy {
+        SearchRecipeUseCase(recipeRepository)
     }
 
     // 데이터 소스를 묶은 클래스

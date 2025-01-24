@@ -8,12 +8,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.surivalcoding.composerecipeapp.AppApplication
 import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.domain.usecase.recipe.SearchRecipeUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SearchRecipesViewModel(private val recipeRepository: RecipeRepository) : ViewModel() {
+class SearchRecipesViewModel(private val searchRecipeUseCase: SearchRecipeUseCase) : ViewModel() {
     private val _state = MutableStateFlow(SearchRecipesState())
     val state = _state.asStateFlow()
 
@@ -34,7 +35,6 @@ class SearchRecipesViewModel(private val recipeRepository: RecipeRepository) : V
             return
         }
 
-        // query가 있는 경우 필터링
         val filteredRecipes = state.value.recipes.filter {
             it.name.contains(query, ignoreCase = true) ||
                     it.chef.contains(query, ignoreCase = true)
@@ -53,9 +53,8 @@ class SearchRecipesViewModel(private val recipeRepository: RecipeRepository) : V
     private fun fetchAllRecipes() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
-
             try {
-                val recipes = recipeRepository.getAllRecipes()
+                val recipes = searchRecipeUseCase.execute()
                 _state.update {
                     it.copy(
                         recipes = recipes,
@@ -76,11 +75,9 @@ class SearchRecipesViewModel(private val recipeRepository: RecipeRepository) : V
                 modelClass: Class<T>,
                 extras: CreationExtras
             ): T {
-                val application = checkNotNull(extras[APPLICATION_KEY])
-                val savedStateHandle = extras.createSavedStateHandle()
-
+                val application = checkNotNull(extras[APPLICATION_KEY]) as AppApplication
                 return SearchRecipesViewModel(
-                    (application as AppApplication).recipeRepository
+                    application.searchRecipeUseCase
                 ) as T
             }
         }

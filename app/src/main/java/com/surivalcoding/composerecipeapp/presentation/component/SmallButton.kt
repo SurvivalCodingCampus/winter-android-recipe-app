@@ -27,7 +27,8 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 fun SmallButton(
     modifier: Modifier = Modifier,
     buttonText: String,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
+    enabled: Boolean = true,
 ) {
     var isPressed by remember { mutableStateOf(false) }
 
@@ -40,14 +41,16 @@ fun SmallButton(
                 shape = RoundedCornerShape(size = 10.dp)
             )
             .pointerInput(Unit) {
-                detectTapGestures(
-                    onPress = {
-                        isPressed = true
-                        tryAwaitRelease()
-                        isPressed = false
-                        onClick()
-                    }
-                )
+                if (enabled) {  // enabled 상태일 때만 터치 이벤트 처리
+                    detectTapGestures(
+                        onPress = {
+                            isPressed = true
+                            tryAwaitRelease()
+                            isPressed = false
+                            onClick()
+                        }
+                    )
+                }
             },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
