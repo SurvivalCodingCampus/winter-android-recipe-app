@@ -8,5 +8,6 @@ data class Recipe(
     val chef: String,
     val time: String,
     val rating: Float,
-    val ingredients: List<IngredientAmount>
+    val ingredients: List<IngredientAmount>,
+    val isBookmarked: Boolean = false
 )

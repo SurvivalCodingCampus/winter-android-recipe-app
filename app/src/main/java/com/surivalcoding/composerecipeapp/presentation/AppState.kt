@@ -47,4 +47,8 @@ class AppState(
     fun navigateToSearchRecipes() {
         navController.navigate(Screen.SearchRecipes.route)
     }
+
+    fun navigateToSavedRecipes(i: Int) {
+        navController.navigate(Screen.SavedRecipes.route)
+    }
 }

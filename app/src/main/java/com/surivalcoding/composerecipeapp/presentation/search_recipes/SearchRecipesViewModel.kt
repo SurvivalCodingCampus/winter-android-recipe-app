@@ -55,7 +55,7 @@ class SearchRecipesViewModel(private val recipeRepository: RecipeRepository) : V
             _state.update { it.copy(isLoading = true) }
 
             try {
-                val recipes = recipeRepository.getSavedRecipes()
+                val recipes = recipeRepository.getAllRecipes()
                 _state.update {
                     it.copy(
                         recipes = recipes,

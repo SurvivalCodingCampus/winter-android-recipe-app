@@ -38,9 +38,10 @@ fun MainScreen() {
             }
 
             composable(BottomNavItem.SavedRecipes.route) {
-                val viewModel: SavedRecipesViewModel = viewModel(factory = SavedRecipesViewModel.Factory)
+                val viewModel: SavedRecipesViewModel =
+                    viewModel(factory = SavedRecipesViewModel.Factory)
                 val state by viewModel.state.collectAsStateWithLifecycle()
-                SavedRecipeScreen(state = state)
+                SavedRecipeScreen(state = state, onBookmarkClick = viewModel::onBookmarkClick)
             }
 
             composable(BottomNavItem.RecipeWrite.route) {

@@ -14,6 +14,8 @@ import com.surivalcoding.composerecipeapp.presentation.auth.signUp.SignUpViewMod
 import com.surivalcoding.composerecipeapp.presentation.main.MainScreen
 import com.surivalcoding.composerecipeapp.presentation.main.home.HomeScreen
 import com.surivalcoding.composerecipeapp.presentation.main.home.HomeViewModel
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipeScreen
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipesViewModel
 import com.surivalcoding.composerecipeapp.presentation.splash.SplashScreen
 
 @Composable
@@ -75,6 +77,12 @@ fun NavigationRoot(
                 state = state,
                 onSearchClick = appState::navigateToSearchRecipes,
             )
+        }
+
+        composable(Screen.SavedRecipes.route) {
+            val viewModel: SavedRecipesViewModel = viewModel(factory = SavedRecipesViewModel.Factory)
+            val state by viewModel.state.collectAsStateWithLifecycle()
+            SavedRecipeScreen(state = state, onBookmarkClick = viewModel::onBookmarkClick)
         }
     }
 }

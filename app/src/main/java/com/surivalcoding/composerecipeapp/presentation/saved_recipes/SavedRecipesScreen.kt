@@ -26,7 +26,7 @@ import com.dotlottie.dlplayer.Mode
 fun SavedRecipeScreen(
     state: SavedRecipesState,
     onRecipeClick: (Recipe) -> Unit = {},
-    onBookmarkClick: (Recipe) -> Unit = {}
+    onBookmarkClick: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -65,8 +65,8 @@ fun SavedRecipeScreen(
                         items(state.recipes) { recipe ->
                             RecipeCard(
                                 recipe = recipe,
-                                // onClick = { onRecipeClick(recipe) },
-                                onBookmarkClick = { onBookmarkClick(recipe) }
+                                //onClick = { onRecipeClick(recipe) },
+                                onBookmarkClick = { onBookmarkClick(recipe.id) }
                             )
                         }
                     }
