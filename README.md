@@ -30,3 +30,8 @@ Jetpack Compose provides a declarative way to build UI, making the development p
 - 🎨 **Custom Theming**: A consistent and visually appealing design.
 - ⚡ **State Management**: Effortlessly handle user interactions and updates.
 - 🖼 **Image Loading**: **Coil** ensures fast and memory-efficient image handling.
+
+## 📸 **Screenshots**
+
+<img src="https://github.com/user-attachments/assets/def6e171-3505-4511-9c42-ad2aa70ee129" width="30%"/>
+<img src="https://github.com/user-attachments/assets/4bc30897-4b2e-4833-8d40-76dfd47bbcfa" width="30%"/>
