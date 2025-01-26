@@ -42,6 +42,7 @@ import com.surivalcoding.composerecipeapp.data.datasource.ProdRecipeDataSourceIm
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepositoryImpl
 import com.surivalcoding.composerecipeapp.domain.usecase.GetMainRecipeListUseCase
 import com.surivalcoding.composerecipeapp.presentation.item.MainRecipeItem
+import com.surivalcoding.composerecipeapp.presentation.item.NewRecipeItem
 import com.surivalcoding.composerecipeapp.presentation.item.button.NoneBorderFilterButton
 import com.surivalcoding.composerecipeapp.presentation.page.home.HomeViewModel
 import com.surivalcoding.composerecipeapp.presentation.page.home.PickerState
@@ -230,6 +231,19 @@ fun HomeScreen(
                 color = AppColors.black
             )
         )
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        // NewRecipeList 가져오기
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(start = 30.dp),
+            horizontalArrangement = Arrangement.spacedBy(15.dp),
+        ) {
+            items(mainRecipeState.newRecipeList) { recipe ->
+                NewRecipeItem(recipe = recipe)
+            }
+        }
 
 
     }

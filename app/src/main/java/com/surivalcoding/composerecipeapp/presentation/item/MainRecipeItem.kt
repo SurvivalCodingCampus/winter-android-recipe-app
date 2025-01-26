@@ -79,7 +79,7 @@ fun MainRecipeItem(
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
-                    text = recipe.time,
+                    text = "${recipe.time}s",
                     style = AppTextStyles.mediumTextSemiBold.copy(
                         color = AppColors.gray_1,
                         fontSize = 11.sp

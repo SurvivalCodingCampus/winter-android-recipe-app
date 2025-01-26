@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -28,11 +29,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
+import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @Composable
-fun NewRecipeItem(modifier: Modifier = Modifier) {
+fun NewRecipeItem(
+    modifier: Modifier = Modifier,
+    recipe: Recipe
+) {
     Box(
         modifier = Modifier
             .width(251.dp)
@@ -40,6 +45,7 @@ fun NewRecipeItem(modifier: Modifier = Modifier) {
     ) {
         Box(
             modifier = Modifier
+                .shadow(elevation = 5.dp, shape = RoundedCornerShape(10.dp))
                 .fillMaxWidth()
                 .height(95.dp)
                 .background(
@@ -52,11 +58,12 @@ fun NewRecipeItem(modifier: Modifier = Modifier) {
             Column(
                 modifier = Modifier.align(
                     Alignment.TopStart
-                )
+                ),
+                verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
                 Text(
                     modifier = Modifier.width(140.dp),
-                    text = "Input Recipe Name Please",
+                    text = recipe.name,
                     style = AppTextStyles.mediumTextSemiBold.copy(
                         color = AppColors.gray_1,
                         fontSize = 14.sp
@@ -64,6 +71,8 @@ fun NewRecipeItem(modifier: Modifier = Modifier) {
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
+
+                RatingBar(ratingCount = 5)
             }
 
 
@@ -83,7 +92,7 @@ fun NewRecipeItem(modifier: Modifier = Modifier) {
                 )
 
                 Text(
-                    text = "By James Milener",
+                    text = "By ${recipe.chef}",
                     style = AppTextStyles.smallTextRegular.copy(
                         fontSize = 11.sp,
                         color = AppColors.gray_3
@@ -106,7 +115,7 @@ fun NewRecipeItem(modifier: Modifier = Modifier) {
                 )
 
                 Text(
-                    text = "20 mins",
+                    text = "${recipe.time}s",
                     modifier = Modifier
                         .padding(vertical = 4.dp),
                     style = AppTextStyles.smallTextRegular.copy(
@@ -142,5 +151,17 @@ fun NewRecipeItem(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun NewRecipeItemPreview() {
-    NewRecipeItem()
+    NewRecipeItem(
+        recipe = Recipe(
+            category = "Indian",
+            id = 1,
+            name = "Classic Greek Salad",
+            image = "fsdfsfsf",
+            chef = "Chef John",
+            time = "15 Min",
+            rating = 4.0,
+            isBookMarked = false,
+            ingredients = emptyList(),
+        )
+    )
 }

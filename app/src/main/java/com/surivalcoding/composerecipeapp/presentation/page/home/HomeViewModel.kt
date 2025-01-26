@@ -41,6 +41,9 @@ class HomeViewModel @Inject constructor(
                             filteredRecipeList = result.data
                         )
                     }
+
+                    // 전체 리스트 불러온 후 해당 전체리스트를 통해 newRecipeList를 가져오도록 호출
+                    getNewRecipeList()
                 }
 
                 is ResponseResult.Failure -> {
@@ -76,6 +79,17 @@ class HomeViewModel @Inject constructor(
 
             Logger.e("카피하기전 리스트 :${filteredList.size}")
             state.copy(filteredRecipeList = filteredList)
+        }
+    }
+
+    // new Recipes 불러오기 -> 추후에 UseCase를 나누어서 날짜에 따라 최신순으로 불러와야할것 같음 현재 날자 데이터가 없어서 임시로 앞에서 부터 5개
+    private fun getNewRecipeList() {
+        viewModelScope.launch {
+            // 전체 리스트에서 임시로 5개만 가져오기
+            val newRecipeList = _mainRecipeState.value.recipeList.take(5)
+            _mainRecipeState.update {
+                it.copy(newRecipeList = newRecipeList)
+            }
         }
     }
 

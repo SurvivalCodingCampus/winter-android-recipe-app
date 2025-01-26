@@ -21,6 +21,7 @@ object AppColors {
     val rating = Color(0xFFFFAD30)
 
     val label_color = Color(0xFF121212)
+    val spot_color = Color(0x1A000000)
 
     val white = Color(0xFFFFFFFF)
 }
