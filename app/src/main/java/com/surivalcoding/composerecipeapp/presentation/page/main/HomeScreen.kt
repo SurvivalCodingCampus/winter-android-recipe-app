@@ -68,7 +68,6 @@ fun HomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
         Spacer(Modifier.height(20.dp))
@@ -219,6 +218,20 @@ fun HomeScreen(
                 MainRecipeItem(recipe = recipe)
             }
         }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // New Recipes 타이틀
+        Text(
+            text = "New Recipes",
+            modifier = Modifier.padding(start = 30.dp),
+            style = AppTextStyles.mediumTextSemiBold.copy(
+                fontSize = 16.sp,
+                color = AppColors.black
+            )
+        )
+
+
     }
 }
 
