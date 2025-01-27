@@ -9,6 +9,7 @@ import com.surivalcoding.composerecipeapp.presentation.page.main.NotificationScr
 import com.surivalcoding.composerecipeapp.presentation.page.main.ProfileScreen
 import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeScreen
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipeScreen
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipeScreenRoot
 
 
 @Composable
@@ -43,7 +44,7 @@ fun MainScreenNavigation(
         }
 
         composable(MainRoute.Search.screenRoute) {
-            SearchRecipeScreen()
+            SearchRecipeScreenRoot()
         }
     }
 }

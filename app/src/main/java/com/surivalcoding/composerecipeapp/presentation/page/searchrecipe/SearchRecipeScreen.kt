@@ -1,6 +1,5 @@
 package com.surivalcoding.composerecipeapp.presentation.page.searchrecipe
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,14 +26,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -42,8 +35,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -57,18 +48,15 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SearchRecipeScreen(
-    viewModel: SearchRecipeViewModel = hiltViewModel()
+    state: SearchRecipesState,
+    onAction: (SearchRecipeAction) -> Unit,
 ) {
-    val recipeList by viewModel.searchRecipeState.collectAsStateWithLifecycle()
-    val loadingState by viewModel.loadingState.collectAsState()
+
     // 로티 애니메이션
     val lottieLoading by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.animal))
 
-    val (value, onValueChange) = rememberSaveable { mutableStateOf("") }
-
-
-    // BottomSheet 표시 여부를 관리하는 상태
-    var showBottomSheet by remember { mutableStateOf(false) }
+    // coroutine
+    val coroutineScope = rememberCoroutineScope()
 
     // BottomSheet 상태
     val bottomSheetState = rememberModalBottomSheetState(
@@ -76,21 +64,16 @@ fun SearchRecipeScreen(
         skipHalfExpanded = true
     )
 
-    val coroutineScope = rememberCoroutineScope()
-
-    // rememberUpdatedState: LaunchedEffect나 SideEffect내에서 같은값을 참조할경우 컴포지션이 다시 실행되기 전의 값일 수 있기때문에 컴포지션을 실행한 후에도 최신 상태값을 유지할수 있도록 함
-    val filterText = rememberUpdatedState(value)
-    LaunchedEffect(filterText.value) {
-        Log.e("컴포즈", "런치드 이펙트 발동! $value")
-        viewModel.filterRecipeList(filterText.value)
+    LaunchedEffect(bottomSheetState.isVisible) {
+        // 다이얼로그 닫힘 감지
+        if (!bottomSheetState.isVisible) {
+            onAction(SearchRecipeAction.HandleBottomSheet(false))
+        }
     }
 
     ModalBottomSheetLayout(
         sheetContent = {
-            FilterSearchBottomSheet(
-                onDismiss = { coroutineScope.launch { bottomSheetState.hide() } },
-                onApply = {}
-            )
+            FilterSearchBottomSheet()
         },
         sheetState = bottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp),
@@ -135,8 +118,10 @@ fun SearchRecipeScreen(
                 horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 BasicTextField(
-                    value = value,
-                    onValueChange = { onValueChange(it) },
+                    value = state.filterText,
+                    onValueChange = { newText ->
+                        onAction(SearchRecipeAction.FilterSearchChange(newText))
+                    },
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight(),
@@ -168,7 +153,7 @@ fun SearchRecipeScreen(
                             // 커서 위치로 인해 Box로 래핑
                             Box {
                                 // 기본적으로 placeHolder를 지원하지 않아 직접 구현을 해줘야함
-                                if (value.isBlank()) {
+                                if (state.filterText.isBlank()) {
                                     Text(
                                         text = "Search recipe",
                                         style = AppTextStyles.smallTextRegular.copy(
@@ -190,21 +175,15 @@ fun SearchRecipeScreen(
                         .size(40.dp)
                         .background(AppColors.primary_100, shape = RoundedCornerShape(10.dp))
                         .clickable {
-                            coroutineScope.launch { bottomSheetState.show() }
+                            coroutineScope.launch {
+                                bottomSheetState.show()
+                            }
                         }
                 ) {
                     Image(
                         modifier = Modifier.align(Alignment.Center),
                         painter = painterResource(R.drawable.setting_4),
                         contentDescription = null
-                    )
-                }
-
-                // BottomSheet 표시
-                if (showBottomSheet) {
-                    FilterSearchBottomSheet(
-                        onDismiss = { showBottomSheet = false }, // BottomSheet 닫기
-                        onApply = { /* 필터 적용 로직 */ },
                     )
                 }
             }
@@ -216,7 +195,7 @@ fun SearchRecipeScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = if (value.isBlank()) "Recent Search" else "Search Result",
+                    text = if (state.filterText.isBlank()) "Recent Search" else "Search Result",
                     style = AppTextStyles.mediumTextSemiBold.copy(
                         fontSize = 16.sp,
                         color = AppColors.black
@@ -226,7 +205,7 @@ fun SearchRecipeScreen(
                 Spacer(Modifier.weight(1f))
 
                 Text(
-                    text = "${recipeList.filteredRecipeList.size} results",
+                    text = "${state.filteredRecipeList.size} results",
                     style = AppTextStyles.smallTextRegular.copy(
                         fontSize = 11.sp,
                         color = AppColors.gray_3
@@ -236,14 +215,12 @@ fun SearchRecipeScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            RecipeListGrid(recipeList.filteredRecipeList)
-
-
+            RecipeListGrid(state.filteredRecipeList)
         }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        if (loadingState.isLoading) {
+        if (state.loadingState.isLoading) {
             // 로티 애니메이션 로딩
             LottieAnimation(
                 composition = lottieLoading,
@@ -259,5 +236,8 @@ fun SearchRecipeScreen(
 @Preview(showBackground = true)
 @Composable
 fun SearchRecipeScreenPreview() {
-    SearchRecipeScreen()
+    SearchRecipeScreen(
+        state = SearchRecipesState(),
+        onAction = {}
+    )
 }

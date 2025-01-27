@@ -1,12 +1,14 @@
 package com.surivalcoding.composerecipeapp.presentation.page.searchrecipe
 
 import android.util.Log
+import androidx.compose.material.ModalBottomSheetState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.surivalcoding.composerecipeapp.domain.usecase.GetMainRecipeListUseCase
 import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.LoadingState
 import com.surivalcoding.composerecipeapp.util.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -21,16 +23,16 @@ class SearchRecipeViewModel @Inject constructor(
     private val _searchRecipeState = MutableStateFlow(SearchRecipesState())
     val searchRecipeState = _searchRecipeState.asStateFlow()
 
-    private val _loadingState = MutableStateFlow(LoadingState())
-    val loadingState = _loadingState.asStateFlow()
-
-
     init {
         getRecipeList()
     }
 
     private fun getRecipeList() {
-        _loadingState.update { it.copy(isLoading = true) }
+        _searchRecipeState.update {
+            it.copy(
+                loadingState = LoadingState(isLoading = true)
+            )
+        }
         viewModelScope.launch {
             when (val result = getMainRecipeListUseCase.execute()) {
                 is ResponseResult.Success -> {
@@ -48,11 +50,13 @@ class SearchRecipeViewModel @Inject constructor(
                     _searchRecipeState.update { it.copy(recipeList = emptyList()) }
                 }
             }
-            _loadingState.update { it.copy(isLoading = false) }
+            _searchRecipeState.update {
+                it.copy(loadingState = LoadingState(isLoading = false))
+            }
         }
     }
 
-    fun filterRecipeList(value: String) {
+    private fun filterRecipeList(value: String) {
 
         val filteredList = if (value.isBlank()) {
             _searchRecipeState.value.recipeList
@@ -60,6 +64,29 @@ class SearchRecipeViewModel @Inject constructor(
             _searchRecipeState.value.recipeList.filter { it.name.contains(value, ignoreCase = true) }
         }
         _searchRecipeState.update { it.copy(filteredRecipeList = filteredList) }
+    }
+
+
+    fun onAction(action: SearchRecipeAction) {
+        when (action) {
+
+            // 필터링 수행
+            is SearchRecipeAction.FilterSearchChange -> {
+                _searchRecipeState.update {
+                    it.copy(filterText = action.value)
+                }
+                filterRecipeList(action.value)
+            }
+
+            // 필터링 기능을 위한 BottomSheet Action 정의
+            is SearchRecipeAction.HandleBottomSheet -> {
+                _searchRecipeState.update {
+                    it.copy(
+                        isBottomSheetVisible = action.isBottomSheetVisible
+                    )
+                }
+            }
+        }
     }
 }
 

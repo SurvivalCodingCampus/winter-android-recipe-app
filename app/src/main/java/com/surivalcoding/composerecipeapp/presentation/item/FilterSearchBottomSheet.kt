@@ -31,10 +31,7 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun FilterSearchBottomSheet(
-    onDismiss: () -> Unit = {},
-    onApply: () -> Unit = {},
-) {
+fun FilterSearchBottomSheet() {
     // 필터 버튼 설정
     val (timeState, onTimeSelected) = remember { mutableStateOf(Time.All.name) }
 
