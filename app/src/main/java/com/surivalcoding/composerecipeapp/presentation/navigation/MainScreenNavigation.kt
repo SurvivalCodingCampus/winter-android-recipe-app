@@ -8,6 +8,7 @@ import com.surivalcoding.composerecipeapp.presentation.page.home.HomeScreenRoot
 import com.surivalcoding.composerecipeapp.presentation.page.main.NotificationScreen
 import com.surivalcoding.composerecipeapp.presentation.page.main.ProfileScreen
 import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeScreen
+import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeScreenRoot
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipeScreen
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipeScreenRoot
 
@@ -32,7 +33,7 @@ fun MainScreenNavigation(
         }
 
         composable(MainRoute.BookMark.screenRoute) {
-            SavedRecipeScreen()
+            SavedRecipeScreenRoot()
         }
 
         composable(MainRoute.Notification.screenRoute) {

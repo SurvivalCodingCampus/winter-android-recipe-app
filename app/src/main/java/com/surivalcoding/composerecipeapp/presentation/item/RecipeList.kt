@@ -12,12 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
-import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeViewModel
+import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeAction
+import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeState
 
 
 // RecipeList
 @Composable
-fun RecipeList(recipeList: List<Recipe>, viewModel: SavedRecipeViewModel) {
+fun RecipeList(state: SavedRecipeState, onAction: (SavedRecipeAction) -> Unit) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize(),
@@ -25,7 +26,7 @@ fun RecipeList(recipeList: List<Recipe>, viewModel: SavedRecipeViewModel) {
         contentPadding = PaddingValues(start = 30.dp, end = 30.dp, bottom = 80.dp)
     ) {
         items(
-            items = recipeList,
+            items = state.bookMarkList,
             key = { it.id }
         ) { recipe ->
             RecipeCard(
@@ -36,7 +37,7 @@ fun RecipeList(recipeList: List<Recipe>, viewModel: SavedRecipeViewModel) {
                 rate = recipe.rating,
                 id = recipe.id
             ) { id ->
-                viewModel.deleteBookMark(id)
+                onAction(SavedRecipeAction.DeleteBookmark(id))
             }
         }
     }

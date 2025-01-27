@@ -3,7 +3,6 @@ package com.surivalcoding.composerecipeapp.presentation.page.home
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.surivalcoding.composerecipeapp.presentation.page.main.HomeScreen
 
 
 /*

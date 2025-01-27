@@ -19,12 +19,8 @@ class SavedRecipeViewModel @Inject constructor(
     private val getBookMarkListUseCase: GetBookMarkListUseCase,
 ) : ViewModel() {
 
-    private val _bookMarkList = MutableStateFlow(SavedRecipeState())
-    val bookMarkList = _bookMarkList.asStateFlow()
-
-    private val _loadingState = MutableStateFlow(LoadingState())
-    val loadingState = _loadingState.asStateFlow()
-
+    private val _savedRecipeState = MutableStateFlow(SavedRecipeState())
+    val savedRecipeState = _savedRecipeState.asStateFlow()
 
     init {
         getBookMarkList()
@@ -32,12 +28,16 @@ class SavedRecipeViewModel @Inject constructor(
 
     private fun getBookMarkList() {
 
-        _loadingState.update { it.copy(isLoading = true) }
+        _savedRecipeState.update {
+            it.copy(
+                loadingState = LoadingState(isLoading = true)
+            )
+        }
         viewModelScope.launch {
             when (val result = getBookMarkListUseCase.execute()) {
                 is ResponseResult.Success -> {
                     Log.e("값확인", "전체: ${result.data} ${result.data.size}")
-                    _bookMarkList.update {
+                    _savedRecipeState.update {
                         it.copy(
                             bookMarkList = result.data.toList()
                         )
@@ -46,7 +46,7 @@ class SavedRecipeViewModel @Inject constructor(
 
                 is ResponseResult.Failure -> {
                     Log.e("RecipeViewModel", "통신 에러 ${result.error.message}")
-                    _bookMarkList.update {
+                    _savedRecipeState.update {
                         it.copy(
                             bookMarkList = emptyList()
                         )
@@ -54,15 +54,19 @@ class SavedRecipeViewModel @Inject constructor(
                 }
             }
 
-            _loadingState.update { it.copy(isLoading = false) }
+            _savedRecipeState.update {
+                it.copy(
+                    loadingState = LoadingState(isLoading = false)
+                )
+            }
         }
     }
 
-    fun deleteBookMark(id: Int) {
+    private fun deleteBookMark(id: Int) {
         viewModelScope.launch {
             when (val result = deleteBookMarkUseCase.execute(id)) {
                 is ResponseResult.Success -> {
-                    _bookMarkList.update {
+                    _savedRecipeState.update {
                         it.copy(
                             bookMarkList = result.data.toList()
                         )
@@ -72,6 +76,14 @@ class SavedRecipeViewModel @Inject constructor(
                 is ResponseResult.Failure -> {
                     Log.e("Saved", "삭제 실패")
                 }
+            }
+        }
+    }
+
+    fun onAction(action: SavedRecipeAction) {
+        when (action) {
+            is SavedRecipeAction.DeleteBookmark -> {
+                deleteBookMark(id = action.recipeId)
             }
         }
     }

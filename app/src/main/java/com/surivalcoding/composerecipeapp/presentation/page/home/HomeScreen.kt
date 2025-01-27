@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.page.main
+package com.surivalcoding.composerecipeapp.presentation.page.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,9 +34,6 @@ import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.presentation.item.MainRecipeItem
 import com.surivalcoding.composerecipeapp.presentation.item.NewRecipeItem
 import com.surivalcoding.composerecipeapp.presentation.item.button.NoneBorderFilterButton
-import com.surivalcoding.composerecipeapp.presentation.page.home.HomeAction
-import com.surivalcoding.composerecipeapp.presentation.page.home.HomeState
-import com.surivalcoding.composerecipeapp.presentation.page.home.PickerState
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.Category
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
