@@ -36,6 +36,7 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun NewRecipeItem(
     modifier: Modifier = Modifier,
+    itemIndex: Int,
     recipe: Recipe
 ) {
     Box(
@@ -133,7 +134,13 @@ fun NewRecipeItem(
         ) {
             // 이미지 로드 기능
             AsyncImage(
-                model = R.drawable.new_food_1,  // drawable 이미지
+                model = when (itemIndex) {
+                    0 -> R.drawable.new_food_1
+                    1 -> R.drawable.new_food_2
+                    2 -> R.drawable.new_food_3
+                    3 -> R.drawable.new_food_4
+                    else -> R.drawable.new_food_5
+                },  // drawable 이미지
                 contentDescription = null,
                 modifier = Modifier
                     .size(86.dp)
@@ -152,6 +159,7 @@ fun NewRecipeItem(
 @Composable
 private fun NewRecipeItemPreview() {
     NewRecipeItem(
+        itemIndex = 0,
         recipe = Recipe(
             category = "Indian",
             id = 1,

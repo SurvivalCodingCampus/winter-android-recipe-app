@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -109,7 +110,7 @@ fun HomeScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(17.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         Row(
             modifier = Modifier
@@ -212,7 +213,7 @@ fun HomeScreen(
         // 메인 음식 리스트
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(start = 30.dp),
+            contentPadding = PaddingValues(start = 30.dp, end = 20.dp),
             horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             items(mainRecipeState.filteredRecipeList) { recipe ->
@@ -237,11 +238,14 @@ fun HomeScreen(
         // NewRecipeList 가져오기
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(start = 30.dp),
+            contentPadding = PaddingValues(start = 30.dp, end = 20.dp),
             horizontalArrangement = Arrangement.spacedBy(15.dp),
         ) {
-            items(mainRecipeState.newRecipeList) { recipe ->
-                NewRecipeItem(recipe = recipe)
+            itemsIndexed(mainRecipeState.newRecipeList) { index, recipe ->
+                NewRecipeItem(
+                    recipe = recipe,
+                    itemIndex = index
+                )
             }
         }
 

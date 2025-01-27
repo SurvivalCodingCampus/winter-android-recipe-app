@@ -1,6 +1,8 @@
 package com.surivalcoding.composerecipeapp.presentation.page.main
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomAppBar
@@ -14,7 +16,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -49,9 +50,11 @@ fun MainScreen(
             if (showBottomBar) {
                 BottomAppBar(
                     modifier = Modifier
-                        .height(72.dp),
+                        .fillMaxWidth()
+                        .height(60.dp),
                     cutoutShape = CircleShape,
-                    backgroundColor = Color.White,
+                    backgroundColor = AppColors.white,
+                    contentPadding = PaddingValues(0.dp)
                 ) {
                     BottomNavigationBar(currentRoute = currentRoute, items = items, navController = navController)
                 }
@@ -75,6 +78,7 @@ fun MainScreen(
             }
 
         },
+        backgroundColor = AppColors.white
     ) { innerPadding ->
         MainScreenNavigation(navController = navController)
     }

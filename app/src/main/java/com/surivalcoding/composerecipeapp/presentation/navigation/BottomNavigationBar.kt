@@ -2,6 +2,8 @@ package com.surivalcoding.composerecipeapp.presentation.navigation
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -43,7 +45,8 @@ fun BottomNavigationBar(
                 icon = {
                     Icon(
                         painter = painterResource(id = navItem.icon),
-                        contentDescription = null
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp)
                     )
                 },
                 label = null,
