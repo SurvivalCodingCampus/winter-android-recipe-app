@@ -12,14 +12,12 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepositoryImpl
-import com.surivalcoding.composerecipeapp.domain.usecase.GetRecipesUseCase
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.surivalcoding.composerecipeapp.ui.component.RecipeCard
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 import com.surivalcoding.composerecipeapp.ui.theme.PoppinsBoldTypography
@@ -27,11 +25,9 @@ import com.surivalcoding.composerecipeapp.ui.theme.Primary80
 import com.surivalcoding.composerecipeapp.ui.viewmodel.RecipeViewModel
 
 @Composable
-fun SavedRecipeListScreen() {
-    val repository = remember { RecipeRepositoryImpl() }
-    val useCase = remember { GetRecipesUseCase(repository) }
-    val viewModel = remember { RecipeViewModel(useCase) }
-
+fun SavedRecipeListScreen(
+    viewModel: RecipeViewModel = hiltViewModel()
+) {
     val recipes = viewModel.recipes.collectAsState()
     val isLoading = viewModel.isLoading.collectAsState()
 
