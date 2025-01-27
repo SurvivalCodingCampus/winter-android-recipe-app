@@ -14,11 +14,16 @@ import com.surivalcoding.composerecipeapp.presentation.page.main.HomeScreen
 * */
 @Composable
 fun HomeScreenRoot(
-    onSearchRecipeClick: () -> Unit,
+    onSearchRecipeClick: (HomeAction) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     HomeScreen(
         state = viewModel.homeState.collectAsStateWithLifecycle().value,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when (action) {
+                is HomeAction.SearchRecipe -> onSearchRecipeClick(action)
+                else -> viewModel.onAction(action)
+            }
+        }
     )
 }

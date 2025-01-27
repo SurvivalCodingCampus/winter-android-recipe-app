@@ -58,18 +58,18 @@ class HomeViewModel @Inject constructor(
 
 
     // 카테고리 클릭 처리
-    fun onSelectCategory(category: PickerState) {
+    private fun onSelectCategory(pickerState: PickerState) {
         _homeState.update {
-            it.copy(pickerState = category)
+            it.copy(pickerState = pickerState)
         }
 
         // 필터링된 레시피 리스트 갱신
         _homeState.update { state ->
-            val filteredList = if (category.buttonState.displayName == Category.All.displayName) {
+            val filteredList = if (pickerState.buttonState.displayName == Category.All.displayName) {
                 state.recipeList
             } else {
                 state.recipeList.filter { recipe ->
-                    recipe.category == category.buttonState.displayName
+                    recipe.category == pickerState.buttonState.displayName
                 }
             }
 
@@ -91,12 +91,12 @@ class HomeViewModel @Inject constructor(
 
 
     /*
-    * 사용자의 Action 처리
+    * 사용자의 Action
     * */
     fun onAction(action: HomeAction) {
         when (action) {
-            HomeAction.FilterCategory -> TODO()
-            HomeAction.SearchRecipe -> TODO()
+            is HomeAction.SearchRecipe -> Logger.e("Search Recipe 화면으로 이동")
+            is HomeAction.FilterCategory -> onSelectCategory(pickerState = action.pickerState)
         }
     }
 
