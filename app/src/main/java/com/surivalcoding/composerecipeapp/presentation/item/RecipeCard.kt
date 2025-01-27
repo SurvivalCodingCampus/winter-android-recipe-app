@@ -46,10 +46,6 @@ fun RecipeCard(
     id: Int,
     onDeleteBookMark: (Int) -> Unit = {},
 ) {
-    val timerImage = painterResource(R.drawable.timer)
-    val bookMarkImage = painterResource(R.drawable.union)
-    val starImage = painterResource(R.drawable.star)
-
     Box(
         modifier = Modifier
             .background(
@@ -106,7 +102,7 @@ fun RecipeCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-                Image(painter = timerImage, contentDescription = null)
+                Image(painter = painterResource(R.drawable.timer), contentDescription = null)
 
                 Spacer(modifier = Modifier.width(5.dp))
                 Text(
@@ -127,7 +123,7 @@ fun RecipeCard(
                             .size(16.dp)
                             .align(Alignment.Center)
                             .padding(1.dp),
-                        painter = bookMarkImage, contentDescription = null
+                        painter = painterResource(R.drawable.union), contentDescription = null
                     )
                 }
             }

@@ -9,6 +9,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.surivalcoding.composerecipeapp.presentation.navigation.Route
 import com.surivalcoding.composerecipeapp.presentation.page.main.MainScreen
+import com.surivalcoding.composerecipeapp.presentation.page.signin.SignInScreen
+import com.surivalcoding.composerecipeapp.presentation.page.signup.SignUpScreen
+import com.surivalcoding.composerecipeapp.presentation.page.splash.SplashScreen
 
 @Composable
 fun MyApp(modifier: Modifier = Modifier) {

@@ -31,10 +31,6 @@ fun MainRecipeItem(
     modifier: Modifier = Modifier,
     recipe: Recipe
 ) {
-
-    val testImage = painterResource(R.drawable.food_1)
-    val testBookMark = painterResource(R.drawable.inactive)
-
     Box(
         modifier = Modifier
             .width(150.dp)
@@ -101,14 +97,14 @@ fun MainRecipeItem(
                     modifier = Modifier
                         .size(16.dp)
                         .align(Alignment.Center),
-                    painter = testBookMark,
+                    painter = painterResource(R.drawable.inactive),
                     contentDescription = null
                 )
             }
 
         }
 
-        Image(painter = testImage, contentDescription = null)
+        Image(painter = painterResource(R.drawable.food_1), contentDescription = null)
 
         RatingMark(
             modifier = Modifier
@@ -123,15 +119,17 @@ fun MainRecipeItem(
 @Preview(showBackground = true)
 @Composable
 private fun MainRecipeItemPreview() {
-    MainRecipeItem(recipe = Recipe(
-        category = "Indian",
-        id = 1,
-        name = "Classic Greek Salad",
-        image = "fsdfsfsf",
-        chef = "Chef John",
-        time = "15 Mins",
-        rating = 4.0,
-        isBookMarked = false,
-        ingredients = emptyList(),
-    ))
+    MainRecipeItem(
+        recipe = Recipe(
+            category = "Indian",
+            id = 1,
+            name = "Classic Greek Salad",
+            image = "fsdfsfsf",
+            chef = "Chef John",
+            time = "15 Mins",
+            rating = 4.0,
+            isBookMarked = false,
+            ingredients = emptyList(),
+        )
+    )
 }

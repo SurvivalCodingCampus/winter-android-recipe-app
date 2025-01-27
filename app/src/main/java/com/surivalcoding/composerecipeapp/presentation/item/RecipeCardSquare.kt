@@ -40,8 +40,6 @@ fun RecipeCardSquare(
     chefName: String,
     rate: Double,
 ) {
-    val starImage = painterResource(R.drawable.star)
-
     Box(
         modifier = Modifier
             .background(
@@ -103,7 +101,7 @@ fun RecipeCardSquare(
                 horizontalArrangement = Arrangement.spacedBy(3.dp)
             ) {
                 Image(
-                    painter = starImage,
+                    painter = painterResource(R.drawable.star),
                     modifier = Modifier
                         .size(8.dp)
                         .offset(y = ((-0.5).dp)),

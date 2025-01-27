@@ -26,7 +26,6 @@ fun RatingMark(
     fontSize: TextUnit,
     rate: Double,
 ) {
-    val starImage = painterResource(R.drawable.star)
     Row(
         modifier = modifier
             .background(
@@ -38,7 +37,7 @@ fun RatingMark(
         horizontalArrangement = Arrangement.spacedBy(3.dp)
     ) {
         Image(
-            painter = starImage,
+            painter = painterResource(R.drawable.star),
             modifier = Modifier
                 .size(8.dp)
                 .offset(y = ((-0.5).dp)),

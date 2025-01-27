@@ -39,8 +39,6 @@ fun SavedRecipeScreen(viewModel: SavedRecipeViewModel = hiltViewModel()) {
     // 로티 애니메이션
     val lottieLoading by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.animal))
 
-    Logger.e("세이브 화면이라구!!!!")
-
     Column(
         modifier = Modifier
             .fillMaxSize(),

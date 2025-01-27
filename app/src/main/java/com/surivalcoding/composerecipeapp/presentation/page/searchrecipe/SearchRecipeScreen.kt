@@ -59,9 +59,6 @@ import kotlinx.coroutines.launch
 fun SearchRecipeScreen(
     viewModel: SearchRecipeViewModel = hiltViewModel()
 ) {
-    val backImage = painterResource(R.drawable.arrow_left)
-    val searchIcon = painterResource(R.drawable.search)
-    val filterIcon = painterResource(R.drawable.setting_4)
     val recipeList by viewModel.searchRecipeState.collectAsStateWithLifecycle()
     val loadingState by viewModel.loadingState.collectAsState()
     // 로티 애니메이션
@@ -112,7 +109,7 @@ fun SearchRecipeScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = backImage,
+                    painter = painterResource(R.drawable.arrow_left),
                     contentDescription = "back",
                     modifier = Modifier.size(20.dp)
                 )
@@ -160,7 +157,7 @@ fun SearchRecipeScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                painter = searchIcon,
+                                painter = painterResource(R.drawable.search),
                                 contentDescription = "search",
                                 modifier = Modifier.size(18.dp),
                                 tint = AppColors.gray_4
@@ -198,7 +195,7 @@ fun SearchRecipeScreen(
                 ) {
                     Image(
                         modifier = Modifier.align(Alignment.Center),
-                        painter = filterIcon,
+                        painter = painterResource(R.drawable.setting_4),
                         contentDescription = null
                     )
                 }

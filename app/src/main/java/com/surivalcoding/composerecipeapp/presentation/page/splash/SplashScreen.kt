@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.page
+package com.surivalcoding.composerecipeapp.presentation.page.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,15 +34,11 @@ fun SplashScreen(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
-
-    val backgroundImage = painterResource(R.drawable.splash_background)
-    val splashLogo = painterResource(R.drawable.splash_logo)
-
     Box(
         modifier = Modifier
             .fillMaxSize()
             .paint(
-                painter = backgroundImage,
+                painter = painterResource(R.drawable.splash_background),
                 contentScale = ContentScale.Crop
             )
             .background(
@@ -62,7 +58,7 @@ fun SplashScreen(
             Image(
                 modifier = Modifier
                     .size(79.dp),
-                painter = splashLogo,
+                painter = painterResource(R.drawable.splash_logo),
                 contentDescription = null
             )
 

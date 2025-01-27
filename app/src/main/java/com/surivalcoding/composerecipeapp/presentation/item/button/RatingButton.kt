@@ -34,9 +34,6 @@ fun RatingButton(
     isSelected: Boolean,
     onClick: (Boolean) -> Unit = {},
 ) {
-    val whiteStar = painterResource(R.drawable.star_white)
-    val greenStar = painterResource(R.drawable.star_green)
-
     Row(
         modifier = modifier
             .background(
@@ -64,7 +61,7 @@ fun RatingButton(
         Spacer(modifier = Modifier.width(5.dp))
 
         Image(
-            painter = if (isSelected) whiteStar else greenStar,
+            painter = if (isSelected) painterResource(R.drawable.star_white) else painterResource(R.drawable.star_green),
             contentDescription = null
         )
     }

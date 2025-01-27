@@ -19,12 +19,8 @@ class HomeViewModel @Inject constructor(
     private val getMainRecipeListUseCase: GetMainRecipeListUseCase
 ) : ViewModel() {
 
-    private val _mainRecipeState = MutableStateFlow(MainRecipeState())
-    val mainRecipeState = _mainRecipeState.asStateFlow()
-
-    private val _pickerState = MutableStateFlow(PickerState())
-    val pickerState = _pickerState.asStateFlow()
-
+    private val _homeState = MutableStateFlow(HomeState())
+    val homeState = _homeState.asStateFlow()
 
     init {
         getMainRecipeList()
@@ -35,7 +31,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = getMainRecipeListUseCase.execute()) {
                 is ResponseResult.Success -> {
-                    _mainRecipeState.update {
+                    _homeState.update {
                         it.copy(
                             recipeList = result.data,
                             filteredRecipeList = result.data
@@ -48,7 +44,7 @@ class HomeViewModel @Inject constructor(
 
                 is ResponseResult.Failure -> {
                     Logger.e("홈 화면 통신 불러오기 실패")
-                    _mainRecipeState.update {
+                    _homeState.update {
                         it.copy(
                             recipeList = emptyList(),
                             filteredRecipeList = emptyList()
@@ -63,12 +59,12 @@ class HomeViewModel @Inject constructor(
 
     // 카테고리 클릭 처리
     fun onSelectCategory(category: PickerState) {
-        _pickerState.update {
-            it.copy(buttonState = category.buttonState)
+        _homeState.update {
+            it.copy(pickerState = category)
         }
 
         // 필터링된 레시피 리스트 갱신
-        _mainRecipeState.update { state ->
+        _homeState.update { state ->
             val filteredList = if (category.buttonState.displayName == Category.All.displayName) {
                 state.recipeList
             } else {
@@ -86,10 +82,21 @@ class HomeViewModel @Inject constructor(
     private fun getNewRecipeList() {
         viewModelScope.launch {
             // 전체 리스트에서 임시로 5개만 가져오기
-            val newRecipeList = _mainRecipeState.value.recipeList.take(5)
-            _mainRecipeState.update {
+            val newRecipeList = _homeState.value.recipeList.take(5)
+            _homeState.update {
                 it.copy(newRecipeList = newRecipeList)
             }
+        }
+    }
+
+
+    /*
+    * 사용자의 Action 처리
+    * */
+    fun onAction(action: HomeAction) {
+        when (action) {
+            HomeAction.FilterCategory -> TODO()
+            HomeAction.SearchRecipe -> TODO()
         }
     }
 
