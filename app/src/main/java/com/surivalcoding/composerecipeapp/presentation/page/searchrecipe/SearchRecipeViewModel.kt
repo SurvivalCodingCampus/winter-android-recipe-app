@@ -1,14 +1,13 @@
 package com.surivalcoding.composerecipeapp.presentation.page.searchrecipe
 
 import android.util.Log
-import androidx.compose.material.ModalBottomSheetState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.orhanobut.logger.Logger
 import com.surivalcoding.composerecipeapp.domain.usecase.GetMainRecipeListUseCase
 import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.LoadingState
 import com.surivalcoding.composerecipeapp.util.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -86,6 +85,8 @@ class SearchRecipeViewModel @Inject constructor(
                     )
                 }
             }
+
+            is SearchRecipeAction.SearchRecipeDetail -> Logger.e("Recipe Detail 화면으로 이동 ")
         }
     }
 }

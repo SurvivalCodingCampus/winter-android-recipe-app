@@ -215,7 +215,10 @@ fun SearchRecipeScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            RecipeListGrid(state.filteredRecipeList)
+            RecipeListGrid(
+                state = state,
+                onAction = onAction
+            )
         }
     }
 

@@ -15,3 +15,7 @@ enum class Category(val displayName: String) {
     CHINESE("Chinese"), LOCAL_DISH("Local Dish"), FRUIT("Fruit"), BREAKFAST("BreakFast"),
     SPANISH("Spanish"), LUNCH("Lunch")
 }
+
+enum class ProfileCategory(val displayName: String) {
+    RECIPE("Recipe"), VIDEOS("Videos"), TAG("Tag")
+}

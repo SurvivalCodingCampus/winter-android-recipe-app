@@ -17,8 +17,9 @@ import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
+
 @Composable
-fun NoneBorderFilterButton(
+fun PushedButton(
     modifier: Modifier = Modifier,
     text: String,
     isSelected: Boolean = false,
@@ -28,33 +29,35 @@ fun NoneBorderFilterButton(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .background(
-                color = if (isSelected) AppColors.primary_100 else Color.Transparent,
+                color = if (!isSelected) AppColors.primary_100 else Color.Transparent,
                 shape = RoundedCornerShape(10.dp)
             )
             .clickable {
                 onClick(!isSelected)
             }
-            .padding(vertical = 7.dp, horizontal = 20.dp)
+            .padding(vertical = 10.dp, horizontal = 20.dp)
     ) {
         Text(
             text = text,
             style =
-            if (isSelected) AppTextStyles.mediumTextSemiBold.copy(
+            if (!isSelected) AppTextStyles.mediumTextSemiBold.copy(
                 fontSize = 11.sp,
                 color = AppColors.white
             )
             else AppTextStyles.mediumTextSemiBold.copy(
                 fontSize = 11.sp,
-                color = AppColors.primary_80
+                color = AppColors.primary_100
             ),
             textAlign = TextAlign.Center
         )
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
-private fun NoneBorderFilterButtonPreview() {
-    NoneBorderFilterButton(text = "All")
+private fun PushedButtonPreview() {
+    PushedButton(
+        text = "Follow",
+        isSelected = false
+    )
 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.orhanobut.logger.Logger
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.presentation.navigation.BottomNavigationBar
 import com.surivalcoding.composerecipeapp.presentation.navigation.MainRoute
@@ -39,9 +40,15 @@ fun MainScreen(
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
 
-    showBottomBar = when (currentRoute) {
-        MainRoute.Search.screenRoute -> false
-        else -> true
+    Logger.e("currentRoute: $currentRoute")
+
+    showBottomBar = when {
+        // items 리스트에 있는 화면일 때만 BottomBar를 보이게 한다.
+        currentRoute?.let { route ->
+            items.any { it.screenRoute == route }
+        } == true -> true
+
+        else -> false
     }
 
     Scaffold(

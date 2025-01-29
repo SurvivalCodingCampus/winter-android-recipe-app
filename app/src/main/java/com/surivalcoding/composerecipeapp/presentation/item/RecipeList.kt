@@ -14,6 +14,8 @@ import androidx.compose.ui.unit.dp
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeAction
 import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeState
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipeAction
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipesState
 
 
 // RecipeList
@@ -43,21 +45,21 @@ fun RecipeList(state: SavedRecipeState, onAction: (SavedRecipeAction) -> Unit) {
     }
 }
 
-
 @Composable
-fun RecipeListGrid(recipeList: List<Recipe>) {
+fun RecipeListGrid(
+    state: SearchRecipesState,
+    onAction: (SearchRecipeAction) -> Unit,
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(15.dp),
         horizontalArrangement = Arrangement.spacedBy(15.dp),
     ) {
-        items(recipeList) { recipe ->
+        items(state.filteredRecipeList) { recipe ->
             RecipeCardSquare(
-                imageUrl = recipe.image,
-                recipeName = recipe.name,
-                chefName = recipe.chef,
-                rate = recipe.rating
+                recipe,
+                onAction = onAction
             )
         }
     }

@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation.item
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,17 +29,16 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.surivalcoding.composerecipeapp.R
+import com.surivalcoding.composerecipeapp.domain.model.Recipe
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipeAction
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 
 @Composable
 fun RecipeCardSquare(
-    modifier: Modifier = Modifier,
-    imageUrl: String,
-    recipeName: String,
-    chefName: String,
-    rate: Double,
+    recipe: Recipe,
+    onAction: (SearchRecipeAction) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -46,7 +46,10 @@ fun RecipeCardSquare(
                 color = Color.Transparent,
                 shape = RoundedCornerShape(10.dp)
             )
-            .size(150.dp),
+            .size(150.dp)
+            .clickable {
+                onAction(SearchRecipeAction.SearchRecipeDetail(recipe))
+            },
         contentAlignment = Alignment.TopStart,
     ) {
         AsyncImage(
@@ -54,7 +57,7 @@ fun RecipeCardSquare(
                 .fillMaxSize()
                 .clip(RoundedCornerShape(10.dp)),
             model = ImageRequest.Builder(LocalContext.current)
-                .data(imageUrl)
+                .data(recipe.image)
                 .crossfade(true)
                 .build(),
             contentDescription = "",
@@ -73,7 +76,7 @@ fun RecipeCardSquare(
                 modifier = Modifier.align(Alignment.BottomStart)
             ) {
                 Text(
-                    text = recipeName,
+                    text = recipe.name,
                     modifier = Modifier.width(200.dp),
                     maxLines = 2,
                     style = AppTextStyles.smallTextBold.copy(
@@ -82,7 +85,7 @@ fun RecipeCardSquare(
                 )
 
                 Text(
-                    text = "By $chefName",
+                    text = "By ${recipe.chef}",
                     style = AppTextStyles.smallTextRegular.copy(
                         fontSize = 8.sp, color = AppColors.white
                     )
@@ -109,7 +112,7 @@ fun RecipeCardSquare(
                 )
 
                 Text(
-                    text = rate.toString(),
+                    text = recipe.rating.toString(),
                     style = AppTextStyles.smallTextRegular.copy(
                         fontSize = 8.sp, color = AppColors.black
                     ),
@@ -124,9 +127,17 @@ fun RecipeCardSquare(
 @Composable
 private fun RecipeCardSquarePreview() {
     RecipeCardSquare(
-        imageUrl = "https://img.daily.co.kr/@files/www.daily.co.kr/content/food/2020/20200730/40d0fb3794229958bdd1e36520a4440f.jpg",
-        recipeName = "Traditional spare ribs baked",
-        chefName = "By Chef John",
-        rate = 4.0
+        recipe = Recipe(
+            category = "Indian",
+            id = 1,
+            name = "Classic Greek Salad",
+            image = "fsdfsfsf",
+            chef = "Chef John",
+            time = "15 Min",
+            rating = 4.0,
+            isBookMarked = false,
+            ingredients = emptyList(),
+        ),
+        onAction = {}
     )
 }
