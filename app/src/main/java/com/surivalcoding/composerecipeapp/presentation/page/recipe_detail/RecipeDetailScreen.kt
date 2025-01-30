@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.presentation.item.IngredientItem
+import com.surivalcoding.composerecipeapp.presentation.item.ProcedureCard
 import com.surivalcoding.composerecipeapp.presentation.item.RecipeCard
 import com.surivalcoding.composerecipeapp.presentation.item.button.NoneBorderFilterButton
 import com.surivalcoding.composerecipeapp.presentation.item.button.PushedButton
@@ -225,19 +227,38 @@ fun RecipeDetailScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            items(state.recipeDetail?.ingredients ?: emptyList()) { ingredient ->
-                IngredientItem(
-                    imageUrl = ingredient.ingredient.image,
-                    name = ingredient.ingredient.name,
-                    weight = ingredient.amount
-                )
+
+        // 탭바 상태에 따라 LazyColumn 교체 (재료 인지 요리 절차인지)
+        when (state.recipeCategoryButtonState.buttonState) {
+            RecipeDetailCategory.INGREDIENT -> {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    items(state.recipeDetail?.ingredients ?: emptyList()) { ingredient ->
+                        IngredientItem(
+                            imageUrl = ingredient.ingredient.image,
+                            name = ingredient.ingredient.name,
+                            weight = ingredient.amount
+                        )
+                    }
+                }
+
             }
 
-        }
+            RecipeDetailCategory.PROCEDURE -> {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    itemsIndexed(state.recipeDetail?.procedure ?: emptyList()) { index, procedure ->
+                        ProcedureCard(
+                            procedure = procedure,
+                            procedureIndex = index + 1
+                        )
+                    }
+                }
 
+            }
+        }
     }
 }
 

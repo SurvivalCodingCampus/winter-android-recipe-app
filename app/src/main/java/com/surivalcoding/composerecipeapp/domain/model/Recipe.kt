@@ -12,7 +12,8 @@ data class Recipe(
     val time: String,
     val rating: Double,
     val isBookMarked: Boolean,
-    val ingredients: List<Ingredient>
+    val ingredients: List<Ingredient>,
+    val procedure: List<String>,
 )
 
 @Serializable

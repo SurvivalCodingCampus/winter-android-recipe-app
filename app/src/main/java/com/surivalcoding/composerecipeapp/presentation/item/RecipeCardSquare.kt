@@ -137,6 +137,7 @@ private fun RecipeCardSquarePreview() {
             rating = 4.0,
             isBookMarked = false,
             ingredients = emptyList(),
+            procedure = emptyList()
         ),
         onAction = {}
     )
