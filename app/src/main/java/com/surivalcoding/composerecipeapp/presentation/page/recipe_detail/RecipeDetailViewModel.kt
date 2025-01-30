@@ -17,10 +17,13 @@ class RecipeDetailViewModel @Inject constructor(
     private val _recipeDetailState = MutableStateFlow(RecipeDetailState())
     val recipeDetailState = _recipeDetailState.asStateFlow()
 
-
     init {
+        // SearchRecipeScreen에서 해당 키값으로 데이터를 전달한후 여기서 받아서 처리함
         val jsonRecipe = savedStateHandle.get<String>("recipeDetail")
         Logger.e("디테일 정보: $jsonRecipe")
+
+
+        // try - catch 대신 runCatching 사용
         kotlin.runCatching {
             jsonRecipe?.let {
                 val recipe = Json.decodeFromString<Recipe>(it)
@@ -39,7 +42,7 @@ class RecipeDetailViewModel @Inject constructor(
         when (action) {
             is RecipeDetailAction.FilterCategory -> {
                 _recipeDetailState.value = _recipeDetailState.value.copy(
-                    filterButtonState = action.filterButtonState
+                    recipeCategoryButtonState = action.recipeDetailButtonState
                 )
             }
         }

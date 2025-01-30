@@ -29,8 +29,7 @@ import com.surivalcoding.composerecipeapp.presentation.item.IngredientItem
 import com.surivalcoding.composerecipeapp.presentation.item.RecipeCard
 import com.surivalcoding.composerecipeapp.presentation.item.button.NoneBorderFilterButton
 import com.surivalcoding.composerecipeapp.presentation.item.button.PushedButton
-import com.surivalcoding.composerecipeapp.presentation.page.profile.FilterButtonState
-import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.ProfileCategory
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.RecipeDetailCategory
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
@@ -76,14 +75,12 @@ fun RecipeDetailScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        RecipeCard(
-            imageUrl = state.recipeDetail?.image ?: "",
-            recipeName = state.recipeDetail?.name ?: "",
-            chefName = state.recipeDetail?.chef ?: "",
-            cookingTime = state.recipeDetail?.time ?: "",
-            rate = state.recipeDetail?.rating ?: 0.0,
-            id = state.recipeDetail?.id ?: 0
-        )
+        state.recipeDetail?.let { recipeDetail ->
+            RecipeCard(
+                recipe = recipeDetail,
+                isDetail = true
+            )
+        }
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -176,15 +173,17 @@ fun RecipeDetailScreen(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            ProfileCategory.entries.forEach { category ->
+            RecipeDetailCategory.entries.forEach { category ->
                 NoneBorderFilterButton(
                     modifier = Modifier.weight(1f),
                     text = category.displayName,
-                    isSelected = state.filterButtonState.buttonState == category,
+                    isSelected = state.recipeCategoryButtonState.buttonState == category,
                     onClick = {
                         onAction(
                             RecipeDetailAction.FilterCategory(
-                                filterButtonState = FilterButtonState(buttonState = category)
+                                recipeDetailButtonState = RecipeDetailButtonState(
+                                    buttonState = category
+                                )
                             )
                         )
                     })
@@ -216,7 +215,7 @@ fun RecipeDetailScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text = "10 items",
+                text = "${state.recipeDetail?.ingredients?.size ?: 0} items",
                 style = AppTextStyles.smallTextRegular.copy(
                     color = AppColors.gray_3,
                     fontSize = 11.sp

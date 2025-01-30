@@ -37,8 +37,18 @@ fun MainScreenNavigation(
             )
         }
 
+
+        // 북마크 화면(SavedRecipeScreen)
         composable(MainRoute.BookMark.screenRoute) {
-            SavedRecipeScreenRoot()
+            SavedRecipeScreenRoot(onRecipeDetailClick = { recipe ->
+                val jsonRecipe = Uri.encode(Json.encodeToString(recipe))
+                navController.navigate("${MainRoute.SearchDetail.screenRoute}/$jsonRecipe") {
+                    popUpTo(MainRoute.BookMark.screenRoute) {
+                        inclusive = false
+                    }
+                    launchSingleTop = true
+                }
+            })
         }
 
         composable(MainRoute.Notification.screenRoute) {
@@ -51,7 +61,7 @@ fun MainScreenNavigation(
 
         // 검색 화면
         composable(MainRoute.Search.screenRoute) {
-            SearchRecipeScreenRoot(onSearchRecipeClick = { recipe ->
+            SearchRecipeScreenRoot(onRecipeDetailClick = { recipe ->
                 val jsonRecipe = Uri.encode(Json.encodeToString(recipe))
                 navController.navigate("${MainRoute.SearchDetail.screenRoute}/$jsonRecipe") {
                     popUpTo(MainRoute.Search.screenRoute) {

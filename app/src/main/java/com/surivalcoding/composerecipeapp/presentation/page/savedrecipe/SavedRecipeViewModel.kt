@@ -3,6 +3,7 @@ package com.surivalcoding.composerecipeapp.presentation.page.savedrecipe
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.orhanobut.logger.Logger
 import com.surivalcoding.composerecipeapp.domain.usecase.DeleteBookMarkUseCase
 import com.surivalcoding.composerecipeapp.domain.usecase.GetBookMarkListUseCase
 import com.surivalcoding.composerecipeapp.util.ResponseResult
@@ -85,6 +86,8 @@ class SavedRecipeViewModel @Inject constructor(
             is SavedRecipeAction.DeleteBookmark -> {
                 deleteBookMark(id = action.recipeId)
             }
+
+            is SavedRecipeAction.SearchRecipeDetail -> Logger.e("레시피 상세 화면으로 이동")
         }
     }
 }

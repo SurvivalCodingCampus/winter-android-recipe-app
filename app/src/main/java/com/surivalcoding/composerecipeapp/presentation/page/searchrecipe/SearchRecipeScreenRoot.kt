@@ -8,7 +8,7 @@ import com.surivalcoding.composerecipeapp.domain.model.Recipe
 
 @Composable
 fun SearchRecipeScreenRoot(
-    onSearchRecipeClick: (Recipe) -> Unit,
+    onRecipeDetailClick: (Recipe) -> Unit,
     viewModel: SearchRecipeViewModel = hiltViewModel()
 ) {
     SearchRecipeScreen(
@@ -17,10 +17,9 @@ fun SearchRecipeScreenRoot(
             when (action) {
                 is SearchRecipeAction.SearchRecipeDetail -> {
                     Logger.e("디테일 화면으로 이동해버려!")
-                    onSearchRecipeClick(action.recipeDetail)
+                    onRecipeDetailClick(action.recipeDetail)
                 }
-
-                else -> {}
+                else -> viewModel.onAction(action)
             }
         }
     )

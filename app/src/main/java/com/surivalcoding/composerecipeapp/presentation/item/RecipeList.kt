@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeAction
 import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeState
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipeAction
@@ -32,15 +31,14 @@ fun RecipeList(state: SavedRecipeState, onAction: (SavedRecipeAction) -> Unit) {
             key = { it.id }
         ) { recipe ->
             RecipeCard(
-                imageUrl = recipe.image,
-                recipeName = recipe.name,
-                chefName = recipe.chef,
-                cookingTime = recipe.time,
-                rate = recipe.rating,
-                id = recipe.id
-            ) { id ->
-                onAction(SavedRecipeAction.DeleteBookmark(id))
-            }
+                recipe = recipe,
+                onItemClick = { recipeDetail ->
+                    onAction(SavedRecipeAction.SearchRecipeDetail(recipeDetail))
+                },
+                onDeleteBookMark = { id ->
+                    onAction(SavedRecipeAction.DeleteBookmark(id))
+                }
+            )
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.surivalcoding.composerecipeapp.presentation.page.searchrecipe
 
+import com.surivalcoding.composerecipeapp.domain.model.Ingredient
+
 data class FilterButtonState(
     val time: Time,
     val rate: Int,
@@ -18,4 +20,8 @@ enum class Category(val displayName: String) {
 
 enum class ProfileCategory(val displayName: String) {
     RECIPE("Recipe"), VIDEOS("Videos"), TAG("Tag")
+}
+
+enum class RecipeDetailCategory(val displayName: String) {
+    INGREDIENT("Ingredient"), PROCEDURE("Procedure")
 }
