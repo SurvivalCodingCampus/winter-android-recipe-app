@@ -1,6 +1,5 @@
 package com.surivalcoding.composerecipeapp.presentation.home
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -57,12 +56,7 @@ fun HomeScreen(
     HomeScreen(
         homeUiState = homeUiState,
         onSearchClick = onSearchClick,
-        onBookmarkClick = { id, bookmarked ->
-            viewModel.onAction(HomeUiAction.UpdateUserBookMarked(id, bookmarked))
-        },
-        onCategoryChange = { category ->
-            viewModel.onAction(HomeUiAction.UpdateCategory(category))
-        },
+        setAction = viewModel::setAction,
         modifier = modifier,
     )
 }
@@ -71,8 +65,7 @@ fun HomeScreen(
 private fun HomeScreen(
     homeUiState: HomeUiState,
     onSearchClick: () -> Unit,
-    onBookmarkClick: (Int, Boolean) -> Unit,
-    onCategoryChange: (RecipeCategory) -> Unit,
+    setAction: (HomeAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -131,7 +124,7 @@ private fun HomeScreen(
                     items(RecipeCategory.entries) { category ->
                         val selected = homeUiState.selectedCategory == category
                         NoPaddingButton(
-                            onClick = { onCategoryChange(category) },
+                            onClick = { setAction(HomeAction.UpdateCategory(category)) },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = if (selected) AppColors.Primary100 else Color.Transparent,
                                 contentColor = if (selected) AppColors.White else AppColors.Primary80
@@ -159,8 +152,12 @@ private fun HomeScreen(
                             isBookmarked = isBookmarked,
                             onClick = {},
                             onBookmarkClick = {
-                                Log.d("testaaa", "${homeUiState.selectedCategory}")
-                                onBookmarkClick(homeRecipe.id, !isBookmarked)
+                                setAction(
+                                    HomeAction.UpdateUserBookMarked(
+                                        homeRecipe.id,
+                                        !isBookmarked
+                                    )
+                                )
                             },
                             modifier = Modifier
                                 .width(150.dp)
@@ -226,8 +223,7 @@ private fun HomeScreenPreview() {
                 homeRecipes = fakeHomeRecipes,
                 newRecipes = fakeNewRecipes,
             ),
-            onBookmarkClick = { _, _ -> },
-            onCategoryChange = {},
+            setAction = {},
             onSearchClick = {}
         )
     }

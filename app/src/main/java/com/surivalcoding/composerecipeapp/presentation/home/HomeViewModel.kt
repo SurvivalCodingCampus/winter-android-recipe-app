@@ -9,19 +9,22 @@ import com.surivalcoding.composerecipeapp.data.model.toHomeRecipe
 import com.surivalcoding.composerecipeapp.data.model.toNewRecipe
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.UserDataRepository
-import com.surivalcoding.composerecipeapp.presentation.home.HomeUiAction.UpdateCategory
-import com.surivalcoding.composerecipeapp.presentation.home.HomeUiAction.UpdateUserBookMarked
+import com.surivalcoding.composerecipeapp.presentation.home.HomeAction.UpdateCategory
+import com.surivalcoding.composerecipeapp.presentation.home.HomeAction.UpdateUserBookMarked
 import com.surivalcoding.composerecipeapp.util.Result
 import com.surivalcoding.composerecipeapp.util.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,6 +33,9 @@ class HomeViewModel @Inject constructor(
     private val userDataRepository: UserDataRepository,
 ) : ViewModel() {
     private val _selectedCategory = MutableStateFlow(RecipeCategory.ALL)
+
+    private val _actions = MutableSharedFlow<HomeAction>()
+    private val action = _actions.asSharedFlow()
 
     val homeUiState: StateFlow<HomeUiState> = homeUiState(
         _selectedCategory,
@@ -42,7 +48,21 @@ class HomeViewModel @Inject constructor(
             initialValue = HomeUiState.Loading
         )
 
-    fun onAction(action: HomeUiAction) {
+    init {
+        viewModelScope.launch {
+            action.collect {
+                handleAction(it)
+            }
+        }
+    }
+
+    fun setAction(action: HomeAction) {
+        viewModelScope.launch {
+            _actions.emit(action)
+        }
+    }
+
+    private fun handleAction(action: HomeAction) {
         when (action) {
             is UpdateCategory -> {
                 _selectedCategory.update {
@@ -101,7 +121,7 @@ sealed interface HomeUiState {
     ) : HomeUiState
 }
 
-sealed interface HomeUiAction {
-    data class UpdateCategory(val category: RecipeCategory) : HomeUiAction
-    data class UpdateUserBookMarked(val id: Int, val bookmarked: Boolean) : HomeUiAction
+sealed interface HomeAction {
+    data class UpdateCategory(val category: RecipeCategory) : HomeAction
+    data class UpdateUserBookMarked(val id: Int, val bookmarked: Boolean) : HomeAction
 }
