@@ -115,7 +115,7 @@ object Urls {
              "chef": "Spicy Nelly",
              "time": "20 min",
              "rating": 4,
-             "isBookMarked": true,
+             "isBookMarked": false,
              "ingredients": [
                {
                  "ingredient": {
@@ -158,7 +158,7 @@ object Urls {
              "chef": "Kim Dahee",
              "time": "30 min",
              "rating": 5,
-             "isBookMarked": true,
+             "isBookMarked": false,
              "ingredients": [],
              "procedure": [
                "Preheat the oven to 180°C (356°F).",
@@ -176,7 +176,7 @@ object Urls {
              "chef": "Alice Johnson",
              "time": "25 min",
              "rating": 4.5,
-             "isBookMarked": true,
+             "isBookMarked": false,
              "ingredients": [
                {
                  "ingredient": {
@@ -246,7 +246,7 @@ object Urls {
              "chef": "Mario Batali",
              "time": "15 min",
              "rating": 4.3,
-             "isBookMarked": true,
+             "isBookMarked": false,
              "ingredients": [
                {
                  "ingredient": {
@@ -458,7 +458,7 @@ object Urls {
               "chef": "Spicy Nelly",
               "time": "20 min",
               "rating": 4.0,
-              "isBookMarked" : true,
+              "isBookMarked" : false,
               "ingredients": [
                 {
                   "ingredient": {
@@ -494,7 +494,7 @@ object Urls {
               "chef": "Kim Dahee",
               "time": "30 min",
               "rating": 5.0,
-              "isBookMarked" : true,
+              "isBookMarked" : false,
               "ingredients": []
             },
             {
@@ -505,7 +505,7 @@ object Urls {
               "chef": "Alice Johnson",
               "time": "25 min",
               "rating": 4.5,
-              "isBookMarked" : true,
+              "isBookMarked" : false,
               "ingredients": [
                 {
                   "ingredient": {
@@ -561,7 +561,7 @@ object Urls {
               "chef": "Mario Batali",
               "time": "15 min",
               "rating": 4.3,
-              "isBookMarked" : true,
+              "isBookMarked" : false,
               "ingredients": [
                 {
                   "ingredient": {

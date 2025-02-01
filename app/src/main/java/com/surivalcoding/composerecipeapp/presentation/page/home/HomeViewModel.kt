@@ -3,7 +3,10 @@ package com.surivalcoding.composerecipeapp.presentation.page.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.orhanobut.logger.Logger
+import com.surivalcoding.composerecipeapp.data.mapper.toMapper
+import com.surivalcoding.composerecipeapp.domain.usecase.AddBookmarkUseCase
 import com.surivalcoding.composerecipeapp.domain.usecase.GetMainRecipeListUseCase
+import com.surivalcoding.composerecipeapp.domain.usecase.SaveAllRecipesUseCase
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.Category
 import com.surivalcoding.composerecipeapp.util.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getMainRecipeListUseCase: GetMainRecipeListUseCase
+    private val getMainRecipeListUseCase: GetMainRecipeListUseCase,
+    private val addBookmarkUseCase: AddBookmarkUseCase,
+    private val saveAllRecipesUseCase: SaveAllRecipesUseCase
 ) : ViewModel() {
 
     private val _homeState = MutableStateFlow(HomeState())
@@ -34,11 +39,15 @@ class HomeViewModel @Inject constructor(
                     _homeState.update {
                         it.copy(
                             recipeList = result.data,
-                            filteredRecipeList = result.data
+                            filteredRecipeList = result.data,
+                            newRecipeList = result.data.take(5)
                         )
                     }
 
-                    // 전체 리스트 불러온 후 해당 전체리스트를 통해 newRecipeList를 가져오도록 호출
+                    // 전체 리스트 Room에 저장
+                    saveAllRecipesUseCase.execute(result.data)
+
+                    // 홈화면 제일 하단 메인 리스트 5개 불러오기(추후에 수정필요)
                     getNewRecipeList()
                 }
 
@@ -47,15 +56,15 @@ class HomeViewModel @Inject constructor(
                     _homeState.update {
                         it.copy(
                             recipeList = emptyList(),
-                            filteredRecipeList = emptyList()
+                            filteredRecipeList = emptyList(),
+                            newRecipeList = emptyList()
                         )
                     }
                 }
             }
+
         }
-
     }
-
 
     // 카테고리 클릭 처리
     private fun onSelectCategory(pickerState: PickerState) {
@@ -97,7 +106,12 @@ class HomeViewModel @Inject constructor(
         when (action) {
             is HomeAction.SearchRecipe -> Logger.e("Search Recipe 화면으로 이동")
             is HomeAction.FilterCategory -> onSelectCategory(pickerState = action.pickerState)
+            is HomeAction.AddBookmark -> {      // 북마크 추가
+                Logger.e("북마크 추가!!")
+                viewModelScope.launch {
+                    addBookmarkUseCase.execute(action.id)
+                }
+            }
         }
     }
-
 }

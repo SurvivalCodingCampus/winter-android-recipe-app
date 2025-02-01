@@ -172,7 +172,12 @@ fun HomeScreen(
             Logger.e("들어오는 리스트와 사이즈 ${state.filteredRecipeList.size} ${state.filteredRecipeList}")
 
             items(state.filteredRecipeList) { recipe ->
-                MainRecipeItem(recipe = recipe)
+                MainRecipeItem(
+                    recipe = recipe,
+                    onBookMarkClick = { recipeId ->
+                        onAction(HomeAction.AddBookmark(recipeId))
+                    }
+                )
             }
         }
 

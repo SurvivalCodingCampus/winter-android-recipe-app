@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.presentation.item
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,7 +30,8 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 @Composable
 fun MainRecipeItem(
     modifier: Modifier = Modifier,
-    recipe: Recipe
+    recipe: Recipe,
+    onBookMarkClick: (Int) -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -92,6 +94,7 @@ fun MainRecipeItem(
                         shape = CircleShape
                     )
                     .align(Alignment.BottomEnd)
+                    .clickable { onBookMarkClick(recipe.id) }
             ) {
                 Image(
                     modifier = Modifier

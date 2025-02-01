@@ -98,6 +98,14 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose.v285)
     implementation(libs.androidx.hilt.navigation.compose)
+
+
+    // room
+    implementation("androidx.room:room-runtime:2.6.1") // 최신 버전 확인 필요
+    kapt("androidx.room:room-compiler:2.6.1") // Annotation Processor (kapt)
+
+    // Kotlin Coroutines 지원 (필수는 아님)
+    implementation("androidx.room:room-ktx:2.6.1")
 }
 
 // Allow references to generated code
