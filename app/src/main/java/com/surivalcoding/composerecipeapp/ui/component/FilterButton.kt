@@ -22,18 +22,12 @@ import com.surivalcoding.composerecipeapp.ui.theme.Primary100
 @Composable
 fun FilterButton(
     modifier: Modifier = Modifier,
-    iconSizePercent: Float = 1.0f,
     onClick: () -> Unit = {},
 ) {
-    val configuration = LocalConfiguration.current
-    val fontScale = configuration.fontScale
-    val baseIconSize = 20.dp
-    val calculateIconSize = baseIconSize * iconSizePercent * fontScale
-
     Box(
         modifier = modifier
-            .width(40.dp)
-            .height(40.dp)
+            .width(43.dp)
+            .height(43.dp)
             .background(
                 color = Primary100,
                 shape = RoundedCornerShape(10.dp),
@@ -44,7 +38,7 @@ fun FilterButton(
         contentAlignment = Alignment.Center,
     ) {
         Icon(
-            modifier = Modifier.size(calculateIconSize),
+            modifier = Modifier.size(20.dp),
             painter = painterResource(R.drawable.ic_filter),
             contentDescription = "Filter Button",
             tint = Color.White,

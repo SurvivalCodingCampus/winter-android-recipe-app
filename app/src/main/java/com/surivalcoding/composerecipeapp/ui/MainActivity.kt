@@ -17,13 +17,15 @@ import com.surivalcoding.composerecipeapp.ui.component.InputFieldExample
 import com.surivalcoding.composerecipeapp.ui.component.MediumButton
 import com.surivalcoding.composerecipeapp.ui.component.SmallButton
 import com.surivalcoding.composerecipeapp.ui.screen.SavedRecipeListScreen
+import com.surivalcoding.composerecipeapp.ui.screen.SearchRecipesScreen
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 import com.surivalcoding.composerecipeapp.ui.viewmodel.RecipeViewModel
+import com.surivalcoding.composerecipeapp.ui.viewmodel.SearchRecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel: RecipeViewModel by viewModels()
+    private val viewModel: SearchRecipesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,7 @@ class MainActivity : ComponentActivity() {
             ComposeRecipeAppTheme {
 //                SearchRecipesScreen()
 
-                SavedRecipeListScreen(viewModel = viewModel)
+                SearchRecipesScreen(viewModel = viewModel)
 //                Column(
 //                    verticalArrangement = Arrangement.spacedBy(16.dp)
 //                ) {
