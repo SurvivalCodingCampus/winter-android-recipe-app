@@ -121,7 +121,7 @@ fun RecipeCard(
                             .size(16.dp)
                             .align(Alignment.Center)
                             .padding(1.dp),
-                        painter = painterResource(R.drawable.union), contentDescription = null
+                        painter = painterResource(R.drawable.active), contentDescription = null
                     )
                 }
             }

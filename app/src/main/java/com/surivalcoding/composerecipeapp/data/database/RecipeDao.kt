@@ -13,6 +13,10 @@ import kotlinx.coroutines.flow.Flow
 * */
 @Dao
 interface RecipeDao {
+    // 모든 레시피 가져오기
+    @Query("SELECT * FROM recipes")
+    fun getAllRecipes(): Flow<List<RecipeEntity>>
+
 
     // 북마크된 전체 리스트 가져오기
     @Query("SELECT * FROM recipes WHERE isBookMarked = 1")
@@ -33,4 +37,8 @@ interface RecipeDao {
     // recipeList 추가
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecipes(recipes: List<RecipeEntity>)
+
+    // ID를 이용한 레시피 상세 데이터 조회
+    @Query("SELECT * FROM recipes WHERE id = :recipeId")
+    fun getRecipeById(recipeId: Int): RecipeEntity?
 }

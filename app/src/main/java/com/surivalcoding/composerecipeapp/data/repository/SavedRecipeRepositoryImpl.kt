@@ -8,6 +8,10 @@ import javax.inject.Inject
 class SavedRecipeRepositoryImpl @Inject constructor(
     private val recipeDao: RecipeDao
 ) : SavedRecipeRepository {
+    override fun getRecipeList(): Flow<List<RecipeEntity>> {
+        return recipeDao.getAllRecipes()
+    }
+
     override fun getAllBookMarkList(): Flow<List<RecipeEntity>> {
         return recipeDao.getBookmarkedRecipes()
     }

@@ -100,7 +100,7 @@ fun MainRecipeItem(
                     modifier = Modifier
                         .size(16.dp)
                         .align(Alignment.Center),
-                    painter = painterResource(R.drawable.inactive),
+                    painter = if (recipe.isBookMarked) painterResource(R.drawable.active) else painterResource(R.drawable.inactive),
                     contentDescription = null
                 )
             }

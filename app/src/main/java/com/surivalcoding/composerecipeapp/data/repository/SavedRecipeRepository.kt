@@ -5,6 +5,8 @@ import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import kotlinx.coroutines.flow.Flow
 
 interface SavedRecipeRepository {
+    // 전체 레시피 리스트 가져오기
+    fun getRecipeList(): Flow<List<RecipeEntity>>
 
     // 전체 북마크 리스트 가져오기
     fun getAllBookMarkList(): Flow<List<RecipeEntity>>

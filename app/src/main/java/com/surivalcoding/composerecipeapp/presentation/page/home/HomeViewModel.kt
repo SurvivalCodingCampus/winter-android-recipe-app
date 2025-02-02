@@ -3,8 +3,9 @@ package com.surivalcoding.composerecipeapp.presentation.page.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.orhanobut.logger.Logger
-import com.surivalcoding.composerecipeapp.data.mapper.toMapper
 import com.surivalcoding.composerecipeapp.domain.usecase.AddBookmarkUseCase
+import com.surivalcoding.composerecipeapp.domain.usecase.DeleteBookmarkUseCase
+import com.surivalcoding.composerecipeapp.domain.usecase.GetAllRecipesUseCase
 import com.surivalcoding.composerecipeapp.domain.usecase.GetMainRecipeListUseCase
 import com.surivalcoding.composerecipeapp.domain.usecase.SaveAllRecipesUseCase
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.Category
@@ -19,9 +20,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getMainRecipeListUseCase: GetMainRecipeListUseCase,
-    private val addBookmarkUseCase: AddBookmarkUseCase,
-    private val saveAllRecipesUseCase: SaveAllRecipesUseCase
+    private val getMainRecipeListUseCase: GetMainRecipeListUseCase,     // 통신을 통해 불러오기
+    private val addBookmarkUseCase: AddBookmarkUseCase,                 // 북마크 추가
+    private val deleteBookmarkUseCase: DeleteBookmarkUseCase,           // 북마크 삭제
+    private val saveAllRecipesUseCase: SaveAllRecipesUseCase,           // Room에 전체 저장
+    private val getAllRecipesUseCase: GetAllRecipesUseCase,             // 현재 Room에 저장된 레시피 다들고 오기
 ) : ViewModel() {
 
     private val _homeState = MutableStateFlow(HomeState())
@@ -29,6 +32,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         getMainRecipeList()
+        observeMainRecipeList()
     }
 
     // 홈의 메인 레시피 불러오기
@@ -45,10 +49,11 @@ class HomeViewModel @Inject constructor(
                     }
 
                     // 전체 리스트 Room에 저장
-                    saveAllRecipesUseCase.execute(result.data)
+                    saveAllRecipesUseCase.execute(result.data).also {
+                        // 홈화면 제일 하단 메인 리스트 5개 불러오기(추후에 수정필요)
+                        getNewRecipeList()
+                    }
 
-                    // 홈화면 제일 하단 메인 리스트 5개 불러오기(추후에 수정필요)
-                    getNewRecipeList()
                 }
 
                 is ResponseResult.Failure -> {
@@ -99,6 +104,74 @@ class HomeViewModel @Inject constructor(
     }
 
 
+    // 메인 레시피 북마크 처리: 삭제와 추가가 토글 형식으로 동작하도록 처리
+    private fun addBookmark(id: Int) {
+        viewModelScope.launch {
+            // 현재 레시피 리스트에서 해당 id의 북마크 상태 확인
+            val isCurrentBookmarked = _homeState.value.recipeList.find { it.id == id }
+                ?.isBookMarked ?: false
+
+            if (isCurrentBookmarked) {
+                // 이미 북마크된 상태라면 삭제 처리
+                deleteBookmarkUseCase.execute(id)
+            } else {
+                addBookmarkUseCase.execute(id)
+            }
+
+            // id에 따라 북마크 상태 업데이트 (전체 리스트)
+            val updatedRecipeList = _homeState.value.recipeList.map { recipe ->
+                if (recipe.id == id) {
+                    recipe.copy(isBookMarked = !isCurrentBookmarked)
+                } else {
+                    recipe
+                }
+            }
+
+            // id에 따라 북마크 상태 업데이트 (필터 리스트)
+            val updatedFilteredRecipeList = _homeState.value.filteredRecipeList.map { recipe ->
+                if (recipe.id == id) {
+                    recipe.copy(isBookMarked = !isCurrentBookmarked)
+                } else {
+                    recipe
+                }
+            }
+
+            _homeState.update {
+                it.copy(
+                    recipeList = updatedRecipeList,
+                    filteredRecipeList = updatedFilteredRecipeList
+                )
+            }
+        }
+    }
+
+
+    // 홈에서 리스트 상태를 업데이트 해주는 메소드
+    private fun observeMainRecipeList() {
+
+        viewModelScope.launch {
+
+            getAllRecipesUseCase.execute().collect { result ->
+                when (result) {
+                    is ResponseResult.Success -> {
+                        _homeState.update {
+                            it.copy(
+                                recipeList = result.data,
+                                filteredRecipeList = result.data,
+                                newRecipeList = result.data.take(5)
+                            )
+                        }
+                    }
+
+                    is ResponseResult.Failure -> {
+                        Logger.e("홈 화면 최신화 실패 ")
+                    }
+                }
+            }
+        }
+    }
+
+
     /*
     * 사용자의 Action
     * */
@@ -108,9 +181,7 @@ class HomeViewModel @Inject constructor(
             is HomeAction.FilterCategory -> onSelectCategory(pickerState = action.pickerState)
             is HomeAction.AddBookmark -> {      // 북마크 추가
                 Logger.e("북마크 추가!!")
-                viewModelScope.launch {
-                    addBookmarkUseCase.execute(action.id)
-                }
+                addBookmark(action.id)
             }
         }
     }
