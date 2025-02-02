@@ -9,6 +9,7 @@ import com.surivalcoding.composerecipeapp.util.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,16 +29,24 @@ class SavedRecipeViewModel @Inject constructor(
 
     // 전체 북마크 리스트 가져오기
     private fun getAllBookmarkList() {
+        _savedRecipeState.update { it.copy(loadingState = LoadingState(isLoading = true)) }
         viewModelScope.launch {
-            getBookmarkedRecipesUseCase.execute().collect { result ->
+            getBookmarkedRecipesUseCase.execute().conflate().collect { result ->
                 when (result) {
                     is ResponseResult.Success -> {
                         _savedRecipeState.update {
-                            it.copy(bookMarkList = result.data)
+                            it.copy(
+                                bookMarkList = result.data,
+                                loadingState = LoadingState(isLoading = false)
+                            )
                         }
                     }
 
-                    is ResponseResult.Failure -> Logger.e("북마크 리스트 불러오기 실패")
+                    is ResponseResult.Failure -> {
+                        Logger.e("북마크 리스트 불러오기 실패")
+                        _savedRecipeState.update { it.copy(loadingState = LoadingState(isLoading = false)) }
+                    }
+
                 }
             }
         }

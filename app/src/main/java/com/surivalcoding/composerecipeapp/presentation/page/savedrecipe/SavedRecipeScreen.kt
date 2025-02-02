@@ -6,19 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.rememberLottieComposition
-import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.presentation.item.RecipeList
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
@@ -30,8 +25,6 @@ fun SavedRecipeScreen(
     state: SavedRecipeState,
     onAction: (SavedRecipeAction) -> Unit,
 ) {
-    // 로티 애니메이션
-    val lottieLoading by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.animal))
 
     Column(
         modifier = Modifier
@@ -56,12 +49,10 @@ fun SavedRecipeScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (state.loadingState.isLoading) {
-            // 로티 애니메이션 로딩
-            LottieAnimation(
-                composition = lottieLoading,
-                modifier = Modifier
-                    .size(400.dp)
-                    .align(Alignment.Center)
+            // 프로그래스바 적용
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center),
+                color = AppColors.primary_100
             )
         }
     }

@@ -22,11 +22,11 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,9 +35,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.presentation.item.FilterSearchBottomSheet
 import com.surivalcoding.composerecipeapp.presentation.item.RecipeListGrid
@@ -51,10 +48,6 @@ fun SearchRecipeScreen(
     state: SearchRecipesState,
     onAction: (SearchRecipeAction) -> Unit,
 ) {
-
-    // 로티 애니메이션
-    val lottieLoading by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.animal))
-
     // coroutine
     val coroutineScope = rememberCoroutineScope()
 
@@ -224,12 +217,9 @@ fun SearchRecipeScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (state.loadingState.isLoading) {
-            // 로티 애니메이션 로딩
-            LottieAnimation(
-                composition = lottieLoading,
-                modifier = Modifier
-                    .size(400.dp)
-                    .align(Alignment.Center)
+            // 로딩 바 적용
+            CircularProgressIndicator(
+                color = AppColors.primary_100
             )
         }
     }
