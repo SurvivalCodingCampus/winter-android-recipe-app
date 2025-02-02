@@ -18,7 +18,8 @@ Discover, save, and share your favorite recipes with ease!
 - **Jetpack Compose**: A modern UI toolkit for building declarative and native UIs.
 - **Kotlin**: Primary programming language.
 - **Clean Architecture**: Modular and maintainable code structure.
-- **Retrofit**: Fetching recipe data from external APIs.
+- **Hilt**: Dependency Injection for better scalability and testability.
+- **Ktor**: Fetching recipe data from external APIs.
 - **Coil**: Loading and displaying images seamlessly from URLs.
 - **Coroutines & Flow**: Asynchronous programming for smooth user experience.
 
@@ -35,3 +36,4 @@ Jetpack Compose provides a declarative way to build UI, making the development p
 
 <img src="https://github.com/user-attachments/assets/def6e171-3505-4511-9c42-ad2aa70ee129" width="30%"/>
 <img src="https://github.com/user-attachments/assets/4bc30897-4b2e-4833-8d40-76dfd47bbcfa" width="30%"/>
+<img src="https://github.com/user-attachments/assets/19c80beb-c905-4559-ac7b-c9db22b12b20" width="30%"/>
