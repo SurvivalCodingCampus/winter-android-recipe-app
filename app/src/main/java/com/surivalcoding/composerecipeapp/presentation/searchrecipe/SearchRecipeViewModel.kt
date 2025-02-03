@@ -8,12 +8,15 @@ import com.surivalcoding.composerecipeapp.data.repository.RecentSearchRecipeRepo
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +26,9 @@ class SearchRecipeViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
 ) : ViewModel() {
     val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
+
+    private val _actions = MutableSharedFlow<SearchRecipeAction>()
+    private val actions = _actions.asSharedFlow()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val searchRecipeUiState: StateFlow<SearchRecipeUiState> =
@@ -52,8 +58,26 @@ class SearchRecipeViewModel @Inject constructor(
             initialValue = SearchRecipeUiState.Loading
         )
 
-    fun onSearchQueryChanged(query: String) {
-        savedStateHandle[SEARCH_QUERY] = query
+    init {
+        viewModelScope.launch {
+            actions.collect {
+                handleAction(it)
+            }
+        }
+    }
+
+    fun setAction(action: SearchRecipeAction) {
+        viewModelScope.launch {
+            _actions.emit(action)
+        }
+    }
+
+    fun handleAction(action: SearchRecipeAction) {
+        when (action) {
+            is SearchRecipeAction.SearchQueryChanged -> {
+                savedStateHandle[SEARCH_QUERY] = action.query
+            }
+        }
     }
 }
 
@@ -71,6 +95,10 @@ sealed interface SearchRecipeUiState {
     ) : SearchRecipeUiState {
         fun isEmpty(): Boolean = searchRecipes.isEmpty()
     }
+}
+
+sealed interface SearchRecipeAction {
+    data class SearchQueryChanged(val query: String) : SearchRecipeAction
 }
 
 private const val SEARCH_QUERY = "searchQuery"

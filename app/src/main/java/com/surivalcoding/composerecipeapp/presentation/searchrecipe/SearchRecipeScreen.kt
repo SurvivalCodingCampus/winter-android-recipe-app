@@ -61,8 +61,7 @@ fun SearchRecipeScreen(
         title = "Search Recipe",
         query = searchQuery,
         searchRecipeUiState = searchRecipeUiState,
-        onFilterClick = {},
-        onQueryChange = searchRecipeViewModel::onSearchQueryChanged,
+        setAction = searchRecipeViewModel::setAction,
         modifier = modifier
     )
 }
@@ -72,8 +71,7 @@ fun SearchRecipeScreen(
 fun SearchRecipeScreen(
     title: String,
     searchRecipeUiState: SearchRecipeUiState,
-    onFilterClick: () -> Unit,
-    onQueryChange: (String) -> Unit,
+    setAction: (SearchRecipeAction) -> Unit,
     modifier: Modifier = Modifier,
     query: String = ""
 ) {
@@ -107,7 +105,9 @@ fun SearchRecipeScreen(
 
             SearchField(
                 query = query,
-                onQueryChange = onQueryChange,
+                onQueryChange = {
+                    setAction(SearchRecipeAction.SearchQueryChanged(it))
+                },
                 onFilterClick = {
                     showBottomSheet = true
                 },
@@ -295,8 +295,7 @@ private fun SearchRecipeScreenPreview() {
             title = "Search Recipe",
             query = "",
             searchRecipeUiState = SearchRecipeUiState.Success(fakeSearchRecipe),
-            onFilterClick = {},
-            onQueryChange = {}
+            setAction = {}
         )
     }
 }
