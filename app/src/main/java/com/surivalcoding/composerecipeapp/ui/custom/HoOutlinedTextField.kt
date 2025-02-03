@@ -32,7 +32,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.ui.AppIcons
+import com.surivalcoding.composerecipeapp.ui.icon.AppIcons
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme

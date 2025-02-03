@@ -41,12 +41,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.surivalcoding.composerecipeapp.data.mock.fakeSearchRecipe
 import com.surivalcoding.composerecipeapp.data.mock.fakeUserData
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
-import com.surivalcoding.composerecipeapp.ui.AppIcons
 import com.surivalcoding.composerecipeapp.ui.component.FilterSearchBottomSheet
 import com.surivalcoding.composerecipeapp.ui.component.SearchField
 import com.surivalcoding.composerecipeapp.ui.component.SquareRecipeCard
 import com.surivalcoding.composerecipeapp.ui.custom.LoadingWheel
 import com.surivalcoding.composerecipeapp.ui.custom.NoPaddingButton
+import com.surivalcoding.composerecipeapp.ui.icon.AppIcons
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme

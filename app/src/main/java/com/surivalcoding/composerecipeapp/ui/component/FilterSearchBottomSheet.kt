@@ -34,8 +34,8 @@ import com.surivalcoding.composerecipeapp.data.mock.fakeUserData
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.model.SearchFilterOptions
 import com.surivalcoding.composerecipeapp.data.model.TimeType
-import com.surivalcoding.composerecipeapp.ui.AppIcons
 import com.surivalcoding.composerecipeapp.ui.custom.NoPaddingFilterChip
+import com.surivalcoding.composerecipeapp.ui.icon.AppIcons
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme

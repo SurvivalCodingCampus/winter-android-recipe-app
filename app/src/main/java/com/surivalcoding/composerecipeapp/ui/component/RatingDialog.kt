@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.surivalcoding.composerecipeapp.ui.AppIcons
 import com.surivalcoding.composerecipeapp.ui.custom.NoPaddingButton
+import com.surivalcoding.composerecipeapp.ui.icon.AppIcons
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme

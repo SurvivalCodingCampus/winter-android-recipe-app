@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.ui
+package com.surivalcoding.composerecipeapp.ui.icon
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack

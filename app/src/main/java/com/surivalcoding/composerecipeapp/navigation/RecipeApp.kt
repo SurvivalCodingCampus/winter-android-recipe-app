@@ -42,7 +42,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.surivalcoding.composerecipeapp.ui.AppIcons
+import com.surivalcoding.composerecipeapp.ui.icon.AppIcons
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import kotlin.reflect.KClass
 

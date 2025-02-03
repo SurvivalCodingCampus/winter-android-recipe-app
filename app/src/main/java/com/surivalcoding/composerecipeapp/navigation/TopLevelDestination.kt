@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.surivalcoding.composerecipeapp.presentation.home.navigation.HomeBaseRoute
 import com.surivalcoding.composerecipeapp.presentation.home.navigation.HomeRoute
 import com.surivalcoding.composerecipeapp.presentation.savedrecipe.navigation.SavedRecipeRoute
-import com.surivalcoding.composerecipeapp.ui.AppIcons
+import com.surivalcoding.composerecipeapp.ui.icon.AppIcons
 import kotlin.reflect.KClass
 
 enum class TopLevelDestination(
