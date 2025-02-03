@@ -2,6 +2,8 @@ package com.surivalcoding.composerecipeapp.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.surivalcoding.composerecipeapp.common.result.Result
+import com.surivalcoding.composerecipeapp.common.result.asResult
 import com.surivalcoding.composerecipeapp.data.model.HomeRecipe
 import com.surivalcoding.composerecipeapp.data.model.NewRecipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
@@ -11,8 +13,6 @@ import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.UserDataRepository
 import com.surivalcoding.composerecipeapp.presentation.home.HomeAction.UpdateCategory
 import com.surivalcoding.composerecipeapp.presentation.home.HomeAction.UpdateUserBookMarked
-import com.surivalcoding.composerecipeapp.util.Result
-import com.surivalcoding.composerecipeapp.util.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -35,7 +35,7 @@ class HomeViewModel @Inject constructor(
     private val _selectedCategory = MutableStateFlow(RecipeCategory.ALL)
 
     private val _actions = MutableSharedFlow<HomeAction>()
-    private val action = _actions.asSharedFlow()
+    private val actions = _actions.asSharedFlow()
 
     val homeUiState: StateFlow<HomeUiState> = homeUiState(
         _selectedCategory,
@@ -50,7 +50,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            action.collect {
+            actions.collect {
                 handleAction(it)
             }
         }
