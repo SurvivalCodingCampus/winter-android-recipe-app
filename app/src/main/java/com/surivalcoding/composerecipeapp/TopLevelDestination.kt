@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.navigation
+package com.surivalcoding.composerecipeapp
 
 import androidx.annotation.DrawableRes
 import com.surivalcoding.composerecipeapp.presentation.home.navigation.HomeBaseRoute

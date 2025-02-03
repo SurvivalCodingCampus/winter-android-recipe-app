@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.navigation
+package com.surivalcoding.composerecipeapp
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,6 +16,7 @@ import com.surivalcoding.composerecipeapp.presentation.signin.navigation.navigat
 import com.surivalcoding.composerecipeapp.presentation.signin.navigation.signInSection
 import com.surivalcoding.composerecipeapp.presentation.signup.navigation.navigateToSignUp
 import com.surivalcoding.composerecipeapp.presentation.signup.navigation.signUpScreen
+import com.surivalcoding.composerecipeapp.ui.RecipeAppState
 
 @Composable
 fun RecipeNavHost(

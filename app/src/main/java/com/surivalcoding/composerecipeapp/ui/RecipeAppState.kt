@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.navigation
+package com.surivalcoding.composerecipeapp.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -9,9 +9,10 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.surivalcoding.composerecipeapp.TopLevelDestination
+import com.surivalcoding.composerecipeapp.TopLevelDestination.BOOKMARKS
+import com.surivalcoding.composerecipeapp.TopLevelDestination.HOME
 import com.surivalcoding.composerecipeapp.common.network.NetworkMonitor
-import com.surivalcoding.composerecipeapp.navigation.TopLevelDestination.BOOKMARKS
-import com.surivalcoding.composerecipeapp.navigation.TopLevelDestination.HOME
 import com.surivalcoding.composerecipeapp.presentation.home.navigation.HomeRoute
 import com.surivalcoding.composerecipeapp.presentation.home.navigation.navigateToHome
 import com.surivalcoding.composerecipeapp.presentation.savedrecipe.navigation.navigateToSavedRecipe

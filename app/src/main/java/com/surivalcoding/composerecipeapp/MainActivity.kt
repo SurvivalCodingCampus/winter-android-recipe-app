@@ -7,8 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.surivalcoding.composerecipeapp.common.network.NetworkMonitor
-import com.surivalcoding.composerecipeapp.navigation.RecipeApp
-import com.surivalcoding.composerecipeapp.navigation.rememberRecipeState
+import com.surivalcoding.composerecipeapp.ui.RecipeApp
+import com.surivalcoding.composerecipeapp.ui.rememberRecipeState
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
