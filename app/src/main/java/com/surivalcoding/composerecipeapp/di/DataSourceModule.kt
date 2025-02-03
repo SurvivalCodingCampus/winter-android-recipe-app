@@ -1,6 +1,6 @@
 package com.surivalcoding.composerecipeapp.di
 
-import com.surivalcoding.composerecipeapp.data.datasource.MockRecipeDataSourceImpl
+import com.surivalcoding.composerecipeapp.data.datasource.ProdRecipeDataSourceImpl
 import com.surivalcoding.composerecipeapp.data.datasource.RecipeDataSource
 import dagger.Binds
 import dagger.Module
@@ -17,19 +17,19 @@ import javax.inject.Singleton
 abstract class DataSourceModule {
 
 
-    // DEV 환경
-    @Binds
-    @Singleton
-    abstract fun bindDevRecipeDataSource(
-        recipeDataSourceImpl: MockRecipeDataSourceImpl
-    ): RecipeDataSource
-
-
-//    // PROD 환경
+//    // DEV 환경
 //    @Binds
 //    @Singleton
-//    abstract fun bindProdRecipeDataSource(
-//        recipeDataSourceImpl: ProdRecipeDataSourceImpl
+//    abstract fun bindDevRecipeDataSource(
+//        recipeDataSourceImpl: MockRecipeDataSourceImpl
 //    ): RecipeDataSource
+
+
+    // PROD 환경
+    @Binds
+    @Singleton
+    abstract fun bindProdRecipeDataSource(
+        recipeDataSourceImpl: ProdRecipeDataSourceImpl
+    ): RecipeDataSource
 
 }

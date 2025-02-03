@@ -11,13 +11,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.domain.model.Recipe
-import com.surivalcoding.composerecipeapp.presentation.savedrecipe.SavedRecipeViewModel
+import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeAction
+import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.SavedRecipeState
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipeAction
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipesState
 
 
 // RecipeList
 @Composable
-fun RecipeList(recipeList: List<Recipe>, viewModel: SavedRecipeViewModel) {
+fun RecipeList(state: SavedRecipeState, onAction: (SavedRecipeAction) -> Unit) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize(),
@@ -25,38 +27,37 @@ fun RecipeList(recipeList: List<Recipe>, viewModel: SavedRecipeViewModel) {
         contentPadding = PaddingValues(start = 30.dp, end = 30.dp, bottom = 80.dp)
     ) {
         items(
-            items = recipeList,
+            items = state.bookMarkList,
             key = { it.id }
         ) { recipe ->
             RecipeCard(
-                imageUrl = recipe.image,
-                recipeName = recipe.name,
-                chefName = recipe.chef,
-                cookingTime = recipe.time,
-                rate = recipe.rating,
-                id = recipe.id
-            ) { id ->
-                viewModel.deleteBookMark(id)
-            }
+                recipe = recipe,
+                onItemClick = { recipeDetail ->
+                    onAction(SavedRecipeAction.SearchRecipeDetail(recipeDetail))
+                },
+                onDeleteBookMark = { id ->
+                    onAction(SavedRecipeAction.DeleteBookmark(id))
+                }
+            )
         }
     }
 }
 
-
 @Composable
-fun RecipeListGrid(recipeList: List<Recipe>) {
+fun RecipeListGrid(
+    state: SearchRecipesState,
+    onAction: (SearchRecipeAction) -> Unit,
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(15.dp),
         horizontalArrangement = Arrangement.spacedBy(15.dp),
     ) {
-        items(recipeList) { recipe ->
+        items(state.filteredRecipeList) { recipe ->
             RecipeCardSquare(
-                imageUrl = recipe.image,
-                recipeName = recipe.name,
-                chefName = recipe.chef,
-                rate = recipe.rating
+                recipe,
+                onAction = onAction
             )
         }
     }

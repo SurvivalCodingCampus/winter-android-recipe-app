@@ -17,7 +17,8 @@ data class RecipeDto(
     val time: String? = null,
     val rating: Double? = null,
     val isBookMarked: Boolean? = null,
-    val ingredients: List<IngredientDto?>? = listOf()
+    val ingredients: List<IngredientDto?>? = listOf(),
+    val procedure: List<String>? = listOf()
 )
 
 @Serializable
