@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -81,28 +82,28 @@ fun SearchRecipeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 30.dp, end = 30.dp, top = 10.dp),
+                .padding(start = 30.dp, end = 30.dp, top = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            Row(
+            Box(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
                     painter = painterResource(R.drawable.arrow_left),
                     contentDescription = "back",
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier
+                        .size(20.dp)
+                        .align(Alignment.CenterStart)
                 )
-
-                Spacer(modifier = Modifier.width(69.dp))
 
                 Text(
                     text = "Search recipes",
                     style = AppTextStyles.mediumTextSemiBold.copy(
                         color = AppColors.label_color,
                         fontSize = 18.sp
-                    )
+                    ),
+                    modifier = Modifier.align(Alignment.Center)
                 )
             }
 

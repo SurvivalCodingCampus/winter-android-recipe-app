@@ -43,7 +43,7 @@ fun MainRecipeItem(
                 .width(150.dp)
                 .height(176.dp)
                 .background(
-                    color = AppColors.gray_4,
+                    color = AppColors.gray_4.copy(alpha = 0.5f),
                     shape = RoundedCornerShape(12.dp)
                 )
                 .align(Alignment.BottomCenter)
