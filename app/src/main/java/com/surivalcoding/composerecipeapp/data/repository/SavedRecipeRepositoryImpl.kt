@@ -2,6 +2,7 @@ package com.surivalcoding.composerecipeapp.data.repository
 
 import com.surivalcoding.composerecipeapp.data.database.RecipeDao
 import com.surivalcoding.composerecipeapp.data.database.RecipeEntity
+import com.surivalcoding.composerecipeapp.domain.repository.SavedRecipeRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

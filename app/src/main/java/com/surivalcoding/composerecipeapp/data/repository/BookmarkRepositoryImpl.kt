@@ -3,6 +3,7 @@ package com.surivalcoding.composerecipeapp.data.repository
 import com.surivalcoding.composerecipeapp.data.datasource.RecipeDataSource
 import com.surivalcoding.composerecipeapp.data.mapper.toMapper
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
+import com.surivalcoding.composerecipeapp.domain.repository.BookmarkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext

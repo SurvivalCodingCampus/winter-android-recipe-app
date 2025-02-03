@@ -1,6 +1,6 @@
 package com.surivalcoding.composerecipeapp.domain.usecase
 
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.util.safeCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

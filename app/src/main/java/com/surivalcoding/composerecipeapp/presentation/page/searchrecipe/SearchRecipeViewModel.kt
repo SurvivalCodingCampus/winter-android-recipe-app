@@ -6,25 +6,53 @@ import androidx.lifecycle.viewModelScope
 import com.orhanobut.logger.Logger
 import com.surivalcoding.composerecipeapp.domain.usecase.GetMainRecipeListUseCase
 import com.surivalcoding.composerecipeapp.presentation.page.savedrecipe.LoadingState
+import com.surivalcoding.composerecipeapp.util.NetworkManager
 import com.surivalcoding.composerecipeapp.util.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchRecipeViewModel @Inject constructor(
-    private val getMainRecipeListUseCase: GetMainRecipeListUseCase
+    private val getMainRecipeListUseCase: GetMainRecipeListUseCase,
+    private val networkManager: NetworkManager
 ) : ViewModel() {
 
     private val _searchRecipeState = MutableStateFlow(SearchRecipesState())
     val searchRecipeState = _searchRecipeState.asStateFlow()
 
+    private val _uiEvent = MutableSharedFlow<UiEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
+
     init {
+        networkManager.registerNetworkCallback()
+        checkNetworkState()
         getRecipeList()
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        networkManager.unRegisterNetworkCallback()
+    }
+
+
+    // 네트워크 상태 체크
+    private fun checkNetworkState() {
+        viewModelScope.launch {
+            networkManager.isConnected.collectLatest { isConnected ->
+                if (!isConnected) {
+                    _uiEvent.emit(UiEvent.ShowSnackBar("네트워크 연결을 확인해주세요"))
+                }
+            }
+        }
+    }
+
 
     private fun getRecipeList() {
         _searchRecipeState.update {

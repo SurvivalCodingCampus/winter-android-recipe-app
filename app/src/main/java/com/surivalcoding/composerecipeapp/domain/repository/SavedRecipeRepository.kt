@@ -1,7 +1,6 @@
-package com.surivalcoding.composerecipeapp.data.repository
+package com.surivalcoding.composerecipeapp.domain.repository
 
 import com.surivalcoding.composerecipeapp.data.database.RecipeEntity
-import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import kotlinx.coroutines.flow.Flow
 
 interface SavedRecipeRepository {

@@ -1,10 +1,10 @@
 package com.surivalcoding.composerecipeapp.di
 
-import com.surivalcoding.composerecipeapp.data.repository.BookmarkRepository
+import com.surivalcoding.composerecipeapp.domain.repository.BookmarkRepository
 import com.surivalcoding.composerecipeapp.data.repository.BookmarkRepositoryImpl
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepositoryImpl
-import com.surivalcoding.composerecipeapp.data.repository.SavedRecipeRepository
+import com.surivalcoding.composerecipeapp.domain.repository.SavedRecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.SavedRecipeRepositoryImpl
 import dagger.Binds
 import dagger.Module

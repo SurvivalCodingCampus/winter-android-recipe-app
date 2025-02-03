@@ -9,11 +9,14 @@ import com.surivalcoding.composerecipeapp.domain.usecase.GetAllRecipesUseCase
 import com.surivalcoding.composerecipeapp.domain.usecase.GetMainRecipeListUseCase
 import com.surivalcoding.composerecipeapp.domain.usecase.SaveAllRecipesUseCase
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.Category
+import com.surivalcoding.composerecipeapp.util.NetworkManager
 import com.surivalcoding.composerecipeapp.util.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,6 +33,8 @@ class HomeViewModel @Inject constructor(
 
     private val _homeState = MutableStateFlow(HomeState())
     val homeState = _homeState.asStateFlow()
+
+
 
     init {
         getMainRecipeList()

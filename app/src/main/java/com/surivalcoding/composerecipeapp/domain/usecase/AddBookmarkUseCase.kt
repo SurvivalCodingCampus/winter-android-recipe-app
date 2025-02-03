@@ -1,6 +1,6 @@
 package com.surivalcoding.composerecipeapp.domain.usecase
 
-import com.surivalcoding.composerecipeapp.data.repository.SavedRecipeRepository
+import com.surivalcoding.composerecipeapp.domain.repository.SavedRecipeRepository
 import javax.inject.Inject
 
 class AddBookmarkUseCase @Inject constructor(
