@@ -9,7 +9,6 @@ import com.surivalcoding.composerecipeapp.util.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,7 +30,7 @@ class SavedRecipeViewModel @Inject constructor(
     private fun getAllBookmarkList() {
         _savedRecipeState.update { it.copy(loadingState = LoadingState(isLoading = true)) }
         viewModelScope.launch {
-            getBookmarkedRecipesUseCase.execute().conflate().collect { result ->
+            getBookmarkedRecipesUseCase.execute().collect { result ->
                 when (result) {
                     is ResponseResult.Success -> {
                         _savedRecipeState.update {

@@ -152,7 +152,7 @@ class HomeViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            getAllRecipesUseCase.execute().conflate().collect { result ->
+            getAllRecipesUseCase.execute().collect { result ->
                 when (result) {
                     is ResponseResult.Success -> {
                         _homeState.update {
