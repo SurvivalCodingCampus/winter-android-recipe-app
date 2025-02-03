@@ -45,3 +45,10 @@ fun Recipe.toNewRecipe() = NewRecipe(
     authorName = authorName,
     authorAvatarUrl = fakeAvatarImage[(id - 1) % 3],
 )
+
+fun Recipe.toSearchRecipe() = SearchRecipe(
+    thumbnailUrl = thumbnailUrl,
+    title = title,
+    rating = rating,
+    authorName = authorName
+)

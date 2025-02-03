@@ -1,7 +1,7 @@
 package com.surivalcoding.composerecipeapp.data.repository
 
 import com.surivalcoding.composerecipeapp.data.datasource.PreferenceDataSource
-import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
+import com.surivalcoding.composerecipeapp.data.model.SearchFilterOptions
 import com.surivalcoding.composerecipeapp.data.model.UserData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,10 +23,18 @@ class UserDataRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun setCategory(category: RecipeCategory) {
+    override fun setSearchFilterOptions(searchFilterOptions: SearchFilterOptions) {
         _userData.update {
             it.copy(
-                selectedCategory = category
+                searchFilterOptions = searchFilterOptions
+            )
+        }
+    }
+
+    override fun setRecentQuery(query: String) {
+        _userData.update {
+            it.copy(
+                recentQuery = query
             )
         }
     }

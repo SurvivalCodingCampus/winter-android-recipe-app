@@ -4,17 +4,24 @@ import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.data.model.Ingredient
 import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
-import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
+import com.surivalcoding.composerecipeapp.data.model.SearchFilterOptions
+import com.surivalcoding.composerecipeapp.data.model.TimeType
 import com.surivalcoding.composerecipeapp.data.model.UserData
 import com.surivalcoding.composerecipeapp.data.model.toHomeRecipe
 import com.surivalcoding.composerecipeapp.data.model.toNewRecipe
 import com.surivalcoding.composerecipeapp.data.model.toSavedRecipe
+import com.surivalcoding.composerecipeapp.data.model.toSearchRecipe
 
 
 val fakeUserData = UserData(
-    selectedCategory = RecipeCategory.ALL,
     bookmarkIds = setOf(
         1, 2, 3, 4, 5, 6, 7, 8, 9
+    ),
+    recentQuery = "",
+    searchFilterOptions = SearchFilterOptions(
+        time = TimeType.ALL,
+        rating = 5,
+        category = RecipeCategory.ALL,
     )
 )
 val fakeIngredients = listOf(
@@ -283,66 +290,4 @@ val fakeRecipe = listOf(
 val fakeHomeRecipes = fakeRecipe.map { it.toHomeRecipe() }
 val fakeSavedRecipe = fakeRecipe.map { it.toSavedRecipe() }
 val fakeNewRecipes = fakeRecipe.map { it.toNewRecipe() }
-
-val fakeSearchRecipe = listOf(
-    SearchRecipe(
-        thumbnailUrl = "https://cdn.pixabay.com/photo/2017/11/10/15/04/steak-2936531_1280.jpg",
-        title = "Traditional spare ribs baked",
-        rating = 4.0,
-        authorName = "Chef John"
-    ),
-    SearchRecipe(
-        thumbnailUrl = "https://cdn.pixabay.com/photo/2018/12/04/16/49/tandoori-3856045_1280.jpg",
-        title = "Spice roasted chicken with flavored rice",
-        rating = 4.0,
-        authorName = "Mark Kelvin"
-    ),
-    SearchRecipe(
-        thumbnailUrl = "https://cdn.pixabay.com/photo/2019/09/07/19/02/spanish-paella-4459519_1280.jpg",
-        title = "Spicy fried rice mix chicken bali",
-        rating = 4.0,
-        authorName = "Spicy Nelly"
-    ),
-    SearchRecipe(
-        thumbnailUrl = "https://cdn.pixabay.com/photo/2017/07/27/16/48/toppokki-2545943_1280.jpg",
-        title = "Ttekbokki",
-        rating = 5.0,
-        authorName = "Kim Dahee"
-    ),
-    SearchRecipe(
-        thumbnailUrl = "https://cdn.pixabay.com/photo/2014/11/05/15/57/salmon-518032_1280.jpg",
-        title = "Grilled salmon with avocado salsa",
-        rating = 4.5,
-        authorName = "Alice Johnson"
-    ),
-    SearchRecipe(
-        thumbnailUrl = "https://cdn.pixabay.com/photo/2016/01/21/18/08/meet-1154341_1280.png",
-        title = "Beef Wellington",
-        rating = 5.0,
-        authorName = "Gordon Ramsay"
-    ),
-    SearchRecipe(
-        thumbnailUrl = "https://cdn.pixabay.com/photo/2019/05/15/18/56/pizza-4205701_1280.jpg",
-        title = "Classic Margherita Pizza",
-        rating = 4.3,
-        authorName = "Mario Batali"
-    ),
-    SearchRecipe(
-        thumbnailUrl = "https://cdn.pixabay.com/photo/2017/10/15/11/41/sushi-2853382_1280.jpg",
-        title = "Sushi Platter",
-        rating = 4.8,
-        authorName = "Jiro Ono"
-    ),
-    SearchRecipe(
-        thumbnailUrl = "https://cdn.pixabay.com/photo/2016/03/03/16/19/food-1234483_1280.jpg",
-        title = "French Onion Soup",
-        rating = 4.6,
-        authorName = "Julia Child"
-    ),
-    SearchRecipe(
-        thumbnailUrl = "https://cdn.pixabay.com/photo/2016/11/22/18/52/cake-1850011_1280.jpg",
-        title = "Chocolate Lava Cake",
-        rating = 4.9,
-        authorName = "Paul Hollywood"
-    )
-)
+val fakeSearchRecipe = fakeRecipe.map { it.toSearchRecipe() }
