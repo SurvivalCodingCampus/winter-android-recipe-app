@@ -1,5 +1,7 @@
 package com.surivalcoding.composerecipeapp.data.di
 
+import com.surivalcoding.composerecipeapp.common.network.ConnectivityManagerNetworkMonitor
+import com.surivalcoding.composerecipeapp.common.network.NetworkMonitor
 import com.surivalcoding.composerecipeapp.data.datasource.FakePreferenceDataSource
 import com.surivalcoding.composerecipeapp.data.datasource.PreferenceDataSource
 import com.surivalcoding.composerecipeapp.data.datasource.RecipeDataSource
@@ -44,4 +46,9 @@ abstract class DataModule {
     abstract fun bindRecentSearchRecipeRepository(
         recentSearchRecipeRepository: RecentSearchRecipeRepositoryImpl
     ): RecentSearchRecipeRepository
+
+    @Binds
+    abstract fun bindsNetworkMonitor(
+        networkMonitor: ConnectivityManagerNetworkMonitor
+    ): NetworkMonitor
 }
