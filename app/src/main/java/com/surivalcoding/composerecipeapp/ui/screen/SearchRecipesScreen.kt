@@ -27,6 +27,7 @@ import com.surivalcoding.composerecipeapp.ui.component.FilterButton
 import com.surivalcoding.composerecipeapp.ui.component.SearchField
 import com.surivalcoding.composerecipeapp.ui.component.SearchRecipeCard
 import com.surivalcoding.composerecipeapp.ui.theme.Black
+import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 import com.surivalcoding.composerecipeapp.ui.theme.Gray3
 import com.surivalcoding.composerecipeapp.ui.theme.PoppinsBoldTypography
 import com.surivalcoding.composerecipeapp.ui.theme.PoppinsRegularTypography
@@ -50,19 +51,15 @@ fun SearchRecipesScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 20.dp, bottom = 10.dp, start = 30.dp, end = 30.dp)
-                .align(Alignment.CenterHorizontally),
+                .align(Alignment.CenterHorizontally)
         ) {
-            Box(
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .align(Alignment.BottomStart),
-                    painter = painterResource(R.drawable.ic_arrow_left),
-                    contentDescription = "Back",
-                    tint = Black,
-                )
-            }
+            Icon(
+                modifier = Modifier
+                    .align(Alignment.CenterStart),
+                painter = painterResource(R.drawable.ic_arrow_left),
+                contentDescription = "Back",
+                tint = Black,
+            )
             Box(
                 modifier = Modifier
                     .align(Alignment.Center),
@@ -109,7 +106,7 @@ fun SearchRecipesScreen(
 
             Text(
                 modifier = Modifier,
-                text = "525 results",
+                text = "${recipes.value.size} results",
                 style = PoppinsRegularTypography.bodySmall.copy(
                     color = Gray3
                 ),
@@ -154,5 +151,7 @@ fun SearchRecipesScreen(
 )
 @Composable
 fun SearchRecipesScreenPreview() {
-    SearchRecipesScreen()
+    ComposeRecipeAppTheme {
+        SearchRecipesScreen()
+    }
 }
