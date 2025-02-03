@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeViewModel @Inject constructor(
+class SearchRecipesViewModel @Inject constructor(
     private val getRecipesUseCase: GetRecipesUseCase
 ) : ViewModel() {
 
