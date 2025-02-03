@@ -13,6 +13,7 @@ object Urls {
              "chef": "Chef John",
              "time": "20 min",
              "rating": 4,
+             "filterTime" : "Newest"
              "isBookMarked": false,
              "ingredients": [
                {
@@ -64,6 +65,7 @@ object Urls {
              "chef": "Mark Kelvin",
              "time": "20 min",
              "rating": 4,
+             "filterTime" : "Oldest"
              "isBookMarked": false,
              "ingredients": [
                {
@@ -115,6 +117,7 @@ object Urls {
              "chef": "Spicy Nelly",
              "time": "20 min",
              "rating": 4,
+             "filterTime" : "Popularity"
              "isBookMarked": false,
              "ingredients": [
                {
@@ -158,6 +161,7 @@ object Urls {
              "chef": "Kim Dahee",
              "time": "30 min",
              "rating": 5,
+             "filterTime" : "Popularity"
              "isBookMarked": false,
              "ingredients": [],
              "procedure": [
@@ -176,6 +180,7 @@ object Urls {
              "chef": "Alice Johnson",
              "time": "25 min",
              "rating": 4.5,
+             "filterTime" : "Oldest"
              "isBookMarked": false,
              "ingredients": [
                {
@@ -211,6 +216,7 @@ object Urls {
              "chef": "Gordon Ramsay",
              "time": "45 min",
              "rating": 5,
+             "filterTime" : "Newest"
              "isBookMarked": false,
              "ingredients": [
                {
@@ -246,6 +252,7 @@ object Urls {
              "chef": "Mario Batali",
              "time": "15 min",
              "rating": 4.3,
+             "filterTime" : "Oldest"
              "isBookMarked": false,
              "ingredients": [
                {
@@ -273,6 +280,7 @@ object Urls {
              "chef": "Jiro Ono",
              "time": "60 min",
              "rating": 4.8,
+             "filterTime" : "Popularity"
              "isBookMarked": false,
              "ingredients": [
                {
@@ -308,6 +316,7 @@ object Urls {
              "chef": "Julia Child",
              "time": "40 min",
              "rating": 4.6,
+             "filterTime" : "Newest"
              "isBookMarked": false,
              "ingredients": [
                {
@@ -335,6 +344,7 @@ object Urls {
              "chef": "Paul Hollywood",
              "time": "30 min",
              "rating": 4.9,
+             "filterTime" : "Newest"
              "isBookMarked": false,
              "ingredients": [
                {

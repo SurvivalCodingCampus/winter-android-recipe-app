@@ -131,6 +131,7 @@ private fun MainRecipeItemPreview() {
             chef = "Chef John",
             time = "15 Mins",
             rating = 4.0,
+            filterTime = "Newest",
             isBookMarked = false,
             ingredients = emptyList(),
             procedure = emptyList()

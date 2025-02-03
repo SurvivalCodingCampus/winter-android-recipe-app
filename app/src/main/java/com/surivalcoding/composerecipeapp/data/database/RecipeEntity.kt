@@ -18,6 +18,7 @@ data class RecipeEntity(
     val chef: String,
     val time: String,
     val rating: Double,
+    val filterTime: String,
     val isBookMarked: Int,
     val ingredients: String,
     val procedure: String

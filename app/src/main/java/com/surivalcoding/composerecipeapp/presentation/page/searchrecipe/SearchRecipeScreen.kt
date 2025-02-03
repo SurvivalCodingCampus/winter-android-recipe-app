@@ -66,7 +66,12 @@ fun SearchRecipeScreen(
 
     ModalBottomSheetLayout(
         sheetContent = {
-            FilterSearchBottomSheet()
+            FilterSearchBottomSheet(
+                state = state,
+                onAction = onAction,
+                bottomSheetState = bottomSheetState,
+                coroutineScope = coroutineScope
+            )
         },
         sheetState = bottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp),
@@ -170,6 +175,7 @@ fun SearchRecipeScreen(
                         .clickable {
                             coroutineScope.launch {
                                 bottomSheetState.show()
+                                onAction(SearchRecipeAction.HandleBottomSheet(true))
                             }
                         }
                 ) {
