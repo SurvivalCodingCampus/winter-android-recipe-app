@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.data.model
+package com.surivalcoding.composerecipeapp.domain.model
 
 data class Recipe(
     val category: String,
@@ -8,5 +8,6 @@ data class Recipe(
     val chef: String,
     val time: String,
     val rating: Float,
-    val ingredients: List<IngredientAmount>
+    val ingredients: List<IngredientAmount>,
+    val isBookmarked: Boolean = false
 )

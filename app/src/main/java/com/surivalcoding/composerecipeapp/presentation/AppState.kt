@@ -45,6 +45,13 @@ class AppState(
     }
 
     fun navigateToSearchRecipes() {
-        navController.navigate(Screen.SearchRecipes.route)
+        navController.navigate(Screen.SearchRecipes.route) {
+            // 기존 화면에서 BottomNav를 숨기기 위해 popUpTo
+            popUpTo(Screen.Home.route) { inclusive = true }
+        }
+    }
+
+    fun navigateToSavedRecipes(i: Int) {
+        navController.navigate(Screen.SavedRecipes.route)
     }
 }

@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.saved_recipe
+package com.surivalcoding.composerecipeapp.presentation.saved_recipes
 
 import RecipeCard
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.surivalcoding.composerecipeapp.data.model.Recipe
+import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 import com.lottiefiles.dotlottie.core.compose.ui.DotLottieAnimation
 import com.lottiefiles.dotlottie.core.util.DotLottieSource
@@ -24,9 +24,9 @@ import com.dotlottie.dlplayer.Mode
 
 @Composable
 fun SavedRecipeScreen(
-    state: SavedRecipeState,
+    state: SavedRecipesState,
     onRecipeClick: (Recipe) -> Unit = {},
-    onBookmarkClick: (Recipe) -> Unit = {}
+    onBookmarkClick: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -65,8 +65,8 @@ fun SavedRecipeScreen(
                         items(state.recipes) { recipe ->
                             RecipeCard(
                                 recipe = recipe,
-                                // onClick = { onRecipeClick(recipe) },
-                                onBookmarkClick = { onBookmarkClick(recipe) }
+                                //onClick = { onRecipeClick(recipe) },
+                                onBookmarkClick = { onBookmarkClick(recipe.id) }
                             )
                         }
                     }
@@ -80,7 +80,7 @@ fun SavedRecipeScreen(
 @Composable
 private fun SavedRecipeScreenPreview() {
     SavedRecipeScreen(
-        state = SavedRecipeState(
+        state = SavedRecipesState(
             recipes = listOf(
                 Recipe(
                     id = 1,

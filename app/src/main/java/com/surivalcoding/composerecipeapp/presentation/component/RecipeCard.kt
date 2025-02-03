@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
-import com.surivalcoding.composerecipeapp.data.model.Recipe
+import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
@@ -37,7 +37,7 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 fun RecipeCard(
     recipe: Recipe,
     modifier: Modifier = Modifier,
-    onBookmarkClick: () -> Unit = {}
+    onBookmarkClick: () -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -169,7 +169,10 @@ fun RecipeCard(
                         contentAlignment = Alignment.Center
                     ) {
                         Image(
-                            painter = painterResource(R.drawable.inactive),
+                            painter = painterResource(
+                                if (recipe.isBookmarked) R.drawable.ic_bookmark
+                                else R.drawable.ic_bookmark_focused
+                            ),
                             contentDescription = "Bookmark",
                             modifier = Modifier
                                 .size(16.dp)

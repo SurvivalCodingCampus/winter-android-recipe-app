@@ -14,6 +14,10 @@ import com.surivalcoding.composerecipeapp.presentation.auth.signUp.SignUpViewMod
 import com.surivalcoding.composerecipeapp.presentation.main.MainScreen
 import com.surivalcoding.composerecipeapp.presentation.main.home.HomeScreen
 import com.surivalcoding.composerecipeapp.presentation.main.home.HomeViewModel
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipeScreen
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipesViewModel
+import com.surivalcoding.composerecipeapp.presentation.search_recipes.SearchRecipesScreen
+import com.surivalcoding.composerecipeapp.presentation.search_recipes.SearchRecipesViewModel
 import com.surivalcoding.composerecipeapp.presentation.splash.SplashScreen
 
 @Composable
@@ -65,7 +69,7 @@ fun NavigationRoot(
         }
 
         composable(Screen.Main.route) {
-            MainScreen()
+            MainScreen(appState = appState)
         }
 
         composable(Screen.Home.route) {
@@ -74,6 +78,23 @@ fun NavigationRoot(
             HomeScreen(
                 state = state,
                 onSearchClick = appState::navigateToSearchRecipes,
+            )
+        }
+
+        composable(Screen.SavedRecipes.route) {
+            val viewModel: SavedRecipesViewModel = viewModel(factory = SavedRecipesViewModel.Factory)
+            val state by viewModel.state.collectAsStateWithLifecycle()
+            SavedRecipeScreen(state = state, onBookmarkClick = viewModel::onBookmarkClick)
+        }
+
+        composable(Screen.SearchRecipes.route) {
+            val viewModel: SearchRecipesViewModel = viewModel(factory = SearchRecipesViewModel.Factory)
+            val state by viewModel.state.collectAsStateWithLifecycle()
+
+            SearchRecipesScreen(
+                state = state,
+                onQueryChange = viewModel::fetchRecipes,
+                onDismiss = {}
             )
         }
     }

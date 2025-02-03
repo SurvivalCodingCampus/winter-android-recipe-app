@@ -1,8 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ListItemDefaults.contentColor
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -12,21 +10,25 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.surivalcoding.composerecipeapp.presentation.AppState
 import com.surivalcoding.composerecipeapp.presentation.component.BottomNavigationBar
 import com.surivalcoding.composerecipeapp.presentation.main.home.HomeScreen
 import com.surivalcoding.composerecipeapp.presentation.main.home.HomeViewModel
 import com.surivalcoding.composerecipeapp.presentation.navigation.BottomNavItem
-import com.surivalcoding.composerecipeapp.presentation.saved_recipe.SavedRecipeScreen
-import com.surivalcoding.composerecipeapp.presentation.saved_recipe.SavedRecipeViewModel
-import com.surivalcoding.composerecipeapp.ui.AppColors
+import com.surivalcoding.composerecipeapp.presentation.navigation.Screen
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipeScreen
+import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipesViewModel
 
 @Composable
-fun MainScreen() {
+fun MainScreen(appState: AppState) {
     val navController = rememberNavController()
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController)
+            // 화면이 SearchRecipes일 때만 BottomNav를 숨김
+            if (navController.currentDestination?.route != Screen.SearchRecipes.route) {
+                BottomNavigationBar(navController)
+            }
         }
     ) { innerPadding ->
         NavHost(
@@ -37,13 +39,17 @@ fun MainScreen() {
             composable(BottomNavItem.Home.route) {
                 val viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
                 val state by viewModel.state.collectAsStateWithLifecycle()
-                HomeScreen(state = state, onSearchClick = {})
+                HomeScreen(
+                    state = state,
+                    onSearchClick = appState::navigateToSearchRecipes  // SearchRecipesScreen으로 네비게이션
+                )
             }
 
             composable(BottomNavItem.SavedRecipes.route) {
-                val viewModel: SavedRecipeViewModel = viewModel(factory = SavedRecipeViewModel.Factory)
+                val viewModel: SavedRecipesViewModel =
+                    viewModel(factory = SavedRecipesViewModel.Factory)
                 val state by viewModel.state.collectAsStateWithLifecycle()
-                SavedRecipeScreen(state = state)
+                SavedRecipeScreen(state = state, onBookmarkClick = viewModel::onBookmarkClick)
             }
 
             composable(BottomNavItem.RecipeWrite.route) {

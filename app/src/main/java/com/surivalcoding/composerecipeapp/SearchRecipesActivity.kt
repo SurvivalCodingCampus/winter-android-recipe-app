@@ -25,6 +25,7 @@ class SearchRecipesActivity : ComponentActivity() {
                     onQueryChange = { query ->
                         viewModel.fetchRecipes(query)
                     }
+                    , onDismiss = {}
                 )
             }
         }

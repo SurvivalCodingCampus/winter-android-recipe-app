@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.presentation.search_recipes
+package com.surivalcoding.composerecipeapp.presentation.saved_recipes
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,63 +7,53 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.surivalcoding.composerecipeapp.AppApplication
+import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
-import com.surivalcoding.composerecipeapp.domain.usecase.recipe.SearchRecipeUseCase
+import com.surivalcoding.composerecipeapp.domain.usecase.recipe.GetSavedRecipesUseCase
+import com.surivalcoding.composerecipeapp.domain.usecase.recipe.RemoveFromSavedRecipesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SearchRecipesViewModel(private val searchRecipeUseCase: SearchRecipeUseCase) : ViewModel() {
-    private val _state = MutableStateFlow(SearchRecipesState())
-    val state = _state.asStateFlow()
+class SavedRecipesViewModel(
+    private val getSavedRecipesUseCase: GetSavedRecipesUseCase,
+    private val removeFromSavedRecipesUseCase: RemoveFromSavedRecipesUseCase
+) : ViewModel() {
+
+    private val _state = MutableStateFlow(SavedRecipesState())
+    val state: StateFlow<SavedRecipesState> = _state.asStateFlow()
 
     init {
-        fetchAllRecipes()
+        loadSavedRecipes()
     }
 
-    fun fetchRecipes(query: String) {
-        if (query.isEmpty()) {
-            _state.update {
-                it.copy(
-                    query = query,
-                    filteredRecipes = it.recipes,
-                    resultTitle = "Recent Search",
-                    resultCount = ""
-                )
-            }
-            return
-        }
-
-        val filteredRecipes = state.value.recipes.filter {
-            it.name.contains(query, ignoreCase = true) ||
-                    it.chef.contains(query, ignoreCase = true)
-        }
-
-        _state.update {
-            it.copy(
-                query = query,
-                filteredRecipes = filteredRecipes,
-                resultTitle = "Search Result",
-                resultCount = "${filteredRecipes.size} results"
-            )
-        }
-    }
-
-    private fun fetchAllRecipes() {
+    private fun loadSavedRecipes() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
             try {
-                val recipes = searchRecipeUseCase.execute()
+                val recipes = getSavedRecipesUseCase.execute()
                 _state.update {
                     it.copy(
                         recipes = recipes,
-                        filteredRecipes = recipes,
                         isLoading = false
                     )
                 }
             } catch (e: Exception) {
+                println("Error: ${e.message}")
                 _state.update { it.copy(isLoading = false) }
+            }
+        }
+    }
+
+    fun onBookmarkClick(recipeId: Int) {
+        viewModelScope.launch {
+            try {
+                removeFromSavedRecipesUseCase.execute(recipeId)
+                loadSavedRecipes()
+            } catch (e: Exception) {
+                println("Error: ${e.message}")
             }
         }
     }
@@ -76,8 +66,10 @@ class SearchRecipesViewModel(private val searchRecipeUseCase: SearchRecipeUseCas
                 extras: CreationExtras
             ): T {
                 val application = checkNotNull(extras[APPLICATION_KEY]) as AppApplication
-                return SearchRecipesViewModel(
-                    application.searchRecipeUseCase
+
+                return SavedRecipesViewModel(
+                    getSavedRecipesUseCase = application.getSavedRecipesUseCase,
+                    removeFromSavedRecipesUseCase = application.removeFromSavedRecipesUseCase
                 ) as T
             }
         }

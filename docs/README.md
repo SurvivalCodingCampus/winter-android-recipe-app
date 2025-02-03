@@ -59,6 +59,7 @@ Figma 커뮤니티의 Recipe UI 디자인을 참고하여, Jetpack Compose로 �
 - [4일차](/docs/daily/2025-01-17.md) - MVVM 패턴 학습 및 SavedRecipesScreen 구현
 - [5일차](/docs/daily/2025-01-20.md) - UI State Holder 패턴 학습 및 Lottie 활용 SavedRecipesScreen 로딩 화면, SearchRecipesScreen 구현
 - [6일차](/docs/daily/2025-01-21.md) - Navigation 학습 및 Splash -> SignIn -> SignUp Screen 이동 구현
+- [7일차](/docs/daily/2025-01-22.md) - lean Architecture를 도입하여 UseCase 패턴으로 리팩토링하고 검색 필터 UI 구현
 
 ## 학습 로드맵
 
