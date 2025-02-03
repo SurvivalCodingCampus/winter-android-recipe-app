@@ -14,7 +14,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.ui.component.FilterButton
 import com.surivalcoding.composerecipeapp.ui.component.SearchField
@@ -38,8 +38,7 @@ import com.surivalcoding.composerecipeapp.ui.viewmodel.SearchRecipesViewModel
 fun SearchRecipesScreen(
     viewModel: SearchRecipesViewModel = hiltViewModel()
 ) {
-    val recipes = viewModel.recipes.collectAsState()
-    val isLoading = viewModel.isLoading.collectAsState()
+    val state = viewModel.searchState.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -83,10 +82,10 @@ fun SearchRecipesScreen(
             SearchField(
                 modifier = Modifier
                     .weight(1f),
-                placeholder = "Search recipes",
-                value = "",
-                onValueChange = {},
-                isFocused = false
+                value = state.value.query,
+                onValueChange = {
+                    viewModel.updateSearchQuery(it)
+                }
             )
 
             FilterButton()
@@ -106,14 +105,14 @@ fun SearchRecipesScreen(
 
             Text(
                 modifier = Modifier,
-                text = "${recipes.value.size} results",
+                text = "${state.value.filteredRecipes.size} results",
                 style = PoppinsRegularTypography.bodySmall.copy(
                     color = Gray3
                 ),
             )
         }
 
-        if (isLoading.value) {
+        if (state.value.isLoading) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -132,13 +131,14 @@ fun SearchRecipesScreen(
                 horizontalArrangement = Arrangement.spacedBy(15.dp),
                 verticalArrangement = Arrangement.spacedBy(15.dp)
             ) {
-                items(recipes.value.size) { i ->
+                items(state.value.filteredRecipes.size) { i ->
+                    val filteredRecipes = state.value.filteredRecipes
                     SearchRecipeCard(
-                        imageUrl = recipes.value[i].thumbnailUrl,
-                        title = recipes.value[i].title,
-                        chefName = recipes.value[i].chefName,
-                        rating = recipes.value[i].rating.toString(),
-                        cookTime = recipes.value[i].cookingMinute.toString()
+                        imageUrl = filteredRecipes[i].thumbnailUrl,
+                        title = filteredRecipes[i].title,
+                        chefName = filteredRecipes[i].chefName,
+                        rating = filteredRecipes[i].rating.toString(),
+                        cookTime = filteredRecipes[i].cookingMinute.toString()
                     )
                 }
             }
