@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.surivalcoding.composerecipeapp.common.result.Result
 import com.surivalcoding.composerecipeapp.common.result.asResult
+import com.surivalcoding.composerecipeapp.data.mapper.toSearchRecipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.model.SearchFilterOptions
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
-import com.surivalcoding.composerecipeapp.data.model.toSearchRecipe
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.UserDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

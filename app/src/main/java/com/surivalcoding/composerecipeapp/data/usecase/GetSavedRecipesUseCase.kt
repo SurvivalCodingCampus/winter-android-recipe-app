@@ -1,7 +1,7 @@
 package com.surivalcoding.composerecipeapp.data.usecase
 
+import com.surivalcoding.composerecipeapp.data.mapper.toSavedRecipe
 import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
-import com.surivalcoding.composerecipeapp.data.model.toSavedRecipe
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.UserDataRepository
 import jakarta.inject.Inject

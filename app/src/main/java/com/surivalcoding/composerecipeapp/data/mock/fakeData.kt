@@ -1,16 +1,16 @@
 package com.surivalcoding.composerecipeapp.data.mock
 
 import com.surivalcoding.composerecipeapp.R
+import com.surivalcoding.composerecipeapp.data.mapper.toHomeRecipe
+import com.surivalcoding.composerecipeapp.data.mapper.toNewRecipe
+import com.surivalcoding.composerecipeapp.data.mapper.toSavedRecipe
+import com.surivalcoding.composerecipeapp.data.mapper.toSearchRecipe
 import com.surivalcoding.composerecipeapp.data.model.Ingredient
 import com.surivalcoding.composerecipeapp.data.model.Recipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.model.SearchFilterOptions
 import com.surivalcoding.composerecipeapp.data.model.TimeType
 import com.surivalcoding.composerecipeapp.data.model.UserData
-import com.surivalcoding.composerecipeapp.data.model.toHomeRecipe
-import com.surivalcoding.composerecipeapp.data.model.toNewRecipe
-import com.surivalcoding.composerecipeapp.data.model.toSavedRecipe
-import com.surivalcoding.composerecipeapp.data.model.toSearchRecipe
 
 
 val fakeUserData = UserData(

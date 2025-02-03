@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.surivalcoding.composerecipeapp.common.result.Result
 import com.surivalcoding.composerecipeapp.common.result.asResult
+import com.surivalcoding.composerecipeapp.data.mapper.toHomeRecipe
+import com.surivalcoding.composerecipeapp.data.mapper.toNewRecipe
 import com.surivalcoding.composerecipeapp.data.model.HomeRecipe
 import com.surivalcoding.composerecipeapp.data.model.NewRecipe
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
-import com.surivalcoding.composerecipeapp.data.model.toHomeRecipe
-import com.surivalcoding.composerecipeapp.data.model.toNewRecipe
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.UserDataRepository
 import com.surivalcoding.composerecipeapp.presentation.home.HomeAction.UpdateCategory
