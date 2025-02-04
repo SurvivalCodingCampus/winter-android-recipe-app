@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.di
 
+import com.surivalcoding.composerecipeapp.BuildConfig
 import com.surivalcoding.composerecipeapp.config.AppConfig
 import com.surivalcoding.composerecipeapp.config.DevAppConfig
 import com.surivalcoding.composerecipeapp.config.ProdAppConfig
@@ -38,8 +39,12 @@ abstract class AppBindModule {
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    private const val FLAVOR_DEV = "dev"
-    private const val FLAVOR_PROD = "prod"
+
+    @Provides
+    @Named("appFlavor")
+    fun provideAppFlavor(): String {
+        return BuildConfig.FLAVOR
+    }
 
     @Provides
     @Singleton
@@ -47,9 +52,9 @@ object AppModule {
         @Named("appFlavor") flavor: String
     ): AppConfig {
         return when (flavor) {
-            FLAVOR_DEV -> DevAppConfig()
-            FLAVOR_PROD -> ProdAppConfig()
-            else -> ProdAppConfig()
+            "dev" -> DevAppConfig() // dev 환경에 맞는 AppConfig 제공
+            "prod" -> ProdAppConfig() // prod 환경에 맞는 AppConfig 제공
+            else -> ProdAppConfig() // 기본값 설정
         }
     }
 

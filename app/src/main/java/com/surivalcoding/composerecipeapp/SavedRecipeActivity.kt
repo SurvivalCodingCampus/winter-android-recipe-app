@@ -12,7 +12,7 @@ import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 
 class SavedRecipeActivity : ComponentActivity() {
-    private val viewModel: SavedRecipesViewModel by viewModels { SavedRecipesViewModel.Factory }
+    private val viewModel: SavedRecipesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

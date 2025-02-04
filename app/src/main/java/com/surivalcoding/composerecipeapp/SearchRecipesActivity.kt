@@ -11,7 +11,7 @@ import com.surivalcoding.composerecipeapp.presentation.search_recipes.SearchReci
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 
 class SearchRecipesActivity : ComponentActivity() {
-    private val viewModel: SearchRecipesViewModel by viewModels { SearchRecipesViewModel.Factory }
+    private val viewModel: SearchRecipesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

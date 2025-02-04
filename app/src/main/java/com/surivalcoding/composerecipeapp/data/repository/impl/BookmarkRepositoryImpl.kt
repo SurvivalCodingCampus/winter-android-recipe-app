@@ -2,8 +2,9 @@ package com.surivalcoding.composerecipeapp.data.repository.impl
 
 import com.surivalcoding.composerecipeapp.data.data_source.BookmarkDatasource
 import com.surivalcoding.composerecipeapp.domain.repository.BookmarkRepository
+import javax.inject.Inject
 
-class BookmarkRepositoryImpl(
+class BookmarkRepositoryImpl @Inject constructor(
     private val bookmarkDataSource: BookmarkDatasource
 ) : BookmarkRepository {
 
