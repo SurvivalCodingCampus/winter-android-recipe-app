@@ -59,7 +59,8 @@ Figma 커뮤니티의 Recipe UI 디자인을 참고하여, Jetpack Compose로 �
 - [4일차](/docs/daily/2025-01-17.md) - MVVM 패턴 학습 및 SavedRecipesScreen 구현
 - [5일차](/docs/daily/2025-01-20.md) - UI State Holder 패턴 학습 및 Lottie 활용 SavedRecipesScreen 로딩 화면, SearchRecipesScreen 구현
 - [6일차](/docs/daily/2025-01-21.md) - Navigation 학습 및 Splash -> SignIn -> SignUp Screen 이동 구현
-- [7일차](/docs/daily/2025-01-22.md) - lean Architecture를 도입하여 UseCase 패턴으로 리팩토링하고 검색 필터 UI 구현
+- [7일차](/docs/daily/2025-01-22.md) - Clean Architecture를 도입하여 UseCase 패턴으로 리팩토링하고 검색 필터 UI 구현
+- [8일차](/docs/daily/2025-01-23.md) - Hilt 의존성 주입 라이브러리 적용 리팩토링 후 dev, prod 개발환경 구성
 
 ## 학습 로드맵
 
@@ -96,9 +97,9 @@ Figma 커뮤니티의 Recipe UI 디자인을 참고하여, Jetpack Compose로 �
 - [x] 상태관리, Activity 생명주기
 - [x] 네비게이션
 - [x] MVVM 패턴
-- [ ] 단일 상태 객체 도입
-- [ ] 클린 아키텍처
-- [ ] 의존성 주입
+- [x] 단일 상태 객체 도입
+- [x] 클린 아키텍처
+- [x] 의존성 주입
 - [ ] 1회성 UI Event 처리
 - [ ] UI/통합 Test
 - [ ] 고급 상태관리 기법
