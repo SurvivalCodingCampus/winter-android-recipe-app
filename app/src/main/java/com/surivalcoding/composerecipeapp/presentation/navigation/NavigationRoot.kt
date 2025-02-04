@@ -83,7 +83,7 @@ fun NavigationRoot(
         }
 
         composable(Screen.SavedRecipes.route) {
-            val viewModel: SavedRecipesViewModel = viewModel(factory = SavedRecipesViewModel.Factory)
+            val viewModel: SavedRecipesViewModel = hiltViewModel()
             val state by viewModel.state.collectAsStateWithLifecycle()
             SavedRecipeScreen(state = state, onBookmarkClick = viewModel::onBookmarkClick)
         }
