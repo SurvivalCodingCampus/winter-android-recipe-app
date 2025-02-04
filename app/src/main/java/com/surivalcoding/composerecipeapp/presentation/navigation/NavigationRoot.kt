@@ -52,7 +52,7 @@ fun NavigationRoot(
         }
 
         composable(Screen.SignUp.route) {
-            val viewModel: SignUpViewModel = viewModel(factory = SignUpViewModel.Factory)
+            val viewModel: SignUpViewModel = hiltViewModel()
             val state by viewModel.state.collectAsStateWithLifecycle()
 
             SignUpScreen(
