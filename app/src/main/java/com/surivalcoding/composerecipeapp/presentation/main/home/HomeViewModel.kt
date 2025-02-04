@@ -1,13 +1,17 @@
 package com.surivalcoding.composerecipeapp.presentation.main.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
+import com.surivalcoding.composerecipeapp.config.AppConfig
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val appConfig: AppConfig
+) : ViewModel() {
     private val _state = MutableStateFlow(HomeState())
     val state = _state.asStateFlow()
 
@@ -15,12 +19,9 @@ class HomeViewModel : ViewModel() {
         // TODO: Implement later
     }
 
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                HomeViewModel()
-            }
+    init {
+        _state.update {
+            it.copy(greeting = appConfig.greeting)
         }
     }
 }
