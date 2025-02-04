@@ -39,6 +39,19 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+
+    // flavor 설정
+    flavorDimensions += "environment"
+    productFlavors {
+        create("dev") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+        }
+        create("prod") {
+            dimension = "environment"
+        }
     }
 }
 
