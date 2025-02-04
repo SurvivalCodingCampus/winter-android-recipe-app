@@ -9,12 +9,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,8 +26,6 @@ import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchR
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.Time
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -39,8 +33,7 @@ import kotlinx.coroutines.launch
 fun FilterSearchBottomSheet(
     state: SearchRecipesState,
     onAction: (SearchRecipeAction) -> Unit,
-    bottomSheetState: ModalBottomSheetState,
-    coroutineScope: CoroutineScope // 전달받은 coroutineScope
+    onFilterApply: () -> Unit,
 ) {
 
     Column(
@@ -160,12 +153,7 @@ fun FilterSearchBottomSheet(
             text = "Filter",
             buttonState = ButtonState.NORMAL,
             onClick = {
-                onAction(SearchRecipeAction.ApplyFilter)
-
-                coroutineScope.launch {
-                    bottomSheetState.hide()
-                }
-                onAction(SearchRecipeAction.HandleBottomSheet(false))
+                onFilterApply()
             }
         )
 
@@ -176,18 +164,10 @@ fun FilterSearchBottomSheet(
 @Preview(showBackground = true)
 @Composable
 private fun FilterSearchBottomSheetPreview() {
-
-    // BottomSheet 상태
-    val bottomSheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
-        skipHalfExpanded = true
-    )
-    val coroutineScope = rememberCoroutineScope()
     FilterSearchBottomSheet(
         state = SearchRecipesState(),
         onAction = {},
-        bottomSheetState = bottomSheetState,
-        coroutineScope = coroutineScope,
+        onFilterApply = {}
     )
 }
 

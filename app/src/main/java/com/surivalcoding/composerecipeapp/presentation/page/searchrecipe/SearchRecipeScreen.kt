@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.page.searchrecipe
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,7 +17,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -70,14 +70,31 @@ fun SearchRecipeScreen(
             FilterSearchBottomSheet(
                 state = state,
                 onAction = onAction,
-                bottomSheetState = bottomSheetState,
-                coroutineScope = coroutineScope
+                onFilterApply = {
+                    onAction(SearchRecipeAction.ApplyFilter)
+
+                    coroutineScope.launch {
+                        bottomSheetState.hide()
+                        onAction(SearchRecipeAction.HandleBottomSheet(false))
+                    }
+
+                }
             )
         },
         sheetState = bottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp),
         sheetBackgroundColor = AppColors.white
     ) {
+
+        // 시스템 뒤로가기 처리
+        BackHandler(
+            enabled = bottomSheetState.isVisible
+        ) {
+            coroutineScope.launch {
+                bottomSheetState.hide()
+                onAction(SearchRecipeAction.HandleBottomSheet(false))
+            }
+        }
 
         Column(
             modifier = Modifier

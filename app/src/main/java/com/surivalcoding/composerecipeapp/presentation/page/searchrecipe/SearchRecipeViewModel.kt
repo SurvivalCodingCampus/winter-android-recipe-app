@@ -119,9 +119,11 @@ class SearchRecipeViewModel @Inject constructor(
     private fun applyFilter() {
         val (selectedTime, selectedRate, selectedCategory) = _searchRecipeState.value.filterState
 
+        Logger.e("필터링할 녀석들 selectedTime: $selectedTime, selectedRate: $selectedRate, selectedCategory: $selectedCategory")
+
         _searchRecipeState.value = _searchRecipeState.value.copy(
             filteredRecipeList = _searchRecipeState.value.filteredRecipeList.filter { recipe ->
-                         (selectedTime == Time.All.name || recipe.time == selectedTime) &&
+                (selectedTime == Time.All.name || recipe.time == selectedTime) &&
                         (selectedRate == 0 || recipe.ratingInt == selectedRate) &&
                         (selectedCategory == Category.All.name || recipe.category == selectedCategory)
             }
