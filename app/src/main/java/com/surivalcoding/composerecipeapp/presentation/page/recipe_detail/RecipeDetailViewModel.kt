@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.orhanobut.logger.Logger
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
+import com.surivalcoding.composerecipeapp.domain.usecase.CopyLinkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,6 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecipeDetailViewModel @Inject constructor(
+    private val copyLinkUseCase: CopyLinkUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val _recipeDetailState = MutableStateFlow(RecipeDetailState())
@@ -44,6 +46,24 @@ class RecipeDetailViewModel @Inject constructor(
                 _recipeDetailState.value = _recipeDetailState.value.copy(
                     recipeCategoryButtonState = action.recipeDetailButtonState
                 )
+            }
+
+            is RecipeDetailAction.HandleDropDown -> {
+                _recipeDetailState.value = _recipeDetailState.value.copy(
+                    isDropDownMenuVisible = action.isDropDownMenuVisible
+                )
+
+            }
+
+            is RecipeDetailAction.CopyLink -> {
+                copyLinkUseCase.execute(action.link)
+            }
+
+            is RecipeDetailAction.HandleDialog -> {
+                _recipeDetailState.value = _recipeDetailState.value.copy(
+                    showDialog = action.isVisible
+                )
+
             }
         }
     }

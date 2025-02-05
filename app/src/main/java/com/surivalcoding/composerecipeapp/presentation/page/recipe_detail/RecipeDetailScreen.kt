@@ -26,11 +26,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
+import com.surivalcoding.composerecipeapp.presentation.item.DropDownMenuWithDetails
 import com.surivalcoding.composerecipeapp.presentation.item.IngredientItem
 import com.surivalcoding.composerecipeapp.presentation.item.ProcedureCard
 import com.surivalcoding.composerecipeapp.presentation.item.RecipeCard
 import com.surivalcoding.composerecipeapp.presentation.item.button.NoneBorderFilterButton
 import com.surivalcoding.composerecipeapp.presentation.item.button.PushedButton
+import com.surivalcoding.composerecipeapp.presentation.item.dialog.RecipeLinkDialog
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.RecipeDetailCategory
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
@@ -44,10 +46,10 @@ fun RecipeDetailScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 30.dp),
-
-        ) {
+    ) {
 
         Spacer(modifier = Modifier.height(12.dp))
+
 
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -66,13 +68,52 @@ fun RecipeDetailScreen(
 
             IconButton(
                 modifier = Modifier.size(24.dp),
-                onClick = {}
+                onClick = {
+                    onAction(
+                        RecipeDetailAction.HandleDropDown(
+                            isDropDownMenuVisible = !state.isDropDownMenuVisible
+                        )
+                    )
+                }
             ) {
                 Icon(
                     painter = painterResource(R.drawable.more),
                     contentDescription = null,
                 )
+
+                DropDownMenuWithDetails(
+                    isExpanded = state.isDropDownMenuVisible,
+                    onDismissRequest = {
+                        onAction(
+                            RecipeDetailAction.HandleDropDown(
+                                isDropDownMenuVisible = false
+                            )
+                        )
+                    },
+                    // 공유 버튼 클릭시
+                    onShareClick = {
+                        onAction(RecipeDetailAction.HandleDropDown(false))
+                        onAction(RecipeDetailAction.HandleDialog(true))
+                    }
+                )
             }
+        }
+
+        // 다이얼로그 표시
+        if (state.showDialog) {
+            RecipeLinkDialog(
+                recipeId = state.recipeDetail?.id ?: 1,
+                onCopyLink = { link ->
+                    onAction(
+                        RecipeDetailAction.CopyLink(link)
+                    )
+                },
+                onDismiss = {
+                    onAction(
+                        RecipeDetailAction.HandleDialog(false)
+                    )
+                }
+            )
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -259,6 +300,7 @@ fun RecipeDetailScreen(
 
             }
         }
+
     }
 }
 

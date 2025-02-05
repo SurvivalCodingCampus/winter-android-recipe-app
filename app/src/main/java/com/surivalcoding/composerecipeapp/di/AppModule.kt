@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.di
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.surivalcoding.composerecipeapp.data.database.RecipeDatabase
@@ -24,4 +25,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRecipeDao(recipeDatabase: RecipeDatabase) = recipeDatabase.recipeDao()
+
+    @Provides
+    fun provideContext(application: Application): Context = application
 }
