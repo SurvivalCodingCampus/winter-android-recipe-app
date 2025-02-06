@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.util
+package com.surivalcoding.composerecipeapp.common.result
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

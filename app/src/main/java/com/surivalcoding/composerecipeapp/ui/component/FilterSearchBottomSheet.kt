@@ -30,11 +30,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.surivalcoding.composerecipeapp.data.mock.fakeUserData
 import com.surivalcoding.composerecipeapp.data.model.RecipeCategory
 import com.surivalcoding.composerecipeapp.data.model.SearchFilterOptions
 import com.surivalcoding.composerecipeapp.data.model.TimeType
-import com.surivalcoding.composerecipeapp.ui.AppIcons
 import com.surivalcoding.composerecipeapp.ui.custom.NoPaddingFilterChip
+import com.surivalcoding.composerecipeapp.ui.icon.AppIcons
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
@@ -43,12 +44,13 @@ import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 @Composable
 fun FilterSearchBottomSheet(
     onDismissRequest: () -> Unit,
+    filterOptions: SearchFilterOptions,
     onFilterClick: (SearchFilterOptions) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var timeType by remember { mutableStateOf(TimeType.ALL) }
-    var rateScore by remember { mutableIntStateOf(5) }
-    var recipeCategoryType by remember { mutableStateOf(RecipeCategory.ALL) }
+    var timeType by remember { mutableStateOf(filterOptions.time) }
+    var rateScore by remember { mutableIntStateOf(filterOptions.rating) }
+    var recipeCategoryType by remember { mutableStateOf(filterOptions.category) }
 
 
     val sheetState = rememberModalBottomSheetState(
@@ -240,6 +242,7 @@ private fun FilterSearchBottomSheetPreview() {
     ComposeRecipeAppTheme {
         FilterSearchBottomSheet(
             onDismissRequest = {},
+            filterOptions = fakeUserData.searchFilterOptions,
             onFilterClick = {}
         )
     }

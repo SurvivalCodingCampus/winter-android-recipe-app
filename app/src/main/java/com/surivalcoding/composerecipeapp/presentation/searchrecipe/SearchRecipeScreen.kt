@@ -39,13 +39,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.surivalcoding.composerecipeapp.data.mock.fakeSearchRecipe
+import com.surivalcoding.composerecipeapp.data.mock.fakeUserData
 import com.surivalcoding.composerecipeapp.data.model.SearchRecipe
-import com.surivalcoding.composerecipeapp.ui.AppIcons
 import com.surivalcoding.composerecipeapp.ui.component.FilterSearchBottomSheet
 import com.surivalcoding.composerecipeapp.ui.component.SearchField
 import com.surivalcoding.composerecipeapp.ui.component.SquareRecipeCard
 import com.surivalcoding.composerecipeapp.ui.custom.LoadingWheel
 import com.surivalcoding.composerecipeapp.ui.custom.NoPaddingButton
+import com.surivalcoding.composerecipeapp.ui.icon.AppIcons
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
@@ -61,8 +62,7 @@ fun SearchRecipeScreen(
         title = "Search Recipe",
         query = searchQuery,
         searchRecipeUiState = searchRecipeUiState,
-        onFilterClick = {},
-        onQueryChange = searchRecipeViewModel::onSearchQueryChanged,
+        setAction = searchRecipeViewModel::setAction,
         modifier = modifier
     )
 }
@@ -72,8 +72,7 @@ fun SearchRecipeScreen(
 fun SearchRecipeScreen(
     title: String,
     searchRecipeUiState: SearchRecipeUiState,
-    onFilterClick: () -> Unit,
-    onQueryChange: (String) -> Unit,
+    setAction: (SearchRecipeAction) -> Unit,
     modifier: Modifier = Modifier,
     query: String = ""
 ) {
@@ -107,7 +106,9 @@ fun SearchRecipeScreen(
 
             SearchField(
                 query = query,
-                onQueryChange = onQueryChange,
+                onQueryChange = {
+                    setAction(SearchRecipeAction.SearchQueryChanged(it))
+                },
                 onFilterClick = {
                     showBottomSheet = true
                 },
@@ -130,14 +131,7 @@ fun SearchRecipeScreen(
                     }
                 }
 
-                is SearchRecipeUiState.EmptyQuery -> {
-                    RecentRecipeResultBody(
-                        searchRecipeUiState.recentRecipes,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-
-                is SearchRecipeUiState.Success -> {
+                is SearchRecipeUiState.SearchRecipeLoaded -> {
                     if (searchRecipeUiState.isEmpty()) {
                         EmptySearchResultBody(
                             query = query,
@@ -146,17 +140,27 @@ fun SearchRecipeScreen(
                         )
                     } else {
                         SearchRecipeResultBody(
-                            searchRecipes = searchRecipeUiState.searchRecipes,
+                            title = "Search Result",
+                            searchRecipes = searchRecipeUiState.recipes,
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }
+
+                is SearchRecipeUiState.RecentRecipeLoaded -> {
+                    RecentRecipeResultBody(
+                        recentRecipes = searchRecipeUiState.recipes,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
         }
-        if (showBottomSheet) {
+        if (searchRecipeUiState is SearchRecipeUiState.Loaded && showBottomSheet) {
             FilterSearchBottomSheet(
                 onDismissRequest = { showBottomSheet = false },
+                filterOptions = searchRecipeUiState.filterOptions,
                 onFilterClick = {
+                    setAction(SearchRecipeAction.FilterOptionsChanged(it))
                     showBottomSheet = false
                 }
             )
@@ -215,6 +219,7 @@ private fun RecentRecipeResultBody(
 
 @Composable
 private fun SearchRecipeResultBody(
+    title: String,
     searchRecipes: List<SearchRecipe>,
     modifier: Modifier = Modifier
 ) {
@@ -229,7 +234,7 @@ private fun SearchRecipeResultBody(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
-                text = "Search Result",
+                text = title,
                 style = AppTextStyles.mediumTextSemiBold,
             )
             Text(
@@ -294,9 +299,12 @@ private fun SearchRecipeScreenPreview() {
         SearchRecipeScreen(
             title = "Search Recipe",
             query = "",
-            searchRecipeUiState = SearchRecipeUiState.Success(fakeSearchRecipe),
-            onFilterClick = {},
-            onQueryChange = {}
+            searchRecipeUiState = SearchRecipeUiState.SearchRecipeLoaded(
+                query = "",
+                filterOptions = fakeUserData.searchFilterOptions,
+                fakeSearchRecipe
+            ),
+            setAction = {}
         )
     }
 }

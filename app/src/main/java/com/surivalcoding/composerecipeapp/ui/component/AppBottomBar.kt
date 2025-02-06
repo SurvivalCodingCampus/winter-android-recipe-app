@@ -1,13 +1,9 @@
-package com.surivalcoding.composerecipeapp.navigation
+package com.surivalcoding.composerecipeapp.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.FloatingActionButton
@@ -16,7 +12,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,47 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.surivalcoding.composerecipeapp.ui.AppIcons
+import com.surivalcoding.composerecipeapp.TopLevelDestination
+import com.surivalcoding.composerecipeapp.ui.RecipeAppState
+import com.surivalcoding.composerecipeapp.ui.icon.AppIcons
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import kotlin.reflect.KClass
-
-@Composable
-fun RecipeApp(
-    appState: RecipeAppState,
-    modifier: Modifier = Modifier,
-) {
-    val currentDestination = appState.currentDestination
-    val currentDestinationIsTopLevel = appState.currentDestinationIsTopLevel
-    Scaffold(
-        containerColor = AppColors.White,
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
-        modifier = modifier
-    ) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .align(Alignment.TopStart)
-            ) {
-                RecipeNavHost(
-                    appState = appState,
-                )
-            }
-            if (currentDestinationIsTopLevel) {
-                AppBottomBar(
-                    currentDestination,
-                    appState,
-                    modifier = Modifier.align(Alignment.BottomStart)
-                )
-            }
-        }
-    }
-}
-
 
 @Composable
 fun AppBottomBar(
@@ -85,8 +44,7 @@ fun AppBottomBar(
 ) {
     Box(
         modifier = modifier
-            .padding(top = 12.dp)
-            .height(108.dp)
+            .height(120.dp)
             .background(Color.Transparent)
     ) {
         FloatingActionButton(
@@ -110,8 +68,15 @@ fun AppBottomBar(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(84.dp)
-                .shadow(elevation = 8.dp, shape = BarShape(30.dp, 10.dp))
+                .height(104.dp)
+                .shadow(
+                    elevation = 8.dp,
+                    shape = BarShape(
+                        circleRadius = 28.dp,
+                        cornerRadius = 0.dp,
+                        circleGap = 12.dp
+                    )
+                )
                 .align(Alignment.BottomStart)
         ) {
             NavigationBar(
@@ -125,6 +90,7 @@ fun AppBottomBar(
                     NavigationBarItem(
                         selected = selected,
                         onClick = { appState.navigateToTopLevelDestination(destination) },
+                        label = {},
                         icon = {
                             Icon(
                                 painter = painterResource(destination.icon),
@@ -173,15 +139,11 @@ private class BarShape(
             val cutoutLeftX = cutoutCenterX - cutoutEdgeOffset
             val cutoutRightX = cutoutCenterX + cutoutEdgeOffset
 
-            // bottom left
             moveTo(x = 0F, y = size.height)
-            // top left
             if (cutoutLeftX > 0) {
                 val realLeftCornerDiameter = if (cutoutLeftX >= cornerRadiusPx) {
-                    // there is a space between rounded corner and cutout
                     cornerDiameter
                 } else {
-                    // rounded corner and cutout overlap
                     cutoutLeftX * 2
                 }
                 arcTo(
@@ -197,24 +159,22 @@ private class BarShape(
                 )
             }
             lineTo(cutoutLeftX, 0f)
-            // cutout
             cubicTo(
-                x1 = cutoutCenterX - cutoutRadius,
+                x1 = cutoutCenterX - cutoutRadius + 20,
                 y1 = 0f,
-                x2 = cutoutCenterX - cutoutRadius,
+                x2 = cutoutCenterX - cutoutRadius + 20,
                 y2 = cutoutRadius,
                 x3 = cutoutCenterX,
                 y3 = cutoutRadius,
             )
             cubicTo(
-                x1 = cutoutCenterX + cutoutRadius,
+                x1 = cutoutCenterX + cutoutRadius - 20,
                 y1 = cutoutRadius,
-                x2 = cutoutCenterX + cutoutRadius,
+                x2 = cutoutCenterX + cutoutRadius - 20,
                 y2 = 0f,
                 x3 = cutoutRightX,
                 y3 = 0f,
             )
-            // top right
             if (cutoutRightX < size.width) {
                 val realRightCornerDiameter = if (cutoutRightX <= size.width - cornerRadiusPx) {
                     cornerDiameter
@@ -233,7 +193,6 @@ private class BarShape(
                     forceMoveTo = false
                 )
             }
-            // bottom right
             lineTo(x = size.width, y = size.height)
             close()
         }

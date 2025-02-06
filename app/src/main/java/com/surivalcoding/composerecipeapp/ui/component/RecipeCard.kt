@@ -29,9 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surivalcoding.composerecipeapp.R
 import com.surivalcoding.composerecipeapp.data.mock.fakeSavedRecipe
-import com.surivalcoding.composerecipeapp.ui.AppIcons
 import com.surivalcoding.composerecipeapp.ui.custom.FoodImageBackground
 import com.surivalcoding.composerecipeapp.ui.custom.HoIconToggleButton
+import com.surivalcoding.composerecipeapp.ui.icon.AppIcons
 import com.surivalcoding.composerecipeapp.ui.theme.AppColors
 import com.surivalcoding.composerecipeapp.ui.theme.AppTextStyles
 import com.surivalcoding.composerecipeapp.ui.theme.ComposeRecipeAppTheme
@@ -148,7 +148,7 @@ private fun RecipeMetaData(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            imageVector = AppIcons.alarm,
+            painter = painterResource(AppIcons.alarm),
             contentDescription = null,
             tint = AppColors.Gray4
         )

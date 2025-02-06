@@ -16,12 +16,3 @@ data class Recipe(
     val ingredients: List<Ingredient>,
     val videoLink: String,
 )
-
-fun Recipe.toSavedRecipe() = SavedRecipe(
-    id = id,
-    thumbnailUrl = thumbnailUrl,
-    cookingMinute = cookingMinute,
-    title = title,
-    authorName = authorName,
-    rating = rating,
-)

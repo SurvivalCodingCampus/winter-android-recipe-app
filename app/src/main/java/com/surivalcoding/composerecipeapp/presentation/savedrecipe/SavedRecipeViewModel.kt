@@ -3,11 +3,11 @@ package com.surivalcoding.composerecipeapp.presentation.savedrecipe
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.surivalcoding.composerecipeapp.common.result.Result
+import com.surivalcoding.composerecipeapp.common.result.asResult
 import com.surivalcoding.composerecipeapp.data.model.SavedRecipe
 import com.surivalcoding.composerecipeapp.data.repository.UserDataRepository
 import com.surivalcoding.composerecipeapp.data.usecase.GetSavedRecipesUseCase
-import com.surivalcoding.composerecipeapp.util.Result
-import com.surivalcoding.composerecipeapp.util.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
