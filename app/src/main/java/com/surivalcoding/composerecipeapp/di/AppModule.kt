@@ -25,7 +25,4 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRecipeDao(recipeDatabase: RecipeDatabase) = recipeDatabase.recipeDao()
-
-    @Provides
-    fun provideContext(application: Application): Context = application
 }

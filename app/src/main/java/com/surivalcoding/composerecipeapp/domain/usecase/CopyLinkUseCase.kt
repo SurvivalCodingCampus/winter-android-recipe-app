@@ -3,10 +3,11 @@ package com.surivalcoding.composerecipeapp.domain.usecase
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class CopyLinkUseCase @Inject constructor(
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) {
     fun execute(link: String): Boolean {
 
