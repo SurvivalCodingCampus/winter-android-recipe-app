@@ -11,6 +11,6 @@ class SaveAllRecipesUseCase @Inject constructor(
     private val savedRecipeRepository: SavedRecipeRepository
 ) {
     suspend fun execute(recipes: List<Recipe>) = withContext(Dispatchers.IO) {
-        savedRecipeRepository.saveRecipeList(recipes.map { it.toMapper() })
+        savedRecipeRepository.saveRecipeList(recipes)
     }
 }

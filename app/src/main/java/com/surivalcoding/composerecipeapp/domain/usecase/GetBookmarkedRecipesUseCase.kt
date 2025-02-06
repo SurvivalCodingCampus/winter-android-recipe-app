@@ -16,7 +16,7 @@ class GetBookmarkedRecipesUseCase @Inject constructor(
     fun execute(): Flow<ResponseResult<List<Recipe>>> {
         return savedRecipeRepository.getAllBookMarkList()
             .map { recipeList ->
-                ResponseResult.Success(recipeList.map { it.toMapper() })
+                ResponseResult.Success(recipeList)
             }
             .catch { e ->
                 ResponseResult.Failure(e)
