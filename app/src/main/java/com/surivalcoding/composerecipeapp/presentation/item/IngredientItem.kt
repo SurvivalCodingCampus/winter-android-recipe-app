@@ -40,7 +40,7 @@ fun IngredientItem(
             .fillMaxWidth()
             .height(76.dp)
             .background(
-                color = AppColors.gray_4,
+                color = AppColors.gray_4.copy(alpha = 0.5f),
                 shape = RoundedCornerShape(12.dp)
             )
             .padding(horizontal = 15.dp),

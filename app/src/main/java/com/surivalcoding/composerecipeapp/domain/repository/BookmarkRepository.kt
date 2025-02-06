@@ -1,4 +1,4 @@
-package com.surivalcoding.composerecipeapp.data.repository
+package com.surivalcoding.composerecipeapp.domain.repository
 
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
 

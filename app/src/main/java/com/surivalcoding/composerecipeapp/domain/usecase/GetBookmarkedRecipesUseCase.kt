@@ -1,7 +1,7 @@
 package com.surivalcoding.composerecipeapp.domain.usecase
 
 import com.surivalcoding.composerecipeapp.data.mapper.toMapper
-import com.surivalcoding.composerecipeapp.data.repository.SavedRecipeRepository
+import com.surivalcoding.composerecipeapp.domain.repository.SavedRecipeRepository
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import com.surivalcoding.composerecipeapp.util.ResponseResult
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +16,7 @@ class GetBookmarkedRecipesUseCase @Inject constructor(
     fun execute(): Flow<ResponseResult<List<Recipe>>> {
         return savedRecipeRepository.getAllBookMarkList()
             .map { recipeList ->
-                ResponseResult.Success(recipeList.map { it.toMapper() })
+                ResponseResult.Success(recipeList)
             }
             .catch { e ->
                 ResponseResult.Failure(e)

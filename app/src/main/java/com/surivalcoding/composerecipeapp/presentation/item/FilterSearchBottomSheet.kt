@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,6 +21,8 @@ import com.surivalcoding.composerecipeapp.presentation.item.button.FilterButton
 import com.surivalcoding.composerecipeapp.presentation.item.button.RatingButton
 import com.surivalcoding.composerecipeapp.presentation.item.button.SmallButton
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.Category
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipeAction
+import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.SearchRecipesState
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.Time
 import com.surivalcoding.composerecipeapp.ui.AppColors
 import com.surivalcoding.composerecipeapp.ui.AppTextStyles
@@ -31,14 +30,11 @@ import com.surivalcoding.composerecipeapp.ui.AppTextStyles
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun FilterSearchBottomSheet() {
-    // 필터 버튼 설정
-    val (timeState, onTimeSelected) = remember { mutableStateOf(Time.All.name) }
-
-    val (rateState, onRateSelected) = remember { mutableIntStateOf(5) }
-
-    val (categoryState, onCategorySelected) = remember { mutableStateOf(Category.All.name) }
-
+fun FilterSearchBottomSheet(
+    state: SearchRecipesState,
+    onAction: (SearchRecipeAction) -> Unit,
+    onFilterApply: () -> Unit,
+) {
 
     Column(
         modifier = Modifier
@@ -79,9 +75,12 @@ fun FilterSearchBottomSheet() {
                 for (time in Time.entries) {
                     FilterButton(
                         text = time.displayName,
-                        isSelected = time.name == timeState, // 선택된 시간 상태 확인
+                        isSelected = time.name == state.filterState.selectedTime, // 선택된 시간 상태 확인
                         onClick = {
-                            onTimeSelected(if (time.name == timeState) "" else time.name)
+                            val newFilterState = state.filterState.copy(
+                                selectedTime = if (time.name == state.filterState.selectedTime) Time.All.name else time.name
+                            )
+                            onAction(SearchRecipeAction.UpdateFilter(newFilterState))
                         }
                     )
                 }
@@ -105,9 +104,12 @@ fun FilterSearchBottomSheet() {
                 for (i in 5 downTo 1) {
                     RatingButton(
                         text = i.toString(),
-                        isSelected = i == rateState, // 선택된 별점 상태 확인
+                        isSelected = i == state.filterState.selectedRate, // 선택된 별점 상태 확인
                         onClick = {
-                            onRateSelected(if (i == rateState) 0 else i)
+                            val newFilterState = state.filterState.copy(
+                                selectedRate = if (i == state.filterState.selectedRate) 0 else i
+                            )
+                            onAction(SearchRecipeAction.UpdateFilter(newFilterState))
                         }
                     )
                 }
@@ -133,9 +135,12 @@ fun FilterSearchBottomSheet() {
                 for (category in Category.entries) {
                     FilterButton(
                         text = category.displayName,
-                        isSelected = category.name == categoryState, // 선택된 카테고리 상태 확인
+                        isSelected = category.name == state.filterState.selectedCategory, // 선택된 카테고리 상태 확인
                         onClick = {
-                            onCategorySelected(if (category.name == categoryState) "" else category.name)
+                            val newFilterState = state.filterState.copy(
+                                selectedCategory = if (category.name == state.filterState.selectedCategory) Category.All.name else category.name
+                            )
+                            onAction(SearchRecipeAction.UpdateFilter(newFilterState))
                         }
                     )
                 }
@@ -144,7 +149,13 @@ fun FilterSearchBottomSheet() {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        SmallButton(text = "Filter", buttonState = ButtonState.NORMAL)
+        SmallButton(
+            text = "Filter",
+            buttonState = ButtonState.NORMAL,
+            onClick = {
+                onFilterApply()
+            }
+        )
 
         Spacer(modifier = Modifier.height(22.dp))
     }
@@ -153,6 +164,10 @@ fun FilterSearchBottomSheet() {
 @Preview(showBackground = true)
 @Composable
 private fun FilterSearchBottomSheetPreview() {
-    FilterSearchBottomSheet()
+    FilterSearchBottomSheet(
+        state = SearchRecipesState(),
+        onAction = {},
+        onFilterApply = {}
+    )
 }
 

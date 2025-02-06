@@ -11,10 +11,15 @@ data class Recipe(
     val chef: String,
     val time: String,
     val rating: Double,
+    val filterTime: String,
     val isBookMarked: Boolean,
     val ingredients: List<Ingredient>,
     val procedure: List<String>,
-)
+) {
+    val ratingInt: Int
+        get() = rating.toInt().coerceIn(1, 5) // Double을 Int로 변환 (1~5 범위 유지)
+}
+
 
 @Serializable
 data class Ingredient(

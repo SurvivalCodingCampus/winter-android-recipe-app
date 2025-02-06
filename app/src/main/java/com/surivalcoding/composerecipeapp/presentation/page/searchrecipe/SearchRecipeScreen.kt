@@ -1,5 +1,6 @@
 package com.surivalcoding.composerecipeapp.presentation.page.searchrecipe
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -66,38 +67,60 @@ fun SearchRecipeScreen(
 
     ModalBottomSheetLayout(
         sheetContent = {
-            FilterSearchBottomSheet()
+            FilterSearchBottomSheet(
+                state = state,
+                onAction = onAction,
+                onFilterApply = {
+                    onAction(SearchRecipeAction.ApplyFilter)
+
+                    coroutineScope.launch {
+                        bottomSheetState.hide()
+                        onAction(SearchRecipeAction.HandleBottomSheet(false))
+                    }
+
+                }
+            )
         },
         sheetState = bottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp),
         sheetBackgroundColor = AppColors.white
     ) {
 
+        // 시스템 뒤로가기 처리
+        BackHandler(
+            enabled = bottomSheetState.isVisible
+        ) {
+            coroutineScope.launch {
+                bottomSheetState.hide()
+                onAction(SearchRecipeAction.HandleBottomSheet(false))
+            }
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 30.dp, end = 30.dp, top = 10.dp),
+                .padding(start = 30.dp, end = 30.dp, top = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            Row(
+            Box(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
                     painter = painterResource(R.drawable.arrow_left),
                     contentDescription = "back",
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier
+                        .size(20.dp)
+                        .align(Alignment.CenterStart)
                 )
-
-                Spacer(modifier = Modifier.width(69.dp))
 
                 Text(
                     text = "Search recipes",
                     style = AppTextStyles.mediumTextSemiBold.copy(
                         color = AppColors.label_color,
                         fontSize = 18.sp
-                    )
+                    ),
+                    modifier = Modifier.align(Alignment.Center)
                 )
             }
 
@@ -170,6 +193,7 @@ fun SearchRecipeScreen(
                         .clickable {
                             coroutineScope.launch {
                                 bottomSheetState.show()
+                                onAction(SearchRecipeAction.HandleBottomSheet(true))
                             }
                         }
                 ) {

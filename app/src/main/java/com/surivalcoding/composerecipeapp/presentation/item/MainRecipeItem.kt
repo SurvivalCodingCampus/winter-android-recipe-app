@@ -43,7 +43,7 @@ fun MainRecipeItem(
                 .width(150.dp)
                 .height(176.dp)
                 .background(
-                    color = AppColors.gray_4,
+                    color = AppColors.gray_4.copy(alpha = 0.5f),
                     shape = RoundedCornerShape(12.dp)
                 )
                 .align(Alignment.BottomCenter)
@@ -131,6 +131,7 @@ private fun MainRecipeItemPreview() {
             chef = "Chef John",
             time = "15 Mins",
             rating = 4.0,
+            filterTime = "Newest",
             isBookMarked = false,
             ingredients = emptyList(),
             procedure = emptyList()

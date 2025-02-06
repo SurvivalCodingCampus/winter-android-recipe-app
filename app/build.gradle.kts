@@ -106,6 +106,9 @@ dependencies {
 
     // Kotlin Coroutines 지원 (필수는 아님)
     implementation("androidx.room:room-ktx:2.6.1")
+
+    // dataStore
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 }
 
 // Allow references to generated code

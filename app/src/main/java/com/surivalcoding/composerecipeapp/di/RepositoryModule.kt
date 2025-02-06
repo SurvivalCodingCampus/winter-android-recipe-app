@@ -1,11 +1,13 @@
 package com.surivalcoding.composerecipeapp.di
 
-import com.surivalcoding.composerecipeapp.data.repository.BookmarkRepository
 import com.surivalcoding.composerecipeapp.data.repository.BookmarkRepositoryImpl
-import com.surivalcoding.composerecipeapp.data.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.RecipeRepositoryImpl
-import com.surivalcoding.composerecipeapp.data.repository.SavedRecipeRepository
 import com.surivalcoding.composerecipeapp.data.repository.SavedRecipeRepositoryImpl
+import com.surivalcoding.composerecipeapp.data.repository.SearchPreferencesRepositoryImpl
+import com.surivalcoding.composerecipeapp.domain.repository.BookmarkRepository
+import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
+import com.surivalcoding.composerecipeapp.domain.repository.SavedRecipeRepository
+import com.surivalcoding.composerecipeapp.domain.repository.SearchPreferencesRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -33,4 +35,10 @@ abstract class RepositoryModule {
     abstract fun bindSavedRecipeRepository(
         savedRecipeRepositoryImpl: SavedRecipeRepositoryImpl
     ): SavedRecipeRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSearchPreferencesRepository(
+        searchPreferencesRepositoryImpl: SearchPreferencesRepositoryImpl
+    ): SearchPreferencesRepository
 }

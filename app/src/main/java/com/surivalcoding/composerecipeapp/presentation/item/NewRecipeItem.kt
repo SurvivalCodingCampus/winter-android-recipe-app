@@ -168,6 +168,7 @@ private fun NewRecipeItemPreview() {
             chef = "Chef John",
             time = "15 Min",
             rating = 4.0,
+            filterTime = "Newest",
             isBookMarked = false,
             ingredients = emptyList(),
             procedure = emptyList()

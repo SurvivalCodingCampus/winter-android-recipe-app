@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,7 +24,9 @@ fun ProcedureCard(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = AppColors.gray_4, shape = RoundedCornerShape(12.dp))
+            .background(
+                color = AppColors.gray_4.copy(alpha = 0.5f),
+                shape = RoundedCornerShape(12.dp))
             .padding(horizontal = 15.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
@@ -50,7 +53,7 @@ fun ProcedureCard(
 @Composable
 private fun ProcedureCardPreview() {
     ProcedureCard(
-        procedure =  "Prepare the pork and cut it into appropriate sizes.",
+        procedure = "Prepare the pork and cut it into appropriate sizes.",
         procedureIndex = 1
     )
 }
