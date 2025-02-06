@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
@@ -17,10 +16,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,16 +32,18 @@ import com.surivalcoding.composerecipeapp.ui.theme.Primary80
 @Composable
 fun SearchField(
     modifier: Modifier = Modifier,
-    placeholder: String,
     value: String,
-    onValueChange: (String) -> Unit,
-    isFocused: Boolean = false
+    onValueChange: (String) -> Unit
 ) {
-    val borderColor = if (isFocused) Primary80 else Gray4
+    val isFocused = remember { mutableStateOf(false) }
+    val borderColor = if (isFocused.value) Primary80 else Gray4
     val textColor = if (value.isNotEmpty()) Black else Gray4
 
     BasicTextField(
-        modifier = modifier,
+        modifier = modifier
+            .onFocusChanged { focusState ->
+                isFocused.value = focusState.isFocused
+            },
         value = value,
         onValueChange = onValueChange,
         textStyle = PoppinsRegularTypography.bodyLarge.copy(
@@ -86,7 +87,6 @@ fun SearchField(
     )
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun SearchFieldPreview() {
@@ -95,19 +95,15 @@ fun SearchFieldPreview() {
         // Default
         SearchField(
             modifier = Modifier,
-            placeholder = "Placeholder",
             value = textState.value,
             onValueChange = { textState.value = it },
-            isFocused = false
         )
 
         // Focused
         SearchField(
             modifier = Modifier,
-            placeholder = "Placeholder",
             value = textState.value,
             onValueChange = { textState.value = it },
-            isFocused = true
         )
     }
 }
