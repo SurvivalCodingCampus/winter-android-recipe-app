@@ -3,8 +3,9 @@ package com.surivalcoding.composerecipeapp.domain.usecase.recipe
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import com.surivalcoding.composerecipeapp.domain.repository.BookmarkRepository
 import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
+import javax.inject.Inject
 
-class GetSavedRecipesUseCase(
+class GetSavedRecipesUseCase @Inject constructor(
     private val bookmarkRepository: BookmarkRepository,
     private val recipeRepository: RecipeRepository
 ) {

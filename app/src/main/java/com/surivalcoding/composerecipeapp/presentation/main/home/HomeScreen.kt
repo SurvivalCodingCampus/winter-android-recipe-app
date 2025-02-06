@@ -45,7 +45,7 @@ fun HomeScreen(
         ) {
             Column {
                 Text(
-                    text = "Hello ${state.userName}",
+                    text = "${state.greeting} ${state.userName}",
                     style = AppTextStyles.largeTextBold
                 )
                 Spacer(modifier = Modifier.height(4.dp))

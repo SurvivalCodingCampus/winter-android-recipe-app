@@ -1,27 +1,22 @@
 package com.surivalcoding.composerecipeapp.presentation.saved_recipes
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
-import com.surivalcoding.composerecipeapp.AppApplication
-import com.surivalcoding.composerecipeapp.domain.model.Recipe
-import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.domain.usecase.recipe.GetSavedRecipesUseCase
 import com.surivalcoding.composerecipeapp.domain.usecase.recipe.RemoveFromSavedRecipesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SavedRecipesViewModel(
+@HiltViewModel
+class SavedRecipesViewModel @Inject constructor(
     private val getSavedRecipesUseCase: GetSavedRecipesUseCase,
     private val removeFromSavedRecipesUseCase: RemoveFromSavedRecipesUseCase
 ) : ViewModel() {
-
     private val _state = MutableStateFlow(SavedRecipesState())
     val state: StateFlow<SavedRecipesState> = _state.asStateFlow()
 
@@ -58,20 +53,4 @@ class SavedRecipesViewModel(
         }
     }
 
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val application = checkNotNull(extras[APPLICATION_KEY]) as AppApplication
-
-                return SavedRecipesViewModel(
-                    getSavedRecipesUseCase = application.getSavedRecipesUseCase,
-                    removeFromSavedRecipesUseCase = application.removeFromSavedRecipesUseCase
-                ) as T
-            }
-        }
-    }
 }

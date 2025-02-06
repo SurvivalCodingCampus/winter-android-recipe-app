@@ -5,8 +5,9 @@ import com.surivalcoding.composerecipeapp.data.mapper.toRecipe
 import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.domain.model.Recipe
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-class RecipeRepositoryImpl(private val recipeDatasource: RecipeDatasource) : RecipeRepository {
+class RecipeRepositoryImpl @Inject constructor(private val recipeDatasource: RecipeDatasource) : RecipeRepository {
     override suspend fun getAllRecipes(): List<Recipe> {
         delay(2000)
         return recipeDatasource.getRecipes()

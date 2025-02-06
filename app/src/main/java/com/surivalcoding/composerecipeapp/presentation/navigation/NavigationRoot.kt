@@ -2,8 +2,8 @@ package com.surivalcoding.composerecipeapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.surivalcoding.composerecipeapp.presentation.AppState
@@ -35,7 +35,7 @@ fun NavigationRoot(
         }
 
         composable(Screen.SignIn.route) {
-            val viewModel: SignInViewModel = viewModel(factory = SignInViewModel.Factory)
+            val viewModel: SignInViewModel = hiltViewModel()
             val state by viewModel.state.collectAsStateWithLifecycle()
 
             SignInScreen(
@@ -51,7 +51,7 @@ fun NavigationRoot(
         }
 
         composable(Screen.SignUp.route) {
-            val viewModel: SignUpViewModel = viewModel(factory = SignUpViewModel.Factory)
+            val viewModel: SignUpViewModel = hiltViewModel()
             val state by viewModel.state.collectAsStateWithLifecycle()
 
             SignUpScreen(
@@ -73,7 +73,7 @@ fun NavigationRoot(
         }
 
         composable(Screen.Home.route) {
-            val viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
+            val viewModel: HomeViewModel = hiltViewModel()
             val state by viewModel.state.collectAsStateWithLifecycle()
             HomeScreen(
                 state = state,
@@ -82,13 +82,13 @@ fun NavigationRoot(
         }
 
         composable(Screen.SavedRecipes.route) {
-            val viewModel: SavedRecipesViewModel = viewModel(factory = SavedRecipesViewModel.Factory)
+            val viewModel: SavedRecipesViewModel = hiltViewModel()
             val state by viewModel.state.collectAsStateWithLifecycle()
             SavedRecipeScreen(state = state, onBookmarkClick = viewModel::onBookmarkClick)
         }
 
         composable(Screen.SearchRecipes.route) {
-            val viewModel: SearchRecipesViewModel = viewModel(factory = SearchRecipesViewModel.Factory)
+            val viewModel: SearchRecipesViewModel = hiltViewModel()
             val state by viewModel.state.collectAsStateWithLifecycle()
 
             SearchRecipesScreen(

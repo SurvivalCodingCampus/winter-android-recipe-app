@@ -1,20 +1,17 @@
 package com.surivalcoding.composerecipeapp.presentation.search_recipes
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
-import com.surivalcoding.composerecipeapp.AppApplication
-import com.surivalcoding.composerecipeapp.domain.repository.RecipeRepository
 import com.surivalcoding.composerecipeapp.domain.usecase.recipe.SearchRecipeUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchRecipesViewModel(private val searchRecipeUseCase: SearchRecipeUseCase) : ViewModel() {
+@HiltViewModel
+class SearchRecipesViewModel @Inject constructor (private val searchRecipeUseCase: SearchRecipeUseCase) : ViewModel() {
     private val _state = MutableStateFlow(SearchRecipesState())
     val state = _state.asStateFlow()
 
@@ -68,18 +65,4 @@ class SearchRecipesViewModel(private val searchRecipeUseCase: SearchRecipeUseCas
         }
     }
 
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val application = checkNotNull(extras[APPLICATION_KEY]) as AppApplication
-                return SearchRecipesViewModel(
-                    application.searchRecipeUseCase
-                ) as T
-            }
-        }
-    }
 }

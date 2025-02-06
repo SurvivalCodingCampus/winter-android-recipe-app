@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -18,6 +19,7 @@ import com.surivalcoding.composerecipeapp.presentation.navigation.BottomNavItem
 import com.surivalcoding.composerecipeapp.presentation.navigation.Screen
 import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipeScreen
 import com.surivalcoding.composerecipeapp.presentation.saved_recipes.SavedRecipesViewModel
+import com.surivalcoding.composerecipeapp.presentation.search_recipes.SearchRecipesViewModel
 
 @Composable
 fun MainScreen(appState: AppState) {
@@ -37,7 +39,7 @@ fun MainScreen(appState: AppState) {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(BottomNavItem.Home.route) {
-                val viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
+                val viewModel: HomeViewModel = hiltViewModel()
                 val state by viewModel.state.collectAsStateWithLifecycle()
                 HomeScreen(
                     state = state,
@@ -46,8 +48,7 @@ fun MainScreen(appState: AppState) {
             }
 
             composable(BottomNavItem.SavedRecipes.route) {
-                val viewModel: SavedRecipesViewModel =
-                    viewModel(factory = SavedRecipesViewModel.Factory)
+                val viewModel: SavedRecipesViewModel = hiltViewModel()
                 val state by viewModel.state.collectAsStateWithLifecycle()
                 SavedRecipeScreen(state = state, onBookmarkClick = viewModel::onBookmarkClick)
             }
