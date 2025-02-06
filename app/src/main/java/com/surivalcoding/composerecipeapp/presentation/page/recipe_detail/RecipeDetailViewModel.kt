@@ -63,7 +63,6 @@ class RecipeDetailViewModel @Inject constructor(
                 _recipeDetailState.value = _recipeDetailState.value.copy(
                     showDialog = action.isVisible
                 )
-
             }
         }
     }

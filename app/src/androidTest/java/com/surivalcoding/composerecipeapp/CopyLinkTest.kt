@@ -17,21 +17,30 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class RecipeDetailTest {
+
+    // Context 가져오기
+    private val context: Context by lazy {
+        ApplicationProvider.getApplicationContext()
+    }
+
+    // ClipboardManager
+    private val clipboardManager: ClipboardManager by lazy {
+        context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    }
+
+    // createComposeRule()은 내부적으로 ComponentActivity를 시작 시킴 -> 따라서 setContent로 컴포저블 함수 지정 가능
     @get:Rule
     val composeTestRule = createComposeRule()
 
     @Test
     fun testCopyLink() {
-        // Context 가져온 후 ClipboardManager 가져오기
-        val context = ApplicationProvider.getApplicationContext<Context>()
-        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
         composeTestRule.setContent {
             RecipeLinkDialog(
                 recipeId = 1,
                 onCopyLink = { link ->
                     val clip = ClipData.newPlainText("Recipe Link", link)
-                    clipboard.setPrimaryClip(clip)
+                    clipboardManager.setPrimaryClip(clip)
                 }
             )
         }
@@ -41,8 +50,8 @@ class RecipeDetailTest {
 
 
         // 클립보드에 복사가 되었는지 검증 하기
-        assert(clipboard.hasPrimaryClip())
-        assertEquals("app.Recipe.co/1", clipboard.primaryClip?.getItemAt(0)?.text.toString())
+        assert(clipboardManager.hasPrimaryClip())
+        assertEquals("app.Recipe.co/1", clipboardManager.primaryClip?.getItemAt(0)?.text.toString())
 
     }
 }

@@ -92,6 +92,7 @@ fun RecipeDetailScreen(
                     },
                     // 공유 버튼 클릭시
                     onShareClick = {
+                        // 드롭다운 메뉴를 닫고 -> 다이얼로그를 띄움
                         onAction(RecipeDetailAction.HandleDropDown(false))
                         onAction(RecipeDetailAction.HandleDialog(true))
                     }
