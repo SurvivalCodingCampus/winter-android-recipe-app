@@ -17,7 +17,6 @@ interface RecipeDao {
     @Query("SELECT * FROM recipes")
     fun getAllRecipes(): Flow<List<RecipeEntity>>
 
-
     // 북마크된 전체 리스트 가져오기
     @Query("SELECT * FROM recipes WHERE isBookMarked = 1")
     fun getBookmarkedRecipes(): Flow<List<RecipeEntity>>
@@ -32,7 +31,7 @@ interface RecipeDao {
 
     // 북마크된 레시피 ID 목록 가져오기
     @Query("SELECT id FROM recipes WHERE isBookMarked = 1")
-    fun getBookmarkedRecipeIds(): List<Int>
+    suspend fun getBookmarkedRecipeIds(): List<Int>
 
     // recipeList 추가
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -40,5 +39,5 @@ interface RecipeDao {
 
     // ID를 이용한 레시피 상세 데이터 조회
     @Query("SELECT * FROM recipes WHERE id = :recipeId")
-    fun getRecipeById(recipeId: Int): RecipeEntity?
+    suspend fun getRecipeById(recipeId: Int): RecipeEntity?
 }

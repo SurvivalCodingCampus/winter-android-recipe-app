@@ -26,12 +26,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.surivalcoding.composerecipeapp.R
+import com.surivalcoding.composerecipeapp.data.database.RecipeDao
 import com.surivalcoding.composerecipeapp.presentation.item.DropDownMenuWithDetails
 import com.surivalcoding.composerecipeapp.presentation.item.IngredientItem
 import com.surivalcoding.composerecipeapp.presentation.item.ProcedureCard
 import com.surivalcoding.composerecipeapp.presentation.item.RecipeCard
 import com.surivalcoding.composerecipeapp.presentation.item.button.NoneBorderFilterButton
 import com.surivalcoding.composerecipeapp.presentation.item.button.PushedButton
+import com.surivalcoding.composerecipeapp.presentation.item.dialog.RatingDialog
 import com.surivalcoding.composerecipeapp.presentation.item.dialog.RecipeLinkDialog
 import com.surivalcoding.composerecipeapp.presentation.page.searchrecipe.RecipeDetailCategory
 import com.surivalcoding.composerecipeapp.ui.AppColors
@@ -94,14 +96,28 @@ fun RecipeDetailScreen(
                     onShareClick = {
                         // 드롭다운 메뉴를 닫고 -> 다이얼로그를 띄움
                         onAction(RecipeDetailAction.HandleDropDown(false))
-                        onAction(RecipeDetailAction.HandleDialog(true))
+                        onAction(RecipeDetailAction.ShareRecipe(true))
+                    },
+
+                    // Rate Recipe 클릭시
+                    onRateRecipeClick = {
+                        // 드롭다운 메뉴를 닫고 -> 다이얼로그를 띄움
+                        onAction(RecipeDetailAction.HandleDropDown(false))
+                        onAction(RecipeDetailAction.RateRecipe(true))
+                    },
+
+                    // 북마크 삭제 클릭시
+                    onUnsaveClick = {
+                        // 드롭다운 메뉴를 닫고 북마크 삭제 구현
+                        onAction(RecipeDetailAction.HandleDropDown(false))
+                        onAction(RecipeDetailAction.UnSaveRecipe(state.recipeDetail?.id ?: 0))
                     }
                 )
             }
         }
 
-        // 다이얼로그 표시
-        if (state.showDialog) {
+        // share 다이얼로그 
+        if (state.isShowShareDialog) {
             RecipeLinkDialog(
                 recipeId = state.recipeDetail?.id ?: 1,
                 onCopyLink = { link ->
@@ -111,7 +127,7 @@ fun RecipeDetailScreen(
                 },
                 onDismiss = {
                     onAction(
-                        RecipeDetailAction.HandleDialog(false)
+                        RecipeDetailAction.ShareRecipe(false)
                     )
                 }
             )
@@ -302,6 +318,20 @@ fun RecipeDetailScreen(
             }
         }
 
+    }
+
+    // Rate RecipeDialog
+    if (state.isShowRateRecipeDialog) {
+        RatingDialog(
+            onDismissRequest = {
+                onAction(RecipeDetailAction.RateRecipe(false))
+            },
+            send = {
+                onAction(RecipeDetailAction.RateRecipe(false))
+            }
+
+
+        )
     }
 }
 

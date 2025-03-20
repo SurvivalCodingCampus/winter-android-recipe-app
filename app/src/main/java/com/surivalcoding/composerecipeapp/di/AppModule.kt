@@ -1,8 +1,8 @@
 package com.surivalcoding.composerecipeapp.di
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import com.google.firebase.messaging.FirebaseMessaging
 import com.surivalcoding.composerecipeapp.data.database.RecipeDatabase
 import dagger.Module
 import dagger.Provides
@@ -25,4 +25,12 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRecipeDao(recipeDatabase: RecipeDatabase) = recipeDatabase.recipeDao()
+
+
+    // FCM 객체 주입
+    @Provides
+    @Singleton
+    fun provideFirebaseMessaging(): FirebaseMessaging {
+        return FirebaseMessaging.getInstance()
+    }
 }
